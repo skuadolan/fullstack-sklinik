@@ -44,10 +44,6 @@ php artisan config:publish cors
 ```bash
 pnpm install
 ```
-`Or`
-```bash
-npm install
-```
 > Setup .env
 ```bash
 DB_CONNECTION=mysql
@@ -80,16 +76,8 @@ php artisan serve
 ```bash
 pnpm dev
 ```
-`Or`
-```bash
-npm run dev
-```
 
 # Running Production
 ```bash
 pnpm build
-```
-`Or`
-```bash
-npm run build
 ```
