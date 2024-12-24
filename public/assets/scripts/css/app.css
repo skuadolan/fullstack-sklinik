@@ -68,3 +68,10 @@ th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
