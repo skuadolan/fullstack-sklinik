@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_client', function (Blueprint $table) {
+        Schema::create('list_clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->longText('biodata')->nullable();
@@ -21,14 +21,14 @@ return new class extends Migration
             $table->foreign('id_kabupaten')->references('id')->on('kabupaten')->onDelete('cascade');
             $table->unsignedBigInteger('id_kecamatan');
             $table->foreign('id_kecamatan')->references('id')->on('kecamatan')->onDelete('cascade');
-            $table->unsignedBigInteger('id_kelurahan');
+            $table->unsignedBigInteger('id_kelurahan')->nullable();
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');
-            $table->timestamps();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->integer('status')->default(1); // Status user aktif/non-aktif
             $table->timestamp('expired_date')->nullable();
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_client');
+        Schema::dropIfExists('list_clients');
     }
 };

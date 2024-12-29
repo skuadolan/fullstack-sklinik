@@ -19,9 +19,9 @@ return new class extends Migration
             $table->decimal('sisa_tagihan', 15, 2)->nullable();
             $table->decimal('total_tagihan', 15, 2)->nullable();
             $table->decimal('total_bayar', 15, 2)->nullable();
-            $table->timestamps();
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
     }
 

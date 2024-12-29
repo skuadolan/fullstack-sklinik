@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('id_kabupaten')->references('id')->on('kabupaten')->onDelete('cascade');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
     }
 

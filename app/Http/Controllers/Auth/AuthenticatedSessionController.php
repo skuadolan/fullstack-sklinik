@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $qry = "SELECT usr.username, usr.email, usr.status, usr.id_role, pdd.fullname FROM users usr JOIN pegawai pgw ON pgw.id_user = usr.id JOIN penduduk pdd on pdd.id = pgw.id_penduduk WHERE usr.username = ?";
+        $qry = "SELECT usr.username, usr.email, usr.status, usr.id_role, pdd.fullname FROM users usr JOIN penduduks pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
         $user = DB::selectOne("$qry", [$request->username]);
         session(['user_login' => (array)$user]);
 

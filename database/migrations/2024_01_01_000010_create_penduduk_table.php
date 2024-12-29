@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penduduk', function (Blueprint $table) {
+        Schema::create('penduduks', function (Blueprint $table) {
             $table->id();
             $table->string('nik')->unique()->nullable();
             $table->string('fullname');
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kelurahan')->nullable();
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');
             $table->string('address')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penduduk');
+        Schema::dropIfExists('penduduks');
     }
 };

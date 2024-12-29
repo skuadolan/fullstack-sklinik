@@ -1,14 +1,13 @@
 <x-card-box-shadow-layout>
     <form id="loginForm" onsubmit="submitForm('loginForm')">
         @csrf
-        <input type="hidden" name="_token" id="_csrf-token" />
         <input type="hidden" name="token" id="csrf-token" />
 
         <!-- username Address -->
         <div>
             <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
-                required autofocus autocomplete="username" />
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required
+                autofocus autocomplete="username" />
             <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_username">
                 <li></li>
             </ul>

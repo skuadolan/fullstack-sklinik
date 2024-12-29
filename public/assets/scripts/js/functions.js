@@ -66,13 +66,13 @@ function InitAutocomplete() {
                             if ((callback.datas).length || (callback.datas).length > 0) {
                                 response(callback.datas);
                             } else {
-                                response([{ name: 'Tidak menemukan data', id: '' }]);
+                                response([{ name: 'Data tidak ditemukan', id: '' }]);
                             }
                         },
                         error: function (callback) {
                             console.dir("error", callback);
                             LoadingInput('idle', 'provinsi');
-                            response([{ name: 'Tidak menemukan data', id: '' }]);
+                            response([{ name: 'Data tidak ditemukan', id: '' }]);
                         },
                     });
                 }
@@ -93,7 +93,7 @@ function InitAutocomplete() {
                 return false;
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>${item.name}</div>`).appendTo(ul);
+            return $("<li>").append(`<div>Provinsi: <strong>${item.name}</strong></div>`).appendTo(ul);
         };
 
         $("#kabupaten").autocomplete({
@@ -111,13 +111,13 @@ function InitAutocomplete() {
                             if ((callback.datas).length || (callback.datas).length > 0) {
                                 response(callback.datas);
                             } else {
-                                response([{ name: 'Tidak menemukan data', id: '' }]);
+                                response([{ name: 'Data tidak ditemukan', id: '' }]);
                             }
                         },
                         error: function (callback) {
                             console.dir("error", callback);
                             LoadingInput('idle', 'kabupaten');
-                            response([{ name: 'Tidak menemukan data', id: '' }]);
+                            response([{ name: 'Data tidak ditemukan', id: '' }]);
                         },
                     });
                 }
@@ -138,7 +138,7 @@ function InitAutocomplete() {
                 return false;
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>${item.name}</div>`).appendTo(ul);
+            return $("<li>").append(`<div><strong>${item.name}</strong></div>`).appendTo(ul);
         };
 
         $("#kecamatan").autocomplete({
@@ -156,13 +156,13 @@ function InitAutocomplete() {
                             if ((callback.datas).length || (callback.datas).length > 0) {
                                 response(callback.datas);
                             } else {
-                                response([{ name: 'Tidak menemukan data', id: '' }]);
+                                response([{ name: 'Data tidak ditemukan', id: '' }]);
                             }
                         },
                         error: function (callback) {
                             console.dir("error", callback);
                             LoadingInput('idle', 'kecamatan');
-                            response([{ name: 'Tidak menemukan data', id: '' }]);
+                            response([{ name: 'Data tidak ditemukan', id: '' }]);
                         },
                     });
                 }
@@ -183,7 +183,7 @@ function InitAutocomplete() {
                 return false;
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>${item.name}</div>`).appendTo(ul);
+            return $("<li>").append(`<div>Kecamatan: <strong>${item.name}</strong></div>`).appendTo(ul);
         };
 
         $("#kelurahan").autocomplete({
@@ -201,13 +201,13 @@ function InitAutocomplete() {
                             if ((callback.datas).length || (callback.datas).length > 0) {
                                 response(callback.datas);
                             } else {
-                                response([{ name: 'Tidak menemukan data', id: '' }]);
+                                response([{ name: 'Data tidak ditemukan', id: '' }]);
                             }
                         },
                         error: function (callback) {
                             console.dir("error", callback);
                             LoadingInput('idle', 'kelurahan');
-                            response([{ name: 'Tidak menemukan data', id: '' }]);
+                            response([{ name: 'Data tidak ditemukan', id: '' }]);
                         },
                     });
                 }
@@ -228,7 +228,7 @@ function InitAutocomplete() {
                 return false;
             }
         }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>${item.name}</div>`).appendTo(ul);
+            return $("<li>").append(`<div>Kelurahan: <strong>${item.name}</strong></div>`).appendTo(ul);
         };
     });
 }

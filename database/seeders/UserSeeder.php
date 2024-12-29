@@ -15,24 +15,25 @@ class UserSeeder extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        DB::table('penduduk')->insert([
+        DB::table('penduduks')->insert([
             'fullname' => 'root'
         ]);
 
-        $id_penduduk = DB::table('penduduk')->max('id');
+        $id_penduduk = DB::table('penduduks')->max('id');
 
         DB::table('users')->insert([
             'username' => 'root',
             'email' => 'root@skuad.com',
             'status' => 1,
             'id_role' => 1,
+            'id_penduduk' => $id_penduduk,
             'password' => Hash::make('1234'),
             'created_at' => now(env('APP_TIMEZONE', 'UTC'))
         ]);
 
-        $id_user = DB::table('penduduk')->max('id');
+        $id_user = DB::table('users')->max('id');
 
-        DB::table('pegawai')->insert([
+        DB::table('pegawais')->insert([
             'id_user' => $id_user,
             'id_penduduk' => $id_penduduk
         ]);

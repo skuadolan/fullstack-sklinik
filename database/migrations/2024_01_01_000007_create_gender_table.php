@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('type');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
     }
 

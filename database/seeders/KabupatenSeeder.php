@@ -27,10 +27,10 @@ class KabupatenSeeder extends Seeder
 
             foreach ($kabs as $kab) {
                 $tmpNama = explode("KAB. ", $kab['nama']);
-                $tmpNama = (empty($tmpNama[1]) ? explode("KOTA ", $kab['nama']) : $tmpNama);
-                $tmpNama = (empty($tmpNama[1]) ? explode("KAB ", $kab['nama']) : $tmpNama);
+                // $tmpNama = (empty($tmpNama[1]) ? explode("KOTA ", $kab['nama']) : $tmpNama);
+                $tmpNama = (isset($tmpNama[1]) && !empty($tmpNama[1]) ? $tmpNama[1] : $kab['nama']);
 
-                array_push($arryDatas, ['id' => $kab['id'], 'name' => $tmpNama[1], 'id_provinsi' => $prov['id']]);
+                array_push($arryDatas, ['id' => $kab['id'], 'name' => $tmpNama, 'id_provinsi' => $prov['id']]);
             };
         }
 

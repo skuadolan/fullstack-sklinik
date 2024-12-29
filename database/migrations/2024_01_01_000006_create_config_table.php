@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('config', function (Blueprint $table) {
+        Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
+            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('label')->nullable();
             $table->string('group')->nullable();
             $table->string('value')->nullable();
             $table->string('default')->nullable();
             $table->string('type')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('config');
+        Schema::dropIfExists('configs');
     }
 };

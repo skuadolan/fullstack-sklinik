@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
     }
 

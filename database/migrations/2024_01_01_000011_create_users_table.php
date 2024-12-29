@@ -19,15 +19,17 @@ return new class extends Migration
             $table->unsignedBigInteger('id_role')->default(9);
             $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
             $table->unsignedBigInteger('id_client')->nullable();
-            $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
+            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
+            $table->unsignedBigInteger('id_penduduk')->nullable();
+            $table->foreign('id_penduduk')->references('id')->on('penduduks')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
             $table->string('ip_address')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
+            $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
