@@ -42,35 +42,37 @@
                 $(this).hide();
             });
 
-            if (!$("#company_name").val()) {
-                errAlert("Nama Klinik tidak boleh kosong!");
-                $("#company_name").focus();
-                return false;
-            }
+            if ($section == "registerForm") {
+                if (!$("#company_name").val()) {
+                    errAlert("Nama Klinik tidak boleh kosong!");
+                    $("#company_name").focus();
+                    return false;
+                }
 
-            if (!$("#provinsi").val()) {
-                errAlert("Provinsi tidak boleh kosong!");
-                $("#provinsi").focus();
-                return false;
-            }
+                if (!$("#provinsi").val()) {
+                    errAlert("Provinsi tidak boleh kosong!");
+                    $("#provinsi").focus();
+                    return false;
+                }
 
-            if (!$("#kabupaten").val()) {
-                errAlert("Kabupaten tidak boleh kosong!");
-                $("#kabupaten").focus();
-                return false;
-            }
+                if (!$("#kabupaten").val()) {
+                    errAlert("Kabupaten tidak boleh kosong!");
+                    $("#kabupaten").focus();
+                    return false;
+                }
 
-            if (!$("#kecamatan").val()) {
-                errAlert("Kecamatan tidak boleh kosong!");
-                $("#kecamatan").focus();
-                return false;
-            }
+                if (!$("#kecamatan").val()) {
+                    errAlert("Kecamatan tidak boleh kosong!");
+                    $("#kecamatan").focus();
+                    return false;
+                }
 
-            // if (!$("#kelurahan").val()) {
-            //     errAlert("Kelurahan tidak boleh kosong!");
-            //     $("#kelurahan").focus();
-            //     return false;
-            // }
+                // if (!$("#kelurahan").val()) {
+                //     errAlert("Kelurahan tidak boleh kosong!");
+                //     $("#kelurahan").focus();
+                //     return false;
+                // }
+            }
 
             Swal.fire({
                 title: "Apakah yakin ingin melanjutkan?",

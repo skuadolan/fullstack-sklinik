@@ -23,6 +23,7 @@
 > [![Sweetalert]](https://sweetalert2.github.io) </br>
 > [![tostr]](https://www.jsdelivr.com/package/npm/toastr) </br>
 > [![DataTables]](https://datatables.net/download/) </br>
+> [![Flaticon]](https://www.flaticon.com/search?color=color) </br>
 
 # Setup
 > Composer Installation

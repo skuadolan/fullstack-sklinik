@@ -1,4 +1,4 @@
-@if ($section == 'jquery')
+@if ($section == 'jquery' && !empty($get))
     @if ($get == 'provinsi')
         <div id="provinsi_autocomplete_container" class="relative">
             <div class="flex items-center">
@@ -59,4 +59,19 @@
             </div>
         </div>
     @endif
+@endif
+
+@if (empty($section))
+<div id="autocomplete_container" class="relative">
+    <div class="flex items-center">
+        <x-text-input
+            {{ $attributes->merge(['type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none']) }} />
+        <span id="search-icon" class="absolute right-3">
+            <i class="fas fa-search text-gray-500"></i>
+        </span>
+        <span id="loading-icon" class="absolute right-3 hidden">
+            <i class="fas fa-spinner fa-spin text-gray-500"></i>
+        </span>
+    </div>
+</div>
 @endif

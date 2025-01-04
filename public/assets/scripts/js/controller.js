@@ -188,7 +188,7 @@ function LoginAjaxSection($postFormData, $token) {
         headers: {
             'X-CSRF-TOKEN': $token,
         },
-    });    
+    });
 
     $.ajax({
         url: `${$base_url}/login`,
@@ -242,4 +242,22 @@ function LoginAjaxSection($postFormData, $token) {
             });
         },
     });
+}
+
+function OpenLink($link, $options = ["self", "new", "popup"]) {
+    const base_url = window.location.host;
+    const [host, port] = base_url.split(':');
+    const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
+
+    if ($options == "self") {
+        window.location.href = `${$base_url}${$link}`;
+    }
+
+    if ($options == "new") {
+        window.open(`${$base_url}${$link}`, "_blank");
+    }
+
+    if ($options == "popup") {
+        window.open(`${$base_url}${$link}`, "_blank", "width=800,height=600,top=100,left=100,resizable=yes,scrollbars=yes");
+    }
 }
