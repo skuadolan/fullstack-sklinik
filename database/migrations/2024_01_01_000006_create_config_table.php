@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('label')->nullable();
             $table->string('group')->nullable();

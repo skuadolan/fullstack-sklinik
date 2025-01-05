@@ -9,10 +9,10 @@ use Illuminate\View\View;
 class DropdownMenuLayout extends Component
 {
     public $listMenu;
-    public function __construct()
+    public function __construct($parent)
     {
-        $qry = "SELECT * FROM LIST_MENUS lsmenu";
-        $this->listMenu = DB::select("$qry");
+        $result = (isset($parent) && !empty($parent) ? DB::select("SELECT * FROM list_menus lsmenu WHERE lsmenu.id_parent = $parent ORDER BY lsmenu.name ASC") : []);
+        $this->listMenu = $result;
     }
 
     /**

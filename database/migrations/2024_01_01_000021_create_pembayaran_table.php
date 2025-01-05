@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_visit');
             $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
-            $table->integer('status_lunas');
-            $table->decimal('sisa_tagihan', 15, 2)->nullable();
-            $table->decimal('total_tagihan', 15, 2)->nullable();
-            $table->decimal('total_bayar', 15, 2)->nullable();
+            $table->integer('status_lunas')->default(0);
+            $table->decimal('sisa_tagihan', 15, 2)->nullable(); // *sisa_tagihan merupakan nilai tagihan id_riwayat_pembayaran terakhir/terbaru/max di id_pembayaran yg sama
+            $table->decimal('total_tagihan', 15, 2)->nullable(); // *Merupakan nilai SUM(Tagihan)  id_riwayat_pembayaran terakhir/terbaru/max di id_pembayaran yg sama
+            $table->decimal('total_bayar', 15, 2)->nullable(); // *Merupakan nilai SUM(Bayar)  id_riwayat_pembayaran terakhir/terbaru/max di id_pembayaran yg sama
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
             $table->timestamps();

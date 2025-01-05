@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pembayaran');
             $table->foreign('id_pembayaran')->references('id')->on('pembayaran')->onDelete('cascade');
-            $table->decimal('tagihan', 15, 2)->nullable();
-            $table->decimal('bayar', 15, 2)->nullable();
+            $table->decimal('tagihan', 15, 2)->nullable(); // Merupakan nilai dari hasil pengurangan (tagihan_akhir - bayar), *tagihan_akhir didapat dari id_riwayat_pembayaran terakhir/terbaru/max di id_pembayaran yg sama
+            $table->decimal('bayar', 15, 2)->nullable(); // Merupakan nilai untuk pembayaran ketika transaksi/insert data (tagihan_akhir - transaksi_sekarang/sekarang_bayar)
             $table->timestamps();
         });
     }

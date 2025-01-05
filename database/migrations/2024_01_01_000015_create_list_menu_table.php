@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('list_menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('icon')->nullable();
+            $table->string('icon')->nullable()->default('assets/images/icons/12087772.png');
+            $table->string('route_name')->nullable();
             $table->string('link')->nullable();
             $table->string('type')->nullable();
-            $table->integer('is_parent')->nullable();
+            $table->integer('is_parent')->nullable()->default(0);
+            $table->unsignedBigInteger('id_parent')->nullable();
+            $table->foreign('id_parent')->references('id')->on('list_menus')->onDelete('cascade');
             $table->integer('is_deleted')->default(0);
             $table->timestamp("deleted_at")->nullable();
             $table->timestamps();
