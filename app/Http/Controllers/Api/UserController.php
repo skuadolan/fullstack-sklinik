@@ -14,7 +14,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\User;
-use App\Models\Config;
+use App\Models\ClientConfigs;
 use App\Models\Pegawai;
 use App\Models\Penduduk;
 use App\Models\ListClient;
@@ -81,11 +81,11 @@ class UserController extends Controller
 
             $listClient->save();
 
-            $config = Config::create([
+            $clientsConfig = ClientConfigs::create([
                 'id_client' => $listClient->id,
             ]);
 
-            $config->save();
+            $clientsConfig->save();
 
             $penduduk = Penduduk::create([
                 'fullname' => $req->fullname,
