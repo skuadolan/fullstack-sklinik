@@ -41,8 +41,8 @@
                             onclick="OpenLink('{{ $list->link }}', 'self')">
                             <div class="w-full flex justify-center ">
                                 <div class="w-10">
-                                    <img src="{{ $list->icon }}" alt="{{ $list->name }}"
-                                        srcset="{{ $list->icon }}" />
+                                    <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
+                                        srcset="{{ url("$list->icon") }}" />
                                 </div>
                             </div>
                             {{ $list->name }}

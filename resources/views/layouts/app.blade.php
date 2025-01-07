@@ -48,24 +48,24 @@
     <meta name="rating" content="general" />
     <meta name="spiders" content="all" />
 
-    <link rel="stylesheet" media="all" href="/assets/scripts/css/app.css" />
-    <script src="/assets/vendor/tailwindcss/tailwindcss-3.4.5.js"></script>
+    <link rel="stylesheet" media="all" href="{{ asset("/assets/scripts/css/app.css") }}" />
+    <script src="{{ asset("/assets/vendor/tailwindcss/tailwindcss-3.4.5.js") }}"></script>
 
-    <script src="/assets/vendor/jquery/jquery.js"></script>
-    <script src="/assets/scripts/js/controller.js"></script>
+    <script src="{{ asset("/assets/vendor/jquery/jquery.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/jquery/jquery-ui.js") }}"></script>
+    <script src="{{ asset("/assets/scripts/js/controller.js") }}"></script>
+    <script src="{{ asset("/assets/scripts/js/functions.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/jquery/jquery.datetimepicker.full.min.js") }}"></script>
 
-    <script src="/assets/vendor/jquery/jquery-ui.js"></script>
-    <script src="/assets/vendor/jquery/jquery.datetimepicker.full.min.js"></script>
+    <script src="{{ asset("/assets/vendor/moment/moment.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/moment/id.min.js") }}"></script>
 
-    <script src="/assets/vendor/moment/moment.min.js"></script>
-    <script src="/assets/vendor/moment/id.min.js"></script>
-
-    <script src="/assets/vendor/noty/noty.min.js"></script>
-    <script src="/assets/vendor/tostr/toastr.min.js"></script>
-    <script src="/assets/vendor/font-awesome/all.min.js"></script>
-    <script src="/assets/vendor/sweetalert/sweetalert2@11.js"></script>
-    <script defer src="/assets/vendor/alpinejs/alpinejs@3.14.3.min.js"></script>
-    <script defer src="/assets/vendor/datatables/datatables.js"></script>
+    <script src="{{ asset("/assets/vendor/noty/noty.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/tostr/toastr.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/font-awesome/all.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/sweetalert/sweetalert2@11.js") }}"></script>
+    <script defer src="{{ asset("/assets/vendor/alpinejs/alpinejs@3.14.3.min.js") }}"></script>
+    <script defer src="{{ asset("/assets/vendor/datatables/datatables.js") }}"></script>
 
     <!-- Vite Section -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
