@@ -51,184 +51,210 @@ function InputNumberOnly() {
 
 function InitAutocomplete() {
     $(document).ready(function () {
-        $("#provinsi").autocomplete({
-            source: function (request, response) {
-                if (request.term.length >= 1) {
+        if ($("#provinsi").length) {
+            $("#provinsi").autocomplete({
+                source: async function (request, response) {
+                    if (request.term.length < 1) return;
+
                     LoadingInput('loading', 'provinsi');
 
-                    $.ajax({
-                        url: `/api/search?get_data=provinsi`,
-                        data: { q: request.term },
-                        success: function (callback) {
-                            LoadingInput('idle', 'provinsi');
-                            console.dir("success", callback);
+                    try {
+                        const { datas } = await $.ajax({
+                            url: `/api/search?get_data=provinsi`,
+                            data: { q: request.term },
+                        });
 
-                            if ((callback.datas).length || (callback.datas).length > 0) {
-                                response(callback.datas);
-                            } else {
-                                response([{ name: 'Data tidak ditemukan', id: '' }]);
-                            }
-                        },
-                        error: function (callback) {
-                            console.dir("error", callback);
-                            LoadingInput('idle', 'provinsi');
-                            response([{ name: 'Data tidak ditemukan', id: '' }]);
-                        },
-                    });
-                }
-            },
-            minLength: 1,
-            focus: function (event, ui) {
-                if (ui.item.id) {
-                    $("#provinsi").val(ui.item.name);
-                    $("#id_provinsi").val(ui.item.id);
-                }
-                return false;
-            },
-            select: function (event, ui) {
-                if (ui.item.id) {
-                    $("#provinsi").val(ui.item.name);
-                    $("#id_provinsi").val(ui.item.id);
-                }
-                return false;
-            }
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>Provinsi: <strong>${item.name}</strong></div>`).appendTo(ul);
-        };
+                        LoadingInput('idle', 'provinsi');
 
-        $("#kabupaten").autocomplete({
-            source: function (request, response) {
-                if (request.term.length >= 1) {
+                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                    } catch (error) {
+                        console.dir("error", error);
+                        LoadingInput('idle', 'provinsi');
+                        response([{ name: 'Data tidak ditemukan', id: '' }]);
+                    }
+                },
+                minLength: 1,
+                focus: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#provinsi").val(ui.item.name);
+                        $("#id_provinsi").val(ui.item.id);
+                    }
+                    return false;
+                },
+                select: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#provinsi").val(ui.item.name);
+                        $("#id_provinsi").val(ui.item.id);
+                    }
+                    return false;
+                }
+            }).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>").append(`<div>Provinsi: <strong>${item.name}</strong></div>`).appendTo(ul);
+            };
+        }
+
+        if ($("#kabupaten").length) {
+            $("#kabupaten").autocomplete({
+                source: async function (request, response) {
+                    if (request.term.length < 1) return;
+
                     LoadingInput('loading', 'kabupaten');
 
-                    $.ajax({
-                        url: `/api/search?get_data=kabupaten`,
-                        data: { q: request.term, id_provinsi: (IsValidVal($("#provinsi").val()) ? $("#id_provinsi").val() : null) },
-                        success: function (callback) {
-                            LoadingInput('idle', 'kabupaten');
-                            console.dir("success", callback);
+                    try {
+                        const { datas } = await $.ajax({
+                            url: `/api/search?get_data=kabupaten`,
+                            data: { q: request.term, id_provinsi: (IsValidVal($("#provinsi").val()) ? $("#id_provinsi").val() : null) },
+                        });
 
-                            if ((callback.datas).length || (callback.datas).length > 0) {
-                                response(callback.datas);
-                            } else {
-                                response([{ name: 'Data tidak ditemukan', id: '' }]);
-                            }
-                        },
-                        error: function (callback) {
-                            console.dir("error", callback);
-                            LoadingInput('idle', 'kabupaten');
-                            response([{ name: 'Data tidak ditemukan', id: '' }]);
-                        },
-                    });
+                        LoadingInput('idle', 'kabupaten');
+                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                    } catch (error) {
+                        console.dir("error", error);
+                        LoadingInput('idle', 'kabupaten');
+                        response([{ name: 'Data tidak ditemukan', id: '' }]);
+                    }
+                },
+                minLength: 1,
+                focus: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kabupaten").val(ui.item.name);
+                        $("#id_kabupaten").val(ui.item.id);
+                    }
+                    return false;
+                },
+                select: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kabupaten").val(ui.item.name);
+                        $("#id_kabupaten").val(ui.item.id);
+                    }
+                    return false;
                 }
-            },
-            minLength: 1,
-            focus: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kabupaten").val(ui.item.name);
-                    $("#id_kabupaten").val(ui.item.id);
-                }
-                return false;
-            },
-            select: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kabupaten").val(ui.item.name);
-                    $("#id_kabupaten").val(ui.item.id);
-                }
-                return false;
-            }
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div><strong>${item.name}</strong></div>`).appendTo(ul);
-        };
+            }).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>").append(`<div><strong>${item.name}</strong></div>`).appendTo(ul);
+            };
+        }
 
-        $("#kecamatan").autocomplete({
-            source: function (request, response) {
-                if (request.term.length >= 1) {
+        if ($("#kecamatan").length) {
+            $("#kecamatan").autocomplete({
+                source: async function (request, response) {
+                    if (request.term.length < 1) return;
+
                     LoadingInput('loading', 'kecamatan');
 
-                    $.ajax({
-                        url: `/api/search?get_data=kecamatan`,
-                        data: { q: request.term, id_kabupaten: (IsValidVal($("#kabupaten").val()) ? $("#id_kabupaten").val() : null) },
-                        success: function (callback) {
-                            LoadingInput('idle', 'kecamatan');
-                            console.dir("success", callback);
+                    try {
+                        const { datas } = await $.ajax({
+                            url: `/api/search?get_data=kecamatan`,
+                            data: { q: request.term, id_kabupaten: IsValidVal($("#kabupaten").val()) ? $("#id_kabupaten").val() : null },
+                        });
 
-                            if ((callback.datas).length || (callback.datas).length > 0) {
-                                response(callback.datas);
-                            } else {
-                                response([{ name: 'Data tidak ditemukan', id: '' }]);
-                            }
-                        },
-                        error: function (callback) {
-                            console.dir("error", callback);
-                            LoadingInput('idle', 'kecamatan');
-                            response([{ name: 'Data tidak ditemukan', id: '' }]);
-                        },
-                    });
+                        LoadingInput('idle', 'kecamatan');
+                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                    } catch (error) {
+                        console.dir("error", error);
+                        LoadingInput('idle', 'kecamatan');
+                        response([{ name: 'Data tidak ditemukan', id: '' }]);
+                    }
+                },
+                minLength: 1,
+                focus: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kecamatan").val(ui.item.name);
+                        $("#id_kecamatan").val(ui.item.id);
+                    }
+                    return false;
+                },
+                select: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kecamatan").val(ui.item.name);
+                        $("#id_kecamatan").val(ui.item.id);
+                    }
+                    return false;
                 }
-            },
-            minLength: 1,
-            focus: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kecamatan").val(ui.item.name);
-                    $("#id_kecamatan").val(ui.item.id);
-                }
-                return false;
-            },
-            select: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kecamatan").val(ui.item.name);
-                    $("#id_kecamatan").val(ui.item.id);
-                }
-                return false;
-            }
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>Kecamatan: <strong>${item.name}</strong></div>`).appendTo(ul);
-        };
+            }).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>").append(`<div>Kecamatan: <strong>${item.name}</strong></div>`).appendTo(ul);
+            };
+        }
 
-        $("#kelurahan").autocomplete({
-            source: function (request, response) {
-                if (request.term.length >= 1) {
+        if ($("#kelurahan").length) {
+            $("#kelurahan").autocomplete({
+                source: async function (request, response) {
+                    if (request.term.length < 1) return;
+
                     LoadingInput('loading', 'kelurahan');
 
-                    $.ajax({
-                        url: `/api/search?get_data=kelurahan`,
-                        data: { q: request.term, id_kecamatan: (IsValidVal($("#kecamatan").val()) ? $("#id_kecamatan").val() : null) },
-                        success: function (callback) {
-                            LoadingInput('idle', 'kelurahan');
-                            console.dir("success", callback);
+                    try {
+                        const { datas } = await $.ajax({
+                            url: `/api/search?get_data=kelurahan`,
+                            data: { q: request.term, id_kecamatan: (IsValidVal($("#kecamatan").val()) ? $("#id_kecamatan").val() : null) },
+                        });
 
-                            if ((callback.datas).length || (callback.datas).length > 0) {
-                                response(callback.datas);
-                            } else {
-                                response([{ name: 'Data tidak ditemukan', id: '' }]);
-                            }
-                        },
-                        error: function (callback) {
-                            console.dir("error", callback);
-                            LoadingInput('idle', 'kelurahan');
-                            response([{ name: 'Data tidak ditemukan', id: '' }]);
-                        },
-                    });
+                        LoadingInput('idle', 'kelurahan');
+                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                    } catch (error) {
+                        console.dir("error", error);
+                        LoadingInput('idle', 'kelurahan');
+                        response([{ name: 'Data tidak ditemukan', id: '' }]);
+                    }
+                },
+                minLength: 1,
+                focus: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kelurahan").val(ui.item.name);
+                        $("#id_kelurahan").val(ui.item.id);
+                    }
+                    return false;
+                },
+                select: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#kelurahan").val(ui.item.name);
+                        $("#id_kelurahan").val(ui.item.id);
+                    }
+                    return false;
                 }
-            },
-            minLength: 1,
-            focus: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kelurahan").val(ui.item.name);
-                    $("#id_kelurahan").val(ui.item.id);
+            }).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>").append(`<div>Kelurahan: <strong>${item.name}</strong></div>`).appendTo(ul);
+            };
+        }
+
+        if ($("#golongan_darah").length) {
+            $("#golongan_darah").autocomplete({
+                source: async function (request, response) {
+                    if (request.term.length < 1) return;
+
+                    LoadingInput('loading', 'golongan_darah');
+
+                    try {
+                        const { datas } = await $.ajax({
+                            url: `/api/search?get_data=golongan_darah`,
+                            data: { q: request.term },
+                        });
+
+                        LoadingInput('idle', 'golongan_darah');
+                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                    } catch (error) {
+                        console.dir("error", error);
+                        LoadingInput('idle', 'golongan_darah');
+                        response([{ name: 'Data tidak ditemukan', id: '' }]);
+                    }
+                },
+                minLength: 1,
+                focus: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#golongan_darah").val(ui.item.name);
+                        $("#id_golongan_darah").val(ui.item.id);
+                    }
+                    return false;
+                },
+                select: function (_, ui) {
+                    if (ui.item.id) {
+                        $("#golongan_darah").val(ui.item.name);
+                        $("#id_golongan_darah").val(ui.item.id);
+                    }
+                    return false;
                 }
-                return false;
-            },
-            select: function (event, ui) {
-                if (ui.item.id) {
-                    $("#kelurahan").val(ui.item.name);
-                    $("#id_kelurahan").val(ui.item.id);
-                }
-                return false;
-            }
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>").append(`<div>Kelurahan: <strong>${item.name}</strong></div>`).appendTo(ul);
-        };
+            }).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>").append(`<div>Golongan Darah: <strong>${item.name}</strong></div>`).appendTo(ul);
+            };
+        }
     });
 }

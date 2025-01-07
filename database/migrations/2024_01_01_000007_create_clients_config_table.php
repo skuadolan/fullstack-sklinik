@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_client');
             $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
-            $table->unsignedBigInteger('id_config');
+            $table->unsignedBigInteger('id_config')->nullable();
             $table->foreign('id_config')->references('id')->on('configs')->onDelete('cascade');
             $table->string('value')->nullable()->default(0);
             $table->timestamps();

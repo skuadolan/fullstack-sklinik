@@ -144,7 +144,8 @@
                                     text: message || messages || errorInfo || validator,
                                     icon: "error"
                                 }).then(function() {
-                                    window.location.reload();
+                                    $("#clientRegist").hide();
+                                    // window.location.reload();
                                 });
                             },
                         });
@@ -199,7 +200,7 @@
                                     text: message || messages || errorInfo || validator,
                                     icon: "error"
                                 }).then(function() {
-                                    window.location.reload();
+                                    // window.location.reload();
                                 });
                             },
                         });

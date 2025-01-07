@@ -54,7 +54,6 @@
     <script src="{{ asset("/assets/vendor/jquery/jquery.js") }}"></script>
     <script src="{{ asset("/assets/vendor/jquery/jquery-ui.js") }}"></script>
     <script src="{{ asset("/assets/scripts/js/controller.js") }}"></script>
-    <script src="{{ asset("/assets/scripts/js/functions.js") }}"></script>
     <script src="{{ asset("/assets/vendor/jquery/jquery.datetimepicker.full.min.js") }}"></script>
 
     <script src="{{ asset("/assets/vendor/moment/moment.min.js") }}"></script>
@@ -960,6 +959,8 @@
             }
         </style>
     @endif
+
+    @stack('head_scripts')
 </head>
 
 <body class="w-full flex flex-wrap">
@@ -985,6 +986,8 @@
             <p class="w-full text-center">Sedang menyiapkan data, Mohon ditunggu.</p>
         </div>
     </div>
+
+    @stack('body_scripts')
 </body>
 
 </html>
