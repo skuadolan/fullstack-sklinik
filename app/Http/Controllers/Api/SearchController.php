@@ -25,28 +25,34 @@ class SearchController extends Controller
         try {
             switch ($req->get_data) {
                 case 'provinsi':
-                    $qry = "SELECT * FROM PROVINSI prov WHERE LOWER(prov.name) LIKE LOWER('%$req->q%')";
+                    $qry = "SELECT * FROM provinsi prov WHERE LOWER(prov.name) LIKE LOWER('%$req->q%')";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kabupaten':
                     $wheres = ($this->tools->IsValidVal($req->id_provinsi, 'bool') ? " AND kab.id_provinsi = $req->id_provinsi " : " ");
-                    $qry = "SELECT * FROM KABUPATEN kab WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') $wheres";
+                    $qry = "SELECT * FROM kabupaten kab WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') $wheres";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kecamatan':
                     $wheres = ($this->tools->IsValidVal($req->id_kabupaten, 'bool') ? " AND kec.id_kabupaten = $req->id_kabupaten " : " ");
-                    $qry = "SELECT * FROM KECAMATAN kec WHERE LOWER(kec.name) LIKE LOWER('$req->q%') $wheres";
+                    $qry = "SELECT * FROM kecamatan kec WHERE LOWER(kec.name) LIKE LOWER('$req->q%') $wheres";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kelurahan':
                     $wheres = ($this->tools->IsValidVal($req->id_kecamatan, 'bool') ? " AND kel.id_kecamatan = $req->id_kecamatan " : " ");
-                    $qry = "SELECT * FROM KELURAHAN kel WHERE LOWER(kel.name) LIKE LOWER('$req->q%') $wheres";
+                    $qry = "SELECT * FROM kelurahan kel WHERE LOWER(kel.name) LIKE LOWER('$req->q%') $wheres";
+                    $datas = DB::select("$qry");
+                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    break;
+
+                case 'golongan_darah':
+                    $qry = "SELECT * FROM golongan_darah goldar WHERE LOWER(goldar.name) LIKE LOWER('$req->q%')";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;

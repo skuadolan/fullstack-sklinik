@@ -26,6 +26,8 @@
 > [![Flaticon]](https://www.flaticon.com/search?color=color) </br>
 
 # Setup
+> Database
+- Pastikan database sudah dibuatkan/create terlebih dahulu
 > Composer Installation
 > [![Download]](https://getcomposer.org/download/) </br>
 ```bash
