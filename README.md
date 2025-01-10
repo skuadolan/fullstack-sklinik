@@ -1,4 +1,4 @@
-<h1 align='center'>Welcome! #Fullstack Laravel Blade 🚀</h1>
+<h1 align='center'>Welcome! #Fullstack Sklinik 🚀</h1>
 
 # Requirements
 ## Languages
@@ -25,13 +25,28 @@
 > [![DataTables]](https://datatables.net/download/) </br>
 > [![Flaticon]](https://www.flaticon.com/search?color=color) </br>
 
+# Database / Table Relation
+- Untuk mengetahui relasi antar table, bisa mengakses website berikut;
+> [![dbdiagram]](https://dbdiagram.io/d) </br>
+- Jika sudah login menggunakan akun pribadi, bisa menggunakan code yang sudah disiapkan pada file berikut
+> [![database/TableRelation.txt]](https://github.com/skuadolan/fullstack-sklinik/tree/main/database/TableRelation.txt) </br>
+
+# Project Worklist
+> [![notion]](https://www.notion.so/skuadproduction/Fullstack-Klinik-fd00424e9f0f4871996679934edb861a) </br>
+
+# Flowchart
+- Menggunakan file `Fullstack-Sklinik.drawio`
+> [![diagrams]](https://app.diagrams.net) </br>
+
 # Setup
 > Database
-- Pastikan database sudah dibuatkan/create terlebih dahulu
+- Pastikan database sudah dibuatkan/create
+> .env
+- Pastikan file `.env` sudah disiapkan
 > Composer Installation
 > [![Download]](https://getcomposer.org/download/) </br>
 ```bash
-composer install
+composer i
 ```
 > Laravel Installation
 ```bash
@@ -44,10 +59,16 @@ php artisan migrate:fresh --seed
 php artisan config:publish cors
 ```
 > TailwindCSS Installation
+- Pastikan sudah installasi `pnpm`, jika belum install bisa ikuti berikut
 ```bash
-pnpm install
+npm i -g pnpm
+```
+- Lalu instal library dari nodejs
+```bash
+pnpm i
 ```
 > Setup .env
+- Bisa disesuaikan dengan database yang ini digunakan
 ```bash
 DB_COLLATION=utf8mb4_general_ci # Gunakan jika di CPanel Server version: 10.6.17-MariaDB-cll-lve - MariaDB Server
 

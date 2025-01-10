@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "laravel/fullstack-sklinik",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
@@ -39,6 +39,7 @@
             "@php artisan key:generate",
             "@php artisan migrate:fresh --seed",
             "@php artisan config:publish cors",
+            "npm i -g pnpm",
             "pnpm i"
         ],
         "post-update-cmd": [
