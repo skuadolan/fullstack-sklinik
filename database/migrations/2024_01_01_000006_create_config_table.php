@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('label')->nullable();
+            $table->string('name');
+            $table->string('label');
             $table->string('group')->nullable();
-            $table->string('value')->nullable();
-            $table->string('default')->nullable();
+            $table->string('value');
+            $table->string('default');
             $table->string('type')->nullable();
             $table->timestamps();
         });
