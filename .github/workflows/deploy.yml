@@ -16,8 +16,8 @@ jobs:
       - name: Sync to cPanel via SSH
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: your-cpanel-server.com
-          username: your-cpanel-username
+          host: sklinik.jurnalpendidikan.online
+          username: jura8282
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./"
           target: "/home/jura8282/public_html/sklinik.jurnalpendidikan.online"
