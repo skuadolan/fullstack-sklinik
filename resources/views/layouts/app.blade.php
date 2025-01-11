@@ -63,8 +63,8 @@
     <script src="{{ asset("/assets/vendor/tostr/toastr.min.js") }}"></script>
     <script src="{{ asset("/assets/vendor/font-awesome/all.min.js") }}"></script>
     <script src="{{ asset("/assets/vendor/sweetalert/sweetalert2@11.js") }}"></script>
-    <script defer src="{{ asset("/assets/vendor/alpinejs/alpinejs@3.14.3.min.js") }}"></script>
-    <script defer src="{{ asset("/assets/vendor/datatables/datatables.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/alpinejs/alpinejs@3.14.3.min.js") }}" defer></script>
+    <script src="{{ asset("/assets/vendor/datatables/datatables.js") }}" defer></script>
 
     <!-- Vite Section -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))

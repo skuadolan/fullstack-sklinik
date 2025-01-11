@@ -200,7 +200,7 @@ function LoginAjaxSection($postFormData, $token) {
         headers: {
             'X-CSRF-TOKEN': $token
         },
-        success: function(callback) {
+        success: function (callback) {
             console.dir('success', callback);
             toastr.success('berhasil login!', "Success!");
 
@@ -208,7 +208,7 @@ function LoginAjaxSection($postFormData, $token) {
                 window.location.href = `${$base_url}/dashboard`;
             }, 1500);
         },
-        error: function(callback) {
+        error: function (callback) {
             const { responseJSON } = callback;
             const { errors, message, messages, datas } = responseJSON;
             let errorInfo, validator;
@@ -226,7 +226,7 @@ function LoginAjaxSection($postFormData, $token) {
                     $(`#err_${key} li`).html(errors[key][0]);
                 }
             } else if (message || messages || errorInfo || validator) {
-                const tmpMsg = (validator ? "input data tidak sesuai atau tidak boleh kosong" : ( errorInfo ? errorInfo[2] : (messages ? messages : message)));
+                const tmpMsg = (validator ? "input data tidak sesuai atau tidak boleh kosong" : (errorInfo ? errorInfo[2] : (messages ? messages : message)));
                 toastr.error(tmpMsg, "Kesalahan!");
             }
 
@@ -237,7 +237,7 @@ function LoginAjaxSection($postFormData, $token) {
                 title: "Kesalahan!",
                 text: message || messages || errorInfo || validator,
                 icon: "error"
-            }).then(function() {
+            }).then(function () {
                 window.location.reload();
             });
         },
@@ -260,4 +260,60 @@ function OpenLink($link, $options = ["self", "new", "popup"]) {
     if ($options == "popup") {
         window.open(`${$base_url}${$link}`, "_blank", "width=800,height=600,top=100,left=100,resizable=yes,scrollbars=yes");
     }
+}
+
+function CreatePopUpModal($idContainer, $valModal, $txtOpen, $formID, $formOnSubmit, $slot, $btn_submit = "Simpan", $btn_reset = "Reset", $btn_close = "Tutup", $head_name = null, $head_description = null, $footer_description = null) {
+    const $htmlBtnOpen = (IsValidVal($txtOpen) ? `<button class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true">${$txtOpen}</button>` : "");
+    const $htmlTxtHead = (IsValidVal($head_name) ? `<h2 class="text-lg font-bold">${$head_name}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($head_description) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$head_description}</p></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footer_description) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footer_description}</p></div>` : "");
+    const $htmlBtnClose = (IsValidVal($btn_close) ? `<span class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btn_close}</span>` : "");
+    const $htmlBtnReset = (IsValidVal($btn_reset) ? `<button type="reset" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 hideBtnProcess ms-3">${$btn_reset}</button>` : "");
+    const $htmlBtnSubmit = (IsValidVal($btn_submit) ? `<button type="submit" class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @submit.prevent="${$formOnSubmit}">${$btn_submit}</button>` : "");
+    const $htmlSlot = (IsValidVal($slot) ? $slot : "");
+
+    const $htmlForm = (IsValidVal($formID) ? `
+    <form id="${$formID}" @submit.prevent="${$formOnSubmit}">
+        <div class="mt-4">
+            ${$htmlSlot}
+        </div>
+
+        <div class="mt-6 flex justify-end space-x-2">
+            ${$htmlTxtFoot}
+
+            ${$htmlBtnClose}
+
+            ${$htmlBtnReset}
+
+            ${$htmlBtnSubmit}
+        </div>
+    </form>
+    ` : "");
+
+    const html = `
+    ${$htmlBtnOpen}
+
+    <div id="modal_section">
+        <div x-show="${$valModal}" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" style="display: none;">
+            <div class="bg-white w-full max-w-md mx-auto rounded-lg shadow-lg p-6" @click.away="${$valModal} = false"
+                @keydown.escape.window="${$valModal} = false">
+                <div class="flex justify-between items-center border-b pb-3">
+                    ${$htmlTxtHead}
+                    <button @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700">
+                        &times;
+                    </button>
+                </div>
+
+                ${$htmlTxtDescription}
+
+                ${$htmlForm}
+            </div>
+        </div>
+    </div>
+    `;
+
+    $(`${$idContainer}`).html(html);
 }
