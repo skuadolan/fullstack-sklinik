@@ -44,7 +44,7 @@
                     {{ __('Tambah Data') }}
                 </a>
                 <div class="mt-6 overflow-x-auto">
-                    <table class="min-w-full table-auto">
+                    <table id="golonganDarahTable" class="min-w-full table-auto">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2 text-left">{{ __('No') }}</th>
@@ -52,25 +52,27 @@
                                 <th class="px-4 py-2 text-left">{{ __('Aksi') }}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($goldar as $index => $gol)
-                                <tr>
-                                    <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                    <td class="px-4 py-2">{{ $gol->name }}</td>
-                                    <td class="px-4 py-2" style="text-align: center;">
-                                        <a href="" class="px-4 py-2 text-white rounded-md bg-yellow-500 hover:bg-yellow-600">
-                                            {{ __('Edit') }}
-                                        </a> &nbsp;&nbsp;
-                                        <a href="" class="px-4 py-2 text-white rounded-md bg-red-500 hover:bg-red-600">
-                                            {{ __('Hapus') }}
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </x-dynamic-layout>
+
+<script>
+    $(document).ready(function () {
+        ContentLoaderDataTable('/master-data/golongan-darah', '#golonganDarahTable', [
+            { data: null, render: (data, type, row, meta) => meta.row + 1 }, // No urut
+            { data: 'name' }, // Nama
+            { 
+                data: null, 
+                render: (data) => 
+                    `<a href="#" class="px-4 py-2 text-white rounded-md bg-yellow-500 hover:bg-yellow-600">Edit</a>
+                    &nbsp;&nbsp;
+                    <a href="#" class="px-4 py-2 text-white rounded-md bg-red-500 hover:bg-red-600">Hapus</a>` 
+            }
+        ]);
+    });
+
+</script>
