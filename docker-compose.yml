@@ -1,54 +1,59 @@
-version: '3.8'
+version: "3.9"
 
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     container_name: laravel-app
-    ports:
-      - "8181:80"
     volumes:
-      - .:/var/www/html
-      - ./php.ini:/usr/local/etc/php/conf.d/php.ini  # Menggunakan custom PHP ini jika diperlukan
-    depends_on:
-      - mysql
+      - ./:/var/www/html
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "9001:9000" # Custom PHP-FPM port
     networks:
       - laravel-network
-    # environment:
-    #   - APP_ENV=fullstack-sklinik
-    #   - DB_HOST=mysql
-    #   - DB_PORT=3306
-    #   - DB_DATABASE=laravel
-    #   - DB_USERNAME=root
-    #   - DB_PASSWORD=root
+    depends_on:
+      - db
+      - redis
 
-  mysql:
-    image: mysql:8.0
-    container_name: laravel-mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
+  nginx:
+    image: nginx:latest
+    container_name: laravel-nginx
     ports:
-      - "3306:3306"
+      - "8081:80" # Custom NGINX port
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel-network
+    depends_on:
+      - app
+
+  db:
+    image: postgres:15
+    container_name: laravel-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: sklinik
+    ports:
+      - "5432:5432" # Custom PostgreSQL port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - laravel-network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: laravel-phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: redis:7
+    container_name: laravel-redis
     ports:
-      - "8081:80"
-    depends_on:
-      - mysql
+      - "6379:6379" # Custom Redis port
     networks:
       - laravel-network
 
 networks:
   laravel-network:
-    driver: bridge
+
+volumes:
+  postgres_data:
