@@ -16,12 +16,7 @@
                         <div class="w-full flex mb-4">
                             <div class="w-full sm:w-1/2 flex flex-wrap">
                                 <form id="search" onsubmit="">
-                                    <style>
-                                        td {
-                                            border: none !important;
-                                        }
-                                    </style>
-                                    <table class="w-full">
+                                    <table class="w-full table-no-border">
                                         <tr>
                                             <td>
                                                 <label for="golongan_darah" class="block text-gray-700 text-sm font-medium mb-2">
@@ -43,7 +38,7 @@
                 <div id="goldar_container" x-cloak x-data="{ goldarModal: false }" @click.outside="goldarModal = false" @close.stop="goldarModal = false"></div>
 
                 <div class="mt-6 overflow-x-auto">
-                    <table id="golonganDarahTable" class="min-w-full table-auto">
+                    <table id="golonganDarahTable" class="min-w-full table-auto table-text-center-number">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2 text-left">{{ __('No') }}</th>
@@ -57,33 +52,30 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(async function () {
-            (async function () {
-                const $inputSlot = `
-                <div class="mt-4">
-                    <label for="nama">Nama *</label>
-                    <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
-                </div>
-                `;
-                await CreatePopUpModal("#goldar_container", "goldarModal", "Tambah Data", "goldarForm", "simpanGoldar()", $inputSlot);
-            })();
-        })
-    </script>
 </x-dynamic-layout>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(async function () {
+        (async function () {
+            const $inputSlot = `
+            <div class="mt-4">
+                <label for="nama">Nama *</label>
+                <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
+            </div>
+            `;
+            await CreatePopUpModal("#goldar_container", "goldarModal", "Tambah Data", "goldarForm", "simpanGoldar()", $inputSlot, "Form Tambah Data", "Golongan Darah", null, "Simpan", "Reset", "Tutup");
+        })();
+
         ContentLoaderDataTable('/master-data/golongan-darah', '#golonganDarahTable', [
             { data: null, render: (data, type, row, meta) => meta.row + 1 }, // No urut
             { data: 'name' }, // Nama
-            { 
-                data: null, 
-                render: (data) => 
-                    `<a href="#" class="px-4 py-2 text-white rounded-md bg-yellow-500 hover:bg-yellow-600">Edit</a>
-                    &nbsp;&nbsp;
-                    <a href="#" class="px-4 py-2 text-white rounded-md bg-red-500 hover:bg-red-600">Hapus</a>` 
+            {
+                data: null,
+                render: (data) =>
+                `<div class='flex gap-5 justify-center'>
+                    <button class='inline-flex items-center px-4 py-2 bg-warning border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-warning focus:bg-warning active:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Edit</button>
+                    <button class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Hapus</button>
+                </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             }
         ]);
     });
