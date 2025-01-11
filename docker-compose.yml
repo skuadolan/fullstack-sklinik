@@ -10,10 +10,18 @@ services:
       - "8181:80"
     volumes:
       - .:/var/www/html
+      - ./php.ini:/usr/local/etc/php/conf.d/php.ini  # Menggunakan custom PHP ini jika diperlukan
     depends_on:
       - mysql
     networks:
       - laravel-network
+    # environment:
+    #   - APP_ENV=fullstack-sklinik
+    #   - DB_HOST=mysql
+    #   - DB_PORT=3306
+    #   - DB_DATABASE=laravel
+    #   - DB_USERNAME=root
+    #   - DB_PASSWORD=root
 
   mysql:
     image: mysql:8.0
@@ -21,6 +29,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
     ports:
       - "3306:3306"
     networks:
