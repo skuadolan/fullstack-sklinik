@@ -39,6 +39,19 @@
 > [![diagrams]](https://app.diagrams.net) </br>
 
 # Setup
+> Docker
+- Jangan lupa untuk merubah `ports` pada file `docker-compose.yml` untuk disesuaikan pada di perangkat masing - masing supaya tidak `error`
+- Dari
+```bash
+ports:
+      - "3306:3306"
+```
+- Menjadi *contoh
+```bash
+ports:
+      - "3307:3306"  # Mengubah port host menjadi 3307
+```
+
 > Database
 - Pastikan database sudah dibuatkan/create
 > .env
