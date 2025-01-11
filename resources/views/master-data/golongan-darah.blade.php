@@ -39,10 +39,9 @@
                         </div>
                     </fieldset>
                 </div>
-                <!-- Tombol Tambah Data -->
-                <a href="" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                    {{ __('Tambah Data') }}
-                </a>
+
+                <div id="goldar_container" x-cloak x-data="{ goldarModal: false }" @click.outside="goldarModal = false" @close.stop="goldarModal = false"></div>
+
                 <div class="mt-6 overflow-x-auto">
                     <table id="golonganDarahTable" class="min-w-full table-auto">
                         <thead>
@@ -58,6 +57,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(async function () {
+            (async function () {
+                const $inputSlot = `
+                <div class="mt-4">
+                    <label for="nama">Nama *</label>
+                    <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
+                </div>
+                `;
+                await CreatePopUpModal("#goldar_container", "goldarModal", "Tambah Data", "goldarForm", "simpanGoldar()", $inputSlot);
+            })();
+        })
+    </script>
 </x-dynamic-layout>
 
 <script>
