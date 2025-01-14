@@ -77,18 +77,6 @@ extension=pgsql
 composer i
 ```
 
-## Docker
-- Jangan lupa untuk merubah `ports` pada file `docker-compose.yml` untuk disesuaikan di perangkat masing - masing supaya tidak `error`
-```bash
-ports:
-      - "3306:3306" # *Contoh customize_port:default_service_port
-```
-- Pastikan value `.env` sudah sama dengan konfigurasi `docker-compose.yml`
-- Mengaktifkan mesin docker, dan pastikan operasi build berhasil sampai akhir
-```bash
-docker-compose up -d
-```
-
 ## Application
 > Database
 - Pastikan database sudah dibuatkan/create
@@ -126,6 +114,32 @@ pnpm dev
 ```
 
 # Running Production
+> Laravel
+- Setting pada root document di folder `public`
+
+> TailwindCSS
 ```bash
 pnpm build
+```
+
+## Docker
+- Jangan lupa untuk merubah `ports` pada file `docker-compose.yml` untuk disesuaikan di perangkat masing - masing supaya tidak `error`
+```bash
+ports:
+      - "3306:3306" # *Contoh customize_port:default_service_port
+```
+- Pastikan value `.env` sudah sama dengan konfigurasi `docker-compose.yml`
+- Mengaktifkan mesin docker, dan pastikan operasi build berhasil sampai akhir
+```bash
+docker-compose up -d
+```
+
+> .env
+```bash
+DB_CONNECTION=pgsql
+DB_HOST=laravel_postgres
+DB_PORT=5432
+DB_DATABASE=laravel
+DB_USERNAME=postgres
+DB_PASSWORD=1234
 ```

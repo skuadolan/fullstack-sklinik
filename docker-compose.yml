@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: app
+    container_name: laravel_app
     volumes:
       - ./:/var/www/html
       - ./docker/php.ini:/usr/local/etc/php/php.ini
@@ -14,12 +14,12 @@ services:
     networks:
       - laravel-network
     depends_on:
-      - laravel_db
+      - laravel_postgres
       - laravel_redis
 
   laravel_nginx:
     image: nginx:latest
-    container_name: nginx
+    container_name: laravel_nginx
     ports:
       - "8081:80" # Custom NGINX port
     volumes:
@@ -30,9 +30,9 @@ services:
     depends_on:
       - laravel_app
 
-  laravel_db:
+  laravel_postgres:
     image: postgres:15
-    container_name: postgres
+    container_name: laravel_postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
@@ -46,7 +46,7 @@ services:
 
   laravel_redis:
     image: redis:7
-    container_name: redis
+    container_name: laravel_redis
     ports:
       - "6379:6379" # Custom Redis port
     networks:
