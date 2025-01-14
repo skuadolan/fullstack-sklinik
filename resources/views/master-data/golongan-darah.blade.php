@@ -66,7 +66,7 @@
             await CreatePopUpModal("#goldar_container", "goldarModal", "Tambah Data", "goldarForm", "simpanGoldar()", $inputSlot, "Form Tambah Data", "Golongan Darah", null, "Simpan", "Reset", "Tutup");
         })();
 
-        ContentLoaderDataTable('/master-data/golongan-darah', '#golonganDarahTable', [
+        await ContentLoaderDataTableV2(@json($goldar), '#golonganDarahTable', [
             { data: null, render: (data, type, row, meta) => meta.row + 1 }, // No urut
             { data: 'name' }, // Nama
             {

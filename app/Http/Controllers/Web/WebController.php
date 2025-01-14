@@ -26,12 +26,8 @@ class WebController extends Controller
 
     public function GolonganDarah(Request $req)
     {
-        if ($req->ajax()) {
-            $goldar = GolonganDarah::select('id', 'name')->get();
-            return $this->resCode->OKE("berhasil mengambil data", $goldar);
-        }
-
-        return view('master-data.golongan-darah');
+        $goldar = GolonganDarah::select('id', 'name')->get();
+        return view('master-data.golongan-darah', compact('goldar'));
     }
 
 
@@ -39,10 +35,10 @@ class WebController extends Controller
     {
         if ($request->ajax()) {
             $users = User::select(
-                        'users.username', 
-                        'users.email', 
-                        'users.status', 
-                        'roles.name as role_name', 
+                        'users.username',
+                        'users.email',
+                        'users.status',
+                        'roles.name as role_name',
                         'roles.description'
                     )
                     ->join('roles', 'users.id_role', '=', 'roles.id')
