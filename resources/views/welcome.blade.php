@@ -13,10 +13,6 @@
     </main>
 
     <script>
-        const base_url = window.location.host;
-        const [host, port] = base_url.split(':');
-        const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
-
         // ONLOAD START
         $(document).ready(function() {
             $("#loginSection").hide();

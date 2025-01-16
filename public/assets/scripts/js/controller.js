@@ -1,8 +1,8 @@
-$(document).ready(function () {
-    const base_url = window.location.host;
-    const [host, port] = base_url.split(':');
-    const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
+const base_url = window.location.host;
+const [host, port] = base_url.split(':');
+const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
 
+$(document).ready(function () {
     $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
         DisableRightClickOnMouse();
         // JQueryOnLoad();
@@ -20,16 +20,19 @@ function ConvertToIDR($val) {
 }
 
 function ContentLoader($url, $id_content) {
+    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
     $('#loadingContetLoader').show();
 
     $.ajax({
-        url: `${$url}`,
+        url: `${$base_url}${$url}`,
         type: 'GET',
-        success: function (data) {
-            $(`${$id_content}`).html(data);
+        success: function ($response) {
+            const $html = IsValidVal($response.datas) ? $response.datas : $response;
+            $(`${$id_content}`).html($html);
         },
         complete: function () {
             $('#loadingContetLoader').hide();
+            toastr.success("Berhasil mengambil data", "Success!");
         },
         error: function () {
             $('#loadingContetLoader').hide();
@@ -39,10 +42,11 @@ function ContentLoader($url, $id_content) {
 }
 
 function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
+    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
     $('#loadingContetLoader').show();
 
     $.ajax({
-        url: `${$url}`,
+        url: `${$base_url}${$url}`,
         type: 'GET',
         success: function (response) {
             $(`${$id_content}`).DataTable({
@@ -80,6 +84,7 @@ function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
         },
         complete: function () {
             $('#loadingContetLoader').hide();
+            toastr.success("Berhasil mengambil data", "Success!");
         },
         error: function () {
             $('#loadingContetLoader').hide();
@@ -89,6 +94,7 @@ function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
 }
 
 function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
+    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
     $('#loadingContetLoader').show();
 
     $(`${$id_content}`).DataTable({
@@ -125,13 +131,14 @@ function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
 
     setTimeout(function () {
         $('#loadingContetLoader').hide();
+        toastr.success("Berhasil mengambil data", "Success!");
     }, 1500);
 }
 
 async function GetFromAPI($url) {
     try {
         $('#loadingContetLoader').show();
-        return await fetch(`${$url}`).then(function ($list) {
+        return await fetch(`${$base_url}${$url}`).then(function ($list) {
             $('#loadingContetLoader').hide();
             console.dir($list);
             return $list;
@@ -294,10 +301,6 @@ function LoginAjaxSection($postFormData, $token) {
 }
 
 function OpenLink($link, $options = ["self", "new", "popup"]) {
-    const base_url = window.location.host;
-    const [host, port] = base_url.split(':');
-    const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
-
     if ($options == "self") {
         window.location.href = `${$base_url}${$link}`;
     }
@@ -367,17 +370,42 @@ function CreatePopUpModal($idContainer, $valModal, $txtOpen, $formID, $formOnSub
     $(`${$idContainer}`).html(html);
 }
 
-function Dropdown404Alpine($this, $listCLass, $hideId) {
-    const $length = $(`.${$listCLass}`).length;
-    const $404length = $(`.${$listCLass}`).filter(function() { return $(this).css('display') === 'none';}).length;
-    if ($404length == $length) {
-        $(`#${$hideId}`).show();
-    } else {
-        $(`#${$hideId}`).hide();
+function Dropdown404Alpine($this, $target) {
+    const $length = $(`li.list_${$target}`).length;
+    const $404length = $(`li.list_${$target}`).filter(function() { return $(this).css('display') == 'none';}).length;
+
+    // if ($404length === $length) {
+    //     $(`#404_${$target}`).show();
+    // } else {
+    //     $(`#404_${$target}`).hide();
+    // }
+}
+
+async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
+    $(`#${$target}`).val($val[0]);
+
+    if (IsValidVal($val[1])) {
+        $(`#id_${$target}`).val($val[1]);
     }
 }
 
-function DropdownSelectAlpine($val = ["name", "id's"], $toID) {
-    $(`#${$toID}`).val($val[0]);
-    $(`#id_${$toID}`).val($val[1]);
+async function DropdownContentLoader($url, $target) {
+    await $.ajax({
+        url: `${$base_url}${$url}`,
+        type: 'GET',
+        success: function ($response) {
+            const $datas = IsValidVal($response.datas) ? $response.datas : $response;
+
+            let $html = ``;
+            $datas.forEach(function ($list) {
+                $html += `
+                <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
+                    ${$list.name}
+                </li>
+                `;
+            });
+            $html += `<li id="404_${$target}" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default" style="display: none !important">Data tidak ditemukan.</li>`;
+            $(`#list_${$target}`).html($html);
+        }
+    });
 }

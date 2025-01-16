@@ -18,28 +18,28 @@
                 <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                     Provinsi<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout section="ssr-dropdown" get="provinsi" />
+                <x-autocomplete-layout section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
             </div>
 
             <div>
                 <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout section="ssr-dropdown" get="kabupaten" />
+                <x-autocomplete-layout section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi')" />
             </div>
 
             <div>
                 <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout section="ssr-dropdown" get="kecamatan" />
+                <x-autocomplete-layout section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten')" />
             </div>
 
             <div>
                 <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout section="ssr-dropdown" get="kelurahan" />
+                <x-autocomplete-layout section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan')" />
             </div>
         </div>
 
@@ -127,6 +127,14 @@
                 $("#clientRegist").hide();
                 $("#userRegist").show();
                 $(".submitRegistSection").show();
+            }
+        }
+
+        async function DropdownGetLoad($get, $from) {
+            const $idFrom = $(`#id_${$from}`).val();
+            if (IsValidVal($idFrom)) {
+                const $params = `&id_${$from}=${$idFrom}`
+                await DropdownContentLoader(`/api/search?get_data=${$get}${$params}`, $get);
             }
         }
         // FUNCTION ON CLICK ON CLICK END
