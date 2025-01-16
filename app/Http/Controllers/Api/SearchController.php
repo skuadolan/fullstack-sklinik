@@ -25,35 +25,38 @@ class SearchController extends Controller
         try {
             switch ($req->get_data) {
                 case 'provinsi':
-                    $qry = "SELECT * FROM provinsi prov WHERE LOWER(prov.name) LIKE LOWER('%$req->q%')";
+                    $wheres = ($this->tools->IsValidVal($req->q) ? "  WHERE LOWER(prov.name) LIKE LOWER('%$req->q%') " : "");
+                    $qry = "SELECT prov.id, prov.name FROM provinsi prov $wheres ORDER BY prov.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kabupaten':
-                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') " : null);
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') " : "");
                     $wheres = ($this->tools->IsValidVal($req->id_provinsi) && !$this->tools->IsValidVal($wheres) ? " WHERE kab.id_provinsi = $req->id_provinsi " : " $wheres AND kab.id_provinsi = $req->id_provinsi ");
-                    $qry = "SELECT * FROM kabupaten kab $wheres";
+                    $qry = "SELECT kab.id, kab.name, kab.type FROM kabupaten kab $wheres ORDER BY kab.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kecamatan':
-                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) ? " AND kec.id_kabupaten = $req->id_kabupaten " : " ");
-                    $qry = "SELECT * FROM kecamatan kec WHERE LOWER(kec.name) LIKE LOWER('$req->q%') $wheres";
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kec.name) LIKE LOWER('%$req->q%') " : "");
+                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) && !$this->tools->IsValidVal($wheres) ? " WHERE kec.id_kabupaten = $req->id_kabupaten " : " $wheres AND kec.id_kabupaten = $req->id_kabupaten ");
+                    $qry = "SELECT kec.id, kec.name FROM kecamatan kec $wheres ORDER BY kec.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kelurahan':
-                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) ? " AND kel.id_kecamatan = $req->id_kecamatan " : " ");
-                    $qry = "SELECT * FROM kelurahan kel WHERE LOWER(kel.name) LIKE LOWER('$req->q%') $wheres";
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kel.name) LIKE LOWER('%$req->q%') " : "");
+                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) && !$this->tools->IsValidVal($wheres) ? " WHERE kel.id_kecamatan = $req->id_kecamatan " : " $wheres AND kel.id_kecamatan = $req->id_kecamatan ");
+                    $qry = "SELECT kel.id, kel.name, kel.postal_code FROM kelurahan kel $wheres ORDER BY kel.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'golongan_darah':
-                    $qry = "SELECT * FROM golongan_darah goldar WHERE LOWER(goldar.name) LIKE LOWER('$req->q%')";
+                    $qry = "SELECT goldar.id, goldar.name FROM golongan_darah goldar WHERE LOWER(goldar.name) LIKE LOWER('$req->q%')";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
