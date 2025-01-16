@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('provinsi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('code');
             $table->string('name');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);

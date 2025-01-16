@@ -15,33 +15,24 @@ class KelurahanSeeder extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        $jsonPath = database_path('seeders/wilayah_idn/provinsi.json');
-        $jsonData = File::get($jsonPath);
-        $provs = json_decode($jsonData, true);
+        $jsonPath = database_path("seeders/wilayah_idn/kelurahan.json");
+        $jsonDataKels = File::get($jsonPath);
+        $kels = json_decode($jsonDataKels, true);
 
-        foreach ($provs as $prov) {
-            $jsonPath = database_path("seeders/wilayah_idn/kabupaten/$prov[id].json");
-            $jsonDataKabs = File::get($jsonPath);
-            $kabs = json_decode($jsonDataKabs, true);
-
-            foreach ($kabs as $kab) {
-                $jsonPath = database_path("seeders/wilayah_idn/kecamatan/$kab[id].json");
-                $jsonDataKecs = File::get($jsonPath);
-                $kecs = json_decode($jsonDataKecs, true);
-
-                foreach ($kecs as $kec) {
-                    $jsonPath = database_path("seeders/wilayah_idn/kelurahan/$kec[id].json");
-                    $jsonDataKels = File::get($jsonPath);
-                    $kels = json_decode($jsonDataKels, true);
-
-                    $arryDatas = [];
-                    foreach ($kels as $kel) {
-                        array_push($arryDatas, ['id' => $kel['id'], 'name' => $kel['nama'], 'id_kecamatan' => $kec['id']]);
-                    }
-
-                    DB::table('kelurahan')->insert($arryDatas);
-                }
+        $arryDatas = [];
+        foreach (array_chunk($kels, 1000) as $chunk) {
+            $arryDatas = [];
+            foreach ($chunk as $kel) {
+                $arryDatas[] = [
+                    "id" => $kel['id'],
+                    "name" => $kel['name'],
+                    "postal_code" => $kel['pos_code'],
+                    "code" => $kel['code'],
+                    "full_code" => $kel['full_code'],
+                    "id_kecamatan" => $kel['kecamatan_id'],
+                ];
             }
+            DB::table('kelurahan')->insert($arryDatas);
         }
     }
 }

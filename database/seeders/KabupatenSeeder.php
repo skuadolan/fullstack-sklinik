@@ -15,24 +15,22 @@ class KabupatenSeeder extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        $jsonPath = database_path('seeders/wilayah_idn/provinsi.json');
-        $jsonData = File::get($jsonPath);
-        $provs = json_decode($jsonData, true);
+        $jsonPath = database_path("seeders/wilayah_idn/kabupaten.json");
+        $jsonDataKabs = File::get($jsonPath);
+        $kabs = json_decode($jsonDataKabs, true);
 
         $arryDatas = [];
-        foreach ($provs as $prov) {
-            $jsonPath = database_path("seeders/wilayah_idn/kabupaten/$prov[id].json");
-            $jsonDataKabs = File::get($jsonPath);
-            $kabs = json_decode($jsonDataKabs, true);
-
-            foreach ($kabs as $kab) {
-                $tmpNama = explode("KAB. ", $kab['nama']);
-                // $tmpNama = (empty($tmpNama[1]) ? explode("KOTA ", $kab['nama']) : $tmpNama);
-                $tmpNama = (isset($tmpNama[1]) && !empty($tmpNama[1]) ? $tmpNama[1] : $kab['nama']);
-
-                array_push($arryDatas, ['id' => $kab['id'], 'name' => $tmpNama, 'id_provinsi' => $prov['id']]);
-            };
-        }
+        foreach ($kabs as $kab) {
+            $data = [
+                "id" => $kab['id'],
+                "type" => $kab['type'],
+                "name" => $kab['name'],
+                "code" => $kab['code'],
+                "full_code" => $kab['full_code'],
+                "id_provinsi" => $kab['provinsi_id'],
+            ];
+            array_push($arryDatas, $data);
+        };
 
         DB::table('kabupaten')->insert($arryDatas);
     }

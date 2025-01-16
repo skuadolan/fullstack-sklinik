@@ -366,3 +366,18 @@ function CreatePopUpModal($idContainer, $valModal, $txtOpen, $formID, $formOnSub
 
     $(`${$idContainer}`).html(html);
 }
+
+function Dropdown404Alpine($this, $listCLass, $hideId) {
+    const $length = $(`.${$listCLass}`).length;
+    const $404length = $(`.${$listCLass}`).filter(function() { return $(this).css('display') === 'none';}).length;
+    if ($404length == $length) {
+        $(`#${$hideId}`).show();
+    } else {
+        $(`#${$hideId}`).hide();
+    }
+}
+
+function DropdownSelectAlpine($val = ["name", "id's"], $toID) {
+    $(`#${$toID}`).val($val[0]);
+    $(`#id_${$toID}`).val($val[1]);
+}

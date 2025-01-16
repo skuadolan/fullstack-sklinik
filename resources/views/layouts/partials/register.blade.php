@@ -5,7 +5,9 @@
 
         <div id="clientRegist">
             <div>
-                <x-input-label for="company_name" :value="__('Nama Klinik *')" />
+                <label for="company_name" class="block text-sm font-medium text-gray-700 mb-2">
+                    Nama Klinik<span class="text-red-500">*</span>
+                </label>
                 <x-text-input id="company_name" class="block mt-1 w-full" type="text" name="company_name" autofocus />
                 <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_company_name">
                     <li></li>
@@ -13,35 +15,31 @@
             </div>
 
             <div>
-                <x-input-label for="id_provinsi" :value="__('Provinsi *')" />
-                <x-autocomplete-layout section="jquery" get="provinsi" />
-                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_id_provinsi">
-                    <li></li>
-                </ul>
+                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
+                    Provinsi<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout section="ssr-dropdown" get="provinsi" />
             </div>
 
             <div>
-                <x-input-label for="id_kabupaten" :value="__('Kabupaten *')" />
-                <x-autocomplete-layout section="jquery" get="kabupaten" />
-                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_id_kabupaten">
-                    <li></li>
-                </ul>
+                <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
+                    Kabupaten<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout section="ssr-dropdown" get="kabupaten" />
             </div>
 
             <div>
-                <x-input-label for="id_kecamatan" :value="__('Kecamatan *')" />
-                <x-autocomplete-layout section="jquery" get="kecamatan" />
-                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_id_kecamatan">
-                    <li></li>
-                </ul>
+                <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
+                    Kecamatan<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout section="ssr-dropdown" get="kecamatan" />
             </div>
 
             <div>
-                <x-input-label for="id_kelurahan" :value="__('Kelurahan *')" />
-                <x-autocomplete-layout section="jquery" get="kelurahan" />
-                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_id_kelurahan">
-                    <li></li>
-                </ul>
+                <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
+                    Kelurahan<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout section="ssr-dropdown" get="kelurahan" />
             </div>
         </div>
 
@@ -110,7 +108,7 @@
     </form>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(async function() {
             $("#userRegist").hide();
             $(".submitRegistSection").hide();
         });
