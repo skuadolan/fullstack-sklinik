@@ -15,27 +15,23 @@ class KecamatanSeeder extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        $jsonPath = database_path('seeders/wilayah_idn/provinsi.json');
-        $jsonData = File::get($jsonPath);
-        $provs = json_decode($jsonData, true);
+        $jsonPath = database_path("seeders/wilayah_idn/kecamatan.json");
+        $jsonDataKecs = File::get($jsonPath);
+        $kecs = json_decode($jsonDataKecs, true);
 
-        $arryDatas = [];
-        foreach ($provs as $prov) {
-            $jsonPath = database_path("seeders/wilayah_idn/kabupaten/$prov[id].json");
-            $jsonDataKabs = File::get($jsonPath);
-            $kabs = json_decode($jsonDataKabs, true);
-
-            foreach ($kabs as $kab) {
-                $jsonPath = database_path("seeders/wilayah_idn/kecamatan/$kab[id].json");
-                $jsonDataKecs = File::get($jsonPath);
-                $kecs = json_decode($jsonDataKecs, true);
-
-                foreach ($kecs as $kec) {
-                    array_push($arryDatas, ['id' => $kec['id'],'name' => $kec['nama'],'id_kabupaten' => $kab['id']]);
-                }
+        $chunk_kec = array_chunk($kecs, 1000);
+        foreach ($chunk_kec as $kec_chunk) {
+            $datas = [];
+            foreach ($kec_chunk as $kec) {
+                $datas[] = [
+                    "id" => $kec['id'],
+                    "name" => $kec['name'],
+                    "code" => $kec['code'],
+                    "full_code" => $kec['full_code'],
+                    "id_kabupaten" => $kec['kabupaten_id'],
+                ];
             }
+            DB::table('kecamatan')->insert($datas);
         }
-
-        DB::table('kecamatan')->insert($arryDatas);
     }
 }

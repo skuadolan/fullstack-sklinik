@@ -31,21 +31,22 @@ class SearchController extends Controller
                     break;
 
                 case 'kabupaten':
-                    $wheres = ($this->tools->IsValidVal($req->id_provinsi, 'bool') ? " AND kab.id_provinsi = $req->id_provinsi " : " ");
-                    $qry = "SELECT * FROM kabupaten kab WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') $wheres";
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') " : null);
+                    $wheres = ($this->tools->IsValidVal($req->id_provinsi) && !$this->tools->IsValidVal($wheres) ? " WHERE kab.id_provinsi = $req->id_provinsi " : " $wheres AND kab.id_provinsi = $req->id_provinsi ");
+                    $qry = "SELECT * FROM kabupaten kab $wheres";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kecamatan':
-                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten, 'bool') ? " AND kec.id_kabupaten = $req->id_kabupaten " : " ");
+                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) ? " AND kec.id_kabupaten = $req->id_kabupaten " : " ");
                     $qry = "SELECT * FROM kecamatan kec WHERE LOWER(kec.name) LIKE LOWER('$req->q%') $wheres";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kelurahan':
-                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan, 'bool') ? " AND kel.id_kecamatan = $req->id_kecamatan " : " ");
+                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) ? " AND kel.id_kecamatan = $req->id_kecamatan " : " ");
                     $qry = "SELECT * FROM kelurahan kel WHERE LOWER(kel.name) LIKE LOWER('$req->q%') $wheres";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);

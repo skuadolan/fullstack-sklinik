@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('id_kabupaten');
             $table->foreign('id_kabupaten')->references('id')->on('kabupaten')->onDelete('cascade');
+            $table->unsignedBigInteger('code');
+            $table->unsignedBigInteger('full_code');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
             $table->timestamps();

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->unsignedBigInteger('id_kecamatan');
             $table->foreign('id_kecamatan')->references('id')->on('kecamatan')->onDelete('cascade');
+            $table->unsignedBigInteger('code');
+            $table->unsignedBigInteger('full_code');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
             $table->timestamps();

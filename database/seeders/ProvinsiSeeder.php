@@ -21,7 +21,8 @@ class ProvinsiSeeder extends Seeder
 
         $arryDatas = [];
         foreach ($provs as $prov) {
-            array_push($arryDatas, ['id' => $prov['id'], 'name' => $prov['nama']]);
+            $data = ['id' => $prov['id'], 'code' => $prov['code'], 'name' => $prov['name']];
+            array_push($arryDatas, $data);
         }
 
         DB::table('provinsi')->insert($arryDatas);

@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('kabupaten', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
             $table->string('name');
             $table->unsignedBigInteger('id_provinsi');
             $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
+            $table->unsignedBigInteger('code');
+            $table->unsignedBigInteger('full_code');
             $table->timestamp("deleted_at")->nullable();
             $table->integer('is_deleted')->default(0);
             $table->timestamps();
