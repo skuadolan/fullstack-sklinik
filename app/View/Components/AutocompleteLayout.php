@@ -17,7 +17,7 @@ class AutocompleteLayout extends Component
         $this->get = $get;
 
         if ($section = "ssr-dropdown" && $get == 'provinsi') {
-            $qry = "SELECT prov.id, prov.name FROM provinsi prov order by prov.name asc";
+            $qry = "SELECT prov.id, prov.name FROM provinsi prov ORDER BY prov.name ASC";
             $this->listProvinsi = DB::select("$qry");
         }
     }

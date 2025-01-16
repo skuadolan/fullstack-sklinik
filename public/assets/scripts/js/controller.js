@@ -389,7 +389,7 @@ async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
     }
 }
 
-async function DropdownContentLoader($url, $target) {
+async function DropdownContentLoader($url, $target, $section = null) {
     await $.ajax({
         url: `${$base_url}${$url}`,
         type: 'GET',
@@ -398,9 +398,14 @@ async function DropdownContentLoader($url, $target) {
 
             let $html = ``;
             $datas.forEach(function ($list) {
+                const { type, postal_code } = $list;
+                const $tmpType = IsValidVal(type) && $section === "wilayah" ? `${type} ` : "";
+                const $tmpPostalCode = IsValidVal(postal_code) && $section === "wilayah" ? `<p><strong>Kode Pos: </strong>${postal_code}</p> ` : "";
+                const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
+
                 $html += `
                 <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
-                    ${$list.name}
+                    ${$txtDisplay}
                 </li>
                 `;
             });
