@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'Sklinik')
+
     @section('root_container')
         <header class="w-full">@include('layouts.navigation')</header>
     @endsection

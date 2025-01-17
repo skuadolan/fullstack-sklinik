@@ -19,16 +19,18 @@
                                     <table class="w-full table-no-border">
                                         <tr>
                                             <td>
-                                                <label for="golongan_darah" class="block text-gray-700 text-sm font-medium mb-2">
-                                                    {{ __('Nama') }}
+                                                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    Nama
                                                 </label>
                                             </td>
-                                            <td class="text-center">:</td>
-                                            <td class="w-full">
-                                                <x-autocomplete-layout section="jquery" get="golongan_darah" />
-                                            </td>
+                                            <td>:</td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." /></td>
                                         </tr>
                                     </table>
+
+                                    <x-btn-customize-layout section="success" class="ms-4" onclick="cari(this)">
+                                        {{ __('Cari') }}
+                                    </x-btn-customize-layout>
                                 </form>
                             </div>
                         </div>
@@ -42,7 +44,7 @@
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2 text-left">{{ __('No') }}</th>
-                                <th class="px-4 py-2 text-left">{{ __('Golongan Darah') }}</th>
+                                <th class="px-4 py-2 text-left">{{ __('Nama') }}</th>
                                 <th class="px-4 py-2 text-left">{{ __('Aksi') }}</th>
                             </tr>
                         </thead>
