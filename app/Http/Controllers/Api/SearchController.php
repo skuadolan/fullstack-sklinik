@@ -34,7 +34,8 @@ class SearchController extends Controller
                 case 'kabupaten':
                     $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') " : "");
                     $wheres = ($this->tools->IsValidVal($req->id_provinsi) && !$this->tools->IsValidVal($wheres) ? " WHERE kab.id_provinsi = $req->id_provinsi " : " $wheres AND kab.id_provinsi = $req->id_provinsi ");
-                    $qry = "SELECT kab.id, kab.name, kab.type FROM kabupaten kab $wheres ORDER BY kab.name ASC";
+                    $wheres = ($this->tools->IsValidVal($req->id_provinsi) && $this->tools->IsValidVal($req->q) ? $wheres : "");
+                    $qry = "SELECT kab.id, kab.name, kab.type, prov.name as provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
@@ -42,7 +43,8 @@ class SearchController extends Controller
                 case 'kecamatan':
                     $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kec.name) LIKE LOWER('%$req->q%') " : "");
                     $wheres = ($this->tools->IsValidVal($req->id_kabupaten) && !$this->tools->IsValidVal($wheres) ? " WHERE kec.id_kabupaten = $req->id_kabupaten " : " $wheres AND kec.id_kabupaten = $req->id_kabupaten ");
-                    $qry = "SELECT kec.id, kec.name FROM kecamatan kec $wheres ORDER BY kec.name ASC";
+                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) && $this->tools->IsValidVal($req->q) ? $wheres : "");
+                    $qry = "SELECT kec.id, kec.name, kab.name as kabupaten, prov.name as provinsi FROM kecamatan kec JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kec.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
@@ -50,7 +52,8 @@ class SearchController extends Controller
                 case 'kelurahan':
                     $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kel.name) LIKE LOWER('%$req->q%') " : "");
                     $wheres = ($this->tools->IsValidVal($req->id_kecamatan) && !$this->tools->IsValidVal($wheres) ? " WHERE kel.id_kecamatan = $req->id_kecamatan " : " $wheres AND kel.id_kecamatan = $req->id_kecamatan ");
-                    $qry = "SELECT kel.id, kel.name, kel.postal_code FROM kelurahan kel $wheres ORDER BY kel.name ASC";
+                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) && $this->tools->IsValidVal($req->q) ? $wheres : "");
+                    $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;

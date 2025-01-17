@@ -139,7 +139,10 @@ docker-compose up -d
 DB_CONNECTION=pgsql
 DB_HOST=laravel_postgres
 DB_PORT=5432
-DB_DATABASE=laravel
+DB_DATABASE=sklinik
 DB_USERNAME=postgres
 DB_PASSWORD=1234
 ```
+
+> Permission denied
+- Jika terdapat `Permission denied` terhadap suatu direktori folder, cobalah untuk `composer install` menggunakan docker

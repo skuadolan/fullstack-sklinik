@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Seklinik')
+@section('title', 'Sklinik')
 
 @section('root_container')
     <main class="w-full flex items-center justify-center h-screen">

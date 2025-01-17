@@ -31,6 +31,11 @@ class WebController extends Controller
         return view('master-data.golongan-darah', compact('goldar'));
     }
 
+    public function Wilayah(Request $req)
+    {
+        return view('master-data.wilayah');
+    }
+
 
     public function UserSystem(Request $request)
     {

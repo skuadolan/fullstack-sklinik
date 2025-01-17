@@ -75,6 +75,10 @@ tr:nth-child(even) {
     border: none !important;
 }
 
+.table-no-border tr {
+    background-color: unset !important;
+}
+
 .table-text-center-number td.dt-type-numeric {
     text-align: center !important;
 }
