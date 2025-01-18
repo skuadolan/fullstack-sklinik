@@ -15,7 +15,7 @@
                         </legend>
                         <div class="w-full flex mb-4">
                             <div class="w-full sm:w-1/2 flex flex-wrap">
-                                <form id="search" onsubmit="">
+                                <form id="searchForm" onsubmit="">
                                     <table class="w-full table-no-border">
                                         <tr>
                                             <td>

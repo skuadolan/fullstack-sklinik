@@ -420,3 +420,11 @@ async function DropdownContentLoader($url, $target, $section = null) {
         }
     });
 }
+
+async function DropdownGetLoad($get, $from, $section = null) {
+    const $idFrom = $(`#id_${$from}`).val();
+    if (IsValidVal($idFrom)) {
+        const $params = `&id_${$from}=${$idFrom}`
+        await DropdownContentLoader(`/api/search?get_data=${$get}${$params}`, $get, $section);
+    }
+}

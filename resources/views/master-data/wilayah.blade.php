@@ -15,7 +15,7 @@
                         </legend>
                         <div class="w-full flex mb-4">
                             <div class="w-full sm:w-1/2 flex flex-wrap">
-                                <form id="search" onsubmit="">
+                                <form id="searchForm" onsubmit="search('submit')">
                                     <table class="w-full table-no-border">
                                         <tr>
                                             <td>
@@ -24,7 +24,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="provinsi" class="check_form_search" placeholder="Pilih provinsi..." /></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -33,7 +33,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kabupaten" class="check_form_search" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah')" /></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -42,7 +42,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kecamatan" class="check_form_search" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah')" /></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -51,12 +51,16 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kelurahan" class="check_form_search" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah')" /></td>
                                         </tr>
                                     </table>
 
-                                    <x-btn-customize-layout section="success" class="ms-4" onclick="cari(this)">
+                                    <x-btn-customize-layout type="button" id="btnSearch" section="success" class="ms-4" onclick="search('submit')">
                                         {{ __('Cari') }}
+                                    </x-btn-customize-layout>
+
+                                    <x-btn-customize-layout type="reset" section="danger" class="ms-4" onclick="search('reset')">
+                                        {{ __('Reset') }}
                                     </x-btn-customize-layout>
                                 </form>
                             </div>
@@ -156,39 +160,67 @@
                 await CreatePopUpModal("#wilayah_container", "wilayahModal", "Tambah Data", "wilayahForm", "simpanWilayah()", $inputSlot, "Form Tambah Data", "Wilayah", null, "Simpan", "Reset", "Tutup");
             })();
 
+            // Functions event onclick start
             $('.tab-header').on('click', async function() {
-                const target = $(this).data('tab-target');
+                const $target = $(this).data('tab-target');
                 $('.tab-content').addClass('hidden');
-                $(`#tab_${target}`).removeClass('hidden');
+                $(`#tab_${$target}`).removeClass('hidden');
 
                 $('.tab-header').removeClass('bg-gray-100');
                 $(this).addClass('bg-gray-100');
 
-                const $coloumnsArray = [{
-                    data: null,
-                    render: (data, type, row, meta) => meta.row + 1
-                }];
+                const $coloumnsArray = tableFormat($target);
+                    await ContentLoaderDataTable(`/api/search?get_data=${$target}`, `#${$target}Table`, $coloumnsArray);
+            });
+            // Functions event onclick end
+        });
 
-                if (target == 'provinsi') {
-                    $coloumnsArray.push({ data: 'name' });
-                } else if (target == 'kabupaten') {
-                    $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' });
-                } else if (target == 'kecamatan') {
-                    $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' });
-                } else if (target == 'kelurahan') {
-                    $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' }, { data: 'kecamatan' });
-                }
+        function tableFormat($target) {
+            const $coloumnsArray = [{ data: null, render: (data, type, row, meta) => meta.row + 1 }];
 
-                $coloumnsArray.push({
-                    data: null,
-                    render: (data) =>
-                        `<div class='flex gap-5 justify-center'>
+            if ($target == 'provinsi') {
+                $coloumnsArray.push({ data: 'name' });
+            } else if ($target == 'kabupaten') {
+                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' });
+            } else if ($target == 'kecamatan') {
+                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' });
+            } else if ($target == 'kelurahan') {
+                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' }, { data: 'kecamatan' });
+            }
+
+            $coloumnsArray.push({
+                data: null,
+                render: (data) =>
+                    `<div class='flex gap-5 justify-center'>
                         <button class='inline-flex items-center px-4 py-2 bg-warning border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-warning focus:bg-warning active:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Edit</button>
                         <button class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Hapus</button>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
-                });
-                await ContentLoaderDataTable(`/api/search?get_data=${target}`, `#${target}Table`, $coloumnsArray);
             });
-        });
+
+            return $coloumnsArray;
+        }
+
+        // Functions event onclick start
+        async function search($method) {
+            if ($method == 'reset') {
+                $(".check_form_search").each(function() {
+                    $(this).val("");
+                })
+            }
+
+            if ($method == 'submit') {
+                const $formArray = $("#searchForm").serializeArray();
+                const $listID = [];
+                Object.values($formArray).forEach(function ($list) {
+                    const { name, value } = $list;
+                    if (name.includes("id_") && IsValidVal(value)) {
+                        $listID.push(`${name}=${value}`);
+                    }
+                });
+
+                console.log($listID.join("&"));
+            }
+        }
+        // Functions event onclick end
     </script>
 </x-dynamic-layout>

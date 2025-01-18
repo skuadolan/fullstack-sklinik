@@ -101,7 +101,7 @@
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 style="display: none;" class="z-10">
                 <div class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg" style="width: inherit;">
-                    <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." @input="Dropdown404Alpine(this, 'provinsi')" />
+                    <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." @input="Dropdown404Alpine(this, 'provinsi')" />
                     <ul id="list_provinsi" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto">
                         @if (isset($listProvinsi) && !empty($listProvinsi))
                             @foreach ($listProvinsi as $key => $list)
@@ -140,7 +140,7 @@
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 style="display: none;" class="z-10">
                 <div class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg" style="width: inherit;">
-                    <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari Goldar..." @input="Dropdown404Alpine(this, 'Goldar')" />
+                    <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari Goldar..." @input="Dropdown404Alpine(this, 'Goldar')" />
                     <ul id="list_Goldar" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto">
                         @if (isset($listGoldar) && !empty($listGoldar))
                             @foreach ($listGoldar as $key => $list)
