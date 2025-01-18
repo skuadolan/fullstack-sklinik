@@ -25,34 +25,48 @@ class SearchController extends Controller
         try {
             switch ($req->get_data) {
                 case 'provinsi':
-                    $wheres = ($this->tools->IsValidVal($req->q) ? "  WHERE LOWER(prov.name) LIKE LOWER('%$req->q%') " : "");
+                    $wheres = ($this->tools->IsValidVal($req->id_provinsi) ? " WHERE prov.id = $req->id_provinsi " : "");
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(prov.name) LIKE LOWER('%$req->q%') " : $wheres);
+
                     $qry = "SELECT prov.id, prov.name FROM provinsi prov $wheres ORDER BY prov.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kabupaten':
-                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kab.name) LIKE LOWER('%$req->q%') " : "");
-                    $wheres = ($this->tools->IsValidVal($req->id_provinsi) && !$this->tools->IsValidVal($wheres) ? " WHERE kab.id_provinsi = $req->id_provinsi " : " $wheres AND kab.id_provinsi = $req->id_provinsi ");
-                    $wheres = ($this->tools->IsValidVal($req->id_provinsi) && $this->tools->IsValidVal($req->q) ? $wheres : "");
-                    $qry = "SELECT kab.id, kab.name, kab.type, prov.name as provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC";
+                    $provinsi = ($this->tools->IsValidVal($req->id_provinsi) ? " prov.id = $req->id_provinsi " : "");
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " LOWER(kab.name) LIKE LOWER('%$req->q%') " : "");
+
+                    // Harus membawa id_provinsi supaya tidak kebanyakan/bingung ambil data kabupatennya
+                    $wheres = ($this->tools->IsValidVal($provinsi) && $this->tools->IsValidVal($wheres) ? " WHERE $provinsi AND $wheres " : " WHERE $provinsi ");
+                    $wheres = (!$this->tools->IsValidVal($req->id_kabupaten) ? ($this->tools->IsValidVal($provinsi) ?  $wheres : "") : " WHERE kab.id = $req->id_kabupaten ");
+
+                    $qry = ("SELECT kab.id, kab.name, kab.type, prov.name as provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC");
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kecamatan':
-                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kec.name) LIKE LOWER('%$req->q%') " : "");
-                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) && !$this->tools->IsValidVal($wheres) ? " WHERE kec.id_kabupaten = $req->id_kabupaten " : " $wheres AND kec.id_kabupaten = $req->id_kabupaten ");
-                    $wheres = ($this->tools->IsValidVal($req->id_kabupaten) && $this->tools->IsValidVal($req->q) ? $wheres : "");
+                    $kabupaten = ($this->tools->IsValidVal($req->id_kabupaten) ? " kab.id = $req->id_kabupaten " : "");
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " LOWER(kec.name) LIKE LOWER('%$req->q%') " : "");
+
+                    // Harus membawa id_provinsi supaya tidak kebanyakan/bingung ambil data kecamatannya
+                    $wheres = ($this->tools->IsValidVal($kabupaten) && $this->tools->IsValidVal($wheres) ? " WHERE $kabupaten AND $wheres " : " WHERE $kabupaten ");
+                    $wheres = (!$this->tools->IsValidVal($req->id_kecamatan) ? ($this->tools->IsValidVal($kabupaten) ?  $wheres : "") : " WHERE kec.id = $req->id_kecamatan ");
+
                     $qry = "SELECT kec.id, kec.name, kab.name as kabupaten, prov.name as provinsi FROM kecamatan kec JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kec.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 
                 case 'kelurahan':
-                    $wheres = ($this->tools->IsValidVal($req->q) ? " WHERE LOWER(kel.name) LIKE LOWER('%$req->q%') " : "");
-                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) && !$this->tools->IsValidVal($wheres) ? " WHERE kel.id_kecamatan = $req->id_kecamatan " : " $wheres AND kel.id_kecamatan = $req->id_kecamatan ");
-                    $wheres = ($this->tools->IsValidVal($req->id_kecamatan) && $this->tools->IsValidVal($req->q) ? $wheres : "");
+                    $kecamatan = ($this->tools->IsValidVal($req->id_kecamatan) ? " kec.id = $req->id_kecamatan " : "");
+                    $wheres = ($this->tools->IsValidVal($req->q) ? " LOWER(kel.name) LIKE LOWER('%$req->q%') " : "");
+
+                    // Harus membawa id_provinsi supaya tidak kebanyakan/bingung ambil data kelurahannya
+                    $wheres = ($this->tools->IsValidVal($kecamatan) && $this->tools->IsValidVal($wheres) ? " WHERE $kecamatan AND $wheres " : " WHERE $kecamatan ");
+                    $wheres = (!$this->tools->IsValidVal($req->id_kelurahan) ? ($this->tools->IsValidVal($kecamatan) ?  $wheres : "") : " WHERE kel.id = $req->id_kelurahan ");
+
                     $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
