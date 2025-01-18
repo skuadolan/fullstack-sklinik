@@ -20,6 +20,15 @@
                                         <tr>
                                             <td>
                                                 <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    Cari Berdasarkan
+                                                </label>
+                                            </td>
+                                            <td>:</td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="params_type" class="check_form_search" placeholder="Pilih pencarian..." /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Provinsi
                                                 </label>
                                             </td>
@@ -73,23 +82,23 @@
                 <div class="mt-6 overflow-x-auto">
                     <div class="tabs">
                         <div class="flex border-b">
-                            <button class="tab-header px-4 py-2 text-lg font-medium focus:outline-none bg-gray-100" data-tab-target="provinsi">
+                            <button id="header-provinsi" class="tab-header px-4 py-2 text-lg font-medium focus:outline-none bg-gray-100" data-tab-target="provinsi">
                                 Provinsi
                             </button>
-                            <button class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kabupaten">
+                            <button id="header-kabupaten" class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kabupaten">
                                 Kabupaten
                             </button>
-                            <button class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kecamatan">
+                            <button id="header-kecamatan" class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kecamatan">
                                 Kecamatan
                             </button>
-                            <button class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kelurahan">
+                            <button id="header-kelurahan" class="tab-header px-4 py-2 text-lg font-medium focus:outline-none" data-tab-target="kelurahan">
                                 Kelurahan
                             </button>
                         </div>
 
                         <!-- Tab Contents -->
                         <div id="tab_provinsi" class="tab-content px-4 py-2 text-gray-700">
-                            <table id="provinsiTable" class="min-w-full table-auto table-text-center-number">
+                            <table id="provinsiTable" class="cek_datatables_content min-w-full table-auto table-text-center-number">
                                 <thead>
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2">{{ __('No') }}</th>
@@ -101,7 +110,7 @@
                             </table>
                         </div>
                         <div id="tab_kabupaten" class="tab-content hidden px-4 py-2 text-gray-700">
-                            <table id="kabupatenTable" class="min-w-full table-auto table-text-center-number">
+                            <table id="kabupatenTable" class="cek_datatables_content min-w-full table-auto table-text-center-number">
                                 <thead>
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2">{{ __('No') }}</th>
@@ -114,13 +123,13 @@
                             </table>
                         </div>
                         <div id="tab_kecamatan" class="tab-content hidden px-4 py-2 text-gray-700">
-                            <table id="kecamatanTable" class="min-w-full table-auto table-text-center-number">
+                            <table id="kecamatanTable" class="cek_datatables_content min-w-full table-auto table-text-center-number">
                                 <thead>
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2">{{ __('No') }}</th>
                                         <th class="px-4 py-2">{{ __('Nama') }}</th>
-                                        <th class="px-4 py-2">{{ __('Provinsi') }}</th>
                                         <th class="px-4 py-2">{{ __('Kabupaten') }}</th>
+                                        <th class="px-4 py-2">{{ __('Provinsi') }}</th>
                                         <th class="px-4 py-2">{{ __('Aksi') }}</th>
                                     </tr>
                                 </thead>
@@ -128,14 +137,14 @@
                             </table>
                         </div>
                         <div id="tab_kelurahan" class="tab-content hidden px-4 py-2 text-gray-700">
-                            <table id="kelurahanTable" class="min-w-full table-auto table-text-center-number">
+                            <table id="kelurahanTable" class="cek_datatables_content min-w-full table-auto table-text-center-number">
                                 <thead>
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2">{{ __('No') }}</th>
                                         <th class="px-4 py-2">{{ __('Nama') }}</th>
-                                        <th class="px-4 py-2">{{ __('Provinsi') }}</th>
-                                        <th class="px-4 py-2">{{ __('Kabupaten') }}</th>
                                         <th class="px-4 py-2">{{ __('Kecamatan') }}</th>
+                                        <th class="px-4 py-2">{{ __('Kabupaten') }}</th>
+                                        <th class="px-4 py-2">{{ __('Provinsi') }}</th>
                                         <th class="px-4 py-2">{{ __('Aksi') }}</th>
                                     </tr>
                                 </thead>
@@ -158,6 +167,23 @@
                 </div>
                 `;
                 await CreatePopUpModal("#wilayah_container", "wilayahModal", "Tambah Data", "wilayahForm", "simpanWilayah()", $inputSlot, "Form Tambah Data", "Wilayah", null, "Simpan", "Reset", "Tutup");
+
+                const $htmlParamsType = `
+                    <li @click="open = false" x-show="!search || 'Provinsi'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Provinsi', 'provinsi'], 'params_type')">
+                        Provinsi
+                    </li>
+                    <li @click="open = false" x-show="!search || 'Kabupaten'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kabupaten', 'kabupaten'], 'params_type')">
+                        Kabupaten
+                    </li>
+                    <li @click="open = false" x-show="!search || 'Kecamatan'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kecamatan', 'kecamatan'], 'params_type')">
+                        Kecamatan
+                    </li>
+                    <li @click="open = false" x-show="!search || 'Kelurahan'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kelurahan', 'kelurahan'], 'params_type')">
+                        Kelurahan
+                    </li>
+                `;
+
+                $("#list_params_type").append($htmlParamsType);
             })();
 
             // Functions event onclick start
@@ -169,8 +195,9 @@
                 $('.tab-header').removeClass('bg-gray-100');
                 $(this).addClass('bg-gray-100');
 
+                $(`#${$target}Table`).show();
                 const $coloumnsArray = tableFormat($target);
-                    await ContentLoaderDataTable(`/api/search?get_data=${$target}`, `#${$target}Table`, $coloumnsArray);
+                await ContentLoaderDataTable(`/api/search?get_data=${$target}`, `#${$target}Table`, $coloumnsArray);
             });
             // Functions event onclick end
         });
@@ -183,9 +210,9 @@
             } else if ($target == 'kabupaten') {
                 $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' });
             } else if ($target == 'kecamatan') {
-                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' });
+                $coloumnsArray.push({ data: 'name' }, { data: 'kabupaten' }, { data: 'provinsi' });
             } else if ($target == 'kelurahan') {
-                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' }, { data: 'kabupaten' }, { data: 'kecamatan' });
+                $coloumnsArray.push({ data: 'name' }, { data: 'kecamatan' }, { data: 'kabupaten' }, { data: 'provinsi' });
             }
 
             $coloumnsArray.push({
@@ -206,19 +233,48 @@
                 $(".check_form_search").each(function() {
                     $(this).val("");
                 })
+
+                $(".cek_datatables_content").each(function() {
+                    if ($.fn.DataTable.isDataTable(this)) {
+                        $(this).DataTable().destroy();
+                        $(this).hide();
+                    }
+                })
             }
 
             if ($method == 'submit') {
                 const $formArray = $("#searchForm").serializeArray();
+
+                let $getData = '';
                 const $listID = [];
                 Object.values($formArray).forEach(function ($list) {
                     const { name, value } = $list;
-                    if (name.includes("id_") && IsValidVal(value)) {
+                    if (name.includes("id_") && !name.includes("params_type") && IsValidVal(value)) {
                         $listID.push(`${name}=${value}`);
+                    }
+                    if (name.includes("params_type") && IsValidVal(value)) {
+                        $getData = `${value}`;
                     }
                 });
 
-                console.log($listID.join("&"));
+                const $target = $listID[$listID.length - 1].replace("id_", "").split("=")[0];
+                const $params = IsValidVal($listID) && $listID.length > 1 ? $listID.join("&") : $listID;
+                const $coloumnsArray = tableFormat($getData);
+
+                if ($.fn.DataTable.isDataTable(`#${$getData}Table`)) {
+                    $(`#${$getData}Table`).DataTable().destroy();
+                }
+
+                $('.tab-header').each(function() {
+                    $('.tab-content').addClass('hidden');
+                    $(`#tab_${$getData}`).removeClass('hidden');
+
+                    $('.tab-header').removeClass('bg-gray-100');
+                    $(`#header-${$getData}`).addClass('bg-gray-100');
+                });
+
+                $(`#${$getData}Table`).show();
+                await ContentLoaderDataTable(`/api/search?get_data=${$getData}&${$params}`, `#${$getData}Table`, $coloumnsArray);
             }
         }
         // Functions event onclick end

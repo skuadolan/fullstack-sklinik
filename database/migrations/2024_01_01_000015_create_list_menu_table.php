@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('list_menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('icon')->nullable()->default('assets/images/icons/12087772.png');
+            $table->string('icon')->default('assets/images/icons/12087772.png');
             $table->string('route_name')->nullable();
             $table->string('link')->nullable();
             $table->string('type')->nullable();

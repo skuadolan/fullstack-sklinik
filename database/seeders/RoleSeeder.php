@@ -41,12 +41,12 @@ class RoleSeeder extends Seeder
                 'description' => null,
             ],
             [
-                'name' => 'client',
+                'name' => 'moderator',
                 'level' => 5,
                 'description' => null,
             ],
             [
-                'name' => 'moderator',
+                'name' => 'client',
                 'level' => 6,
                 'description' => null,
             ],
@@ -59,7 +59,37 @@ class RoleSeeder extends Seeder
                 'name' => 'member',
                 'level' => 8,
                 'description' => null,
-            ]
+            ],
+            [
+                'name' => 'petugas',
+                'level' => 9,
+                'description' => null,
+            ],
+            [
+                'name' => 'dokter',
+                'level' => 10,
+                'description' => null,
+            ],
+            [
+                'name' => 'perawat',
+                'level' => 11,
+                'description' => null,
+            ],
+            [
+                'name' => 'apoteker',
+                'level' => 12,
+                'description' => null,
+            ],
+            [
+                'name' => 'farmasi',
+                'level' => 13,
+                'description' => null,
+            ],
+            [
+                'name' => 'kasir',
+                'level' => 14,
+                'description' => null,
+            ],
         ];
 
         DB::table('roles')->insert($arryDatas);
