@@ -25,7 +25,7 @@
         style="display: none;">
         {{-- @click="open = false"> --}}
         <div x-data="{ search: '' }"
-            class="flex flex-wrap justify-start fixed left-0 z-10 w-full mt-2 bg-white rounded-md shadow-lg {{ $contentClasses }}">
+            class="flex flex-wrap justify-start fixed left-0 z-10 w-full mt-2 bg-white rounded-md shadow-lg max-h-50 {{ $contentClasses }}">
             <!-- Search Input -->
             <div class="p-2 flex justify-center w-full">
                 <x-autocomplete-layout section="" get="" x-model="search" type="text"
@@ -33,7 +33,7 @@
                     class="w-full px-4 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
 
-            <ul class="flex flex-wrap gap-10 max-h-80 overflow-x-auto">
+            <ul class="flex flex-wrap max-h-50 overflow-y-auto">
                 @if (isset($listMenu) && !empty($listMenu))
                     @foreach ($listMenu as $list)
                         <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
