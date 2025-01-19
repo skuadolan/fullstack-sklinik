@@ -36,8 +36,6 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php artisan key:generate",
-            "@php artisan migrate:fresh --seed",
             "@php artisan config:publish cors"
         ],
         "post-update-cmd": [
