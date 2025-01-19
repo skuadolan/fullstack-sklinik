@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 # Install Node.js and npm (for TailwindCSS & assets compilation)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+# RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+#     && apt-get install -y nodejs
 
 # Copy custom PHP configuration
-COPY ./docker/php.ini /usr/local/etc/php/php.ini
+# COPY ./docker/php.ini /usr/local/etc/php/php.ini
 
 # Copy application code
 COPY ./ /var/www/html

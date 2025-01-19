@@ -137,7 +137,7 @@ docker-compose up -d
 > .env
 ```bash
 DB_CONNECTION=pgsql
-DB_HOST=laravel_postgres
+DB_HOST=sklinik_postgres
 DB_PORT=5432
 DB_DATABASE=sklinik
 DB_USERNAME=postgres
