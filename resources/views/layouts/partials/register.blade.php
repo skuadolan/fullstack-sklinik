@@ -25,21 +25,21 @@
                 <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
             </div>
 
             <div>
                 <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
             </div>
 
             <div>
                 <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#registerForm')" />
             </div>
         </div>
 

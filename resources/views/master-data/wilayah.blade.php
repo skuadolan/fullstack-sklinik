@@ -42,7 +42,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kabupaten" class="check_form_search" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kabupaten" class="check_form_search" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#searchForm')" /></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -51,7 +51,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kecamatan" class="check_form_search" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kecamatan" class="check_form_search" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#searchForm')" /></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -60,7 +60,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kelurahan" class="check_form_search" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah')" /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="kelurahan" class="check_form_search" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#searchForm')" /></td>
                                         </tr>
                                     </table>
 
@@ -257,7 +257,7 @@
                     }
                 });
 
-                const $target = $listID[$listID.length - 1].replace("id_", "").split("=")[0];
+                const $target = IsValidVal($listID) ? $listID[$listID.length - 1].replace("id_", "").split("=")[0] : null;
                 const $params = IsValidVal($listID) && $listID.length > 1 ? $listID.join("&") : $listID;
                 const $coloumnsArray = tableFormat($getData);
 

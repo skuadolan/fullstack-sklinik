@@ -3,6 +3,8 @@ const [host, port] = base_url.split(':');
 const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
 
 $(document).ready(function () {
+    localStorage.clear();
+
     $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
         DisableRightClickOnMouse();
         // JQueryOnLoad();
@@ -210,9 +212,9 @@ function isset($val) {
 }
 
 function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-    const $tmpVal = isset($key) && $key != null ? (isset($val[$key]) && !empty($val[$key]) ? $val[$key] : $val) : isset($val) && !empty($val) ? $val : null;
+    const $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
     if (isset($tmpVal)) {
-        if ($get == "tmpValue") {
+        if ($get == "value") {
             if (isset($other) && $other != null) {
                 return !empty($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
             } else {
@@ -401,30 +403,75 @@ async function DropdownContentLoader($url, $target, $section = null) {
         type: 'GET',
         success: function ($response) {
             const $datas = IsValidVal($response.datas) ? $response.datas : $response;
+            if (IsValidVal($datas) && $datas.length > 0) {
+                let $html = ``;
+                $datas.forEach(function ($list) {
+                    const { type, postal_code } = $list;
+                    const $tmpType = IsValidVal(type) && $section === "wilayah" ? `${type} ` : "";
+                    const $tmpPostalCode = IsValidVal(postal_code) && $section === "wilayah" ? `<p><strong>Kode Pos: </strong>${postal_code}</p> ` : "";
+                    const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
 
-            let $html = ``;
-            $datas.forEach(function ($list) {
-                const { type, postal_code } = $list;
-                const $tmpType = IsValidVal(type) && $section === "wilayah" ? `${type} ` : "";
-                const $tmpPostalCode = IsValidVal(postal_code) && $section === "wilayah" ? `<p><strong>Kode Pos: </strong>${postal_code}</p> ` : "";
-                const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
+                    $html += `
+                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
+                        ${$txtDisplay}
+                    </li>
+                    `;
+                });
+                $html += `<li id="404_${$target}" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default" style="display: none !important">Data tidak ditemukan.</li>`;
 
-                $html += `
-                <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
-                    ${$txtDisplay}
-                </li>
-                `;
-            });
-            $html += `<li id="404_${$target}" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default" style="display: none !important">Data tidak ditemukan.</li>`;
-            $(`#list_${$target}`).html($html);
+                $(`#list_${$target}`).html($html);
+            } else {
+                $(`#list_${$target}`).html("");
+            }
         }
     });
 }
 
-async function DropdownGetLoad($get, $from, $section = null) {
-    const $idFrom = $(`#id_${$from}`).val();
-    if (IsValidVal($idFrom)) {
-        const $params = `&id_${$from}=${$idFrom}`
-        await DropdownContentLoader(`/api/search?get_data=${$get}${$params}`, $get, $section);
+async function DropdownGetLoad($get, $from, $section = null, $searchForm = null) {
+    const $formArray = $(`${$searchForm}`).serializeArray();
+    const $localStorage = localStorage.getItem("search_params");
+
+    let $statusResult = true;
+    if (IsValidVal($localStorage)) {
+        const $searchParams = JSON.parse($localStorage);
+        $searchParams.forEach(function ($list, $index) {
+            const { name, value } = $list;
+            if (name.includes("id_") && IsValidVal(value)) {
+                if (JSON.stringify($list) !== JSON.stringify($formArray[$index])) {
+                    $statusResult = false;
+                }
+            }
+        });
+    }
+
+    if (!$statusResult) {
+        Object.values($formArray).forEach(function ($list) {
+            const { name } = $list;
+            if (name.includes("id_") && !name.includes("provinsi")) {
+                $statusResult = true;
+
+                const $tmpID = name.replace("id_", "");
+                $(`#${$tmpID}`).val("");
+                $(`#id_${$tmpID}`).val("");
+            }
+        });
+    }
+
+    if ($statusResult) {
+        if (IsValidVal($formArray)) {
+            localStorage.setItem("search_params", JSON.stringify($formArray));
+        }
+
+        const $listID = [];
+        Object.values($formArray).forEach(function ($list) {
+            const { name, value } = $list;
+            if (name.includes("id_") && IsValidVal(value)) {
+                $listID.push(`${name}=${value}`);
+            }
+        });
+
+        const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
+        const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
+        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
     }
 }

@@ -14,15 +14,32 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\User;
-use App\Models\ClientConfigs;
 use App\Models\Pegawai;
 use App\Models\Penduduk;
 use App\Models\ListClient;
 use App\Http\Libraries\Tools;
+use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
+use Error;
 
 class UserController extends Controller
 {
+    private $resCode, $tools, $userAgent;
+    public function __construct()
+    {
+        $this->tools = new Tools;
+        $this->resCode = new ResponseCode;
+        $this->userAgent = request()->header('User-Agent');
+    }
+
+    private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
+        return $this->tools->isValidVal($val, $get, $other, $key);
+    }
+
+    private function isValidAddress($req) {
+        return $this->tools->isValidAddress($req);
+    }
+
     private function checkValidation($req)
     {
         $req->validate([
@@ -32,20 +49,14 @@ class UserController extends Controller
         ]);
     }
 
-    private $resCode, $tools, $userAgent;
-    public function __construct()
-    {
-        $this->tools = new Tools;
-        $this->resCode = new ResponseCode;
-        $this->userAgent = request()->header('User-Agent');
-    }
-
     public function index()
     {
         try {
-            $getDatas = $this->tools->IsValidVal(User::all());
-            if ($this->tools->IsValidVal($getDatas)) {
-                return $this->resCode->OKE("berhasil mengambil data", $getDatas);
+            $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
+            JOIN penduduks pdd ON pdd.id = usr.id_penduduk";
+            $datas = DB::select("$qry");
+            if ($this->IsValidVal($datas)) {
+                return $this->resCode->OKE("berhasil mengambil data", $datas);
             }
             return $this->resCode->OKE("tidak ada data");
         } catch (Exception $th) {
@@ -66,6 +77,10 @@ class UserController extends Controller
         try {
             if (strpos($this->userAgent, 'Postman') !== false) {
                 $this->checkValidation($req);
+            }
+
+            if (!$this->isValidAddress($req)) {
+                throw new Error("alamat tidak valid");
             }
 
             DB::beginTransaction();
@@ -127,9 +142,12 @@ class UserController extends Controller
     public function show(string $id)
     {
         try {
-            $getDatas = $this->tools->isValidVal(User::find($id));
-            if ($getDatas) {
-                return $this->resCode->OKE("berhasil mengambil data", $getDatas);
+            $wheres = ($this->IsValidVal($id) ? " WHERE usr.id = $id " : "");
+            $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
+            JOIN penduduks pdd ON pdd.id = usr.id_penduduk $wheres";
+            $datas = DB::select("$qry");
+            if ($this->IsValidVal($datas)) {
+                return $this->resCode->OKE("berhasil mengambil data", $datas);
             }
             return $this->resCode->OKE("tidak ada data");
         } catch (Exception $th) {
