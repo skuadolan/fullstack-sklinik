@@ -15,4 +15,4 @@ RUN pnpm install
 COPY . .
 
 # Jalankan perintah default
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "build"]

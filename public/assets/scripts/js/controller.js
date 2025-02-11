@@ -431,14 +431,23 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     const $formArray = $(`${$searchForm}`).serializeArray();
     const $localStorage = localStorage.getItem("search_params");
 
+    const $tmpDropdownData = [];
+    Object.values($formArray).forEach(function ($list) {
+        const { name } = $list;
+        if (IsValidVal($(`#id_${name}`).val())) {
+            $tmpDropdownData.push({ name: `id_${name}`, value: $(`#id_${name}`).val() });
+        }
+    });
+
     let $statusResult = true;
+    const $searchParams = (IsValidVal($localStorage) ? JSON.parse($localStorage) : []);
     if (IsValidVal($localStorage)) {
-        const $searchParams = JSON.parse($localStorage);
         $searchParams.forEach(function ($list, $index) {
-            const { name, value } = $list;
-            if (name.includes("id_") && IsValidVal(value)) {
-                if (JSON.stringify($list) !== JSON.stringify($formArray[$index])) {
+            const { name } = $list;
+            if (name.includes("id_")) {
+                if (JSON.stringify($list) != JSON.stringify($tmpDropdownData[$index])) {
                     $statusResult = false;
+                    return;
                 }
             }
         });
@@ -447,31 +456,29 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     if (!$statusResult) {
         Object.values($formArray).forEach(function ($list) {
             const { name } = $list;
-            if (name.includes("id_") && !name.includes("provinsi")) {
-                $statusResult = true;
-
-                const $tmpID = name.replace("id_", "");
-                $(`#${$tmpID}`).val("");
-                $(`#id_${$tmpID}`).val("");
+            if (IsValidVal($(`#id_${name}`).val()) && !name.includes("provinsi")) {
+                $(`#${name}`).val("");
+                $(`#id_${name}`).val("");
+                return;
             }
         });
     }
 
-    if ($statusResult) {
-        if (IsValidVal($formArray)) {
-            localStorage.setItem("search_params", JSON.stringify($formArray));
+    if (IsValidVal($tmpDropdownData)) {
+        localStorage.setItem("search_params", JSON.stringify($tmpDropdownData));
+
+        if ($tmpDropdownData.length != $searchParams.length || !$statusResult) {
+            const $listID = [];
+            Object.values($formArray).forEach(function ($list) {
+                const { name, value } = $list;
+                if (name.includes("id_") && IsValidVal(value)) {
+                    $listID.push(`${name}=${value}`);
+                }
+            });
+
+            const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
+            const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
+            await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
         }
-
-        const $listID = [];
-        Object.values($formArray).forEach(function ($list) {
-            const { name, value } = $list;
-            if (name.includes("id_") && IsValidVal(value)) {
-                $listID.push(`${name}=${value}`);
-            }
-        });
-
-        const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
-        const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
-        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
     }
 }
