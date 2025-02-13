@@ -14,21 +14,21 @@ class GenderSeeder extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        DB::table('gender')->insert([
-            'name' => 'Laki - Laki',
-            'type' => 0,
-        ]);
-        DB::table('gender')->insert([
-            'name' => 'Perempuan',
-            'type' => 0,
-        ]);
-        DB::table('gender')->insert([
-            'name' => 'Pria',
-            'type' => 1,
-        ]);
-        DB::table('gender')->insert([
-            'name' => 'Wanita',
-            'type' => 1,
-        ]);
+        $datas = [
+            [
+                "name" => "Laki - Laki"
+            ],
+            [
+                "name" => "Perempuan"
+            ],
+            [
+                "name" => "Pria"
+            ],
+            [
+                "name" => "Wanita"
+            ],
+        ];
+
+        DB::table('gender')->insert($datas);
     }
 }

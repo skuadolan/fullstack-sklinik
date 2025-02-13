@@ -23,8 +23,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'username' => 'root',
-            'email' => 'root@skuad.com',
-            'status' => 1,
+            'email' => 'root@sklinik.com',
             'id_role' => 1,
             'id_penduduk' => $id_penduduk,
             'password' => Hash::make('1234'),
