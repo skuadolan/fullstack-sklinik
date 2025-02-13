@@ -3,7 +3,7 @@ const [host, port] = base_url.split(':');
 const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
 
 $(document).ready(function () {
-    localStorage.clear();
+    // localStorage.clear();
 
     $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
         DisableRightClickOnMouse();
@@ -43,61 +43,61 @@ function ContentLoader($url, $id_content) {
     });
 }
 
-function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
-    // if (!$.fn.DataTable.isDataTable($id_content)) {
+async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
+    // if ($.fn.DataTable.isDataTable($id_content)) {
     //     $(`${$id_content}`).DataTable().destroy();
     // }
 
     if (!$.fn.DataTable.isDataTable($id_content)) {
-        toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
-        $('#loadingContetLoader').show();
-
-        $.ajax({
-            url: `${$base_url}${$url}`,
-            type: 'GET',
-            success: function (response) {
-                $(`${$id_content}`).DataTable({
-                    dom: '<"top flex justify-between"Bfr>t<"bottom"lp><"clear">', // Custom DOM layout
-                    buttons: [
-                        {
-                            extend: 'excelHtml5', // Excel export button
-                            text: '<span class="text-sm"><i class="fa-regular fa-file-excel"></i> Excel</span>',
-                            className: 'm-0 p-0', // Customize button style
-                            exportOptions: {
-                                modifier: {
-                                    page: 'all' // Export all pages of the table, not just the current page
-                                },
-                                columns: ':visible' // Only export the visible columns
-                            }
+        await $(`${$id_content}`).DataTable({
+            dom: '<"top flex justify-between"Bfr>t<"bottom"lp><"clear">', // Custom DOM layout
+            buttons: [
+                {
+                    extend: 'excelHtml5', // Excel export button
+                    text: '<span class="text-sm"><i class="fa-regular fa-file-excel"></i> Excel</span>',
+                    className: 'm-0 p-0', // Customize button style
+                    exportOptions: {
+                        modifier: {
+                            page: 'all' // Export all pages of the table, not just the current page
                         },
-                        {
-                            extend: 'colvis', // Excel export button
-                            text: '<span class="text-sm"><i class="fa-solid fa-eye"></i> Show</span>',
-                            className: 'm-0 p-0 w-fit', // Customize button style
-                        },
-                    ],
-                    pageLength: 5, // Set initial page length (entries per page)
-                    lengthMenu: [5, 10, 25, 50, 75, 100], // Provide options for entries per page
-                    columnDefs: [
-                        {
-                            targets: -1, // Last column (Actions column)
-                            visible: true // Ensure 'Actions' column is visible
-                        }
-                    ],
-                    data: response.datas,
-                    columns: $table_coloumn
-                })
-                $('#loadingContetLoader').hide();
+                        columns: ':visible' // Only export the visible columns
+                    }
+                },
+                {
+                    extend: 'colvis', // Excel export button
+                    text: '<span class="text-sm"><i class="fa-solid fa-eye"></i> Show</span>',
+                    className: 'm-0 p-0 w-fit', // Customize button style
+                },
+            ],
+            pageLength: 5, // Set initial page length (entries per page)
+            lengthMenu: [5, 10, 25, 50, 75, 100], // Provide options for entries per page
+            columnDefs: [
+                {
+                    targets: -1, // Last column (Actions column)
+                    visible: true // Ensure 'Actions' column is visible
+                }
+            ],
+            // processing: true, // Aktifkan indikator processing bawaan DataTables
+            // serverSide: true,
+            ajax: {
+                url: `${$url}`,
+                dataSrc: "datas",
+                type: "GET",
+                beforeSend: function () {
+                    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
+                    $('#loadingContetLoader').show(); // Tampilkan custom loading
+                },
+                complete: function () {
+                    toastr.success("Berhasil mengambil data", "Success!");
+                    $('#loadingContetLoader').hide(); // Sembunyikan custom loading
+                },
+                error: function (xhr) {
+                    toastr.error("Gagal mengambil data", "Kesalahan!");
+                    $('#loadingContetLoader').hide();
+                }
             },
-            complete: function () {
-                $('#loadingContetLoader').hide();
-                toastr.success("Berhasil mengambil data", "Success!");
-            },
-            error: function () {
-                $('#loadingContetLoader').hide();
-                toastr.error("Gagal mengambil data", "Kesalahan!");
-            },
-        });
+            columns: $table_coloumn
+        })
     }
 }
 
@@ -141,6 +141,62 @@ function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
         $('#loadingContetLoader').hide();
         toastr.success("Berhasil mengambil data", "Success!");
     }, 1500);
+}
+
+async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
+    if (!$.fn.DataTable.isDataTable(`${$id_content}`)) {
+        await $(`${$id_content}`).DataTable({
+            dom: '<"top flex justify-between"Bfr>t<"bottom"lp><"clear">', // Custom DOM layout
+            buttons: [
+                {
+                    extend: 'excelHtml5', // Excel export button
+                    text: '<span class="text-sm"><i class="fa-regular fa-file-excel"></i> Excel</span>',
+                    className: 'm-0 p-0', // Customize button style
+                    exportOptions: {
+                        modifier: {
+                            page: 'all' // Export all pages of the table, not just the current page
+                        },
+                        columns: ':visible' // Only export the visible columns
+                    }
+                },
+                {
+                    extend: 'colvis', // Excel export button
+                    text: '<span class="text-sm"><i class="fa-solid fa-eye"></i> Show</span>',
+                    className: 'm-0 p-0 w-fit', // Customize button style
+                },
+            ],
+            pageLength: 5, // Set initial page length (entries per page)
+            lengthMenu: [5, 10, 25, 50, 75, 100], // Provide options for entries per page
+            columnDefs: [
+                {
+                    targets: -1, // Last column (Actions column)
+                    visible: true // Ensure 'Actions' column is visible
+                }
+            ],
+            // processing: true, // Aktifkan indikator processing bawaan DataTables
+            // serverSide: true,
+            ajax: {
+                url: `${$url}`,
+                dataSrc: "datas",
+                type: "GET",
+                beforeSend: function () {
+                    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
+                    $('#loadingContetLoader').show(); // Tampilkan custom loading
+                },
+                complete: function () {
+                    toastr.success("Berhasil mengambil data", "Success!");
+                    $('#loadingContetLoader').hide(); // Sembunyikan custom loading
+                },
+                error: function (xhr) {
+                    toastr.error("Gagal mengambil data", "Kesalahan!");
+                    $('#loadingContetLoader').hide();
+                }
+            },
+            columns: $table_coloumn
+        })
+    } else {
+        $(`${$id_content}`).DataTable().ajax.reload();
+    }
 }
 
 async function GetFromAPI($url) {
@@ -431,14 +487,23 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     const $formArray = $(`${$searchForm}`).serializeArray();
     const $localStorage = localStorage.getItem("search_params");
 
+    const $tmpDropdownData = [];
+    Object.values($formArray).forEach(function ($list) {
+        const { name } = $list;
+        if (IsValidVal($(`#id_${name}`).val())) {
+            $tmpDropdownData.push({ name: `id_${name}`, value: $(`#id_${name}`).val() });
+        }
+    });
+
     let $statusResult = true;
+    const $searchParams = (IsValidVal($localStorage) ? JSON.parse($localStorage) : []);
     if (IsValidVal($localStorage)) {
-        const $searchParams = JSON.parse($localStorage);
         $searchParams.forEach(function ($list, $index) {
-            const { name, value } = $list;
-            if (name.includes("id_") && IsValidVal(value)) {
-                if (JSON.stringify($list) !== JSON.stringify($formArray[$index])) {
+            const { name } = $list;
+            if (name.includes("id_")) {
+                if (JSON.stringify($list) != JSON.stringify($tmpDropdownData[$index])) {
                     $statusResult = false;
+                    return;
                 }
             }
         });
@@ -447,31 +512,29 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     if (!$statusResult) {
         Object.values($formArray).forEach(function ($list) {
             const { name } = $list;
-            if (name.includes("id_") && !name.includes("provinsi")) {
-                $statusResult = true;
-
-                const $tmpID = name.replace("id_", "");
-                $(`#${$tmpID}`).val("");
-                $(`#id_${$tmpID}`).val("");
+            if (IsValidVal($(`#id_${name}`).val()) && !name.includes("provinsi")) {
+                $(`#${name}`).val("");
+                $(`#id_${name}`).val("");
+                return;
             }
         });
     }
 
-    if ($statusResult) {
-        if (IsValidVal($formArray)) {
-            localStorage.setItem("search_params", JSON.stringify($formArray));
+    if (IsValidVal($tmpDropdownData)) {
+        localStorage.setItem("search_params", JSON.stringify($tmpDropdownData));
+
+        if ($tmpDropdownData.length != $searchParams.length || !$statusResult) {
+            const $listID = [];
+            Object.values($formArray).forEach(function ($list) {
+                const { name, value } = $list;
+                if (name.includes("id_") && IsValidVal(value)) {
+                    $listID.push(`${name}=${value}`);
+                }
+            });
+
+            const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
+            const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
+            await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
         }
-
-        const $listID = [];
-        Object.values($formArray).forEach(function ($list) {
-            const { name, value } = $list;
-            if (name.includes("id_") && IsValidVal(value)) {
-                $listID.push(`${name}=${value}`);
-            }
-        });
-
-        const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
-        const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
-        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
     }
 }

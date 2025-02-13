@@ -75,7 +75,7 @@ services:
     volumes:
       - .:/var/www/html
       - /var/www/html/node_modules
-    command: ["pnpm", "run", "dev"]
+    command: ["pnpm", "build"]
     networks:
       - sklinik_network
 

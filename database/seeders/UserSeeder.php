@@ -34,8 +34,7 @@ class UserSeeder extends Seeder
         $id_user = DB::table('users')->max('id');
 
         DB::table('pegawais')->insert([
-            'id_user' => $id_user,
-            'id_penduduk' => $id_penduduk
+            'id_user' => $id_user
         ]);
     }
 }
