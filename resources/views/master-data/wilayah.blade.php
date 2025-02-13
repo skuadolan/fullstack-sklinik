@@ -141,6 +141,7 @@
                                 <thead>
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2">{{ __('No') }}</th>
+                                        <th class="px-4 py-2 text-nowrap">{{ __('Kode Pos') }}</th>
                                         <th class="px-4 py-2">{{ __('Nama') }}</th>
                                         <th class="px-4 py-2">{{ __('Kecamatan') }}</th>
                                         <th class="px-4 py-2">{{ __('Kabupaten') }}</th>
@@ -197,6 +198,7 @@
 
                 $(`#${$target}Table`).show();
                 const $coloumnsArray = tableFormat($target);
+
                 await ContentLoaderDataTable(`/api/search?get_data=${$target}`, `#${$target}Table`, $coloumnsArray);
             });
             // Functions event onclick end
@@ -212,13 +214,15 @@
             } else if ($target == 'kecamatan') {
                 $coloumnsArray.push({ data: 'name' }, { data: 'kabupaten' }, { data: 'provinsi' });
             } else if ($target == 'kelurahan') {
-                $coloumnsArray.push({ data: 'name' }, { data: 'kecamatan' }, { data: 'kabupaten' }, { data: 'provinsi' });
+                $coloumnsArray.push({ data: 'postal_code' }, { data: 'name' }, { data: 'kecamatan' }, { data: 'kabupaten' }, { data: 'provinsi' });
             }
 
             $coloumnsArray.push({
                 data: null,
+                orderable: false,
+                searchable: false,
                 render: (data) =>
-                    `<div class='flex gap-5 justify-center'>
+                    `<div class='flex gap-1 justify-center'>
                         <button class='inline-flex items-center px-4 py-2 bg-warning border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-warning focus:bg-warning active:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Edit</button>
                         <button class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Hapus</button>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
@@ -230,6 +234,8 @@
         // Functions event onclick start
         async function search($method) {
             if ($method == 'reset') {
+                localStorage.removeItem("search_params");
+
                 $(".check_form_search").each(function() {
                     $(this).val("");
                 })
@@ -261,10 +267,6 @@
                 const $params = IsValidVal($listID) && $listID.length > 1 ? $listID.join("&") : $listID;
                 const $coloumnsArray = tableFormat($getData);
 
-                if ($.fn.DataTable.isDataTable(`#${$getData}Table`)) {
-                    $(`#${$getData}Table`).DataTable().destroy();
-                }
-
                 $('.tab-header').each(function() {
                     $('.tab-content').addClass('hidden');
                     $(`#tab_${$getData}`).removeClass('hidden');
@@ -272,6 +274,10 @@
                     $('.tab-header').removeClass('bg-gray-100');
                     $(`#header-${$getData}`).addClass('bg-gray-100');
                 });
+
+                if ($.fn.DataTable.isDataTable(`#${$getData}Table`)) {
+                    $(`#${$getData}Table`).DataTable().destroy();
+                }
 
                 $(`#${$getData}Table`).show();
                 await ContentLoaderDataTable(`/api/search?get_data=${$getData}&${$params}`, `#${$getData}Table`, $coloumnsArray);

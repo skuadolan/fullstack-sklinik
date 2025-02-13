@@ -44,10 +44,6 @@
     text-align: center !important;
 }
 
-.dataTable thead tr th {
-    text-align: center !important;
-}
-
 .dataTable div .bottom .dt-length select {
     min-width: 65px;
     max-width: max-content !important;
