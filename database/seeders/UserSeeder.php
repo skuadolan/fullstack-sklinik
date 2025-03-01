@@ -16,7 +16,8 @@ class UserSeeder extends Seeder
         setlocale(LC_TIME, 'id_ID.utf8');
 
         DB::table('penduduks')->insert([
-            'fullname' => 'root'
+            'fullname' => 'root',
+            'created_at' => now(env('APP_TIMEZONE', 'UTC'))
         ]);
 
         $id_penduduk = DB::table('penduduks')->max('id');
@@ -33,7 +34,8 @@ class UserSeeder extends Seeder
         $id_user = DB::table('users')->max('id');
 
         DB::table('pegawais')->insert([
-            'id_user' => $id_user
+            'id_user' => $id_user,
+            'created_at' => now(env('APP_TIMEZONE', 'UTC'))
         ]);
     }
 }

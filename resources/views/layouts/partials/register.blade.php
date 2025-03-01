@@ -21,21 +21,21 @@
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
             </div>
 
-            <div>
+            <div id="container_kabupaten" class="address_hidden">
                 <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
             </div>
 
-            <div>
+            <div id="container_kecamatan" class="address_hidden">
                 <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
             </div>
 
-            <div>
+            <div id="container_kelurahan" class="address_hidden">
                 <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
@@ -117,6 +117,36 @@
         $(document).ready(async function() {
             $("#userRegist").hide();
             $(".submitRegistSection").hide();
+
+            $(".address_hidden").each(function() {
+                $(this).hide();
+            });
+
+            // On Address Changes START
+            const $id_provinsi = document.getElementById("id_provinsi");
+            const $obsIDProv = new MutationObserver(() => {
+                if ($id_provinsi.value) {
+                    $("#container_kabupaten").show();
+                }
+            });
+            $obsIDProv.observe($id_provinsi, { attributes: true, attributeFilter: ["value"] });
+
+            const $id_kabupaten = document.getElementById("id_kabupaten");
+            const $obsIDKab = new MutationObserver(() => {
+                if ($id_kabupaten.value) {
+                    $("#container_kecamatan").show();
+                }
+            });
+            $obsIDKab.observe($id_kabupaten, { attributes: true, attributeFilter: ["value"] });
+
+            const $id_kecamatan = document.getElementById("id_kecamatan");
+            const $obsIDKec = new MutationObserver(() => {
+                if ($id_kecamatan.value) {
+                    $("#container_kelurahan").show();
+                }
+            });
+            $obsIDKec.observe($id_kecamatan, { attributes: true, attributeFilter: ["value"] });
+            // On Address Changes END
         });
 
         // FUNCTION ON CLICK ON CLICK START
