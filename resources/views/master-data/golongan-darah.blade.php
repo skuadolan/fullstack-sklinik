@@ -59,13 +59,13 @@
 <script>
     $(document).ready(async function () {
         (async function () {
-            const $inputSlot = `
+            const $modalSlotContent = `
             <div class="mt-4">
                 <label for="nama">Nama *</label>
                 <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
             </div>
             `;
-            await CreatePopUpModal("#goldar_container", "goldarModal", "Tambah Data", "goldarForm", "simpanGoldar()", $inputSlot, "Form Tambah Data", "Golongan Darah", null, "Simpan", "Reset", "Tutup");
+            await CreatePopUpModal("#goldar_container", "goldarModal", "goldarForm", "simpanGoldar()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Golongan Darah"], null, { btn: true });
         })();
 
         await ContentLoaderDataTableV2(@json($goldar), '#golonganDarahTable', [

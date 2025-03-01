@@ -14,10 +14,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
         DB::table('penduduks')->insert([
             'fullname' => 'root',
-            'created_at' => now(env('APP_TIMEZONE', 'UTC'))
+            'created_at' => $dateNow
         ]);
 
         $id_penduduk = DB::table('penduduks')->max('id');
@@ -28,14 +29,14 @@ class UserSeeder extends Seeder
             'id_role' => 1,
             'id_penduduk' => $id_penduduk,
             'password' => Hash::make('1234'),
-            'created_at' => now(env('APP_TIMEZONE', 'UTC'))
+            'created_at' => $dateNow
         ]);
 
         $id_user = DB::table('users')->max('id');
 
         DB::table('pegawais')->insert([
             'id_user' => $id_user,
-            'created_at' => now(env('APP_TIMEZONE', 'UTC'))
+            'created_at' => $dateNow
         ]);
     }
 }

@@ -94,7 +94,7 @@ class SearchController extends Controller
                     $wheres .= ($this->IsValidVal($req->id_client) ? " usr.id_client = $req->id_client AND " : "");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(usr.username) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT usr.username, usr.email, usr.status, usr.id_role, rol.name as role_name, pdd.fullname, usr.id_client FROM users usr JOIN penduduks pdd ON pdd.id = usr.id_penduduk JOIN roles rol ON rol.id = usr.id_role $wheres ";
+                    $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, rol.name as role_name, pdd.fullname, usr.id_client FROM users usr JOIN penduduks pdd ON pdd.id = usr.id_penduduk JOIN roles rol ON rol.id = usr.id_role $wheres ";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;

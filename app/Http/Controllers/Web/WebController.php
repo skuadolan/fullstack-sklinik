@@ -56,5 +56,8 @@ class WebController extends Controller
         return view('master-data.user-system');
     }
 
-
+    public function PendaftaranPasien(Request $req)
+    {
+        return view('transaksi.pendaftaran-pasien');
+    }
 }

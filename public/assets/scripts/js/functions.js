@@ -258,3 +258,95 @@ function InitAutocomplete() {
         }
     });
 }
+
+function TxtCheckInputSymbol($this) {
+    const $invalidChars = /[<>\/'";`\\!@#$%^&*]/g;
+    let $newVal = $($this).val();
+
+    if ($invalidChars.test($newVal)) {
+        Swal.fire({
+            title: "Kesalahan!",
+            html: `Simbol <i><strong>${$newVal}</strong></i></br> Tidak diperbolehkan!`,
+            icon: "error"
+        });
+        $($this).val($newVal.replace($invalidChars, ""));
+    }
+}
+
+function HiddenAddressDropdown() {
+    if ($(".address_hidden").length) {
+        $(".address_hidden").each(function() {
+            $(this).hide();
+        });
+
+        // On Address Changes START
+        const $id_provinsi = document.getElementById("id_provinsi");
+        const $obsIDProv = new MutationObserver(() => {
+            if ($id_provinsi.value) {
+                $("#container_kabupaten").show();
+            }
+        });
+        $obsIDProv.observe($id_provinsi, { attributes: true, attributeFilter: ["value"] });
+
+        const $id_kabupaten = document.getElementById("id_kabupaten");
+        const $obsIDKab = new MutationObserver(() => {
+            if ($id_kabupaten.value) {
+                $("#container_kecamatan").show();
+            }
+        });
+        $obsIDKab.observe($id_kabupaten, { attributes: true, attributeFilter: ["value"] });
+
+        const $id_kecamatan = document.getElementById("id_kecamatan");
+        const $obsIDKec = new MutationObserver(() => {
+            if ($id_kecamatan.value) {
+                $("#container_kelurahan").show();
+            }
+        });
+        $obsIDKec.observe($id_kecamatan, { attributes: true, attributeFilter: ["value"] });
+        // On Address Changes END
+    }
+}
+
+function AllNotify($msg, $section) {
+    if ($section == "success") {
+        Swal.fire({
+            title: "Berhasil!",
+            text: $msg,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+        })
+        toastr.success($msg, "Berhasil!");
+    }
+
+    if ($section == "error") {
+        Swal.fire({
+            title: "Kesalahan!",
+            text: $msg,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+        })
+        toastr.error($msg, "Kesalahan!");
+    }
+
+    if ($section == "warning") {
+        Swal.fire({
+            title: "Peringatan!",
+            text: $msg,
+            icon: "warning",
+            confirmButtonColor: "#3085d6",
+        })
+        toastr.warning($msg, "Peringatan!");
+    }
+
+    if ($section == "info") {
+        Swal.fire({
+            title: "Sekilas Info!",
+            text: $msg,
+            icon: "info",
+            confirmButtonColor: "#3085d6",
+        })
+        toastr.info($msg, "Sekilas Info!");
+    }
+
+    return;
+}

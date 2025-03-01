@@ -103,13 +103,13 @@
     <script>
         $(document).ready(async function() {
             (async function() {
-                const $inputSlot = `
+                const $modalSlotContent = `
                 <div class="mt-4">
                     <label for="nama">Nama *</label>
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#user_container", "userModal", "Tambah Data", "userForm", "simpanWilayah()", $inputSlot, "Form Tambah Data", "Wilayah", null, "Simpan", "Reset", "Tutup");
+                await CreatePopUpModal("#user_container", "userModal", "userForm", "simpanUser()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "User"], null, { btn: true });
 
                 const $htmlParamsType = `
                     <li @click="open = false" x-show="!search || 'Roles'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Roles', 'provinsi'], 'params_type')">
