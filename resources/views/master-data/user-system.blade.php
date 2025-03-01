@@ -17,7 +17,7 @@
                             <div class="w-full sm:w-1/2 flex flex-wrap">
                                 <form id="searchForm" onsubmit="search('submit')">
                                     <table class="w-full table-no-border">
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_status" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Status
@@ -26,7 +26,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="status" class="check_form_search" placeholder="Pilih status..." /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_role" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Role
@@ -148,7 +148,7 @@
             } else if ($target == 'users') {
                 $coloumnsArray.push({ data: 'fullname' }, { data: 'username' }, { data: 'email' }, { data: 'role_name' });
                 $coloumnsArray.push({
-                    data: 'status',
+                    data: 'is_active',
                     render: (data) =>
                         `
                         <div class="text-center">

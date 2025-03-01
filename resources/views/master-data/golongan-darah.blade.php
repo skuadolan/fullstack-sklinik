@@ -17,7 +17,7 @@
                             <div class="w-full sm:w-1/2 flex flex-wrap">
                                 <form id="searchForm" onsubmit="">
                                     <table class="w-full table-no-border">
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Nama

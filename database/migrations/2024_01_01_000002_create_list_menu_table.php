@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_tier_level')->default(1);
             $table->foreign('id_tier_level')->references('id')->on('tier_level')->onDelete('cascade');
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
     }

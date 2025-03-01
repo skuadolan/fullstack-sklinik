@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('name');
             $table->integer('is_actived')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
     }
