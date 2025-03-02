@@ -1,5 +1,5 @@
 @if ($section == 'datepicker')
-    <x-text-input type="text" class="datepicker cursor-pointer" readonly />
+    <x-text-input {{ $attributes->merge(['type'=> 'text', 'class' => 'block mt-1 w-full datepicker cursor-pointer']) }} readonly />
     <script>
         $(".datepicker").datetimepicker({
             timepicker: false, // Nonaktifkan pilihan waktu
@@ -11,7 +11,7 @@
 @endif
 
 @if ($section == 'datetimepicker')
-    <x-text-input type="text" class="datetimepicker cursor-pointer" readonly />
+    <x-text-input {{ $attributes->merge(['type'=> 'text', 'class' => 'block mt-1 w-full datetimepicker cursor-pointer']) }} readonly />
     <script>
         $(".datetimepicker").datetimepicker({
             format: 'd-m-Y H:i', // Format: Tahun-Bulan-Hari Jam:Menit
@@ -23,7 +23,7 @@
 @endif
 
 @if ($section == 'timepicker')
-    <x-text-input type="text" class="timepicker cursor-pointer" readonly />
+    <x-text-input {{ $attributes->merge(['type'=> 'text', 'class' => 'block mt-1 w-full timepicker cursor-pointer']) }} readonly />
     <script>
         $(".timepicker").datetimepicker({
             datepicker: false, // Nonaktifkan pilihan tanggal

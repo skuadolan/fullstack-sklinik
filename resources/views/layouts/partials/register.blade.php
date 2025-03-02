@@ -1,7 +1,7 @@
 <x-card-box-shadow-layout>
     <form id="registerForm" onsubmit="submitForm('registerForm')">
         @csrf
-        <input type="hidden" name="token" id="csrf-token" />
+        <input type="hidden" name="token" class="csrf-token" />
 
         <div id="clientRegist">
             <div>
@@ -21,21 +21,21 @@
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
             </div>
 
-            <div>
+            <div id="container_kabupaten" class="address_hidden">
                 <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
             </div>
 
-            <div>
+            <div id="container_kecamatan" class="address_hidden">
                 <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
             </div>
 
-            <div>
+            <div id="container_kelurahan" class="address_hidden">
                 <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
@@ -48,7 +48,7 @@
                 <label for="company_name" class="block text-sm font-medium text-gray-700 mb-2">
                     Nama Lengkap<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="fullname" class="block mt-1 w-full" type="text" name="fullname" :value="old('fullname')" required autofocus autocomplete="username" />
+                <x-text-input id="fullname" class="block mt-1 w-full text-capitalize-input" type="text" name="fullname" :value="old('fullname')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('fullname')" class="mt-2" />
             </div>
 
@@ -74,10 +74,7 @@
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                     Password<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="password" class="block mt-1 w-full"
-                    type="password"
-                    name="password"
-                    required autocomplete="new-password" />
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
@@ -86,16 +83,13 @@
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
                     Confirm Password<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                    type="password"
-                    name="password_confirmation" required autocomplete="new-password" />
+                <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <p class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
-                onclick="openSection('loginSection')">
+            <p class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer" onclick="openSection('loginSection')">
                 {{ __('Sudah terdaftar?') }}
             </p>
 
@@ -107,7 +101,7 @@
                 {{ __('Kembali') }}
             </x-secondary-button>
 
-            <x-btn-customize-layout class="submitRegistSection ms-4" section="primary">
+            <x-btn-customize-layout class="submitRegistSection ms-4" section="success">
                 {{ __('Simpan') }}
             </x-btn-customize-layout>
         </div>
@@ -133,7 +127,7 @@
                 $(".check_form_client_register").each(function () {
                     if (!IsValidVal($(this).val())) {
                         $(this).focus();
-                        toastr.error("Inputan harus diisi!", "Kesalahan!");
+                        AllNotify("Inputan harus diisi!", "error");
                         isFilled = false;
                         return false;
                     } else {

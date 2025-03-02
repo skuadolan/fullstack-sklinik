@@ -78,7 +78,7 @@
 
 @if ($section == 'ssr-dropdown' && !empty($get))
     @php
-        $listSection = ['provinsi', 'golongan_darah'];
+        $listNoAComplete = ['provinsi', 'golongan_darah'];
     @endphp
 
     @if ($get == 'provinsi')
@@ -159,7 +159,7 @@
         </div>
     @endif
 
-    @if (isset($get) && !empty($get) && !in_array($get, $listSection))
+    @if (isset($get) && !empty($get) && !in_array($get, $listNoAComplete))
         @php
             $idGet = "id_$get";
         @endphp

@@ -24,5 +24,6 @@ class ListClient extends Authenticatable
         'id_kecamatan',
         'id_kelurahan',
         'address',
+        'expired_date'
     ];
 }

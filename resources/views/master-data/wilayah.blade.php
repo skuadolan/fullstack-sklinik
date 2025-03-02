@@ -17,7 +17,7 @@
                             <div class="w-full sm:w-1/2 flex flex-wrap">
                                 <form id="searchForm" onsubmit="search('submit')">
                                     <table class="w-full table-no-border">
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Cari Berdasarkan
@@ -26,7 +26,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="params_type" class="check_form_search" placeholder="Pilih pencarian..." /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Provinsi
@@ -35,7 +35,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="provinsi" class="check_form_search" placeholder="Pilih provinsi..." /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Kabupaten
@@ -44,7 +44,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="kabupaten" class="check_form_search" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#searchForm')" /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Kecamatan
@@ -53,7 +53,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="kecamatan" class="check_form_search" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#searchForm')" /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Kelurahan
@@ -161,13 +161,13 @@
     <script>
         $(document).ready(async function() {
             (async function() {
-                const $inputSlot = `
+                const $modalSlotContent = `
                 <div class="mt-4">
                     <label for="nama">Nama *</label>
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#wilayah_container", "wilayahModal", "Tambah Data", "wilayahForm", "simpanWilayah()", $inputSlot, "Form Tambah Data", "Wilayah", null, "Simpan", "Reset", "Tutup");
+                await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", "simpanWilayah()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, { btn: true });
 
                 const $htmlParamsType = `
                     <li @click="open = false" x-show="!search || 'Provinsi'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Provinsi', 'provinsi'], 'params_type')">

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('id_master_data_tarif')->references('id')->on('master_data_tarif')->onDelete('cascade');
             $table->decimal('sub_total_biaya', 15, 2)->default(0)->comment("Sub Total Biaya = Biaya Master Data Tarif");
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Libraries;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class Tools
@@ -39,5 +40,9 @@ class Tools
         $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
         $datas = DB::select("$qry");
         return $datas;
+    }
+
+    public function reformatDBDateTime($date, $format = "d-m-Y H:i:s") {
+        return Carbon::parse($date)->format("$format");
     }
 }

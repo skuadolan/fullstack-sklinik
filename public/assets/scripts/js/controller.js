@@ -8,9 +8,38 @@ $(document).ready(function () {
     $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
         DisableRightClickOnMouse();
         // JQueryOnLoad();
-        InputNumberOnly();
         AutoToIDR();
+        InputNumberOnly();
         InitAutocomplete();
+        HiddenAddressDropdown();
+
+        // Function ReImplement START
+        function AllNotify($msg, $section) {
+            AllNotify($msg, $section)
+        }
+        // Function ReImplement END
+
+        // Class for DOM elements START
+        $(".capitalize").on("input", function () {
+            let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+            $(this).val($newVal);
+        });
+        $(".text-capitalize-input").on("input", function () {
+            TxtCheckInputSymbol(this);
+
+            let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+            $(this).val($newVal);
+        });
+        $(".text-check-input-symbol").on("input", function () {
+            TxtCheckInputSymbol(this);
+        });
+        $(".text-number-input").on("input", function () {
+            TxtCheckInputSymbol(this);
+
+            let $newVal = $(this).val().replace(/\D/g, "");;
+            $(this).val($newVal);
+        });
+        // Class for DOM elements END
     });
 
     $("#loadingAjax").hide();
@@ -378,18 +407,26 @@ function OpenLink($link, $options = ["self", "new", "popup"]) {
     }
 }
 
-function CreatePopUpModal($idContainer, $valModal, $txtOpen, $formID, $formOnSubmit, $slot, $head_name = null, $head_description = null, $footer_description = null, $btn_submit = "Simpan", $btn_reset = "Reset", $btn_close = "Tutup") {
-    const $htmlBtnOpen = (IsValidVal($txtOpen) ? `<button class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true">${$txtOpen}</button>` : "");
-    const $htmlTxtHead = (IsValidVal($head_name) ? `<h2 class="text-lg font-bold">${$head_name}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($head_description) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$head_description}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footer_description) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footer_description}</p></div>` : "");
-    const $htmlBtnClose = (IsValidVal($btn_close) ? `<span class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btn_close}</span>` : "");
-    const $htmlBtnReset = (IsValidVal($btn_reset) ? `<button type="reset" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 hideBtnProcess ms-3">${$btn_reset}</button>` : "");
-    const $htmlBtnSubmit = (IsValidVal($btn_submit) ? `<button type="submit" class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @submit.prevent="${$formOnSubmit}">${$btn_submit}</button>` : "");
+function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true }) {
+    const { btn: $isBtnSection } = $ifSectionShow;
+    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true">${$btnTxt[0]}</span>`;
+    let $htmlBtnSubmit = "";
+    let $htmlBtnReset = "";
+    let $htmlBtnClose = "";
+
+    if ($isBtnSection) {
+        $htmlBtnSubmit = `<button type="submit" class="inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @submit.prevent="${$formFuncOnSubmit}">${$btnTxt[1]}</button>`;
+        $htmlBtnReset = `<button type="reset" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 hideBtnProcess ms-3">${$btnTxt[2]}</button>`;
+        $htmlBtnClose = `<span class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
+    }
+
+    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
-    <form id="${$formID}" @submit.prevent="${$formOnSubmit}">
+    <form id="${$formID}" @submit.prevent="${$formFuncOnSubmit}">
         <div class="mt-4">
             ${$htmlSlot}
         </div>
@@ -414,7 +451,7 @@ function CreatePopUpModal($idContainer, $valModal, $txtOpen, $formID, $formOnSub
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" style="display: none;">
-            <div class="bg-white w-full max-w-md mx-auto rounded-lg shadow-lg p-6" @click.away="${$valModal} = false"
+            <div class="bg-white w-full mx-auto rounded-lg shadow-lg p-6" @click.away="${$valModal} = false"
                 @keydown.escape.window="${$valModal} = false">
                 <div class="flex justify-between items-center border-b pb-3">
                     ${$htmlTxtHead}

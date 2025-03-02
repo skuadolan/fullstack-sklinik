@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
@@ -20,7 +21,6 @@ use App\Models\ListClient;
 use App\Http\Libraries\Tools;
 use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
-use Error;
 
 class UserController extends Controller
 {
@@ -69,6 +69,8 @@ class UserController extends Controller
     public function store(LoginRequest $req)
     {
         setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $expreDate = (clone $dateNow)->addDays(30)->toDateTimeString();
 
         if (strpos($this->userAgent, 'Mozilla') !== false) {
             $this->checkValidation($req);
@@ -91,19 +93,22 @@ class UserController extends Controller
                 'id_kabupaten' => $req->id_kabupaten,
                 'id_kecamatan' => $req->id_kecamatan,
                 'id_kelurahan' => $req->id_kelurahan,
-                'expired_date' => now(env('APP_TIMEZONE', 'UTC'))->addDays(30)->toDateTimeString(),
+                'created_at' => $dateNow,
+                'expired_date' => $expreDate,
             ]);
 
             $listClient->save();
 
-            $clientsConfig = ClientConfigs::create([
-                'id_client' => $listClient->id,
-            ]);
+            // $clientsConfig = ClientConfigs::create([
+            //     'id_client' => $listClient->id,
+            //     'created_at' => $dateNow
+            // ]);
 
-            $clientsConfig->save();
+            // $clientsConfig->save();
 
             $penduduk = Penduduk::create([
                 'fullname' => $req->fullname,
+                'created_at' => $dateNow
             ]);
 
             $penduduk->save();
@@ -114,7 +119,8 @@ class UserController extends Controller
                 'password' => Hash::make($req->password),
                 'id_client' => $listClient->id,
                 'id_penduduk' => $penduduk->id,
-                'expired_date' => now(env('APP_TIMEZONE', 'UTC'))->addDays(30)->toDateTimeString(),
+                'expired_date' => $expreDate,
+                'created_at' => $dateNow
             ]);
 
             $user->save();
@@ -123,6 +129,7 @@ class UserController extends Controller
                 'id_user' => $user->id,
                 'id_client' => $listClient->id,
                 'id_penduduk' => $penduduk->id,
+                'created_at' => $dateNow
             ]);
 
             $pegawai->save();

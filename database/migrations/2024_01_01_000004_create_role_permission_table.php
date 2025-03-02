@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_menu');
             $table->foreign('id_menu')->references('id')->on('list_menus')->onDelete('cascade');
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
     }

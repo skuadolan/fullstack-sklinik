@@ -24,7 +24,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kelurahan')->nullable();
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');
             $table->string('address')->nullable();
-            $table->timestamp('expired_date')->nullable();
             $table->unsignedBigInteger('id_tier_level')->default(1);
             $table->foreign('id_tier_level')->references('id')->on('tier_level')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();
@@ -32,7 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user_updated')->nullable();
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
+            $table->timestamp('expired_date')->nullable();
             $table->timestamps();
         });
     }

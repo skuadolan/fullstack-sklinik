@@ -35,8 +35,7 @@
     <meta name="twitter:description" content="Deskripsi Konten Anda">
     <meta name="twitter:image" content="URL_GAMBAR_KONTEN"> -->
 
-    <meta name="description"
-        content="Personal Website (Website Pribadi) milik Dian Adi Nugroho yang dibuat menggunakan VueJS3 beserta tailwind. Website ini dibuat dengan tujuan untuk showcase skill dalam membangun website Front End Web Development." />
+    <meta name="description" content="Personal Website (Website Pribadi) milik Dian Adi Nugroho yang dibuat menggunakan VueJS3 beserta tailwind. Website ini dibuat dengan tujuan untuk showcase skill dalam membangun website Front End Web Development." />
     <meta name="keywords" content="dianadi021, dianskuad, dian skuad, dian nugroho, dian adi nugroho" />
     <!-- <meta name="image" content="#" /> -->
     <meta name="author" content="Dian Nugroho" />

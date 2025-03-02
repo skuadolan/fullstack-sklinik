@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('default');
             $table->string('type');
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
     }

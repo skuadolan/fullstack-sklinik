@@ -17,7 +17,7 @@
                             <div class="w-full sm:w-1/2 flex flex-wrap">
                                 <form id="searchForm" onsubmit="search('submit')">
                                     <table class="w-full table-no-border">
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_status" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Status
@@ -26,7 +26,7 @@
                                             <td>:</td>
                                             <td><x-autocomplete-layout section="ssr-dropdown" get="status" class="check_form_search" placeholder="Pilih status..." /></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="align-baseline">
                                             <td>
                                                 <label for="id_role" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Role
@@ -103,13 +103,13 @@
     <script>
         $(document).ready(async function() {
             (async function() {
-                const $inputSlot = `
+                const $modalSlotContent = `
                 <div class="mt-4">
                     <label for="nama">Nama *</label>
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#user_container", "userModal", "Tambah Data", "userForm", "simpanWilayah()", $inputSlot, "Form Tambah Data", "Wilayah", null, "Simpan", "Reset", "Tutup");
+                await CreatePopUpModal("#user_container", "userModal", "userForm", "simpanUser()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "User"], null, { btn: true });
 
                 const $htmlParamsType = `
                     <li @click="open = false" x-show="!search || 'Roles'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Roles', 'provinsi'], 'params_type')">
@@ -148,7 +148,7 @@
             } else if ($target == 'users') {
                 $coloumnsArray.push({ data: 'fullname' }, { data: 'username' }, { data: 'email' }, { data: 'role_name' });
                 $coloumnsArray.push({
-                    data: 'status',
+                    data: 'is_active',
                     render: (data) =>
                         `
                         <div class="text-center">
