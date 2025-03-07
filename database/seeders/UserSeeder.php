@@ -16,14 +16,12 @@ class UserSeeder extends Seeder
         setlocale(LC_TIME, 'id_ID.utf8');
         $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
-        DB::table('penduduks')->insert([
+        $id_penduduk = DB::table('penduduk')->insertGetId([
             'fullname' => 'root',
             'created_at' => $dateNow
         ]);
 
-        $id_penduduk = DB::table('penduduks')->max('id');
-
-        DB::table('users')->insert([
+        $id_user = DB::table('users')->insertGetId([
             'username' => 'root',
             'email' => 'root@sklinik.com',
             'id_role' => 1,
@@ -32,9 +30,7 @@ class UserSeeder extends Seeder
             'created_at' => $dateNow
         ]);
 
-        $id_user = DB::table('users')->max('id');
-
-        DB::table('pegawais')->insert([
+        DB::table('pegawai')->insert([
             'id_user' => $id_user,
             'created_at' => $dateNow
         ]);

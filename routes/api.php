@@ -7,11 +7,20 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-use App\Http\Controllers\Api\SearchController;
-Route::get('/search', [SearchController::class, 'index']);
-
 use App\Http\Controllers\Api\UserController;
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
-Route::put('/users', [UserController::class, 'edit']);
-Route::delete('/users', [UserController::class, 'destroy']);
+use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\PendaftaranController;
+
+Route::middleware(['api', 'web'])->group(function () {
+    Route::get('/search', [SearchController::class, 'index']);
+
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users/{id}', [UserController::class, 'edit']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+    Route::get('/pendaftaran-pasien', [PendaftaranController::class, 'index']);
+    Route::post('/pendaftaran-pasien', [PendaftaranController::class, 'store']);
+    Route::put('/pendaftaran-pasien/{id}', [PendaftaranController::class, 'edit']);
+    Route::delete('/pendaftaran-pasien/{id}', [PendaftaranController::class, 'destroy']);
+});

@@ -24,7 +24,14 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="params_type" class="check_form_search" placeholder="Pilih pencarian..." /></td>
+                                            <td>
+                                                <select name="params_type" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                    <option value="" selected disabled>Pilih Opsi...</option>
+                                                    <option value="provinsi">Provinsi</option>
+                                                    <option value="kabupaten">Kabupaten</option>
+                                                    <option value="kecamatan">Kecamatan</option>
+                                                    <option value="kelurahan">Kelurahan</option>
+                                                </select>
                                         </tr>
                                         <tr class="align-baseline">
                                             <td>
@@ -168,23 +175,6 @@
                 </div>
                 `;
                 await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", "simpanWilayah()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, { btn: true });
-
-                const $htmlParamsType = `
-                    <li @click="open = false" x-show="!search || 'Provinsi'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Provinsi', 'provinsi'], 'params_type')">
-                        Provinsi
-                    </li>
-                    <li @click="open = false" x-show="!search || 'Kabupaten'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kabupaten', 'kabupaten'], 'params_type')">
-                        Kabupaten
-                    </li>
-                    <li @click="open = false" x-show="!search || 'Kecamatan'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kecamatan', 'kecamatan'], 'params_type')">
-                        Kecamatan
-                    </li>
-                    <li @click="open = false" x-show="!search || 'Kelurahan'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Kelurahan', 'kelurahan'], 'params_type')">
-                        Kelurahan
-                    </li>
-                `;
-
-                $("#list_params_type").append($htmlParamsType);
             })();
 
             // Functions event onclick start
@@ -223,8 +213,8 @@
                 searchable: false,
                 render: (data) =>
                     `<div class='flex gap-1 justify-center'>
-                        <button class='inline-flex items-center px-4 py-2 bg-warning border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-warning focus:bg-warning active:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Edit</button>
-                        <button class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>Hapus</button>
+                        <button class='inline-flex items-center px-4 py-2 bg-warning border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-warning focus:bg-warning active:bg-warning focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data-id='${data.id}'>Edit</button>
+                        <button class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data-id='${data.id}'>Hapus</button>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             });
 

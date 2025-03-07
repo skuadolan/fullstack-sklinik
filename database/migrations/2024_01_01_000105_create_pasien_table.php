@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pasien', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_penduduk');
-            $table->foreign('id_penduduk')->references('id')->on('penduduks')->onDelete('cascade');
+            $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');
             $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();

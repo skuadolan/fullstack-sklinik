@@ -1,0 +1,131 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use Error;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Validation\ValidationException;
+
+use App\Models\User;
+use App\Models\Pasien;
+use App\Models\Pegawai;
+use App\Models\Penduduk;
+use App\Models\ListClient;
+use App\Http\Libraries\Tools;
+use App\Models\ClientConfigs;
+use App\Http\Libraries\ResponseCode;
+
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
+
+class PendaftaranController extends Controller
+{
+    private $resCode, $tools, $userAgent, $userSession, $userSessionRedis;
+    public function __construct()
+    {
+        $this->tools = new Tools;
+        $this->resCode = new ResponseCode;
+        $this->userAgent = request()->header('User-Agent');
+
+        $sessionId = session()->getId();
+        $this->userSession = session('user_login');
+        $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+    }
+
+    private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
+        return $this->tools->isValidVal($val, $get, $other, $key);
+    }
+
+    private function isValidAddress($req) {
+        return $this->tools->isValidAddress($req);
+    }
+
+    public function index()
+    {
+        try {
+            $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas JOIN penduduk ppas ON ppas.id = pas.id_penduduk JOIN GENDER gndr ON gndr.id = ppas.id_gender JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah JOIN PROVINSI prov ON prov.id = ppas.id_provinsi JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.nama ASC";
+            $datas = DB::select("$qry");
+            if ($this->IsValidVal($datas)) {
+                return $this->resCode->OKE("berhasil mengambil data", $datas);
+            }
+            return $this->resCode->OKE("tidak ada data");
+        } catch (Exception $th) {
+            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
+        }
+    }
+
+    public function create() {}
+
+    public function store(Request $req)
+    {
+        setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+
+        try {
+            if (!$this->isValidAddress($req)) {
+                throw new Error("alamat tidak valid");
+            }
+
+            DB::beginTransaction();
+
+            $penduduk = Penduduk::create([
+                'nik' => $req->nik_pasien,
+                'fullname' => $req->nama_pasien,
+                'handphone' => $req->handphone_pasien,
+                'whatsapp' => $req->whatsapp_pasien,
+                'telegram' => $req->telegram_pasien,
+                'birthdate' => $req->tanggal_lahir,
+                'address' => $req->alamat,
+                'id_gender' => $req->gender,
+                'id_golongan_darah' => $req->goldar,
+                'id_provinsi' => $req->id_provinsi,
+                'id_kabupaten' => $req->id_kabupaten,
+                'id_kecamatan' => $req->id_kecamatan,
+                'id_kelurahan' => $req->id_kelurahan,
+                'created_at' => $dateNow
+            ]);
+
+            $pasien = Pasien::create([
+                'id_penduduk' => $penduduk->id,
+                'id_client' => $this->userSessionRedis['id_client'],
+                'created_at' => $dateNow
+            ]);
+
+            DB::commit();
+
+            return $this->resCode->CREATED("berhasil menyimpan data", $pasien);
+        } catch (ValidationException $th) {
+            DB::rollBack();
+            return $this->resCode->SERVER_ERROR("kesalahan dalam menyimpan data!", $th->getMessage());
+        }
+    }
+
+    public function show(string $id)
+    {
+        try {
+            $wheres = ($this->IsValidVal($id) ? " WHERE pas.id = $id AND " : "");
+            $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas JOIN penduduk ppas ON ppas.id = pas.id_penduduk JOIN GENDER gndr ON gndr.id = ppas.id_gender JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah JOIN PROVINSI prov ON prov.id = ppas.id_provinsi JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan $wheres ";
+            $datas = DB::select("$qry");
+            if ($this->IsValidVal($datas)) {
+                return $this->resCode->OKE("berhasil mengambil data", $datas);
+            }
+            return $this->resCode->OKE("tidak ada data");
+        } catch (Exception $th) {
+            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
+        }
+    }
+
+    public function edit(string $id) {}
+
+    public function update(Request $req, string $id) {}
+
+    public function destroy(string $id) {}
+}

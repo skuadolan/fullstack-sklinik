@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class ClientConfigs extends Authenticatable
 {
+    protected $table = 'client_configs';
     use HasFactory, Notifiable;
 
     /**

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             KabupatenSeeder::class,
             KecamatanSeeder::class,
             KelurahanSeeder::class,
-            ICDSeeder::class,
+            // ICDSeeder::class,
 
             HeaderMainMenu::class,
         ]);

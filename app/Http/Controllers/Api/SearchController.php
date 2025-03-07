@@ -24,6 +24,10 @@ class SearchController extends Controller
         return $this->tools->isValidVal($val, $get, $other, $key);
     }
 
+    private function reformatNoRM($id_pasien) {
+        return $this->tools->reformatNoRM($id_pasien);
+    }
+
     public function index(Request $req)
     {
         try {
@@ -42,7 +46,7 @@ class SearchController extends Controller
                     $wheres .= ($this->IsValidVal($req->id_kabupaten) ? " kab.id = $req->id_kabupaten AND " : "");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(kab.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT kab.id, kab.name, kab.type, prov.name as provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC";
+                    $qry = "SELECT kab.id, kab.name, kab.type, prov.name AS provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
@@ -53,7 +57,7 @@ class SearchController extends Controller
                     $wheres .= ($this->IsValidVal($req->id_kecamatan) ? " kec.id = $req->id_kecamatan AND " : "");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(kec.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT kec.id, kec.name, kab.name as kabupaten, prov.name as provinsi FROM kecamatan kec JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kec.name ASC";
+                    $qry = "SELECT kec.id, kec.name, kab.name AS kabupaten, prov.name AS provinsi FROM kecamatan kec JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kec.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
@@ -65,7 +69,7 @@ class SearchController extends Controller
                     $wheres .= ($this->IsValidVal($req->id_kelurahan) ? " kel.id = $req->id_kelurahan AND " : "");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(kel.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
+                    $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name AS kecamatan, kab.name AS kabupaten, prov.name AS provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
                     $datas = DB::select("$qry");
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
@@ -94,8 +98,23 @@ class SearchController extends Controller
                     $wheres .= ($this->IsValidVal($req->id_client) ? " usr.id_client = $req->id_client AND " : "");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(usr.username) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, rol.name as role_name, pdd.fullname, usr.id_client FROM users usr JOIN penduduks pdd ON pdd.id = usr.id_penduduk JOIN roles rol ON rol.id = usr.id_role $wheres ";
+                    $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, rol.name AS role_name, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd ON pdd.id = usr.id_penduduk JOIN roles rol ON rol.id = usr.id_role $wheres ";
                     $datas = DB::select("$qry");
+                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    break;
+
+                case 'list_pasien_lama':
+                    $wheres = ($this->IsValidVal($req->id_pasien) ? " WHERE pas.id = $req->id_pasien AND " : " WHERE ");
+                    $wheres .= ($this->IsValidVal($req->q) ? " LOWER(pas.fullname) LIKE LOWER('%$req->q%') " : " 1=1 ");
+
+                    $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN GENDER gndr ON gndr.id = ppas.id_gender LEFT JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah LEFT JOIN PROVINSI prov ON prov.id = ppas.id_provinsi LEFT JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten LEFT JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan LEFT JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan $wheres ";
+                    $datas = DB::select("$qry");
+                    $datas = json_decode(json_encode($datas), true);
+
+                    for ($i=0; $i < count($datas); $i++) {
+                        $datas[$i]["norm"] = $this->reformatNoRM($datas[$i]["norm"]);
+                    }
+
                     return $this->resCode->OKE("berhasil mengambil data", $datas);
                     break;
 

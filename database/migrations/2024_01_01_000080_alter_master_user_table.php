@@ -34,7 +34,7 @@ return new class extends Migration
             "bed",
             "perusahaan_asuransi",
             "produk_asuransi",
-            "penduduks"
+            "penduduk"
         ];
         foreach ($listTables as $table) {
             if (Schema::hasTable($table)) {

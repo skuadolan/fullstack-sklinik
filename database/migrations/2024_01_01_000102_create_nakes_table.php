@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nakes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pegawai');
-            $table->foreign('id_pegawai')->references('id')->on('pegawais')->onDelete('cascade');
+            $table->foreign('id_pegawai')->references('id')->on('pegawai')->onDelete('cascade');
             $table->unsignedBigInteger('id_spesialisasi')->nullable();
             $table->foreign('id_spesialisasi')->references('id')->on('spesialisasi')->onDelete('cascade');
             $table->string('kode_dokter')->nullable();

@@ -22,6 +22,8 @@ use App\Http\Libraries\Tools;
 use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
 
+use Illuminate\Support\Facades\Redis;
+
 class UserController extends Controller
 {
     private $resCode, $tools, $userAgent;
@@ -53,7 +55,7 @@ class UserController extends Controller
     {
         try {
             $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
-            JOIN penduduks pdd ON pdd.id = usr.id_penduduk";
+            JOIN penduduk pdd ON pdd.id = usr.id_penduduk";
             $datas = DB::select("$qry");
             if ($this->IsValidVal($datas)) {
                 return $this->resCode->OKE("berhasil mengambil data", $datas);
@@ -87,7 +89,7 @@ class UserController extends Controller
 
             DB::beginTransaction();
 
-            $listClient = ListClient::create([
+            $id_client = DB::table('list_clients')->insertGetId([
                 'name' => $req->company_name,
                 'id_provinsi' => $req->id_provinsi,
                 'id_kabupaten' => $req->id_kabupaten,
@@ -97,8 +99,6 @@ class UserController extends Controller
                 'expired_date' => $expreDate,
             ]);
 
-            $listClient->save();
-
             // $clientsConfig = ClientConfigs::create([
             //     'id_client' => $listClient->id,
             //     'created_at' => $dateNow
@@ -106,38 +106,41 @@ class UserController extends Controller
 
             // $clientsConfig->save();
 
-            $penduduk = Penduduk::create([
+            $id_penduduk = DB::table('penduduk')->insertGetId([
                 'fullname' => $req->fullname,
                 'created_at' => $dateNow
             ]);
-
-            $penduduk->save();
 
             $user = User::create([
                 'username' => $req->username,
                 'email' => $req->email,
                 'password' => Hash::make($req->password),
-                'id_client' => $listClient->id,
-                'id_penduduk' => $penduduk->id,
+                'id_client' => $id_client,
+                'id_penduduk' => $id_penduduk,
                 'expired_date' => $expreDate,
                 'created_at' => $dateNow
             ]);
 
             $user->save();
 
-            $pegawai = Pegawai::create([
+            $id_pegawai = DB::table('pegawai')->insertGetId([
                 'id_user' => $user->id,
-                'id_client' => $listClient->id,
-                'id_penduduk' => $penduduk->id,
+                'id_client' => $id_client,
+                'id_penduduk' => $id_penduduk,
                 'created_at' => $dateNow
             ]);
-
-            $pegawai->save();
 
             DB::commit();
 
             event(new Registered($user));
             Auth::login($user);
+
+            $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
+            $user = DB::selectOne("$qry", [$req->username]);
+            session(['user_login' => (array)$user]);
+
+            $sessionId = session()->getId();
+            Redis::setex("session:$sessionId", 3600, json_encode($user));
 
             return $this->resCode->CREATED("berhasil menyimpan data", $user);
         } catch (ValidationException $th) {
@@ -151,7 +154,7 @@ class UserController extends Controller
         try {
             $wheres = ($this->IsValidVal($id) ? " WHERE usr.id = $id " : "");
             $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
-            JOIN penduduks pdd ON pdd.id = usr.id_penduduk $wheres";
+            JOIN penduduk pdd ON pdd.id = usr.id_penduduk $wheres";
             $datas = DB::select("$qry");
             if ($this->IsValidVal($datas)) {
                 return $this->resCode->OKE("berhasil mengambil data", $datas);
