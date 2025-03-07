@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pegawais', function (Blueprint $table) {
+        Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_profesi')->nullable();
             $table->foreign('id_profesi')->references('id')->on('profesi')->onDelete('cascade');
             $table->unsignedBigInteger('id_penduduk')->nullable();
-            $table->foreign('id_penduduk')->references('id')->on('penduduks')->onDelete('cascade');
+            $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
+            $table->unsignedBigInteger('id_client')->nullable();
+            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pegawais');
+        Schema::dropIfExists('pegawai');
     }
 };

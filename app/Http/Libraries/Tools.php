@@ -45,4 +45,26 @@ class Tools
     public function reformatDBDateTime($date, $format = "d-m-Y H:i:s") {
         return Carbon::parse($date)->format("$format");
     }
+
+    public function reformatNoRM($id_pasien) {
+        $tmpStr = strlen("$id_pasien");
+        $tmpZero = [
+            '000000',
+            '00000',
+            '0000',
+            '000',
+            '00',
+            '0',
+        ];
+        $norm = (isset($tmpZero[$tmpStr - 1]) ? $tmpZero[$tmpStr - 1] . "" . $id_pasien : $id_pasien);
+        return "$norm";
+    }
+
+    public function show_array($var) {
+        return explode("\n", trim(print_r($var, true)));
+    }
+
+    public function show_json($var) {
+        echo json_encode($var, JSON_PRETTY_PRINT);
+    }
 }

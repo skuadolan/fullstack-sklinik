@@ -39,12 +39,14 @@ services:
   sklinik_redis:
     image: redis:7
     container_name: sklinik_redis
+    restart: unless-stopped
     # restart: always
     ports:
       - "6379:6379"
     volumes:
       - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    # command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    command: redis-server --appendonly yes
     networks:
       - sklinik_network
 

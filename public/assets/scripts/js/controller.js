@@ -20,6 +20,10 @@ $(document).ready(function () {
         // Function ReImplement END
 
         // Class for DOM elements START
+        function ClassDOMInputStrict() {
+            ClassDOMInputStrict();
+        }
+
         $(".capitalize").on("input", function () {
             let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
             $(this).val($newVal);
@@ -407,9 +411,10 @@ function OpenLink($link, $options = ["self", "new", "popup"]) {
     }
 }
 
-function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true }) {
-    const { btn: $isBtnSection } = $ifSectionShow;
-    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true">${$btnTxt[0]}</span>`;
+function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
+    const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
+    const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
+    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
     let $htmlBtnSubmit = "";
     let $htmlBtnReset = "";
     let $htmlBtnClose = "";
@@ -447,25 +452,34 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
     ${$htmlBtnOpen}
 
     <div id="modal_section">
-        <div x-show="${$valModal}" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
-            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" style="display: none;">
-            <div class="bg-white w-full mx-auto rounded-lg shadow-lg p-6" @click.away="${$valModal} = false"
-                @keydown.escape.window="${$valModal} = false">
+        <div
+            x-show="${$valModal}"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            style="display: none;"
+        >
+            <div class="bg-white w-full max-w-3xl mx-auto rounded-lg shadow-lg p-6 max-h-[80vh] overflow-y-auto" @click.away="${$valModal} = false" @keydown.escape.window="${$valModal} = false">
                 <div class="flex justify-between items-center border-b pb-3">
                     ${$htmlTxtHead}
-                    <button @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700">
+                    <button @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700 text-xl">
                         &times;
                     </button>
                 </div>
 
-                ${$htmlTxtDescription}
-
-                ${$htmlForm}
+                <!-- Konten Modal -->
+                <div class="mt-4">
+                    ${$htmlTxtDescription}
+                    ${$htmlForm}
+                </div>
             </div>
         </div>
     </div>
+
     `;
 
     $(`${$idContainer}`).html(html);

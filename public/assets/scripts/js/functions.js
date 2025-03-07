@@ -350,3 +350,25 @@ function AllNotify($msg, $section) {
 
     return;
 }
+
+function ClassDOMInputStrict() {
+    $(".capitalize").on("input", function () {
+        let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+        $(this).val($newVal);
+    });
+    $(".text-capitalize-input").on("input", function () {
+        TxtCheckInputSymbol(this);
+
+        let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+        $(this).val($newVal);
+    });
+    $(".text-check-input-symbol").on("input", function () {
+        TxtCheckInputSymbol(this);
+    });
+    $(".text-number-input").on("input", function () {
+        TxtCheckInputSymbol(this);
+
+        let $newVal = $(this).val().replace(/\D/g, "");;
+        $(this).val($newVal);
+    });
+}

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class ListClient extends Authenticatable
 {
+    protected $table = 'list_clients';
     use HasFactory, Notifiable;
 
     /**

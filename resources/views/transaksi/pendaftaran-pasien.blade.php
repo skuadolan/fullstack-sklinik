@@ -11,7 +11,9 @@
                 <div class="p-6 text-gray-900">
                     <fieldset>
                         <div class="w-full mb-4">
-                            <form id="biodata_pendaftaran_pasien_form" onsubmit="search('submit')">
+                            <form id="biodata_pendaftaran_pasien_form">
+                                @csrf
+                                <input type="hidden" name="token" class="csrf-token" />
                                 <div class="flex gap-10 justify-between">
                                     <div class="w-1/2">
                                         <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Pasien</h3>
@@ -47,7 +49,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-text-input type="text" id="norm_pasien" name="norm_pasien" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('norm_pasien')" required autofocus />
+                                                    <x-text-input type="text" id="norm_pasien" name="norm_pasien" class="block mt-1 w-full text-number-input cursor-default" inputmode="numeric" pattern="[0-9]*" :value="old('norm_pasien')" required readonly />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline">
@@ -86,6 +88,28 @@
                                             <tr class="align-baseline">
                                                 <td>
                                                     <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Golongan Darah<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Jenis Kelamin<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Alamat Pasien<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -93,7 +117,7 @@
                                                 <td>
                                                     <div>
                                                         <div>
-                                                            <x-text-input id="address_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm capitalize" type="text" name="address_pasien" required placeholder="Desa RT000/RW000 No. 000" />
+                                                            <x-text-input id="address_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="address_pasien" required placeholder="Desa RT000/RW000 No. 000" />
                                                         </div>
                                                     </div>
                                                     <div>
@@ -127,12 +151,32 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nomor Ponsel<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <div>
+                                                        <select onchange="execFormSection('nomor_ponsel_pasien', this)" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                            <option value="" selected disabled>Pilih Opsi...</option>
+                                                            <option value="handphone" class="optn_list_nomor_pasien">Handphone</option>
+                                                            <option value="whatsapp" class="optn_list_nomor_pasien">Whatsapp</option>
+                                                            <option value="telegram" class="optn_list_nomor_pasien">Telegram</option>
+                                                        </select>
+                                                        <div id="container_nomor_ponsel_pasien">
+                                                            <table class="w-full table-no-border"></table>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                     <div class="w-1/2">
                                         <table class="w-full table-no-border">
-                                            <tr class="align-baseline">
-                                            </tr>
+                                            <tr class="align-baseline"></tr>
                                         </table>
                                     </div>
                                 </div>
@@ -141,13 +185,13 @@
                             </form>
                             <div class="w-full flex justify-center pt-5">
                                 <div class="flex gap-1">
-                                    <x-secondary-button class="ms-4">
+                                    <x-secondary-button class="ms-4" onclick="execFormSection('btnBack')">
                                         {{ __('Kembali') }}
                                     </x-secondary-button>
                                     <x-btn-customize-layout class="ms-4" section="danger" onclick="execFormSection('btnFormReset')">
                                         {{ __('Reset') }}
                                     </x-btn-customize-layout>
-                                    <x-btn-customize-layout class="ms-4" section="success">
+                                    <x-btn-customize-layout class="ms-4" section="success" onclick="execFormSection('btnFormSimpan', this)">
                                         {{ __('Simpan') }}
                                     </x-btn-customize-layout>
                                 </div>
@@ -168,9 +212,8 @@
                     <table id="listPasienTable" class="min-w-full table-auto table-text-center-number">
                         <thead>
                             <tr class="bg-gray-100">
-                                <th class="px-4 py-2">No.</th>
-                                <th class="px-4 py-2">No.RM</th>
                                 <th class="px-4 py-2">NIK</th>
+                                <th class="px-4 py-2">No.RM</th>
                                 <th class="px-4 py-2">Nama Pasien</th>
                                 <th class="px-4 py-2">Tanggal Lahir</th>
                                 <th class="px-4 py-2">Jenis Kelamin</th>
@@ -180,7 +223,7 @@
                         </thead>
                     </table>
                 `;
-                await CreatePopUpModal("#search_pasien_container", "search_pasienModal", "search_pasienForm", null, $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, { btn: false });
+                await CreatePopUpModal("#search_pasien_container", "search_pasienModal", "search_pasienForm", null, $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, { btn: false, funcBtnOpen: "DataTablesListPasien()" });
                 // Modal Section END
             })();
             // onLoad End
@@ -197,10 +240,135 @@
         })
 
         // FUNCTIONS START
-        function execFormSection($section) {
+        function execFormSection($section, $this = null) {
             if ($section == "btnFormReset") {
+                localStorage.removeItem("search_params");
                 $("#resetBtn").click();
             }
+
+            if ($section == "btnFormSimpan") {
+                Swal.fire({
+                    title: "Apakah data pasien sudah benar?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Batal",
+                    confirmButtonText: "Lanjutkan"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loadingAjax").show();
+                        $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
+
+                        $($this).hide();
+                        toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
+
+                        $.ajax({
+                            url: `${$base_url}/api/pendaftaran-pasien`,
+                            type: "POST",
+                            data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(callback) {
+                                const { messages } = callback;
+                                console.dir('success', callback);
+                                toastr.success(messages, "Success!");
+                            },
+                            error: function(callback) {
+                                const { responseJSON } = callback;
+                                const { errors, message, messages, datas } = responseJSON;
+                                let errorInfo, validator;
+                                if (datas) {
+                                    const { errorInfo: errInfo, validator: validCallback } = datas
+                                    errorInfo = errInfo;
+                                    validator = validCallback;
+                                }
+                                console.dir('error', callback);
+
+                                if (errors) {
+                                    for (let key in errors) {
+                                        AllNotify(errors[key][0], "error");
+                                        $(`#err_${key}`).show();
+                                        $(`#err_${key} li`).html(errors[key][0]);
+                                    }
+                                } else if (message || messages || errorInfo || validator) {
+                                    const $txtMsgAlert = (validator ? "input data tidak sesuai atau tidak boleh kosong" : ( errorInfo ? errorInfo[2] : (messages ? messages : message)));
+                                    AllNotify($txtMsgAlert, "error");
+                                }
+
+                                $("#loadingAjax").hide();
+                                $(".hideBtnProcess").show();
+                            },
+                        });
+                    }
+                });
+            }
+
+            if ($section == "btnBack") {
+                window.history.back();
+            }
+
+            if ($section == "nomor_ponsel_pasien") {
+                const $txtOptnValue = $($this).val();
+                const $appendnomorPonselPasien = `
+                    <tr class="align-baseline list_nomor_pasien">
+                        <td class="capitalize">${$($this).val()}</td>
+                        <td>:</td>
+                        <td>
+                            <x-text-input type="text" id="${$txtOptnValue}_pasien" name="${$txtOptnValue}_pasien" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('${$txtOptnValue}_pasien')" required />
+                        </td>
+                        <td>
+                            <span class='inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer' onclick='execAction("hapus_nomor_pasien", this, "${$txtOptnValue}")'>Hapus</span>
+                        </td>
+                    </tr>
+                `;
+                $("#container_nomor_ponsel_pasien table").append($appendnomorPonselPasien);
+                ClassDOMInputStrict();
+                setTimeout(function () {
+                    $(".optn_list_nomor_pasien").each(function () {
+                        if ($(this).val() == $($this).val()) {
+                            $(this).hide();
+                        }
+                    })
+
+                    if (($(".list_nomor_pasien")).length == 3) {
+                        $($this).hide();
+                    }
+                }, 10);
+            }
+        }
+
+        function execAction($action, $this, $inputID = null) {
+            if ($action == "hapus_nomor_pasien") {
+                $($this).parent().parent().remove();
+                setTimeout(function () {
+                    $(".optn_list_nomor_pasien").each(function () {
+                        if ($(this).val() == $inputID) {
+                            $(this).show();
+                            $(".optn_list_nomor_pasien").parent().show();
+                        }
+                    })
+                }, 10);
+            }
+        }
+
+        async function DataTablesListPasien() {
+            const $coloumnsArray = [];
+            $coloumnsArray.push({ data: 'nik' }, { data: 'norm' }, { data: 'fullname' }, { data: 'birthdate' }, { data: 'jenis_kelamin' }, { data: 'address' });
+            $coloumnsArray.push({
+                data: null,
+                orderable: false,
+                searchable: false,
+                render: (data) =>
+                    `<div class='flex gap-1 justify-center'>
+                        <button class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>pilih</button>
+                    </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
+            });
+            await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray);
         }
         // FUNCTIONS END
     </script>

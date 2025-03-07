@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Penduduk extends Authenticatable
 {
+    protected $table = 'penduduk';
     use HasFactory, Notifiable;
 
     /**

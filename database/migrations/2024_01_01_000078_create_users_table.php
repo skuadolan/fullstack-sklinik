@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_role')->default(8);
             $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
             $table->unsignedBigInteger('id_penduduk')->nullable();
-            $table->foreign('id_penduduk')->references('id')->on('penduduks')->onDelete('cascade');
+            $table->foreign('id_penduduk')->references('id')->on('penduduk')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -146,3 +146,15 @@ DB_PASSWORD=1234
 
 > Permission denied
 - Jika terdapat `Permission denied` terhadap suatu direktori folder, cobalah untuk `composer install` menggunakan docker
+
+
+## Redis Docker
+```bash
+SESSION_DRIVER=redis
+SESSION_CONNECTION=default
+CACHE_DRIVER=redis
+
+REDIS_CLIENT=predis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+```

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Pegawai extends Authenticatable
+class Pasien extends Authenticatable
 {
-    protected $table = 'pegawai';
+    protected $table = 'pasien';
     use HasFactory, Notifiable;
 
     /**
@@ -18,7 +18,7 @@ class Pegawai extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_user',
         'id_penduduk',
+        'id_client',
     ];
 }
