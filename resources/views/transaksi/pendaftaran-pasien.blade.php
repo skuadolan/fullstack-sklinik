@@ -15,7 +15,7 @@
                                 @csrf
                                 <input type="hidden" name="token" class="csrf-token" />
                                 <div class="flex gap-10 justify-between">
-                                    <div class="w-1/2">
+                                    <div class="w-1/2 h-screen overflow-auto">
                                         <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Pasien</h3>
                                         <table class="w-full table-no-border">
                                             <tr class="align-baseline">
@@ -174,7 +174,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="w-1/2">
+                                    <div class="w-1/2 h-screen overflow-auto">
                                         <table class="w-full table-no-border">
                                             <tr class="align-baseline"></tr>
                                         </table>

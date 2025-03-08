@@ -5,26 +5,17 @@ namespace App\Http\Controllers\Api;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
-use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 
-use App\Models\User;
-use App\Models\Pasien;
-use App\Models\Pegawai;
-use App\Models\Penduduk;
-use App\Models\ListClient;
 use App\Http\Libraries\Tools;
-use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
 
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Session;
+use App\Models\Visit;
+use App\Models\Pasien;
+use App\Models\Penduduk;
 
 class PendaftaranController extends Controller
 {
@@ -96,6 +87,14 @@ class PendaftaranController extends Controller
             $pasien = Pasien::create([
                 'id_penduduk' => $penduduk->id,
                 'id_client' => $this->userSessionRedis['id_client'],
+                'id_user_created' => $this->userSessionRedis['id_user'],
+                'created_at' => $dateNow
+            ]);
+
+            $visit = Visit::create([
+                'id_pasien' => $pasien->id,
+                'id_client' => $this->userSessionRedis['id_client'],
+                'id_user_created' => $this->userSessionRedis['id_user'],
                 'created_at' => $dateNow
             ]);
 

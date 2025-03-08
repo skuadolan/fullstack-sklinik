@@ -10,19 +10,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\User;
-use App\Models\Pegawai;
-use App\Models\Penduduk;
-use App\Models\ListClient;
 use App\Http\Libraries\Tools;
-use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
-
-use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {

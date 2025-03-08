@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Web;
 
-use Exception;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Http\Libraries\Tools;
 use App\Http\Libraries\ResponseCode;
+use App\Http\Controllers\Controller;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\GolonganDarah;
-
-use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
