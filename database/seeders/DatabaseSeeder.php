@@ -12,18 +12,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            GenderSeeder::class,
-            GolDarahSeeder::class,
-            RoleSeeder::class,
-            TierSeeder::class,
-            UserSeeder::class,
-            ProvinsiSeeder::class,
-            KabupatenSeeder::class,
-            KecamatanSeeder::class,
-            KelurahanSeeder::class,
             // ICDSeeder::class,
+            // RoleSeeder::class,
+            // TierSeeder::class,
+            // UserSeeder::class,
+            // GenderSeeder::class,
+            RuanganSeeder::class,
+            // HeaderMainMenu::class,
+            // ProvinsiSeeder::class,
+            // GolDarahSeeder::class,
+            // KabupatenSeeder::class,
+            // KecamatanSeeder::class,
+            // KelurahanSeeder::class,
 
-            HeaderMainMenu::class,
         ]);
     }
 }

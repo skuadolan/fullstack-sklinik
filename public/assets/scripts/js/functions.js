@@ -372,3 +372,7 @@ function ClassDOMInputStrict() {
         $(this).val($newVal);
     });
 }
+
+function ClearLocalStorage() {
+    localStorage.removeItem("search_params");
+}

@@ -28,17 +28,28 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input type="radio" name="jenis_pasien" required value="pasien_lama" checked />
+                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="pasien_lama" checked />
                                                             <x-input-label for="jenis_pasien_lama" :value="__('Lama')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input type="radio" name="jenis_pasien" required value="pasien_baru" />
+                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="pasien_baru" />
                                                             <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center hidden_if_pasien_baru">
                                                             <div id="search_pasien_container" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false"></div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Unit<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline hidden_if_pasien_baru">
@@ -365,7 +376,7 @@
                 searchable: false,
                 render: (data) =>
                     `<div class='flex gap-1 justify-center'>
-                        <button class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>pilih</button>
+                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer'>pilih</span>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             });
             await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray);
