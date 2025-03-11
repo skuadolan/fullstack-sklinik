@@ -60,4 +60,9 @@ class WebController extends Controller
     {
         return view('transaksi.pendaftaran-pasien');
     }
+
+    public function MasterPenduduk(Request $req)
+    {
+        return view('master-data.penduduk');
+    }
 }

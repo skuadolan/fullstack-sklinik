@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/golongan-darah', [WebController::class, 'GolonganDarah'])->name('master-data.golongan-darah');
         Route::get('/user-system', [WebController::class, 'UserSystem'])->name('master-data.user-system');
         Route::get('/wilayah', [WebController::class, 'Wilayah'])->name('master-data.wilayah');
+        Route::get('/penduduk', [WebController::class, 'MasterPenduduk'])->name('master-data.penduduk');
     });
 
     Route::prefix('transaksi')->group(function () {

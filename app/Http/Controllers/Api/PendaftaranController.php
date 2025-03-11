@@ -51,9 +51,18 @@ class PendaftaranController extends Controller
     public function index()
     {
         try {
-            $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas JOIN penduduk ppas ON ppas.id = pas.id_penduduk JOIN GENDER gndr ON gndr.id = ppas.id_gender JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah JOIN PROVINSI prov ON prov.id = ppas.id_provinsi JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.nama ASC";
-            $datas = DB::select("$qry");
-            if ($this->IsValidVal($datas)) {
+            $datas = DB::table('pasien AS pas')
+                ->selectRaw("pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan")
+                ->join('penduduk AS ppas', 'ppas.id', '=', 'pas.id_penduduk')
+                ->join('gender AS gndr', 'gndr.id', '=', 'ppas.id_gender')
+                ->join('golongan_darah AS goldar', 'goldar.id', '=', 'ppas.id_golongan_darah')
+                ->join('provinsi AS prov', 'prov.id', '=', 'ppas.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'ppas.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'ppas.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'ppas.id_kelurahan')
+                ->orderBy('ppas.fullname', 'ASC')
+                ->get();
+            if ($this->isValidVal($datas)) {
                 return $this->resCode->OKE("berhasil mengambil data", $datas);
             }
             return $this->resCode->OKE("tidak ada data");
@@ -111,19 +120,46 @@ class PendaftaranController extends Controller
     public function show(string $id)
     {
         try {
-            $wheres = ($this->IsValidVal($id) ? " WHERE pas.id = $id AND " : "");
-            $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas JOIN penduduk ppas ON ppas.id = pas.id_penduduk JOIN GENDER gndr ON gndr.id = ppas.id_gender JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah JOIN PROVINSI prov ON prov.id = ppas.id_provinsi JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan $wheres ";
-            $datas = DB::select("$qry");
-            if ($this->IsValidVal($datas)) {
-                return $this->resCode->OKE("berhasil mengambil data", $datas);
+            $pasien = DB::table('pasien')
+                ->select('pasien.id AS norm', 'penduduk.nik', 'penduduk.fullname', 'penduduk.handphone', 'penduduk.whatsapp', 'penduduk.telegram', 'penduduk.birthdate', 'penduduk.address', 'gndr.name AS jenis_kelamin', 'goldar.name AS goldar', 'penduduk.id_provinsi', 'prov.name AS provinsi', 'penduduk.id_kabupaten', 'kab.name AS kabupaten', 'penduduk.id_kecamatan', 'kec.name AS kecamatan', 'penduduk.id_kelurahan', 'kel.name AS kelurahan')
+                ->join('penduduk', 'penduduk.id', '=', 'pasien.id_penduduk')
+                ->join('gender AS gndr', 'gndr.id', '=', 'penduduk.id_gender')
+                ->join('golongan_darah AS goldar', 'goldar.id', '=', 'penduduk.id_golongan_darah')
+                ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
+                ->where('pasien.id', $id ?? '')
+                ->first();
+
+            if (!$pasien) {
+                return $this->resCode->NOT_FOUND("Data pasien tidak ditemukan");
             }
-            return $this->resCode->OKE("tidak ada data");
-        } catch (Exception $th) {
-            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
+
+            return $this->resCode->OKE("berhasil mengambil data", $pasien);
+        } catch (Exception $e) {
+            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $e->getMessage());
         }
     }
 
-    public function edit(string $id) {}
+    public function edit(string $id)
+    {
+        try {
+            $pasien = DB::table('PASIEN')
+                ->join('penduduk', 'penduduk.id', '=', 'PASIEN.id_penduduk')
+                ->where('PASIEN.id', $id)
+                ->select('PASIEN.id', 'penduduk.nik', 'penduduk.fullname', 'penduduk.handphone', 'penduduk.whatsapp', 'penduduk.telegram', 'penduduk.birthdate', 'penduduk.address', 'penduduk.id_gender', 'penduduk.id_golongan_darah', 'penduduk.id_provinsi', 'penduduk.id_kabupaten', 'penduduk.id_kecamatan', 'penduduk.id_kelurahan')
+                ->first();
+
+            if (!$pasien) {
+                return $this->resCode->NOT_FOUND("Data pasien tidak ditemukan");
+            }
+
+            return $this->resCode->OKE("berhasil mengambil data pasien", $pasien);
+        } catch (Exception $e) {
+            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data pasien!", $e->getMessage());
+        }
+    }
 
     public function update(Request $req, string $id) {}
 
