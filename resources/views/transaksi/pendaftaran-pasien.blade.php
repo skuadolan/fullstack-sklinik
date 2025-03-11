@@ -275,7 +275,7 @@
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
 
                         $.ajax({
-                            url: `${$base_url}/api/pendaftaran-pasien`,
+                            url: `${$base_url}/control/pendaftaran-pasien`,
                             type: "POST",
                             data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
                             xhrFields: {
@@ -288,6 +288,10 @@
                                 const { messages } = callback;
                                 console.dir('success', callback);
                                 toastr.success(messages, "Success!");
+
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1500);
                             },
                             error: function(callback) {
                                 const { responseJSON } = callback;
@@ -312,7 +316,7 @@
                                 }
 
                                 $("#loadingAjax").hide();
-                                $(".hideBtnProcess").show();
+                                $($this).show();
                             },
                         });
                     }

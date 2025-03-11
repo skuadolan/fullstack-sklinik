@@ -391,8 +391,6 @@ function LoginAjaxSection($postFormData, $token) {
                 title: "Kesalahan!",
                 text: message || messages || errorInfo || validator,
                 icon: "error"
-            }).then(function () {
-                window.location.reload();
             });
         },
     });

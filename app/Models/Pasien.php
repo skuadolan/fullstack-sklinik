@@ -20,5 +20,6 @@ class Pasien extends Model
     protected $fillable = [
         'id_penduduk',
         'id_client',
+        'id_user_created'
     ];
 }
