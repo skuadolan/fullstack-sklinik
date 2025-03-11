@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0" version="26.0.16">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" version="26.1.0">
   <diagram name="Page-1" id="PB4VBSpsoKnMZAa3M8EH">
-    <mxGraphModel dx="1676" dy="1676" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1850" dy="1642" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="fO4p4vOUp24_XmXOgc4b-10" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="850" y="-1100" width="1700" height="2195" as="geometry" />
+          <mxGeometry x="840" y="-1100" width="1710" height="2200" as="geometry" />
         </mxCell>
         <mxCell id="pXv-PGPB3i6eV_hMqMwG-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pXv-PGPB3i6eV_hMqMwG-1" target="pXv-PGPB3i6eV_hMqMwG-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -191,7 +191,7 @@
           <mxGeometry x="1010" y="-440" width="40" height="30" as="geometry" />
         </mxCell>
         <mxCell id="N3VXaW1i1DPhtXQMKX1L-18" value="&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;;&quot;&gt;Show Menu&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;;&quot;&gt;By Default&lt;br&gt;(Client&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Privilege)&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="890" y="-670" width="120" height="60" as="geometry" />
+          <mxGeometry x="890" y="-590" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="N3VXaW1i1DPhtXQMKX1L-20" value="&lt;font face=&quot;Times New Roman&quot;&gt;No&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="920" y="-510" width="40" height="30" as="geometry" />
@@ -209,13 +209,13 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1250" y="-640" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="1190" y="-640" />
+              <mxPoint x="1190" y="-560" />
               <mxPoint x="1190" y="-260" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="N3VXaW1i1DPhtXQMKX1L-25" value="&lt;font face=&quot;Times New Roman&quot;&gt;Show Menu&lt;br&gt;By User Privilege&lt;/font&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1050" y="-670" width="120" height="60" as="geometry" />
+          <mxGeometry x="1050" y="-590" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="N3VXaW1i1DPhtXQMKX1L-27" value="&lt;font face=&quot;Times New Roman&quot;&gt;Yes&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="1080" y="-480" width="40" height="30" as="geometry" />
@@ -337,8 +337,8 @@
         <mxCell id="URhGkLgAzNp-RWvudp00-9" value="&lt;font face=&quot;Times New Roman&quot;&gt;id_induk_tarif menyimpan&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;paket tarif atau individual tarif&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-145" y="-675" width="170" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="URhGkLgAzNp-RWvudp00-16" value="jenis_billing&lt;br&gt;(Rawat Jalan, Rawat Inap, Paket, Obat, BHP, Alkes, dll.)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="-190" y="-560" width="320" height="40" as="geometry" />
+        <mxCell id="URhGkLgAzNp-RWvudp00-16" value="jenis_billing&lt;br&gt;(Rawat Jalan, Rawat Inap, Paket, dll.)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-130" y="-545" width="220" height="40" as="geometry" />
         </mxCell>
         <mxCell id="URhGkLgAzNp-RWvudp00-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="URhGkLgAzNp-RWvudp00-17" target="URhGkLgAzNp-RWvudp00-28" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -384,8 +384,11 @@
         <mxCell id="URhGkLgAzNp-RWvudp00-32" value="&lt;font face=&quot;Times New Roman&quot;&gt;jenis tarif&lt;br&gt;jenis tindakan&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;jenis pasien&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;jenis kunjungan&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-230" y="-425" width="100" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="VL8X0yO_o2IHgD8Fa4el-1" value="&lt;font face=&quot;Times New Roman&quot;&gt;Sistem Pembayaran&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;Billing / Penjualan&lt;br&gt;Harus dipilih dulu lalu&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;dihitung dan disimpan&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="VL8X0yO_o2IHgD8Fa4el-1" value="&lt;font face=&quot;Times New Roman&quot;&gt;Sistem Pembayaran&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;Billing / Penjualan&lt;br&gt;Harus dipilih dulu lalu&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Times New Roman&quot;&gt;dihitung dan disimpan&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="295" y="-830" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JLmEJtWa7kc5WCSeo0B1-1" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-family: &amp;quot;Times New Roman&amp;quot;; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Catatan;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;1. Jika Penjualan Bebas&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;Langsung saja di Insert ke Detail Penjualan&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;2. Saran mas Ahdi Detail Billing itu&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;hanya menyimpan id_layanan saja.&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;Tarif dan Biayanya&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;di relasikan ketika pembayaran&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;3. Kalau bisa halaman menu pada pelayanan&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;hanya load content fiturnya (DOM), jangan redirect ke&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;halaman lain&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;4. Memberikan notif yang informatif jangan hanya&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;error saja&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;5. Pendaftaran/Pembayaran pasien sudah memastikan&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;mau pembayaran via apa, dan sinkronisasi dengan&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;kasir. bisa di ubah - ubah tarif/biayanya. Biaya layanan&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;ketika mau bayar tidak perlu di references&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-360" y="-320" width="290" height="300" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

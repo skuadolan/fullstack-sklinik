@@ -7,22 +7,14 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\User;
-use App\Models\Pegawai;
-use App\Models\Penduduk;
-use App\Models\ListClient;
 use App\Http\Libraries\Tools;
-use App\Models\ClientConfigs;
 use App\Http\Libraries\ResponseCode;
-
-use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -131,16 +123,6 @@ class UserController extends Controller
             ]);
 
             DB::commit();
-
-            event(new Registered($user));
-            Auth::login($user);
-
-            $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
-            $user = DB::selectOne("$qry", [$req->username]);
-            session(['user_login' => (array)$user]);
-
-            $sessionId = session()->getId();
-            Redis::setex("session:$sessionId", 3600, json_encode($user));
 
             return $this->resCode->CREATED("berhasil menyimpan data", $user);
         } catch (ValidationException $th) {

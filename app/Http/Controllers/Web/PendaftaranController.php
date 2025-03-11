@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use Error;
 use Exception;
@@ -25,6 +25,14 @@ class PendaftaranController extends Controller
         $this->tools = new Tools;
         $this->resCode = new ResponseCode;
         $this->userAgent = request()->header('User-Agent');
+
+        $sessionId = session()->getId();
+        $this->userSession = session('user_login');
+        $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+    }
+
+    private function show_array($val) {
+        $this->tools->show_array($val);
     }
 
     private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
@@ -62,36 +70,38 @@ class PendaftaranController extends Controller
             }
 
             DB::beginTransaction();
+            if (!$this->isValidVal($req->norm_pasien)) {
+                $penduduk = Penduduk::create([
+                    'nik' => $req->nik_pasien,
+                    'fullname' => $req->nama_pasien,
+                    'handphone' => $req->handphone_pasien,
+                    'whatsapp' => $req->whatsapp_pasien,
+                    'telegram' => $req->telegram_pasien,
+                    'birthdate' => $req->tanggal_lahir,
+                    'address' => $req->alamat,
+                    'id_gender' => $req->gender,
+                    'id_golongan_darah' => $req->goldar,
+                    'id_provinsi' => $req->id_provinsi,
+                    'id_kabupaten' => $req->id_kabupaten,
+                    'id_kecamatan' => $req->id_kecamatan,
+                    'id_kelurahan' => $req->id_kelurahan,
+                    'id_user_created' => $this->userSessionRedis['id_user'],
+                    'created_at' => $dateNow
+                ]);
 
-            $penduduk = Penduduk::create([
-                'nik' => $req->nik_pasien,
-                'fullname' => $req->nama_pasien,
-                'handphone' => $req->handphone_pasien,
-                'whatsapp' => $req->whatsapp_pasien,
-                'telegram' => $req->telegram_pasien,
-                'birthdate' => $req->tanggal_lahir,
-                'address' => $req->alamat,
-                'id_gender' => $req->gender,
-                'id_golongan_darah' => $req->goldar,
-                'id_provinsi' => $req->id_provinsi,
-                'id_kabupaten' => $req->id_kabupaten,
-                'id_kecamatan' => $req->id_kecamatan,
-                'id_kelurahan' => $req->id_kelurahan,
-                'id_user_created' => $req->id_user,
-                'created_at' => $dateNow
-            ]);
+                $pasien = Pasien::create([
+                    'id_penduduk' => $penduduk->id,
+                    'id_client' => $this->userSessionRedis['id_client'],
+                    'id_user_created' => $this->userSessionRedis['id_user'],
+                    'created_at' => $dateNow
+                ]);
+            }
 
-            $pasien = Pasien::create([
-                'id_penduduk' => $penduduk->id,
-                'id_client' => $req->id_client,
-                'id_user_created' => $req->id_user,
-                'created_at' => $dateNow
-            ]);
-
+            $id_pasien = ($this->isValidVal($req->norm_pasien) ? $req->norm_pasien : $pasien->id);
             $visit = Visit::create([
-                'id_pasien' => $pasien->id,
-                'id_client' => $req->id_client,
-                'id_user_created' => $req->id_user,
+                'id_pasien' => $id_pasien,
+                'id_client' => $this->userSessionRedis['id_client'],
+                'id_user_created' => $this->userSessionRedis['id_user'],
                 'created_at' => $dateNow
             ]);
 

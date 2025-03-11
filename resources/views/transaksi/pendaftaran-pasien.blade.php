@@ -15,7 +15,7 @@
                                 @csrf
                                 <input type="hidden" name="token" class="csrf-token" />
                                 <div class="flex gap-10 justify-between">
-                                    <div class="w-1/2">
+                                    <div class="w-1/2 h-screen overflow-auto">
                                         <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Pasien</h3>
                                         <table class="w-full table-no-border">
                                             <tr class="align-baseline">
@@ -28,17 +28,28 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input type="radio" name="jenis_pasien" required value="pasien_lama" checked />
+                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="pasien_lama" checked />
                                                             <x-input-label for="jenis_pasien_lama" :value="__('Lama')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input type="radio" name="jenis_pasien" required value="pasien_baru" />
+                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="pasien_baru" />
                                                             <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center hidden_if_pasien_baru">
                                                             <div id="search_pasien_container" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false"></div>
                                                         </div>
                                                     </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Unit<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline hidden_if_pasien_baru">
@@ -174,7 +185,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div class="w-1/2">
+                                    <div class="w-1/2 h-screen overflow-auto">
                                         <table class="w-full table-no-border">
                                             <tr class="align-baseline"></tr>
                                         </table>
@@ -247,6 +258,8 @@
             }
 
             if ($section == "btnFormSimpan") {
+                setTimeout(async function () { await CheckForm(); }, 10);
+
                 Swal.fire({
                     title: "Apakah data pasien sudah benar?",
                     icon: "question",
@@ -264,7 +277,7 @@
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
 
                         $.ajax({
-                            url: `${$base_url}/api/pendaftaran-pasien`,
+                            url: `${$base_url}/control/pendaftaran-pasien`,
                             type: "POST",
                             data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
                             xhrFields: {
@@ -277,6 +290,10 @@
                                 const { messages } = callback;
                                 console.dir('success', callback);
                                 toastr.success(messages, "Success!");
+
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1500);
                             },
                             error: function(callback) {
                                 const { responseJSON } = callback;
@@ -301,7 +318,7 @@
                                 }
 
                                 $("#loadingAjax").hide();
-                                $(".hideBtnProcess").show();
+                                $($this).show();
                             },
                         });
                     }
@@ -365,10 +382,24 @@
                 searchable: false,
                 render: (data) =>
                     `<div class='flex gap-1 justify-center'>
-                        <button class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150' data'>pilih</button>
+                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer'>pilih</span>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             });
             await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray);
+        }
+
+        function CheckForm() {
+            setTimeout(function () {
+                const $isPasienLama = ($("input[type=radio][name=jenis_pasien]:checked").val() == "pasien_lama" ? true : false);
+                const $isEmptyNoRM = (!IsValidVal($("#norm_pasien").val()) ? true : false);
+
+                if ($isPasienLama) {
+                    if ($isEmptyNoRM) {
+                        AllNotify("Nomor Rekam Medis tidak boleh kosong! Harus memilih dari <strong>Cari Pasien</strong>", "error");
+                        return false;
+                    }
+                }
+            }, 10);
         }
         // FUNCTIONS END
     </script>

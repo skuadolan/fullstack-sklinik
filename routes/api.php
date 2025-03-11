@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\PendaftaranController;
 
-Route::middleware(['api', 'web'])->group(function () {
+Route::middleware(['api'])->group(function () {
     Route::get('/search', [SearchController::class, 'index']);
 
     Route::get('/users', [UserController::class, 'index']);

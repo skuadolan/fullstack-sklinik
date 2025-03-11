@@ -311,7 +311,7 @@ function AllNotify($msg, $section) {
     if ($section == "success") {
         Swal.fire({
             title: "Berhasil!",
-            text: $msg,
+            html: $msg,
             icon: "success",
             confirmButtonColor: "#3085d6",
         })
@@ -321,7 +321,7 @@ function AllNotify($msg, $section) {
     if ($section == "error") {
         Swal.fire({
             title: "Kesalahan!",
-            text: $msg,
+            html: $msg,
             icon: "error",
             confirmButtonColor: "#3085d6",
         })
@@ -331,7 +331,7 @@ function AllNotify($msg, $section) {
     if ($section == "warning") {
         Swal.fire({
             title: "Peringatan!",
-            text: $msg,
+            html: $msg,
             icon: "warning",
             confirmButtonColor: "#3085d6",
         })
@@ -341,7 +341,7 @@ function AllNotify($msg, $section) {
     if ($section == "info") {
         Swal.fire({
             title: "Sekilas Info!",
-            text: $msg,
+            html: $msg,
             icon: "info",
             confirmButtonColor: "#3085d6",
         })
@@ -371,4 +371,8 @@ function ClassDOMInputStrict() {
         let $newVal = $(this).val().replace(/\D/g, "");;
         $(this).val($newVal);
     });
+}
+
+function ClearLocalStorage() {
+    localStorage.removeItem("search_params");
 }

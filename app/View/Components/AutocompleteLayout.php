@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class AutocompleteLayout extends Component
 {
     public $section, $get;
-    public $listProvinsi, $listGoldar, $listGender;
+    public $listProvinsi, $listGoldar, $listGender, $listUnit;
     public function __construct($section = null, $get = null)
     {
         $this->section = $section;
@@ -29,6 +29,11 @@ class AutocompleteLayout extends Component
         if ($section = "ssr-dropdown" && $get == 'gender') {
             $qry = "SELECT gndr.id, gndr.name FROM gender gndr ORDER BY gndr.name ASC";
             $this->listGender = DB::select("$qry");
+        }
+
+        if ($section = "ssr-dropdown" && $get == 'unit') {
+            $qry = "SELECT unt.id, unt.name FROM unit unt ORDER BY unt.name ASC";
+            $this->listUnit = DB::select("$qry");
         }
     }
 

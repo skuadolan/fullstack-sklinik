@@ -61,7 +61,7 @@ class Tools
     }
 
     public function show_array($var) {
-        return explode("\n", trim(print_r($var, true)));
+        echo print_r($var, true);
     }
 
     public function show_json($var) {

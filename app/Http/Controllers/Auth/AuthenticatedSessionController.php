@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
-
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Auth\LoginRequest;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -34,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
+        $qry = "SELECT usr.id as id_user, usr.username, usr.email, usr.is_active, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
         $user = DB::selectOne("$qry", [$request->username]);
         session(['user_login' => (array)$user]);
 
