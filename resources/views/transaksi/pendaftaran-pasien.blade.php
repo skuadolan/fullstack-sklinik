@@ -258,6 +258,8 @@
             }
 
             if ($section == "btnFormSimpan") {
+                setTimeout(async function () { await CheckForm(); }, 10);
+
                 Swal.fire({
                     title: "Apakah data pasien sudah benar?",
                     icon: "question",
@@ -384,6 +386,20 @@
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             });
             await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray);
+        }
+
+        function CheckForm() {
+            setTimeout(function () {
+                const $isPasienLama = ($("input[type=radio][name=jenis_pasien]:checked").val() == "pasien_lama" ? true : false);
+                const $isEmptyNoRM = (!IsValidVal($("#norm_pasien").val()) ? true : false);
+
+                if ($isPasienLama) {
+                    if ($isEmptyNoRM) {
+                        AllNotify("Nomor Rekam Medis tidak boleh kosong! Harus memilih dari <strong>Cari Pasien</strong>", "error");
+                        return false;
+                    }
+                }
+            }, 10);
         }
         // FUNCTIONS END
     </script>
