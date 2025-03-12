@@ -7,30 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-use App\Http\Libraries\Tools;
-use App\Http\Libraries\ResponseCode;
+use App\Http\Traits\Tools;
 
 class SearchController extends Controller
 {
-    private $resCode, $tools, $userAgent;
-    public function __construct()
-    {
-        $this->tools = new Tools;
-        $this->resCode = new ResponseCode;
-        $this->userAgent = request()->header('User-Agent');
-    }
-
-    private function reformatDBDateTime($val, $format = "d-m-Y H:i:s", $toDB = false) {
-        return $this->tools->reformatDBDateTime($val, $format, $toDB);
-    }
-
-    private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-        return $this->tools->isValidVal($val, $get, $other, $key);
-    }
-
-    private function reformatNoRM($id_pasien) {
-        return $this->tools->reformatNoRM($id_pasien);
-    }
+    use Tools;
 
     public function index(Request $req)
     {
@@ -42,7 +23,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT prov.id, prov.name FROM provinsi prov $wheres ORDER BY prov.name ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'kabupaten':
@@ -52,7 +33,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT kab.id, kab.name, kab.type, prov.name AS provinsi FROM kabupaten kab JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kab.name ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'kecamatan':
@@ -63,7 +44,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT kec.id, kec.name, kab.name AS kabupaten, prov.name AS provinsi FROM kecamatan kec JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kec.name ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'kelurahan':
@@ -75,7 +56,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name AS kecamatan, kab.name AS kabupaten, prov.name AS provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'golongan_darah':
@@ -84,7 +65,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT goldar.id, goldar.name FROM golongan_darah goldar $wheres ORDER BY goldar.name ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'roles':
@@ -93,7 +74,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT * FROM roles rol $wheres ORDER BY rol.level ASC";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'users':
@@ -104,7 +85,7 @@ class SearchController extends Controller
 
                     $qry = "SELECT usr.username, usr.email, usr.is_active, usr.id_role, rol.name AS role_name, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd ON pdd.id = usr.id_penduduk JOIN roles rol ON rol.id = usr.id_role $wheres ";
                     $datas = DB::select("$qry");
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 case 'list_pasien_lama':
@@ -116,24 +97,22 @@ class SearchController extends Controller
                     $datas = json_decode(json_encode($datas), true);
 
                     for ($i=0; $i < count($datas); $i++) {
-                        $datas[$i]["norm"] = $this->reformatNoRM($datas[$i]["norm"]);
+                        $datas[$i]["norm"] = $this->ReformatNoRM($datas[$i]["norm"]);
                     }
 
                     for ($i=0; $i < count($datas); $i++) {
-                        $datas[$i]["birthdate"] = $this->reformatDBDateTime($datas[$i]["birthdate"]);
+                        $datas[$i]["birthdate"] = $this->ReformatDateTime($datas[$i]["birthdate"]);
                     }
 
-                    return $this->resCode->OKE("berhasil mengambil data", $datas);
+                    return $datas;
                     break;
 
                 default:
-                    return $this->resCode->OKE("berhasil mengambil data", []);
+                    return [];
                     break;
             }
-
-            return $this->resCode->OKE("tidak ada data");
-        } catch (Exception $th) {
-            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
+        } catch (Exception $err) {
+            return $err;
         }
     }
 }

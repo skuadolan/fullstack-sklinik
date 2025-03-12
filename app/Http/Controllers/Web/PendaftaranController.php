@@ -36,8 +36,8 @@ class PendaftaranController extends Controller
         return $this->tools->isValidVal($val, $get, $other, $key);
     }
 
-    private function isValidAddress($req) {
-        return $this->tools->isValidAddress($req);
+    private function IsValidAddress($req) {
+        return $this->tools->IsValidAddress($req);
     }
 
     public function index()
@@ -62,7 +62,7 @@ class PendaftaranController extends Controller
         $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
         try {
-            if (!$this->isValidAddress($req)) {
+            if (!$this->IsValidAddress($req)) {
                 throw new Error("alamat tidak valid");
             }
 

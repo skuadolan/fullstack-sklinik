@@ -1,12 +1,20 @@
 <?php
 
-namespace App\Http\Libraries;
+namespace App\Http\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class Tools
+Trait Tools
 {
+    public function show_array($var) {
+        echo print_r($var, true);
+    }
+
+    public function show_json($var) {
+        echo json_encode($var, JSON_PRETTY_PRINT);
+    }
+
     public function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null)
     {
         $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
@@ -29,7 +37,7 @@ class Tools
         return $get == "value" ? "" : false;
     }
 
-    public function isValidAddress($req)
+    public function IsValidAddress($req)
     {
         $wheres = ($this->IsValidVal($req->id_provinsi) ? " WHERE prov.id = $req->id_provinsi AND " : " WHERE ");
         $wheres .= ($this->IsValidVal($req->id_kabupaten) ? " kab.id = $req->id_kabupaten AND " : "");
@@ -42,7 +50,7 @@ class Tools
         return $datas;
     }
 
-    public function reformatDBDateTime($date, $format = "Y-m-d H:i:s", $toDB = false) {
+    public function ReformatDateTime($date, $format = "Y-m-d H:i:s", $toDB = false) {
         if ($toDB && env("DB_CONNECTION") === "mysql") {
             return Carbon::parse($date)->format("Y-m-d H:i:s");
         }
@@ -50,7 +58,7 @@ class Tools
         return Carbon::parse($date)->format("$format");
     }
 
-    public function reformatNoRM($id_pasien) {
+    public function ReformatNoRM($id_pasien) {
         $tmpStr = strlen("$id_pasien");
         $tmpZero = [
             '000000',
@@ -64,11 +72,7 @@ class Tools
         return "$norm";
     }
 
-    public function show_array($var) {
-        echo print_r($var, true);
-    }
-
-    public function show_json($var) {
-        echo json_encode($var, JSON_PRETTY_PRINT);
+    public function UserAgent() {
+        return request()->header('User-Agent');
     }
 }

@@ -3,35 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use Error;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Validation\ValidationException;
+
+use App\Http\Traits\Tools;
 
 use App\Models\User;
-use App\Http\Libraries\Tools;
-use App\Http\Libraries\ResponseCode;
 
 class UserController extends Controller
 {
-    private $resCode, $tools, $userAgent;
+    use Tools;
+
+    private $dateNow, $selectColmn;
     public function __construct()
     {
-        $this->tools = new Tools;
-        $this->resCode = new ResponseCode;
-        $this->userAgent = request()->header('User-Agent');
-    }
-
-    private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-        return $this->tools->isValidVal($val, $get, $other, $key);
-    }
-
-    private function isValidAddress($req) {
-        return $this->tools->isValidAddress($req);
+        setlocale(LC_TIME, 'id_ID.utf8');
+        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $this->selectColmn = [
+            "users.*",
+            "rol.name AS role_name",
+            "pdd.nik",
+            "pdd.fullname",
+            "pdd.handphone",
+            "pdd.whatsapp",
+            "pdd.telegram",
+            "pdd.birthdate",
+            "pdd.id_gender",
+            "pdd.id_golongan_darah",
+            "pdd.id_provinsi",
+            "pdd.id_kabupaten",
+            "pdd.id_kecamatan",
+            "pdd.id_kelurahan",
+            "pdd.address"
+        ];
     }
 
     private function checkValidation($req)
@@ -43,39 +51,31 @@ class UserController extends Controller
         ]);
     }
 
+
     public function index()
     {
-        try {
-            $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
-            JOIN penduduk pdd ON pdd.id = usr.id_penduduk";
-            $datas = DB::select("$qry");
-            if ($this->IsValidVal($datas)) {
-                return $this->resCode->OKE("berhasil mengambil data", $datas);
-            }
-            return $this->resCode->OKE("tidak ada data");
-        } catch (Exception $th) {
-            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
-        }
+        return User::select($this->selectColmn)
+            ->join("roles AS rol", "rol.id", "=", "users.id_role")
+            ->join("penduduk AS pdd", "pdd.id", "=", "users.id_penduduk")
+            ->get();
     }
 
     public function create() {}
 
     public function store(LoginRequest $req)
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-        $expreDate = (clone $dateNow)->addDays(30)->toDateTimeString();
-
-        if (strpos($this->userAgent, 'Mozilla') !== false) {
-            $this->checkValidation($req);
-        }
-
         try {
-            if (strpos($this->userAgent, 'Postman') !== false) {
+            $expreDate = (clone $this->dateNow)->addDays(30)->toDateTimeString();
+
+            if (strpos($this->UserAgent(), 'Mozilla') !== false) {
                 $this->checkValidation($req);
             }
 
-            if (!$this->isValidAddress($req)) {
+            if (strpos($this->UserAgent(), 'Postman') !== false) {
+                $this->checkValidation($req);
+            }
+
+            if (!$this->IsValidAddress($req)) {
                 throw new Error("alamat tidak valid");
             }
 
@@ -87,64 +87,53 @@ class UserController extends Controller
                 'id_kabupaten' => $req->id_kabupaten,
                 'id_kecamatan' => $req->id_kecamatan,
                 'id_kelurahan' => $req->id_kelurahan,
-                'created_at' => $dateNow,
+                'created_at' => $this->dateNow,
                 'expired_date' => $expreDate,
             ]);
 
             // $clientsConfig = ClientConfigs::create([
             //     'id_client' => $listClient->id,
-            //     'created_at' => $dateNow
+            //     'created_at' => $this->dateNow
             // ]);
 
             // $clientsConfig->save();
 
             $id_penduduk = DB::table('penduduk')->insertGetId([
                 'fullname' => $req->fullname,
-                'created_at' => $dateNow
+                'created_at' => $this->dateNow
             ]);
 
-            $user = User::create([
+            $id_user = DB::table('users')->insertGetId([
                 'username' => $req->username,
                 'email' => $req->email,
                 'password' => Hash::make($req->password),
                 'id_client' => $id_client,
                 'id_penduduk' => $id_penduduk,
                 'expired_date' => $expreDate,
-                'created_at' => $dateNow
+                'created_at' => $this->dateNow
             ]);
 
-            $user->save();
-
             $id_pegawai = DB::table('pegawai')->insertGetId([
-                'id_user' => $user->id,
+                'id_user' => $id_user,
                 'id_client' => $id_client,
                 'id_penduduk' => $id_penduduk,
-                'created_at' => $dateNow
+                'created_at' => $this->dateNow
             ]);
 
             DB::commit();
 
-            return $this->resCode->CREATED("berhasil menyimpan data", $user);
-        } catch (ValidationException $th) {
-            DB::rollBack();
-            return $this->resCode->SERVER_ERROR("kesalahan dalam menyimpan data!", $th->getMessage());
+            return $id_pegawai;
+        } catch (Error $err) {
+            return $err;
         }
     }
 
     public function show(string $id)
     {
-        try {
-            $wheres = ($this->IsValidVal($id) ? " WHERE usr.id = $id " : "");
-            $qry = "SELECT usr.id, usr.username, usr.email, usr.status, rol.name AS role_name, pdd.fullname, pdd.nik, pdd.birthdate, usr.created_at FROM users usr JOIN roles rol ON rol.id = usr.id_role
-            JOIN penduduk pdd ON pdd.id = usr.id_penduduk $wheres";
-            $datas = DB::select("$qry");
-            if ($this->IsValidVal($datas)) {
-                return $this->resCode->OKE("berhasil mengambil data", $datas);
-            }
-            return $this->resCode->OKE("tidak ada data");
-        } catch (Exception $th) {
-            return $this->resCode->SERVER_ERROR("kesalahan dalam mengambil data!", $th->getMessage());
-        }
+        return User::select($this->selectColmn)
+            ->join('roles AS rol', 'rol.id', '=', 'users.id_role')
+            ->join('penduduk AS pdd', 'pdd.id', '=', 'users.id_penduduk')
+            ->find($id);
     }
 
     public function edit(string $id) {}
