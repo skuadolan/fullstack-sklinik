@@ -160,16 +160,34 @@ REDIS_PORT=6379
 ```
 - Jangan lupa untuk run prompt berikut ini;
 ```bash
+php artisan auth:clear-resets
+```
+```bash
 php artisan cache:clear
 ```
 ```bash
 php artisan config:clear
 ```
 ```bash
-php artisan config:cache
+php artisan event:clear
 ```
 ```bash
 php artisan optimize:clear
+```
+```bash
+php artisan queue:clear
+```
+```bash
+php artisan route:clear
+```
+```bash
+php artisan schedule:clear-cache
+```
+```bash
+php artisan session:table
+```
+```bash
+php artisan view:clear
 ```
 
 - Dan pada container redis run promp berikut

@@ -27,6 +27,10 @@ class PendaftaranController extends Controller
         $this->userAgent = request()->header('User-Agent');
     }
 
+    private function reformatDBDateTime($val, $format = "d-m-Y H:i:s", $toDB = false) {
+        return $this->tools->reformatDBDateTime($val, $format, $toDB);
+    }
+
     private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
         return $this->tools->isValidVal($val, $get, $other, $key);
     }
@@ -69,7 +73,7 @@ class PendaftaranController extends Controller
                     'handphone' => $req->handphone_pasien,
                     'whatsapp' => $req->whatsapp_pasien,
                     'telegram' => $req->telegram_pasien,
-                    'birthdate' => $req->tanggal_lahir,
+                    'birthdate' => $this->reformatDBDateTime($req->tanggal_lahir, null, true),
                     'address' => $req->address_pasien,
                     'id_gender' => $req->gender,
                     'id_golongan_darah' => $req->goldar,

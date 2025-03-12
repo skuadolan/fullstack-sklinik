@@ -338,13 +338,12 @@ function LoadingInput($section, $elemnt) {
     }
 }
 
-function LoginAjaxSection($postFormData, $token) {
-    $("#_csrf-token").val($token);
-    $("#csrf-token").val($token);
+function LoginAjaxSection($postFormData) {
+    $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $token,
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
     });
 
@@ -356,7 +355,7 @@ function LoginAjaxSection($postFormData, $token) {
             withCredentials: true
         },
         headers: {
-            'X-CSRF-TOKEN': $token
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (callback) {
             console.dir('success', callback);

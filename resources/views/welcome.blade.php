@@ -93,7 +93,7 @@
                                 toastr.success(messages, "Success!");
 
                                 setTimeout(() => {
-                                    LoginAjaxSection($("#registerForm").serializeArray(), $('meta[name="csrf-token"]').attr('content'));
+                                    LoginAjaxSection($("#registerForm").serializeArray());
                                 }, 1500);
                             },
                             error: function(callback) {

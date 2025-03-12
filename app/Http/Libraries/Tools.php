@@ -42,7 +42,11 @@ class Tools
         return $datas;
     }
 
-    public function reformatDBDateTime($date, $format = "d-m-Y H:i:s") {
+    public function reformatDBDateTime($date, $format = "Y-m-d H:i:s", $toDB = false) {
+        if ($toDB && env("DB_CONNECTION") === "mysql") {
+            return Carbon::parse($date)->format("Y-m-d H:i:s");
+        }
+
         return Carbon::parse($date)->format("$format");
     }
 
