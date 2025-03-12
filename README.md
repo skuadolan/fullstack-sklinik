@@ -158,3 +158,21 @@ REDIS_CLIENT=predis
 REDIS_HOST=sklinik_redis
 REDIS_PORT=6379
 ```
+- Jangan lupa untuk run prompt berikut ini;
+```bash
+php artisan cache:clear
+```
+```bash
+php artisan config:clear
+```
+```bash
+php artisan config:cache
+```
+```bash
+php artisan optimize:clear
+```
+
+- Dan pada container redis run promp berikut
+```bash
+redis-cli FLUSHALL
+```

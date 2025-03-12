@@ -20,6 +20,10 @@ class SearchController extends Controller
         $this->userAgent = request()->header('User-Agent');
     }
 
+    private function reformatDBDateTime($val, $format = "d-m-Y") {
+        return $this->tools->reformatDBDateTime($val, $format);
+    }
+
     private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
         return $this->tools->isValidVal($val, $get, $other, $key);
     }
@@ -107,12 +111,16 @@ class SearchController extends Controller
                     $wheres = ($this->IsValidVal($req->id_pasien) ? " WHERE pas.id = $req->id_pasien AND " : " WHERE ");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(pas.fullname) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.name AS jenis_kelamin, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN GENDER gndr ON gndr.id = ppas.id_gender LEFT JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah LEFT JOIN PROVINSI prov ON prov.id = ppas.id_provinsi LEFT JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten LEFT JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan LEFT JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan $wheres ";
+                    $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, gndr.id AS id_gender, gndr.name AS jenis_kelamin, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM PASIEN pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN GENDER gndr ON gndr.id = ppas.id_gender LEFT JOIN GOLONGAN_DARAH goldar ON goldar.id = ppas.id_golongan_darah LEFT JOIN PROVINSI prov ON prov.id = ppas.id_provinsi LEFT JOIN KABUPATEN kab ON kab.id = ppas.id_kabupaten LEFT JOIN KECAMATAN kec ON kec.id = ppas.id_kecamatan LEFT JOIN KELURAHAN kel ON kel.id = ppas.id_kelurahan $wheres ";
                     $datas = DB::select("$qry");
                     $datas = json_decode(json_encode($datas), true);
 
                     for ($i=0; $i < count($datas); $i++) {
                         $datas[$i]["norm"] = $this->reformatNoRM($datas[$i]["norm"]);
+                    }
+
+                    for ($i=0; $i < count($datas); $i++) {
+                        $datas[$i]["birthdate"] = $this->reformatDBDateTime($datas[$i]["birthdate"]);
                     }
 
                     return $this->resCode->OKE("berhasil mengambil data", $datas);

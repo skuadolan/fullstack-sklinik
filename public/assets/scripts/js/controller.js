@@ -234,19 +234,22 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
 }
 
 async function GetFromAPI($url) {
-    try {
-        $('#loadingContetLoader').show();
-        return await fetch(`${$base_url}${$url}`).then(function ($list) {
-            $('#loadingContetLoader').hide();
-            console.dir($list);
-            return $list;
-        }).catch(function ($err) {
-            $('#loadingContetLoader').hide();
-            console.dir($err);
-        });
-    } catch (err) {
-        throw err;
-    }
+    return new Promise(async function (resolve, reject) {
+        try {
+            $('#loadingContetLoader').show();
+            await fetch(`${$base_url}${$url}`).then(async function ($list) {
+                $('#loadingContetLoader').hide();
+                console.dir("success", $list);
+                resolve(await $list.json());
+            }).catch(function ($err) {
+                $('#loadingContetLoader').hide();
+                console.dir("error", $err);
+                throw new Error($err);
+            });
+        } catch (err) {
+            reject(err);
+        }
+    })
 }
 
 function IDRToDecimal($val) {
@@ -302,7 +305,8 @@ function isset($val) {
 }
 
 function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-    const $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
+    const $tmpVal = (isset($key) && isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
+
     if (isset($tmpVal)) {
         if ($get == "value") {
             if (isset($other) && $other != null) {
@@ -419,7 +423,7 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
     let $htmlBtnClose = "";
 
     if ($isBtnSection) {
-        $htmlBtnSubmit = `<span type="submit" class="inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" @submit.prevent="${$formFuncOnSubmit}">${$btnTxt[1]}</span>`;
+        $htmlBtnSubmit = `<span type="submit" class="inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" onclick="${$formFuncOnSubmit}">${$btnTxt[1]}</span>`;
         $htmlBtnReset = `<span type="reset" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer hideBtnProcess ms-3">${$btnTxt[2]}</span>`;
         $htmlBtnClose = `<span class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
@@ -430,7 +434,7 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
-    <form id="${$formID}" @submit.prevent="${$formFuncOnSubmit}">
+    <div>
         <div class="mt-4">
             ${$htmlSlot}
         </div>
@@ -444,13 +448,13 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
 
             ${$htmlBtnSubmit}
         </div>
-    </form>
+    </div>
     ` : "");
 
     const html = `
     ${$htmlBtnOpen}
 
-    <div id="modal_section">
+    <div class="modal_section">
         <div
             x-show="${$valModal}"
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
@@ -462,10 +466,10 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
             x-transition:leave-end="opacity-0"
             style="display: none;"
         >
-            <div class="bg-white w-full max-w-3xl mx-auto rounded-lg shadow-lg p-6 max-h-[80vh] overflow-y-auto" @click.away="${$valModal} = false" @keydown.escape.window="${$valModal} = false">
+            <div class="bg-white w-full max-w-7xl mx-auto rounded-lg shadow-lg p-6 max-h-[80vh] overflow-y-auto" @click.away="${$valModal} = false" @keydown.escape.window="${$valModal} = false">
                 <div class="flex justify-between items-center border-b pb-3">
                     ${$htmlTxtHead}
-                    <span @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700 text-xl cursor-pointer">
+                    <span class="modal_section_close_btn" @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700 text-xl cursor-pointer">
                         &times;
                     </span>
                 </div>
@@ -478,7 +482,6 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
             </div>
         </div>
     </div>
-
     `;
 
     $(`${$idContainer}`).html(html);
@@ -540,7 +543,7 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     const $tmpDropdownData = [];
     Object.values($formArray).forEach(function ($list) {
         const { name } = $list;
-        if (IsValidVal($(`#id_${name}`).val())) {
+        if (IsValidVal($(`#id_${name}`).val()) && (name !== $get)) {
             $tmpDropdownData.push({ name: `id_${name}`, value: $(`#id_${name}`).val() });
         }
     });
@@ -550,7 +553,7 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     if (IsValidVal($localStorage)) {
         $searchParams.forEach(function ($list, $index) {
             const { name } = $list;
-            if (name.includes("id_")) {
+            if (name.includes("id_") && (name !== $get)) {
                 if (JSON.stringify($list) != JSON.stringify($tmpDropdownData[$index])) {
                     $statusResult = false;
                     return;
@@ -573,15 +576,11 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
     if (IsValidVal($tmpDropdownData)) {
         localStorage.setItem("search_params", JSON.stringify($tmpDropdownData));
 
-        console.log($tmpDropdownData.length);
-        console.log($searchParams.length);
-        console.log($statusResult);
-        console.log($tmpDropdownData.length != $searchParams.length || !$statusResult);
         if ($tmpDropdownData.length != $searchParams.length || !$statusResult) {
             const $listID = [];
             Object.values($formArray).forEach(function ($list) {
                 const { name, value } = $list;
-                if (name.includes("id_") && IsValidVal(value)) {
+                if (name.includes("id_") && IsValidVal(value) && (name !== $get)) {
                     $listID.push(`${name}=${value}`);
                 }
             });

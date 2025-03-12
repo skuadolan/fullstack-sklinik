@@ -264,11 +264,7 @@ function TxtCheckInputSymbol($this) {
     let $newVal = $($this).val();
 
     if ($invalidChars.test($newVal)) {
-        Swal.fire({
-            title: "Kesalahan!",
-            html: `Simbol <i><strong>${$newVal}</strong></i></br> Tidak diperbolehkan!`,
-            icon: "error"
-        });
+        AllNotify(`Simbol <i><strong>${$newVal}</strong></i></br> Tidak diperbolehkan!`, "error");
         $($this).val($newVal.replace($invalidChars, ""));
     }
 }

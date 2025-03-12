@@ -16,10 +16,12 @@ return new class extends Migration
             $table->integer('status')->default(1)->comment('0 Batal, 1 Masuk, 2 Mutasi Rajal, 3 Ranap, 4 Mutasi Ranap, 5 Keluar/Selesai');
             $table->unsignedBigInteger('id_visit');
             $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
-            $table->unsignedBigInteger('id_nakes');
-            $table->foreign('id_nakes')->references('id')->on('nakes')->onDelete('cascade');
-            $table->unsignedBigInteger('id_bed');
-            $table->foreign('id_bed')->references('id')->on('bed')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pasien');
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
+            // $table->unsignedBigInteger('id_nakes');
+            // $table->foreign('id_nakes')->references('id')->on('nakes')->onDelete('cascade');
+            // $table->unsignedBigInteger('id_bed');
+            // $table->foreign('id_bed')->references('id')->on('bed')->onDelete('cascade');
             $table->timestamp("waktu_masuk")->nullable();
             $table->timestamp("waktu_keluar")->nullable();
             $table->unsignedBigInteger('id_client');

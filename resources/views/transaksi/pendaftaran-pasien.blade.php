@@ -43,13 +43,33 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
+                                                    <label for="jenis_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Jenis Kunjungan<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <div class="flex gap-10">
+                                                        <div class="flex gap-2 items-center">
+                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
+                                                            <x-input-label for="jenis_kunjungan_rajal" :value="__('Rawat Jalan')" />
+                                                        </div>
+                                                        <div class="flex gap-2 items-center">
+                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
+                                                            <x-input-label for="jenis_kunjungan_ranap" :value="__('Rawat Inap')" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
                                                     <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Unit<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-autocomplete-layout section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
+                                                    <x-autocomplete-layout id="unit" name="unit" section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline hidden_if_pasien_baru">
@@ -93,7 +113,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-date-time-picker-layout section="datepicker"></x-date-time-picker-layout>
+                                                    <x-date-time-picker-layout id="tanggal_lahir" name="tanggal_lahir" section="datepicker"></x-date-time-picker-layout>
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline">
@@ -104,7 +124,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-autocomplete-layout section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." />
+                                                    <x-autocomplete-layout id="goldar" name="goldar" section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline">
@@ -115,7 +135,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-autocomplete-layout section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                                                    <x-autocomplete-layout id="gender" name="gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline">
@@ -171,7 +191,7 @@
                                                 <td>:</td>
                                                 <td>
                                                     <div>
-                                                        <select onchange="execFormSection('nomor_ponsel_pasien', this)" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                        <select id="nomor_ponsel_pasien" onchange="execFormSection('nomor_ponsel_pasien', this)" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
                                                             <option value="" selected disabled>Pilih Opsi...</option>
                                                             <option value="handphone" class="optn_list_nomor_pasien">Handphone</option>
                                                             <option value="whatsapp" class="optn_list_nomor_pasien">Whatsapp</option>
@@ -220,16 +240,16 @@
             (async function () {
                 // Modal Section START
                 const $modalSlotContent = `
-                    <table id="listPasienTable" class="min-w-full table-auto table-text-center-number">
+                    <table id="listPasienTable" class="min-w-full table-auto table-text-center-important">
                         <thead>
                             <tr class="bg-gray-100">
+                                <th class="px-4 py-2">Aksi</th>
                                 <th class="px-4 py-2">NIK</th>
                                 <th class="px-4 py-2">No.RM</th>
                                 <th class="px-4 py-2">Nama Pasien</th>
                                 <th class="px-4 py-2">Tanggal Lahir</th>
                                 <th class="px-4 py-2">Jenis Kelamin</th>
                                 <th class="px-4 py-2">Alamat</th>
-                                <th class="px-4 py-2">Aksi</th>
                             </tr>
                         </thead>
                     </table>
@@ -243,6 +263,8 @@
             $("input[type=radio][name=jenis_pasien]").on("change", function () {
                 if ($(this).val() == "pasien_baru") {
                     $(".hidden_if_pasien_baru").hide();
+
+                    ForceEmptyFormValue();
                 } else {
                     $(".hidden_if_pasien_baru").show();
                 }
@@ -375,17 +397,18 @@
 
         async function DataTablesListPasien() {
             const $coloumnsArray = [];
-            $coloumnsArray.push({ data: 'nik' }, { data: 'norm' }, { data: 'fullname' }, { data: 'birthdate' }, { data: 'jenis_kelamin' }, { data: 'address' });
             $coloumnsArray.push({
                 data: null,
+                autoWidth: false,
                 orderable: false,
                 searchable: false,
                 render: (data) =>
                     `<div class='flex gap-1 justify-center'>
-                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer'>pilih</span>
+                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer' onclick='PilihPasienLama(${data.id_pasien})'>pilih</span>
                     </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
             });
-            await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray);
+            $coloumnsArray.push({ data: 'nik' }, { data: 'norm' }, { data: 'fullname' }, { data: 'birthdate' }, { data: 'jenis_kelamin' }, { data: 'address' });
+            setTimeout(async function () { await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`,"#listPasienTable", $coloumnsArray); }, 10);
         }
 
         function CheckForm() {
@@ -400,6 +423,71 @@
                     }
                 }
             }, 10);
+        }
+
+        async function PilihPasienLama($id_pasien) {
+            const { datas } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
+
+            if (!IsValidVal(datas, "bool", null, 0)) {
+                AllNotify("Data Pasien tidak ditemukan!", "error");
+                return false;
+            }
+
+            const $isPasienLama = ($("input[type=radio][name=jenis_pasien]:checked").val() == "pasien_lama" ? true : false);
+            if ($isPasienLama) {
+                ForceEmptyFormValue();
+            }
+
+            const { norm, fullname, nik, birthdate, id_goldar, id_gender } = IsValidVal(datas, "value", null, "0");
+            const { address, id_provinsi, id_kabupaten, id_kecamatan, id_kelurahan } = IsValidVal(datas, "value", null, "0");
+            const { handphone, whatsapp, telegram } = IsValidVal(datas, "value", null, "0");
+
+
+            $("#norm_pasien").val(norm);
+            $("#nama_pasien").val(fullname);
+            $("#nik_pasien").val(nik);
+            $("#tanggal_lahir").val(birthdate);
+            $("#address_pasien").val(address);
+            $("#goldar").val(id_goldar).trigger('change');
+            $("#gender").val(id_gender).trigger('change');
+
+            if (IsValidVal(handphone)) {
+                $("#nomor_ponsel_pasien").val("handphone").trigger('change');
+                setTimeout(function () { $("#handphone_pasien").val(handphone); }, 10);
+            }
+
+            if (IsValidVal(whatsapp)) {
+                $("#nomor_ponsel_pasien").val("whatsapp").trigger('change');
+                setTimeout(function () { $("#whatsapp_pasien").val(whatsapp); }, 10);
+            }
+
+            if (IsValidVal(telegram)) {
+                $("#nomor_ponsel_pasien").val("telegram").trigger('change');
+                setTimeout(function () { $("#telegram_pasien").val(telegram); }, 10);
+            }
+
+            $(".modal_section_close_btn").click();
+        }
+
+        function ForceEmptyFormValue() {
+            $("#norm_pasien").val("");
+            $("#nama_pasien").val("");
+            $("#nik_pasien").val("");
+            $("#tanggal_lahir").val("");
+            $("#address_pasien").val("");
+            $("#handphone_pasien").val("");
+            $("#whatsapp_pasien").val("");
+            $("#telegram_pasien").val("");
+            $("#goldar").val("").trigger('change');
+            $("#gender").val("").trigger('change');
+
+            $(".list_nomor_pasien").each(function () {
+                $(this).remove();
+            })
+            $(".optn_list_nomor_pasien").each(function () {
+                $(this).show();
+            })
+            $("#nomor_ponsel_pasien").show();
         }
         // FUNCTIONS END
     </script>

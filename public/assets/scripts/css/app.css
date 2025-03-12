@@ -79,18 +79,22 @@ tr:nth-child(even) {
     text-align: center !important;
 }
 
+.table-text-center-important td , .table-text-center-important th {
+    text-align: center !important;
+}
+
 table.dataTable tbody tr:nth-child(odd) {
-    background-color: #f8f9fa;
+    background-color: #ffffff !important;
     color: #333;
 }
 
 table.dataTable tbody tr:nth-child(even) {
-    background-color: #ffffff;
+    background-color: #f8f9fa !important;
     color: #333;
 }
 
 table.dataTable tbody tr:hover {
-    background-color: #e9ecef;
+    background-color: #e9ecef !important;
     color: #000;
 }
 
