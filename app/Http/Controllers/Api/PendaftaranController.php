@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\ValidationException;
 
 use App\Http\Libraries\Tools;
@@ -16,6 +15,7 @@ use App\Http\Libraries\ResponseCode;
 use App\Models\Visit;
 use App\Models\Pasien;
 use App\Models\Penduduk;
+use App\Models\Kunjungan;
 
 class PendaftaranController extends Controller
 {
@@ -62,34 +62,47 @@ class PendaftaranController extends Controller
             }
 
             DB::beginTransaction();
+            if (!$this->isValidVal($req->norm_pasien)) {
+                $penduduk = Penduduk::create([
+                    'nik' => $req->nik_pasien,
+                    'fullname' => $req->nama_pasien,
+                    'handphone' => $req->handphone_pasien,
+                    'whatsapp' => $req->whatsapp_pasien,
+                    'telegram' => $req->telegram_pasien,
+                    'birthdate' => $req->tanggal_lahir,
+                    'address' => $req->address_pasien,
+                    'id_gender' => $req->gender,
+                    'id_golongan_darah' => $req->goldar,
+                    'id_provinsi' => $req->id_provinsi,
+                    'id_kabupaten' => $req->id_kabupaten,
+                    'id_kecamatan' => $req->id_kecamatan,
+                    'id_kelurahan' => $req->id_kelurahan,
+                    'id_user_created' => $req->id_user,
+                    'created_at' => $dateNow
+                ]);
 
-            $penduduk = Penduduk::create([
-                'nik' => $req->nik_pasien,
-                'fullname' => $req->nama_pasien,
-                'handphone' => $req->handphone_pasien,
-                'whatsapp' => $req->whatsapp_pasien,
-                'telegram' => $req->telegram_pasien,
-                'birthdate' => $req->tanggal_lahir,
-                'address' => $req->alamat,
-                'id_gender' => $req->gender,
-                'id_golongan_darah' => $req->goldar,
-                'id_provinsi' => $req->id_provinsi,
-                'id_kabupaten' => $req->id_kabupaten,
-                'id_kecamatan' => $req->id_kecamatan,
-                'id_kelurahan' => $req->id_kelurahan,
-                'id_user_created' => $req->id_user,
-                'created_at' => $dateNow
-            ]);
+                $pasien = Pasien::create([
+                    'id_penduduk' => $penduduk->id,
+                    'id_client' => $req->id_client,
+                    'id_user_created' => $req->id_user,
+                    'created_at' => $dateNow
+                ]);
+            }
 
-            $pasien = Pasien::create([
-                'id_penduduk' => $penduduk->id,
+            $id_pasien = ($this->isValidVal($req->norm_pasien) ? $req->norm_pasien : $pasien->id);
+            $visit = Visit::create([
+                'id_pasien' => $id_pasien,
                 'id_client' => $req->id_client,
                 'id_user_created' => $req->id_user,
                 'created_at' => $dateNow
             ]);
 
-            $visit = Visit::create([
-                'id_pasien' => $pasien->id,
+            $kunjungan = Kunjungan::create([
+                'id_visit' => $visit->id,
+                // 'id_nakes' => $req->nakes,
+                // 'id_bed' => $req->bed,
+                'id_pasien' => $id_pasien,
+                'waktu_masuk' => $dateNow,
                 'id_client' => $req->id_client,
                 'id_user_created' => $req->id_user,
                 'created_at' => $dateNow
@@ -97,7 +110,7 @@ class PendaftaranController extends Controller
 
             DB::commit();
 
-            return $this->resCode->CREATED("berhasil menyimpan data", $pasien);
+            return $this->resCode->CREATED("berhasil menyimpan data", $visit);
         } catch (ValidationException $th) {
             DB::rollBack();
             return $this->resCode->SERVER_ERROR("kesalahan dalam menyimpan data!", $th->getMessage());

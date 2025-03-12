@@ -16,6 +16,7 @@ use App\Http\Libraries\ResponseCode;
 use App\Models\Visit;
 use App\Models\Pasien;
 use App\Models\Penduduk;
+use App\Models\Kunjungan;
 
 class PendaftaranController extends Controller
 {
@@ -29,10 +30,6 @@ class PendaftaranController extends Controller
         $sessionId = session()->getId();
         $this->userSession = session('user_login');
         $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
-    }
-
-    private function show_array($val) {
-        $this->tools->show_array($val);
     }
 
     private function isValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
@@ -78,7 +75,7 @@ class PendaftaranController extends Controller
                     'whatsapp' => $req->whatsapp_pasien,
                     'telegram' => $req->telegram_pasien,
                     'birthdate' => $req->tanggal_lahir,
-                    'address' => $req->alamat,
+                    'address' => $req->address_pasien,
                     'id_gender' => $req->gender,
                     'id_golongan_darah' => $req->goldar,
                     'id_provinsi' => $req->id_provinsi,
@@ -105,9 +102,20 @@ class PendaftaranController extends Controller
                 'created_at' => $dateNow
             ]);
 
+            $kunjungan = Kunjungan::create([
+                'id_visit' => $visit->id,
+                // 'id_nakes' => $req->nakes,
+                // 'id_bed' => $req->bed,
+                'id_pasien' => $id_pasien,
+                'waktu_masuk' => $dateNow,
+                'id_client' => $this->userSessionRedis['id_client'],
+                'id_user_created' => $this->userSessionRedis['id_user'],
+                'created_at' => $dateNow
+            ]);
+
             DB::commit();
 
-            return $this->resCode->CREATED("berhasil menyimpan data", $pasien);
+            return $this->resCode->CREATED("berhasil menyimpan data", $visit);
         } catch (ValidationException $th) {
             DB::rollBack();
             return $this->resCode->SERVER_ERROR("kesalahan dalam menyimpan data!", $th->getMessage());

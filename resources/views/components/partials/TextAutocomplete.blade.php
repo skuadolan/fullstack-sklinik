@@ -126,7 +126,7 @@
     @endif
 
     @if ($get == 'golongan_darah')
-        <select name="goldar" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+        <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
             <option value="" selected disabled>Pilih Opsi...</option>
             @if (isset($listGoldar) && !empty($listGoldar))
                 @foreach ($listGoldar as $key => $list)
@@ -137,7 +137,7 @@
     @endif
 
     @if ($get == 'gender')
-        <select name="gender" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+        <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
             <option value="" selected disabled>Pilih Opsi...</option>
             @if (isset($listGender) && !empty($listGender))
                 @foreach ($listGender as $key => $list)
@@ -148,7 +148,7 @@
     @endif
 
     @if ($get == 'unit')
-        <select name="unit" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+        <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
             <option value="" selected disabled>Pilih Opsi...</option>
             @if (isset($listUnit) && !empty($listUnit))
                 @foreach ($listUnit as $key => $list)
