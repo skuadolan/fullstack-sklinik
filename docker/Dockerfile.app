@@ -10,16 +10,23 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     curl \
-    && docker-php-ext-install pdo pdo_pgsql zip
+    git \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_pgsql zip bcmath sockets \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
-# Install Composer
-COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
+# Install Composer (Versi terbaru)
+COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 
-# Install Node.js and npm (for TailwindCSS & assets compilation)
-# RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-#     && apt-get install -y nodejs
+# Install Node.js dan npm untuk TailwindCSS & assets compilation
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
-# Copy custom PHP configuration
+# Copy custom PHP configuration (Jika ada)
 # COPY ./docker/php.ini /usr/local/etc/php/php.ini
 
 # Copy application code
