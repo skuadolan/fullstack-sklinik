@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 
-use App\Http\Libraries\Tools;
-use App\Http\Libraries\ResponseCode;
+use App\Traits\Tools;
+use App\Traits\ResponseCode;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
@@ -13,14 +13,7 @@ use App\Models\GolonganDarah;
 
 class WebController extends Controller
 {
-
-    private $resCode, $tools, $userAgent;
-    public function __construct()
-    {
-        $this->tools = new Tools;
-        $this->resCode = new ResponseCode;
-        $this->userAgent = request()->header('User-Agent');
-    }
+    use Tools, ResponseCode;
 
     public function GolonganDarah(Request $req)
     {
@@ -47,7 +40,7 @@ class WebController extends Controller
                     ->join('roles', 'users.id_role', '=', 'roles.id')
                     ->get();
 
-            return $this->resCode->OKE("berhasil mengambil data", $users);
+            return $this->OKE("berhasil mengambil data", $users);
         }
 
         return view('master-data.user-system');

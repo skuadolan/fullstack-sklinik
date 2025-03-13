@@ -339,6 +339,7 @@ function LoadingInput($section, $elemnt) {
 }
 
 function LoginAjaxSection($postFormData) {
+    $("._csrf-token").val($('meta[name="csrf-token"]').attr('content'));
     $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
     $.ajaxSetup({

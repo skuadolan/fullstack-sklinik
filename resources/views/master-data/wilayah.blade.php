@@ -19,7 +19,7 @@
                                     <table class="w-full table-no-border">
                                         <tr class="align-baseline">
                                             <td>
-                                                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">
                                                     Cari Berdasarkan
                                                 </label>
                                             </td>
@@ -32,6 +32,7 @@
                                                     <option value="kecamatan">Kecamatan</option>
                                                     <option value="kelurahan">Kelurahan</option>
                                                 </select>
+                                            </td>
                                         </tr>
                                         <tr class="align-baseline">
                                             <td>
@@ -174,7 +175,9 @@
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", "simpanWilayah()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, { btn: true });
+                await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", "simpanWilayah()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, {
+                    btn: true
+                });
             })();
 
             // Functions event onclick start
@@ -195,16 +198,41 @@
         });
 
         function tableFormat($target) {
-            const $coloumnsArray = [{ data: null, render: (data, type, row, meta) => meta.row + 1 }];
+            const $coloumnsArray = [{
+                data: null,
+                render: (data, type, row, meta) => meta.row + 1
+            }];
 
             if ($target == 'provinsi') {
-                $coloumnsArray.push({ data: 'name' });
+                $coloumnsArray.push({
+                    data: 'name'
+                });
             } else if ($target == 'kabupaten') {
-                $coloumnsArray.push({ data: 'name' }, { data: 'provinsi' });
+                $coloumnsArray.push({
+                    data: 'name'
+                }, {
+                    data: 'provinsi'
+                });
             } else if ($target == 'kecamatan') {
-                $coloumnsArray.push({ data: 'name' }, { data: 'kabupaten' }, { data: 'provinsi' });
+                $coloumnsArray.push({
+                    data: 'name'
+                }, {
+                    data: 'kabupaten'
+                }, {
+                    data: 'provinsi'
+                });
             } else if ($target == 'kelurahan') {
-                $coloumnsArray.push({ data: 'postal_code' }, { data: 'name' }, { data: 'kecamatan' }, { data: 'kabupaten' }, { data: 'provinsi' });
+                $coloumnsArray.push({
+                    data: 'postal_code'
+                }, {
+                    data: 'name'
+                }, {
+                    data: 'kecamatan'
+                }, {
+                    data: 'kabupaten'
+                }, {
+                    data: 'provinsi'
+                });
             }
 
             $coloumnsArray.push({
@@ -243,8 +271,11 @@
 
                 let $getData = '';
                 const $listID = [];
-                Object.values($formArray).forEach(function ($list) {
-                    const { name, value } = $list;
+                Object.values($formArray).forEach(function($list) {
+                    const {
+                        name,
+                        value
+                    } = $list;
                     if (name.includes("id_") && !name.includes("params_type") && IsValidVal(value)) {
                         $listID.push(`${name}=${value}`);
                     }

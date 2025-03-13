@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -74,5 +74,9 @@ Trait Tools
 
     public function UserAgent() {
         return request()->header('User-Agent');
+    }
+
+    public function ReqValidation($req, $form) {
+        $req->validate($form);
     }
 }

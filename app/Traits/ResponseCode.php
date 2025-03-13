@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
-use App\Http\Traits\Tools;
+use App\Traits\Tools;
 
 Trait ResponseCode
 {

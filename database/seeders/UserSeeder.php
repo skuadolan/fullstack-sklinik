@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
 
         $id_user = DB::table('users')->insertGetId([
             'username' => 'root',
-            'email' => 'root@sklinik.com',
+            'email' => 'root@skuad.com',
             'id_role' => 1,
             'id_penduduk' => $id_penduduk,
             'password' => Hash::make('1234'),
