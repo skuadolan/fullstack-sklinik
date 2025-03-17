@@ -122,7 +122,7 @@ class UserService
 
             if ($this->IsValidVal($validate)) {
                 DB::commit();
-                return $this->OKE($validate, "Data berhasil disimpan");
+                return $validate;
             } else {
                 DB::rollBack();
                 throw new ValidationException($validate);
@@ -179,7 +179,7 @@ class UserService
 
             if ($this->IsValidVal($validate)) {
                 DB::commit();
-                return $this->OKE($validate, "Data berhasil disimpan");
+                return $validate;
             } else {
                 DB::rollBack();
                 throw new ValidationException($validate);

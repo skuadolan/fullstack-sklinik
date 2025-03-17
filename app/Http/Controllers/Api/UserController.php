@@ -10,31 +10,20 @@ use App\Traits\ResponseCode;
 
 use App\Services\Api\UserService;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\Api\UserRequest;
 
 class UserController extends ApiController
 {
     use ResponseCode, Tools;
 
-    public function __construct(private UserService $service)
-    {
-        parent::__construct($this->service);
-    }
+    public function __construct(private UserService $service) { parent::__construct($this->service); }
 
+    public function index(): JsonResponse { return $this->GetAllDatas(); }
 
-    public function index() { return $this->GetAllDatas(); }
+    public function store(Request $req): JsonResponse { return $this->CreateData($req); }
 
-    public function store(Request $req): JsonResponse
-    {
-        return $this->service->store($req);
-    }
+    public function show(string $id): JsonResponse { return $this->GetByID($id); }
 
-    public function show(string $id) { return $this->GetByID($id); }
+    public function update(Request $req, string $id): JsonResponse { return $this->UpdateByID($req, $id); }
 
-    public function update(Request $req, string $id): JsonResponse
-    {
-        return $this->service->update($req, $id);
-    }
-
-    public function destroy(string $id) { return $this->DeleteByID($id); }
+    public function destroy(string $id): JsonResponse { return $this->DeleteByID($id); }
 }

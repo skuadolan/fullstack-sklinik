@@ -194,3 +194,6 @@ php artisan view:clear
 ```bash
 redis-cli FLUSHALL
 ```
+
+# cPanel
+Jika setting cPanel, pastikan seluruh `.env` yang berkaitan dengan `domain` semua localhost diganti menjadi `current domain` atau `domain` yang sedang digunakan di hosting.
