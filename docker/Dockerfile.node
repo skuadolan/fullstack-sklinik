@@ -11,8 +11,5 @@ COPY package.json pnpm-lock.yaml* ./
 # Install dependensi menggunakan PNPM
 RUN pnpm install
 
-# Copy seluruh proyek
-COPY . .
-
 # Jalankan perintah default
-CMD ["pnpm", "build"]
+CMD ["pnpm", "run", "build"]

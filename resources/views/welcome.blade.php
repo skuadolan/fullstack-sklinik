@@ -78,7 +78,7 @@
 
                     if ($section == "registerForm") {
                         $.ajax({
-                            url: `${$base_url}/api/users`,
+                            url: `${$base_url}/api/v1/users`,
                             type: "POST",
                             data: $("#registerForm").serializeArray(),
                             xhrFields: {
@@ -93,7 +93,7 @@
                                 toastr.success(messages, "Success!");
 
                                 setTimeout(() => {
-                                    LoginAjaxSection($("#registerForm").serializeArray(), $('meta[name="csrf-token"]').attr('content'));
+                                    LoginAjaxSection($("#registerForm").serializeArray());
                                 }, 1500);
                             },
                             error: function(callback) {

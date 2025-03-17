@@ -254,7 +254,7 @@
                         </thead>
                     </table>
                 `;
-                await CreatePopUpModal("#search_pasien_container", "search_pasienModal", "search_pasienForm", null, $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, { btn: false, funcBtnOpen: "DataTablesListPasien()" });
+                await CreatePopUpModal("#search_pasien_container", "search_pasienModal", "search_pasienForm", ["", ""], $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, { btn: false, funcBtnOpen: "DataTablesListPasien()" });
                 // Modal Section END
             })();
             // onLoad End

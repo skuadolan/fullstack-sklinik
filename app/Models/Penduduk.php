@@ -31,5 +31,8 @@ class Penduduk extends Model
         'id_kecamatan',
         'id_kelurahan',
         'address',
+        'is_deleted',
+        'created_at',
+        'updated_at',
     ];
 }

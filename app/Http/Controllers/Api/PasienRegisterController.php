@@ -8,14 +8,14 @@ use App\Http\Controllers\ApiController;
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
-use App\Services\Api\UserService;
 use Illuminate\Http\JsonResponse;
+use App\Services\Api\PasienRegisterService;
 
-class UserController extends ApiController
+class PasienRegisterController extends ApiController
 {
     use ResponseCode, Tools;
 
-    public function __construct(private UserService $service) { parent::__construct($this->service); }
+    public function __construct(private PasienRegisterService $service) { parent::__construct($this->service); }
 
     public function index(): JsonResponse { return $this->GetAllDatas(); }
 

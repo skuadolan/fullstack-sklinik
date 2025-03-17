@@ -338,13 +338,12 @@ function LoadingInput($section, $elemnt) {
     }
 }
 
-function LoginAjaxSection($postFormData, $token) {
-    $("#_csrf-token").val($token);
-    $("#csrf-token").val($token);
+function LoginAjaxSection($postFormData) {
+    $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $token,
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
     });
 
@@ -356,7 +355,7 @@ function LoginAjaxSection($postFormData, $token) {
             withCredentials: true
         },
         headers: {
-            'X-CSRF-TOKEN': $token
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (callback) {
             console.dir('success', callback);
@@ -414,7 +413,7 @@ function OpenLink($link, $options = ["self", "new", "popup"]) {
     }
 }
 
-function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
+function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
     const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
     const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
     const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
@@ -423,9 +422,9 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
     let $htmlBtnClose = "";
 
     if ($isBtnSection) {
-        $htmlBtnSubmit = `<span type="submit" class="inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" onclick="${$formFuncOnSubmit}">${$btnTxt[1]}</span>`;
-        $htmlBtnReset = `<span type="reset" class="inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer hideBtnProcess ms-3">${$btnTxt[2]}</span>`;
-        $htmlBtnClose = `<span class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
+        $htmlBtnSubmit = `<span type="submit" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" onclick="${$btnFormFunc[0]}">${$btnTxt[1]}</span>`;
+        $htmlBtnReset = `<span type="reset" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer ms-3" onclick="${$btnFormFunc[1]}">${$btnTxt[2]}</span>`;
+        $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
 
     const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
@@ -486,6 +485,152 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $formFuncOnSubmit, $
 
     $(`${$idContainer}`).html(html);
 }
+
+function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
+    const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
+    const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
+    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
+    let $htmlBtnSubmit = "";
+    let $htmlBtnReset = "";
+    let $htmlBtnClose = "";
+
+    if ($isBtnSection) {
+        $htmlBtnSubmit = `<span type="submit" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" onclick="${$btnFormFunc[0]}">${$btnTxt[1]}</span>`;
+        $htmlBtnReset = `<span type="reset" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer ms-3" onclick="${$btnFormFunc[1]}">${$btnTxt[2]}</span>`;
+        $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
+    }
+
+    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
+    const $htmlSlot = (IsValidVal($slot) ? $slot : "");
+
+    const $htmlForm = (IsValidVal($formID) ? `
+    <div>
+        <div class="mt-4">
+            ${$htmlSlot}
+        </div>
+
+        <div class="mt-6 flex justify-end space-x-2">
+            ${$htmlTxtFoot}
+
+            ${$htmlBtnClose}
+
+            ${$htmlBtnReset}
+
+            ${$htmlBtnSubmit}
+        </div>
+    </div>
+    ` : "");
+
+    const html = `
+    ${$htmlBtnOpen}
+
+    <div id="projectPopUp" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6">
+            <h2 class="text-lg font-semibold mb-4">Project Details</h2>
+            <div id="popUpContent">
+                <div class="mt-4">
+                    <input type="hidden" id="project_id" name="id" />
+                    <form id="ProjectFormPupUpModal" onsubmit="simpanProject('ProjectFormPupUpModal')" enctype="multipart/form-data">
+                        <table class="table-no-border">
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="project_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Nama Project
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" id="project_name" name="project_name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="leader_photo" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Leader Photo
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="file" id="leader_photo" name="leader_photo" class="w-full p-2 border rounded-md" accept="image/*" />
+                                    <input type="hidden" id="old_leader_photo" name="old_leader_photo" />
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="project_lead" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Project Leader
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" id="project_lead" name="project_lead" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-capitalize-input" required />
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="client_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Client
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" id="client_name" name="client_name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="project_progress" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Project Progress
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <div class="flex items-baseline" x-data="{ value_project_progress: 50 }">
+                                        <input id="project_progress" name="project_progress" type="range" id="slider" x-model="value_project_progress" min="0" max="100" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-600" required />
+                                        <div class="text-center font-semibold text-blue-600"><span x-text="value_project_progress" id="value_project_progress"></span>%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Start
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" id="start_date" name="start_date" class="datepicker border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm cursor-pointer" required readonly />
+                                </td>
+                            </tr>
+                            <tr class="align-baseline">
+                                <td>
+                                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                        End
+                                    </label>
+                                </td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" id="end_date" name="end_date" class="datepicker border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm cursor-pointer" required readonly />
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="flex items-center justify-end mt-4 gap-10">
+                            <button type="submit" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Simpan</button>
+                            <button type="reset" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer ms-3">Reset</button>
+                            <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" onclick="popUpModalExecAction('close')">Tutup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+    $(`${$idContainer}`).html(html);
+}
+
 
 function Dropdown404Alpine($this, $target) {
     const $length = $(`li.list_${$target}`).length;
