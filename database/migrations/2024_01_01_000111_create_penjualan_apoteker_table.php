@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->unsignedBigInteger('id_visit');
-            $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_penjualan');
             $table->foreign('id_penjualan')->references('id')->on('penjualan')->onDelete('cascade');
             $table->unsignedBigInteger('id_resep');
@@ -27,7 +27,8 @@ return new class extends Migration
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

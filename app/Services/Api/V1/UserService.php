@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Api;
+namespace App\Services\Api\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
@@ -79,7 +79,7 @@ class UserService
     public function store(Request $req)
     {
         try {
-            $validate = $this->ReqValidation($req, $this->checkForm);
+            // $validate = $this->ReqValidation($req, $this->checkForm);
             $expreDate = (clone $this->dateNow)->addDays(30)->toDateTimeString();
 
             if (!$this->IsValidAddress($req)) { return $this->NOT_FOUND("Alamat tidak valid!"); }
@@ -120,14 +120,12 @@ class UserService
                 'created_at' => $this->dateNow
             ]);
 
-            if ($this->IsValidVal($validate)) {
-                DB::commit();
-                return $validate;
-            } else {
-                DB::rollBack();
-                throw new ValidationException($validate);
-            }
+            DB::commit();
+
+            return $this->OKE($id_pegawai);
         } catch (ValidationException $err) {
+            DB::rollBack();
+
             return $this->SERVER_ERROR($err->errors());
         }
     }

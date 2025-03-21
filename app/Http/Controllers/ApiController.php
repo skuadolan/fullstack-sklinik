@@ -38,13 +38,7 @@ abstract class ApiController extends Controller
     }
 
     public function CreateData(object $req): JsonResponse {
-        try {
-            $datas = $this->service->store($req);
-
-            return $this->OKE($datas);
-        } catch (Exception $err) {
-            return $this->SERVER_ERROR($err->getMessage());
-        }
+        return $this->service->store($req);
     }
 
     public function GetByID(string $id): JsonResponse
@@ -60,13 +54,7 @@ abstract class ApiController extends Controller
 
     public function UpdateByID(object $req, string $id): JsonResponse
     {
-        try {
-            $datas = $this->service->update($req, $id);
-
-            return $this->OKE($datas);
-        } catch (Exception $err) {
-            return $this->SERVER_ERROR($err->getMessage());
-        }
+        return $this->service->update($req, $id);
     }
 
     public function DeleteByID(string $id): JsonResponse

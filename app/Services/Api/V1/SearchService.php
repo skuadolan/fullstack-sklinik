@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Api;
+namespace App\Services\Api\V1;
 
 use Illuminate\Support\Facades\DB;
 
@@ -93,7 +93,7 @@ class SearchService
                     }
 
                     for ($i=0; $i < count($fxdResultReturn); $i++) {
-                        $fxdResultReturn[$i]["birthdate"] = $this->ReformatDateTime($fxdResultReturn[$i]["birthdate"]);
+                        $fxdResultReturn[$i]["birthdate"] = $this->ReformatDateTime($fxdResultReturn[$i]["birthdate"], "d-m-Y");
                     }
 
                     break;

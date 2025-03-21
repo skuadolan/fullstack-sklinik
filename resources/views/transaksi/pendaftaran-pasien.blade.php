@@ -28,11 +28,11 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="pasien_lama" checked />
+                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="Lama" checked />
                                                             <x-input-label for="jenis_pasien_lama" :value="__('Lama')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="pasien_baru" />
+                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="Baru" />
                                                             <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center hidden_if_pasien_baru">
@@ -51,11 +51,11 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
+                                                            <x-text-input id="Rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
                                                             <x-input-label for="jenis_kunjungan_rajal" :value="__('Rawat Jalan')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
+                                                            <x-text-input id="Ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
                                                             <x-input-label for="jenis_kunjungan_ranap" :value="__('Rawat Inap')" />
                                                         </div>
                                                     </div>
@@ -261,7 +261,7 @@
 
             // Radio Button Jenis Pasien onClick/onChecked START
             $("input[type=radio][name=jenis_pasien]").on("change", function () {
-                if ($(this).val() == "pasien_baru") {
+                if ($(this).val() == "Baru") {
                     $(".hidden_if_pasien_baru").hide();
 
                     ForceEmptyFormValue();
@@ -299,7 +299,7 @@
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
 
                         $.ajax({
-                            url: `${$base_url}/control/pendaftaran-pasien`,
+                            url: `${$base_url}/v1/pendaftaran-pasien`,
                             type: "POST",
                             data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
                             xhrFields: {
@@ -309,9 +309,9 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(callback) {
-                                const { messages } = callback;
+                                const { messages, message } = callback;
                                 console.dir('success', callback);
-                                toastr.success(messages, "Success!");
+                                toastr.success(messages || message, "Success!");
 
                                 setTimeout(() => {
                                     location.reload();
@@ -469,6 +469,7 @@
             $(".modal_section_close_btn").click();
         }
 
+        // DO NOT ADD THIS FUNCTION IN *Radio Button Jenis Pasien onClick/onChecked
         function ForceEmptyFormValue() {
             $("#norm_pasien").val("");
             $("#nama_pasien").val("");

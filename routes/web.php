@@ -7,9 +7,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-use App\Http\Controllers\Web\WebController;
-
-use App\Http\Controllers\Web\PendaftaranController;
+use App\Http\Controllers\Web\V1\WebController;
+use App\Http\Controllers\Web\V1\PendaftaranPasienController;
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -25,8 +24,8 @@ Route::middleware(['auth', 'web'])->group(function () {
         Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien'])->name('transaksi.pendaftaran-pasien');
     });
 
-    Route::prefix('control')->group(function () {
-        // Route::post('/pendaftaran-pasien', [PendaftaranController::class, 'store']);
+    Route::prefix('v1')->group(function () {
+        Route::post('/pendaftaran-pasien', [PendaftaranPasienController::class, 'store']);
     });
 });
 

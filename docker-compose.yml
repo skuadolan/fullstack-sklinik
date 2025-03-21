@@ -14,9 +14,7 @@ services:
     ports:
       - "9000:9000"
     depends_on:
-    #   - sklinik_postgres
       - sklinik_redis
-      - sklinik_node
     networks:
       - sklinik_network
 
@@ -65,20 +63,20 @@ services:
 #     networks:
 #       - sklinik_network
 
-  sklinik_node:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.node
-    container_name: sklinik_node
-    ports:
-      - "5173:5173"
-    working_dir: /var/www/html
-    volumes:
-      - .:/var/www/html
-      - /var/www/html/node_modules
-    command: ["pnpm", "run", "build"]
-    networks:
-      - sklinik_network
+#   sklinik_node:
+#     build:
+#       context: .
+#       dockerfile: docker/Dockerfile.node
+#     container_name: sklinik_node
+#     ports:
+#       - "5173:5173"
+#     working_dir: /var/www/html
+#     volumes:
+#       - .:/var/www/html
+#       - /var/www/html/node_modules
+#     command: ["pnpm", "run", "build"]
+#     networks:
+#       - sklinik_network
 
 volumes:
   postgres_data:

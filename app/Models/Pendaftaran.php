@@ -7,9 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Visit extends Model
+class Pendaftaran extends Model
 {
-    protected $table = 'visit';
+    protected $table = 'pendaftaran';
     use Notifiable, SoftDeletes, HasFactory;
 
     /**
@@ -18,10 +18,12 @@ class Visit extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status',
-        'is_lunas',
         'id_pasien',
         'id_client',
+        'is_lunas',
+        'jenis_pasien',
+        'status_pendaftaran',
         'id_user_created',
+        'id_user_updated',
     ];
 }

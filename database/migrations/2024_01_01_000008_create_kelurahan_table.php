@@ -20,7 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('code');
             $table->unsignedBigInteger('full_code');
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

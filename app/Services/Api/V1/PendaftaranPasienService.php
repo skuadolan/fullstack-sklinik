@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Services\Api;
+namespace App\Services\Api\V1;
 
 use Error;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
-use App\Models\Visit;
 use App\Models\Pasien;
 use App\Models\Penduduk;
 use App\Models\Kunjungan;
+use App\Models\Pendaftaran;
 
-class PasienRegisterService
+class PendaftaranPasienService
 {
     use ResponseCode, Tools;
-    private $dateNow, $selectColmn, $checkForm;
+    private $userSession, $userSessionRedis, $dateNow, $selectColmn, $checkForm;
     public function __construct()
     {
         setlocale(LC_TIME, 'id_ID.utf8');
@@ -78,7 +78,7 @@ class PasienRegisterService
             }
 
             $id_pasien = ($this->IsValidVal($req->norm_pasien) ? $req->norm_pasien : $pasien->id);
-            $visit = Visit::create([
+            $pendaftaran = Pendaftaran::create([
                 'id_pasien' => $id_pasien,
                 'id_client' => $req->id_client,
                 'id_user_created' => $req->id_user,
@@ -86,7 +86,7 @@ class PasienRegisterService
             ]);
 
             $kunjungan = Kunjungan::create([
-                'id_visit' => $visit->id,
+                'id_pendaftaran' => $pendaftaran->id,
                 // 'id_nakes' => $req->nakes,
                 // 'id_bed' => $req->bed,
                 'id_pasien' => $id_pasien,
@@ -98,10 +98,11 @@ class PasienRegisterService
 
             DB::commit();
 
-            return $kunjungan;
+            return $this->OKE($kunjungan);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $th->getMessage();
+
+            return $this->SERVER_ERROR($th->getMessage());
         }
     }
 
@@ -118,8 +119,9 @@ class PasienRegisterService
     public function update(Request $req, string $id)
     {
         try {
+            return $this->OKE();
         } catch (\Throwable $th) {
-            return $th->getMessage();
+            return $this->SERVER_ERROR($th->getMessage());
         }
     }
 
