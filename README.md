@@ -215,11 +215,11 @@ php artisan route:clear
 php artisan schedule:clear-cache
 ```
 ```bash
-php artisan session:table
-```
-```bash
 php artisan view:clear
 ```
 
 # cPanel
 Jika setting cPanel, pastikan seluruh `.env` yang berkaitan dengan `domain` semua localhost diganti menjadi `current domain` atau `domain` yang sedang digunakan di hosting.
+
+# IMPORTANCE!
+- Jika menggunakan query, pastikan nama table tidak menggunakan huruf besar!
