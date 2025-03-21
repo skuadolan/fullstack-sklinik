@@ -32,7 +32,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kelurahan')->nullable();
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');
             $table->string('address')->nullable();
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->softDeletes();
             $table->timestamps();
         });
     }

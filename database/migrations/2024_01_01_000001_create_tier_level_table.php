@@ -17,7 +17,8 @@ return new class extends Migration
             $table->integer('level')->unique();
             $table->string('description')->nullable();
             $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
+            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
