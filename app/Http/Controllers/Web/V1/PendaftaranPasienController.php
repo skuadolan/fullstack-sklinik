@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
@@ -9,13 +9,13 @@ use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
 use Illuminate\Http\JsonResponse;
-use App\Services\Api\PasienRegisterService;
+use App\Services\Web\V1\PendaftaranPasienService;
 
-class PasienRegisterController extends ApiController
+class PendaftaranPasienController extends ApiController
 {
     use ResponseCode, Tools;
 
-    public function __construct(private PasienRegisterService $service) { parent::__construct($this->service); }
+    public function __construct(private PendaftaranPasienService $service) { parent::__construct($this->service); }
 
     public function index(): JsonResponse { return $this->GetAllDatas(); }
 

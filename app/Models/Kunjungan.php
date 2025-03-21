@@ -19,7 +19,7 @@ class Kunjungan extends Model
      */
     protected $fillable = [
         'status',
-        'id_visit',
+        'id_pendaftaran',
         'id_nakes',
         'id_bed',
         'waktu_masuk',

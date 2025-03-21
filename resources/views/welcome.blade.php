@@ -88,9 +88,9 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(callback) {
-                                const { messages } = callback;
+                                const { messages, message } = callback;
                                 console.dir('success', callback);
-                                toastr.success(messages, "Success!");
+                                toastr.success(messages || message, "Success!");
 
                                 setTimeout(() => {
                                     LoginAjaxSection($("#registerForm").serializeArray());

@@ -7,9 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Visit extends Model
+class Pendaftaran extends Model
 {
-    protected $table = 'visit';
+    protected $table = 'pendaftaran';
     use Notifiable, SoftDeletes, HasFactory;
 
     /**

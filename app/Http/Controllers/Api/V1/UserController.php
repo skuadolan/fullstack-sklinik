@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
@@ -8,8 +8,8 @@ use App\Http\Controllers\ApiController;
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
-use App\Services\Api\UserService;
 use Illuminate\Http\JsonResponse;
+use App\Services\Api\V1\UserService;
 
 class UserController extends ApiController
 {

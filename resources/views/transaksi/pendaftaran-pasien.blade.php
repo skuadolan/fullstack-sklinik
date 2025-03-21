@@ -51,11 +51,11 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
+                                                            <x-text-input id="Rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
                                                             <x-input-label for="jenis_kunjungan_rajal" :value="__('Rawat Jalan')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
+                                                            <x-text-input id="Ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
                                                             <x-input-label for="jenis_kunjungan_ranap" :value="__('Rawat Inap')" />
                                                         </div>
                                                     </div>
@@ -299,7 +299,7 @@
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
 
                         $.ajax({
-                            url: `${$base_url}/control/pendaftaran-pasien`,
+                            url: `${$base_url}/v1/pendaftaran-pasien`,
                             type: "POST",
                             data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
                             xhrFields: {
@@ -309,9 +309,9 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(callback) {
-                                const { messages } = callback;
+                                const { messages, message } = callback;
                                 console.dir('success', callback);
-                                toastr.success(messages, "Success!");
+                                toastr.success(messages || message, "Success!");
 
                                 setTimeout(() => {
                                     location.reload();

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,8 +15,8 @@ return new class extends Migration
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->id();
             $table->integer('status')->default(1)->comment('0 Batal, 1 Masuk, 2 Mutasi Rajal, 3 Ranap, 4 Mutasi Ranap, 5 Keluar/Selesai');
-            $table->unsignedBigInteger('id_visit');
-            $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             // $table->unsignedBigInteger('id_nakes');
@@ -33,6 +34,8 @@ return new class extends Migration
             $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");$table->softDeletes();
             $table->timestamps();
         });
+
+        DB::statement("ALTER TABLE pendaftaran ALTER COLUMN is_lunas TYPE order_status USING is_lunas::order_status");
     }
 
     /**

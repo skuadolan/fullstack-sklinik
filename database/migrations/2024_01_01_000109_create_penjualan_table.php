@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->unsignedBigInteger('id_visit');
-            $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->unsignedBigInteger('id_jenis_penjualan');
             $table->foreign('id_jenis_penjualan')->references('id')->on('jenis_penjualan')->onDelete('cascade');
             $table->integer('is_lunas')->default(0)->comment("0 Belum, 1 Lunas, 2 Dicicil");

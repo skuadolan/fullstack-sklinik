@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_visit');
-            $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->jsonb('ttv');
             $table->jsonb('assessment');
             $table->jsonb('cppt');

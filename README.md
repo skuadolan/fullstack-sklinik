@@ -144,20 +144,51 @@ DB_USERNAME=postgres
 DB_PASSWORD=1234
 ```
 
+- Jika running menggunakan `php artisan serve` maka `postgres` menggunakan
+```bash
+DB_HOST=localhost
+```
+
+- Jika running menggunakan `nginx docker` maka `postgres local` menggunakan
+```bash
+DB_HOST=host.docker.internal
+```
+
+- Jika running menggunakan `postgres docker` menggunakan
+```bash
+DB_HOST=sklinik_postgres
+```
+
 > Permission denied
 - Jika terdapat `Permission denied` terhadap suatu direktori folder, cobalah untuk `composer install` menggunakan docker
 
 
 ## Redis Docker
+- Dan pada container redis run promp berikut
+```bash
+redis-cli FLUSHALL
+```
+
 ```bash
 SESSION_DRIVER=redis
 SESSION_CONNECTION=default
 CACHE_DRIVER=redis
 
-REDIS_CLIENT=predis
+REDIS_CLIENT=phpredis
 REDIS_HOST=sklinik_redis
 REDIS_PORT=6379
 ```
+
+- Jika running menggunakan `php artisan serve` maka `redis` menggunakan
+```bash
+REDIS_CLIENT=predis
+```
+
+- Jika running menggunakan `nginx docker` maka `redis` menggunakan
+```bash
+REDIS_CLIENT=phpredis
+```
+
 - Jangan lupa untuk run prompt berikut ini;
 ```bash
 php artisan auth:clear-resets
@@ -188,11 +219,6 @@ php artisan session:table
 ```
 ```bash
 php artisan view:clear
-```
-
-- Dan pada container redis run promp berikut
-```bash
-redis-cli FLUSHALL
 ```
 
 # cPanel

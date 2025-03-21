@@ -60,7 +60,7 @@ Table client_configs {
 Ref: configs.id < client_configs.id_config
 Ref: list_clients.id < client_configs.id_client
 
-Table visit {
+Table pendaftaran {
   id integer [primary key, note: 'Auto increament']
   id_pasien unsignedBigInteger
   id_client unsignedBigInteger
@@ -75,7 +75,7 @@ Table visit {
 
 Table kunjungan {
   id integer [primary key, note: 'Auto increament']
-  id_visit unsignedBigInteger
+  id_pendaftaran unsignedBigInteger
   id_nakes unsignedBigInteger
   id_bed unsignedBigInteger
   status integer [note: '0 Batal, 1 Masuk, 2 Mutasi Rajal, 3 Ranap, 4 Mutasi Ranap, 5 Keluar/Selesai']
@@ -87,7 +87,7 @@ Table kunjungan {
 
 Table pembayaran {
   id integer [primary key, note: 'Auto increament']
-  id_visit unsignedBigInteger
+  id_pendaftaran unsignedBigInteger
   created_at timestamp
   update_at timestamp
   deleted_at timestamp

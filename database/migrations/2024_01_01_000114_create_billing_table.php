@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
-            $table->unsignedBigInteger('id_visit');
-            $table->foreign('id_visit')->references('id')->on('visit')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
             $table->integer('is_lunas')->default(0)->comment("0 Belum, 1 Lunas, 2 Dicicil");
             $table->decimal('total_tagihan', 15, 2)->default(0)->comment("Total Tagihan = SUM(Sub Total Tagihan Detail Billing)");
             $table->unsignedBigInteger('id_client');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Api;
+namespace App\Services\Api\V1;
 
 use Illuminate\Support\Facades\DB;
 
