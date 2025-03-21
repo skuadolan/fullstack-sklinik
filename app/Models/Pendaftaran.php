@@ -18,10 +18,12 @@ class Pendaftaran extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status',
-        'is_lunas',
         'id_pasien',
         'id_client',
+        'is_lunas',
+        'jenis_pasien',
+        'status_pendaftaran',
         'id_user_created',
+        'id_user_updated',
     ];
 }

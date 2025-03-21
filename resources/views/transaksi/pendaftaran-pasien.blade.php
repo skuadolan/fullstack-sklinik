@@ -28,11 +28,11 @@
                                                 <td>
                                                     <div class="flex gap-10">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="pasien_lama" checked />
+                                                            <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="Lama" checked />
                                                             <x-input-label for="jenis_pasien_lama" :value="__('Lama')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="pasien_baru" />
+                                                            <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="Baru" />
                                                             <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center hidden_if_pasien_baru">
@@ -261,7 +261,7 @@
 
             // Radio Button Jenis Pasien onClick/onChecked START
             $("input[type=radio][name=jenis_pasien]").on("change", function () {
-                if ($(this).val() == "pasien_baru") {
+                if ($(this).val() == "Baru") {
                     $(".hidden_if_pasien_baru").hide();
 
                     ForceEmptyFormValue();
@@ -469,6 +469,7 @@
             $(".modal_section_close_btn").click();
         }
 
+        // DO NOT ADD THIS FUNCTION IN *Radio Button Jenis Pasien onClick/onChecked
         function ForceEmptyFormValue() {
             $("#norm_pasien").val("");
             $("#nama_pasien").val("");

@@ -86,9 +86,9 @@ class PendaftaranPasienService
 
             $id_pasien = ($this->IsValidVal($req->norm_pasien) ? $req->norm_pasien : $pasien->id);
             $pendaftaran = Pendaftaran::create([
-                'is_lunas' => "Belum",
                 'id_pasien' => $id_pasien,
                 'id_client' => $id_client,
+                'jenis_pasien' => $req->jenis_pasien,
                 'id_user_created' => $id_user,
                 'created_at' => $this->dateNow
             ]);
