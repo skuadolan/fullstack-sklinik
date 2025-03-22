@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('id_unit')->references('id')->on('unit')->onDelete('cascade');
             $table->unsignedBigInteger('id_kelas')->nullable();
             $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
-            $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_actived')->default(true);
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

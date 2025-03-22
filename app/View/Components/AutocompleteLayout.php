@@ -27,7 +27,7 @@ class AutocompleteLayout extends Component
         }
 
         if ($section = "ssr-dropdown" && $get == 'gender') {
-            $qry = "SELECT gndr.id, gndr.name FROM gender gndr ORDER BY gndr.name ASC";
+            $qry = "SELECT gndr.id, gndr.name, gndr.value FROM gender gndr ORDER BY gndr.name ASC";
             $this->listGender = DB::select("$qry");
         }
 

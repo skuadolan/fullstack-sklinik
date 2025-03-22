@@ -93,7 +93,7 @@ class SearchService
                     }
 
                     for ($i=0; $i < count($fxdResultReturn); $i++) {
-                        $fxdResultReturn[$i]["birthdate"] = $this->ReformatDateTime($fxdResultReturn[$i]["birthdate"], "d-m-Y");
+                        $fxdResultReturn[$i]["birthdate"] = $this->ReformatDateTime($fxdResultReturn[$i]["birthdate"], false, "d-m-Y");
                     }
 
                     break;

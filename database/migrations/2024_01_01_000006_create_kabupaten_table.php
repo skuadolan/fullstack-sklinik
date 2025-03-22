@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
             $table->unsignedBigInteger('code');
             $table->unsignedBigInteger('full_code');
-            $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_actived')->default(true);
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

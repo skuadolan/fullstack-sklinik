@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('route_name')->nullable();
             $table->string('link')->nullable();
             $table->string('type')->nullable();
-            $table->integer('is_parent')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_parent')->default(false);
             $table->unsignedBigInteger('id_parent')->nullable();
             $table->foreign('id_parent')->references('id')->on('list_menus')->onDelete('cascade');
             $table->unsignedBigInteger('id_tier_level')->default(1);
             $table->foreign('id_tier_level')->references('id')->on('tier_level')->onDelete('cascade');
-            $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_actived')->default(true);
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->unsignedBigInteger('id_perusahaan_asuransi')->nullable();
             $table->foreign('id_perusahaan_asuransi')->references('id')->on('perusahaan_asuransi')->onDelete('cascade');
-            $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_actived')->default(true);
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

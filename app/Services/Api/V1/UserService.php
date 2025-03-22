@@ -163,7 +163,7 @@ class UserService
                 'handphone' => $req->handphone_pasien,
                 'whatsapp' => $req->whatsapp_pasien,
                 'telegram' => $req->telegram_pasien,
-                'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, null, true),
+                'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, true),
                 'address' => $req->address_pasien,
                 'id_gender' => $req->gender,
                 'id_golongan_darah' => $req->goldar,

@@ -141,7 +141,7 @@
             <option value="" selected disabled>Pilih Opsi...</option>
             @if (isset($listGender) && !empty($listGender))
                 @foreach ($listGender as $key => $list)
-                    <option value="{{ $list->id }}">{{ $list->name }}</option>
+                    <option value="{{ $list->value }}">{{ $list->name }}</option>
                 @endforeach
             @endif
         </select>

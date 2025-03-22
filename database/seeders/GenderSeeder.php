@@ -16,16 +16,20 @@ class GenderSeeder extends Seeder
 
         $datas = [
             [
-                "name" => "Laki - Laki"
+                "name" => "Laki - Laki",
+                "value" => "L"
             ],
             [
-                "name" => "Perempuan"
+                "name" => "Perempuan",
+                "value" => "P"
             ],
             [
-                "name" => "Pria"
+                "name" => "Pria",
+                "value" => "L"
             ],
             [
-                "name" => "Wanita"
+                "name" => "Wanita",
+                "value" => "P"
             ],
         ];
 
