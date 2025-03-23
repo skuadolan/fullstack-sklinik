@@ -20,5 +20,10 @@ class Pegawai extends Model
     protected $fillable = [
         'id_user',
         'id_penduduk',
+        'is_deleted',
+        'created_at',
+        'updated_at',
+        'id_user_created',
+        'id_user_updated',
     ];
 }

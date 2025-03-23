@@ -98,10 +98,22 @@ class UserService
 
             // Harusnya disini ada insert ke Clients Config terkait Tier Level
 
-            $id_penduduk = DB::table('penduduk')->insertGetId([
-                'fullname' => $req->fullname,
-                'created_at' => $this->dateNow
-            ]);
+            $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->user_nik)->first();
+
+            if (!$this->IsValidVal($dataPenduduk)) {
+                $id_penduduk = DB::table('penduduk')->insertGetId([
+                    'nik' => $req->user_nik,
+                    'fullname' => $req->fullname,
+                    'gender' => $req->user_gender,
+                    'id_provinsi' => $req->id_provinsi,
+                    'id_kabupaten' => $req->id_kabupaten,
+                    'id_kecamatan' => $req->id_kecamatan,
+                    'id_kelurahan' => $req->id_kelurahan,
+                    'created_at' => $this->dateNow
+                ]);
+            }
+
+            $id_penduduk = (isset($dataPenduduk->id)) ? $dataPenduduk->id : $id_penduduk;
 
             $id_user = DB::table('users')->insertGetId([
                 'username' => $req->username,

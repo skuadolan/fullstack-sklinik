@@ -24,7 +24,7 @@ class Penduduk extends Model
         'whatsapp',
         'telegram',
         'birthdate',
-        'id_gender',
+        'gender',
         'id_golongan_darah',
         'id_provinsi',
         'id_kabupaten',
@@ -34,5 +34,7 @@ class Penduduk extends Model
         'is_deleted',
         'created_at',
         'updated_at',
+        'id_user_created',
+        'id_user_updated',
     ];
 }

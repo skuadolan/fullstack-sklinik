@@ -18,6 +18,11 @@ class ClientConfigs extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_client'
+        'id_client',
+        'is_deleted',
+        'created_at',
+        'updated_at',
+        'id_user_created',
+        'id_user_updated',
     ];
 }

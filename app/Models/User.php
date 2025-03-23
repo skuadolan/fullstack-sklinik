@@ -22,7 +22,12 @@ class User extends Authenticatable
         'password',
         'id_client',
         'id_penduduk',
-        'expired_date'
+        'expired_date',
+        'is_deleted',
+        'created_at',
+        'updated_at',
+        'id_user_created',
+        'id_user_updated',
     ];
 
     /**

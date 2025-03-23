@@ -49,14 +49,18 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <div class="flex gap-10">
+                                                    <div class="flex gap-5">
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="Rajal" type="radio" name="jenis_kunjungan" required value="kunjungan_rajal" checked />
-                                                            <x-input-label for="jenis_kunjungan_rajal" :value="__('Rawat Jalan')" />
+                                                            <x-text-input id="jenis_kunjungan_radar" type="radio" name="jenis_kunjungan" required value="Rawat Darurat" checked />
+                                                            <x-input-label for="jenis_kunjungan_radar" class="text-nowrap" :value="__('Rawat Darurat')" />
                                                         </div>
                                                         <div class="flex gap-2 items-center">
-                                                            <x-text-input id="Ranap" type="radio" name="jenis_kunjungan" required value="kunjungan_ranap" />
-                                                            <x-input-label for="jenis_kunjungan_ranap" :value="__('Rawat Inap')" />
+                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="Rawat Jalan" checked />
+                                                            <x-input-label for="jenis_kunjungan_rajal" class="text-nowrap" :value="__('Rawat Jalan')" />
+                                                        </div>
+                                                        <div class="flex gap-2 items-center">
+                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="Rawat Inap" />
+                                                            <x-input-label for="jenis_kunjungan_ranap" class="text-nowrap" :value="__('Rawat Inap')" />
                                                         </div>
                                                     </div>
                                                 </td>
@@ -273,6 +277,25 @@
         })
 
         // FUNCTIONS START
+        function CheckFormBeforeSubmit() {
+            let $isInputFormValid = true;
+            const $allDataInputForm = $("#biodata_pendaftaran_pasien_form").serializeArray();
+            for (const $list of $allDataInputForm) {
+                const { name, value } = $list;
+
+                if (!IsValidVal(value) && $(`input[name=${name}]`).is(':visible') && $(`input[name=${name}]`).attr("type") != "hidden") {
+                    const $tmpNama = name.replace("_", " ").toUpperCase();
+
+                    $(`input[name=${$list.name}]`).focus();
+                    AllNotify(`<strong>${$tmpNama}</strong> tidak boleh kosong!`, "error");
+                    $isInputFormValid = false;
+                    break;
+                }
+            }
+
+            return $isInputFormValid;
+        }
+
         function execFormSection($section, $this = null) {
             if ($section == "btnFormReset") {
                 localStorage.removeItem("search_params");
@@ -292,8 +315,12 @@
                     confirmButtonText: "Lanjutkan"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $("#loadingAjax").show();
                         $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
+
+                        const $isInputFormValid = CheckFormBeforeSubmit();
+                        if (!$isInputFormValid) { return; }
+
+                        $("#loadingAjax").show();
 
                         $($this).hide();
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
@@ -438,7 +465,7 @@
                 ForceEmptyFormValue();
             }
 
-            const { norm, fullname, nik, birthdate, id_goldar, id_gender } = IsValidVal(datas, "value", null, "0");
+            const { norm, fullname, nik, birthdate, id_goldar, gender } = IsValidVal(datas, "value", null, "0");
             const { address, id_provinsi, id_kabupaten, id_kecamatan, id_kelurahan } = IsValidVal(datas, "value", null, "0");
             const { handphone, whatsapp, telegram } = IsValidVal(datas, "value", null, "0");
 
@@ -449,7 +476,7 @@
             $("#tanggal_lahir").val(birthdate);
             $("#address_pasien").val(address);
             $("#goldar").val(id_goldar).trigger('change');
-            $("#gender").val(id_gender).trigger('change');
+            $("#gender").val(gender).trigger('change');
 
             if (IsValidVal(handphone)) {
                 $("#nomor_ponsel_pasien").val("handphone").trigger('change');

@@ -23,6 +23,9 @@ class Pendaftaran extends Model
         'is_lunas',
         'jenis_pasien',
         'status_pendaftaran',
+        'is_deleted',
+        'created_at',
+        'updated_at',
         'id_user_created',
         'id_user_updated',
     ];

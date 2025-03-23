@@ -13,7 +13,7 @@ abstract class ApiController extends Controller
 {
     use ResponseCode, Tools;
 
-    public function __construct(private $service) { }
+    public function __construct(private $service) {}
 
     public function GetAllDatas(): JsonResponse
     {
@@ -37,7 +37,8 @@ abstract class ApiController extends Controller
         }
     }
 
-    public function CreateData(object $req): JsonResponse {
+    public function CreateData(object $req): JsonResponse
+    {
         return $this->service->store($req);
     }
 
