@@ -24,10 +24,6 @@ class PendaftaranPasienRepository
         setlocale(LC_TIME, 'id_ID.utf8');
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
-        $sessionId = session()->getId();
-        $this->userSession = session('user_login');
-        $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
-
         $this->selectColmn = [];
 
         $this->checkForm = [];
@@ -42,10 +38,10 @@ class PendaftaranPasienRepository
 
     public function store(object $req)
     {
-        
+
         try {
             if (!$this->IsValidAddress($req)) {
-                throw new Error("alamat tidak valid");
+                throw new Error("Alamat tidak valid");
             }
 
             $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();

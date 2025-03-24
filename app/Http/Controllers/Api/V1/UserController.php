@@ -9,7 +9,7 @@ use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
 use Illuminate\Http\JsonResponse;
-use App\Services\Api\V1\UserService;
+use App\Services\V1\UserService;
 
 class UserController extends ApiController
 {
