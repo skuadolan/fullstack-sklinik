@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,8 +20,19 @@ return new class extends Migration
             $table->string('whatsapp')->nullable();
             $table->string('telegram')->nullable();
             $table->datetime('birthdate')->nullable();
-            $table->unsignedBigInteger('id_gender')->nullable();
-            $table->foreign('id_gender')->references('id')->on('gender')->onDelete('cascade');
+
+            // ENUM SET START
+            $dbDriver = DB::connection()->getDriverName();
+
+            if ($dbDriver === 'pgsql') {
+                $table->string('gender')->comment("Laki - Laki, Perempuan");
+            }
+
+            if ($dbDriver === 'mysql') {
+                $table->enum('gender', ['L', 'P'])->comment("Laki - Laki, Perempuan");
+            }
+            // ENUM SET END
+
             $table->unsignedBigInteger('id_golongan_darah')->nullable();
             $table->foreign('id_golongan_darah')->references('id')->on('golongan_darah')->onDelete('cascade');
             $table->unsignedBigInteger('id_provinsi')->nullable();
@@ -32,10 +44,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id_kelurahan')->nullable();
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');
             $table->string('address')->nullable();
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
+
+        DB::table('penduduk')->whereNotIn('gender', ['L', 'P']);
     }
 
     /**

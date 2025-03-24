@@ -45,11 +45,27 @@
 
         <div id="userRegist">
             <div>
-                <label for="company_name" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="user_nik" class="block text-sm font-medium text-gray-700 mb-2">
+                    NIK<span class="text-red-500">*</span>
+                </label>
+                <x-text-input type="text" id="user_nik" name="user_nik" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('user_nik')" required />
+                <x-input-error :messages="$errors->get('nik')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="fullname" class="block text-sm font-medium text-gray-700 mb-2">
                     Nama Lengkap<span class="text-red-500">*</span>
                 </label>
                 <x-text-input id="fullname" class="block mt-1 w-full text-capitalize-input" type="text" name="fullname" :value="old('fullname')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('fullname')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="user_gender" class="block text-sm font-medium text-gray-700 mb-2">
+                    Jenis Kelamin<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout id="user_gender" name="user_gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('user_gender')" class="mt-2" />
             </div>
 
             <div>

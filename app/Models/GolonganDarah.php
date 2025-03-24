@@ -15,7 +15,14 @@ class GolonganDarah extends Model
     protected $table = 'golongan_darah';
 
     // Kolom-kolom yang boleh diisi secara mass-assignment
-    protected $fillable = ['name', 'is_deleted'];
+    protected $fillable = [
+        'name',
+        'is_deleted',
+        'created_at',
+        'updated_at',
+        'id_user_created',
+        'id_user_updated',
+    ];
 
     // Aktifkan timestamps untuk kolom created_at dan updated_at
     public $timestamps = true;

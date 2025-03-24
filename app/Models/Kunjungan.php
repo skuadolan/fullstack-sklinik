@@ -26,6 +26,10 @@ class Kunjungan extends Model
         'waktu_keluar',
         'id_client',
         'id_pasien',
+        'is_deleted',
+        'created_at',
+        'updated_at',
         'id_user_created',
+        'id_user_updated',
     ];
 }

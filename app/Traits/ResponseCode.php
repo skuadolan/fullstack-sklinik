@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Traits\Tools;
 
-Trait ResponseCode
+trait ResponseCode
 {
     use Tools;
 

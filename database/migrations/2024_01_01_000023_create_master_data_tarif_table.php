@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_layanan');
             $table->foreign('id_layanan')->references('id')->on('layanan')->onDelete('cascade');
             $table->decimal('biaya', 15, 2)->default(0);
-            $table->integer('is_active')->default(1)->comment("0 Tidak, 1 Ya");
-            $table->integer('is_deleted')->default(0)->comment("0 Tidak, 1 Ya");
+            $table->boolean('is_actived')->default(true);
+            $table->boolean('is_deleted')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -5,13 +5,15 @@ namespace App\Traits;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-Trait Tools
+trait Tools
 {
-    public function show_array($var) {
+    public function show_array($var)
+    {
         echo print_r($var, true);
     }
 
-    public function show_json($var) {
+    public function show_json($var)
+    {
         echo json_encode($var, JSON_PRETTY_PRINT);
     }
 
@@ -43,14 +45,15 @@ Trait Tools
         $wheres .= ($this->IsValidVal($req->id_kabupaten) ? " kab.id = $req->id_kabupaten AND " : "");
         $wheres .= ($this->IsValidVal($req->id_kecamatan) ? " kec.id = $req->id_kecamatan AND " : "");
         $wheres .= ($this->IsValidVal($req->id_kelurahan) ? " kel.id = $req->id_kelurahan AND " : "");
-        $wheres .= ($this->IsValidVal($req->q) ? " $wheres LOWER(kel.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
+        $wheres .= (isset($req->q) && !empty($req->q) ? " $wheres LOWER(kel.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
         $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
         $datas = DB::select("$qry");
         return $datas;
     }
 
-    public function ReformatDateTime($date, $format = "Y-m-d H:i:s", $toDB = false) {
+    public function ReformatDateTime($date, $toDB = false, $format = "Y-m-d H:i:s")
+    {
         if ($toDB && env("DB_CONNECTION") === "mysql") {
             return Carbon::parse($date)->format("Y-m-d H:i:s");
         }
@@ -58,7 +61,8 @@ Trait Tools
         return Carbon::parse($date)->format("$format");
     }
 
-    public function ReformatNoRM($id_pasien) {
+    public function ReformatNoRM($id_pasien)
+    {
         $tmpStr = strlen("$id_pasien");
         $tmpZero = [
             '000000',
@@ -72,11 +76,13 @@ Trait Tools
         return "$norm";
     }
 
-    public function UserAgent() {
+    public function UserAgent()
+    {
         return request()->header('User-Agent');
     }
 
-    public function ReqValidation($req, $form) {
+    public function ReqValidation($req, $form)
+    {
         $req->validate($form);
     }
 }

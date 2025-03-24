@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Api\V1;
+namespace App\Repositories\V1;
 
-use Illuminate\Http\Request;
+use Error;
+
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ use App\Models\Penduduk;
 
 use App\Http\Requests\Api\UserRequest;
 
-class UserService
+class UserRepository
 {
     use ResponseCode, Tools;
     private $dateNow, $selectColmn, $checkForm;
@@ -76,13 +77,15 @@ class UserService
             ->get();
     }
 
-    public function store(Request $req)
+    public function store(object $req)
     {
         try {
             // $validate = $this->ReqValidation($req, $this->checkForm);
             $expreDate = (clone $this->dateNow)->addDays(30)->toDateTimeString();
 
-            if (!$this->IsValidAddress($req)) { return $this->NOT_FOUND("Alamat tidak valid!"); }
+            if (!$this->IsValidAddress($req)) {
+                throw new Error("Alamat tidak valid");
+            }
 
             DB::beginTransaction();
 
@@ -98,10 +101,28 @@ class UserService
 
             // Harusnya disini ada insert ke Clients Config terkait Tier Level
 
-            $id_penduduk = DB::table('penduduk')->insertGetId([
-                'fullname' => $req->fullname,
-                'created_at' => $this->dateNow
-            ]);
+            $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();
+
+            if (!$this->IsValidVal($dataPenduduk)) {
+                $id_penduduk = DB::table('penduduk')->insertGetId([
+                    'nik' => $req->nik,
+                    'fullname' => $req->fullname,
+                    'handphone' => $req->handphone,
+                    'whatsapp' => $req->whatsapp,
+                    'telegram' => $req->telegram,
+                    'birthdate' => $req->birthdate,
+                    'address' => $req->address,
+                    'gender' => $req->gender,
+                    'id_golongan_darah' => $req->goldar,
+                    'id_provinsi' => $req->id_provinsi,
+                    'id_kabupaten' => $req->id_kabupaten,
+                    'id_kecamatan' => $req->id_kecamatan,
+                    'id_kelurahan' => $req->id_kelurahan,
+                    'created_at' => $this->dateNow
+                ]);
+            }
+
+            $id_penduduk = (isset($dataPenduduk->id)) ? $dataPenduduk->id : $id_penduduk;
 
             $id_user = DB::table('users')->insertGetId([
                 'username' => $req->username,
@@ -138,7 +159,7 @@ class UserService
             ->find($id);
     }
 
-    public function update(Request $req, string $id)
+    public function update(object $req, string $id)
     {
         try {
             $validate = $this->ReqValidation($req, $this->checkForm);
@@ -146,7 +167,9 @@ class UserService
             $user = User::find($id);
             $penduduk = Penduduk::find($user->id_penduduk);
 
-            if (!$this->IsValidAddress($req)) { return $this->NOT_FOUND("Alamat tidak valid!"); }
+            if (!$this->IsValidAddress($req)) {
+                return $this->NOT_FOUND("Alamat tidak valid!");
+            }
 
             DB::beginTransaction();
 
@@ -158,13 +181,13 @@ class UserService
             ]);
 
             $penduduk->update([
-                'nik' => $req->nik_pasien,
-                'fullname' => $req->nama_pasien,
-                'handphone' => $req->handphone_pasien,
-                'whatsapp' => $req->whatsapp_pasien,
-                'telegram' => $req->telegram_pasien,
-                'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, null, true),
-                'address' => $req->address_pasien,
+                'nik' => $req->nik,
+                'fullname' => $req->nama,
+                'handphone' => $req->handphone,
+                'whatsapp' => $req->whatsapp,
+                'telegram' => $req->telegram,
+                'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, true),
+                'address' => $req->address,
                 'id_gender' => $req->gender,
                 'id_golongan_darah' => $req->goldar,
                 'id_provinsi' => $req->id_provinsi,

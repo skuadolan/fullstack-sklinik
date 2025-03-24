@@ -148,7 +148,7 @@
             } else if ($target == 'users') {
                 $coloumnsArray.push({ data: 'fullname' }, { data: 'username' }, { data: 'email' }, { data: 'role_name' });
                 $coloumnsArray.push({
-                    data: 'is_active',
+                    data: 'is_actived',
                     render: (data) =>
                         `
                         <div class="text-center">

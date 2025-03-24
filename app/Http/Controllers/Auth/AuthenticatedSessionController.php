@@ -32,12 +32,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $qry = "SELECT usr.id as id_user, usr.username, usr.email, usr.is_active, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
+        $qry = "SELECT usr.id as id_user, usr.username, usr.email, usr.is_actived, usr.id_role, pdd.fullname, usr.id_client FROM users usr JOIN penduduk pdd on pdd.id = usr.id_penduduk WHERE usr.username = ?";
         $user = DB::selectOne("$qry", [$request->username]);
         session(['user_login' => (array)$user]);
 
-        $sessionId = session()->getId();
-        Redis::setex("session:$sessionId", 3600, json_encode($user));
+        // $sessionId = session()->getId();
+        // Redis::setex("session:$sessionId", 3600, json_encode($user));
 
         // return redirect()->intended(route('dashboard', absolute: false));
     }
@@ -49,8 +49,8 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $sessionId = session()->getId();
-        Redis::del("session:$sessionId");
+        // $sessionId = session()->getId();
+        // Redis::del("session:$sessionId");
         session()->forget('user_login');
 
         $request->session()->invalidate();
