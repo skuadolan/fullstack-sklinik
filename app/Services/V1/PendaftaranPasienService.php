@@ -46,6 +46,12 @@ class PendaftaranPasienService
 
     public function store(object $req)
     {
+        $id_user = $this->GetUserIDFromRequest($req, $this->userSession);
+        $id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+
+        $id_user = ($this->IsValidVal($id_user) ? $id_user : Auth::id());
+        $id_client = ($this->IsValidVal($id_client) ? $id_client : null);
+
         $data = [
             // Penduduk
             'nik' => $req->nik_pasien,
@@ -68,9 +74,9 @@ class PendaftaranPasienService
             // Pendaftaran
             'jenis_pasien' => $req->jenis_pasien,
 
-            'id_client' => $this->GetClientIDFromRequest($req),
-            'id_user_created' => $this->GetUserIDFromRequest($req),
-            'id_user_updated' => $this->GetUserIDFromRequest($req),
+            'id_client' => $id_client,
+            'id_user_created' => $id_user,
+            'id_user_updated' => $id_user,
         ];
 
         $data = json_encode($data);
@@ -101,33 +107,4 @@ class PendaftaranPasienService
     public function update(object $req, string $id) {}
 
     public function destroy(string $id) {}
-
-    public function GetUserIDFromRequest($req)
-    {
-        $id_user = "";
-
-        if ($req->is('api/*')) {
-            $id_user = (isset($req->id_user) && !empty($req->id_user) ? $req->id_user : $id_user);
-        } else {
-            // $id_user = (isset($this->userSessionRedis['id_user']) ? $this->userSessionRedis['id_user'] : null);
-            $id_user = (isset($this->userSession['id_user']) ? $this->userSession['id_user'] : null);
-            $id_user = (isset($id_user) ? $id_user : Auth::id());
-        }
-
-        return $id_user;
-    }
-
-    public function GetClientIDFromRequest($req)
-    {
-        $id_client = "";
-
-        if ($req->is('api/*')) {
-            $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : $id_client);
-        } else {
-            // $id_client = (isset($this->userSessionRedis['id_client']) ? $this->userSessionRedis['id_client'] : null);
-            $id_client = (isset($id_client) ? $id_client : $this->userSession['id_client']);
-        }
-
-        return $id_client;
-    }
 }

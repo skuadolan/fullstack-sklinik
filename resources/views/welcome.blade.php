@@ -72,9 +72,8 @@
                     $("#clientRegist").show();
                     $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
-                    $("#loadingAjax").show();
                     $(".hideBtnProcess").hide();
-                    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
+                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
 
                     if ($section == "registerForm") {
                         $.ajax({
@@ -90,7 +89,7 @@
                             success: function(callback) {
                                 const { messages, message } = callback;
                                 console.dir('success', callback);
-                                toastr.success(messages || message, "Success!");
+                                AllNotify(messages || message, "success");
 
                                 setTimeout(() => {
                                     LoginAjaxSection($("#registerForm").serializeArray());
@@ -115,10 +114,9 @@
                                     }
                                 } else if (message || messages || errorInfo || validator) {
                                     const $txtMsgAlert = (validator ? "input data tidak sesuai atau tidak boleh kosong" : ( errorInfo ? errorInfo[2] : (messages ? messages : message)));
-                                    AllNotify($txtMsgAlert, "error");
+                                    LoadingNotify($txtMsgAlert, "error");
                                 }
 
-                                $("#loadingAjax").hide();
                                 $(".hideBtnProcess").show();
                             },
                         });

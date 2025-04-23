@@ -76,6 +76,9 @@ extension=pgsql
 ```bash
 composer i
 ```
+```bash
+composer update laravel/framework
+```
 
 ## Application
 > Database

@@ -34,21 +34,6 @@ function JQueryOnLoad() {
     // AJAX SECTION END
 }
 
-function AutoToIDR() {
-    $(".convert_to_idr").on("input", function () {
-        let value = $(this).val().replace(/[^0-9]/g, "");
-        let formatted = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 2}).format(value);
-        $(this).val(formatted);
-    });
-}
-
-function InputNumberOnly() {
-    $(".input_number_only").on("input", function () {
-        let value = $(this).val().replace(/[^0-9]/g, "");
-        $(this).val(value);
-    });
-}
-
 function InitAutocomplete() {
     $(document).ready(function () {
         if ($("#provinsi").length) {
@@ -347,7 +332,52 @@ function AllNotify($msg, $section) {
     return;
 }
 
+function LoadingNotify($msg, $section, $isElmentShow, $isContentLoader) {
+    if ($section == "success") {
+        toastr.success($msg, "Berhasil!");
+    }
+
+    if ($section == "error") {
+        toastr.error($msg, "Kesalahan!");
+    }
+
+    if ($section == "warning") {
+        toastr.warning($msg, "Peringatan!");
+    }
+
+    if ($section == "info") {
+        toastr.info($msg, "Informasi!");
+    }
+
+    if ($isContentLoader) {
+        if ($isElmentShow) {
+            $('#loadingContetLoader').show();
+        } else {
+            $('#loadingContetLoader').hide();
+        }
+    } else {
+        if ($isElmentShow) {
+            $('#loadingAjax').show();
+        } else {
+            $('#loadingAjax').hide();
+        }
+    }
+
+    return;
+}
+
 function ClassDOMInputStrict() {
+    $(".convert_to_idr").on("input", function () {
+        let value = $(this).val().replace(/[^0-9]/g, "");
+        let formatted = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 2}).format(value);
+        $(this).val(formatted);
+    });
+
+    $(".input_number_only").on("input", function () {
+        let value = $(this).val().replace(/[^0-9]/g, "");
+        $(this).val(value);
+    });
+
     $(".capitalize").on("input", function () {
         let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
         $(this).val($newVal);
