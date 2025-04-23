@@ -3,13 +3,9 @@ const [host, port] = base_url.split(':');
 const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
 
 $(document).ready(function () {
-    // localStorage.clear();
-
     $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
         DisableRightClickOnMouse();
         // JQueryOnLoad();
-        AutoToIDR();
-        InputNumberOnly();
         InitAutocomplete();
         ClearLocalStorage();
         HiddenAddressDropdown();
@@ -18,32 +14,14 @@ $(document).ready(function () {
         function AllNotify($msg, $section) {
             AllNotify($msg, $section)
         }
+
+        function LoadingNotify($msg, $section, $isElmentShow) {
+            LoadingNotify($msg, $section, $isElmentShow)
+        }
         // Function ReImplement END
 
         // Class for DOM elements START
-        function ClassDOMInputStrict() {
-            ClassDOMInputStrict();
-        }
-
-        $(".capitalize").on("input", function () {
-            let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-            $(this).val($newVal);
-        });
-        $(".text-capitalize-input").on("input", function () {
-            TxtCheckInputSymbol(this);
-
-            let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-            $(this).val($newVal);
-        });
-        $(".text-check-input-symbol").on("input", function () {
-            TxtCheckInputSymbol(this);
-        });
-        $(".text-number-input").on("input", function () {
-            TxtCheckInputSymbol(this);
-
-            let $newVal = $(this).val().replace(/\D/g, "");;
-            $(this).val($newVal);
-        });
+        ClassDOMInputStrict();
         // Class for DOM elements END
     });
 
@@ -56,8 +34,7 @@ function ConvertToIDR($val) {
 }
 
 function ContentLoader($url, $id_content) {
-    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
-    $('#loadingContetLoader').show();
+    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
 
     $.ajax({
         url: `${$base_url}${$url}`,
@@ -67,12 +44,10 @@ function ContentLoader($url, $id_content) {
             $(`${$id_content}`).html($html);
         },
         complete: function () {
-            $('#loadingContetLoader').hide();
-            toastr.success("Berhasil mengambil data", "Success!");
+            LoadingNotify("Berhasil mengambil data!", "success", false, true);
         },
         error: function () {
-            $('#loadingContetLoader').hide();
-            toastr.error("Gagal mengambil data", "Kesalahan!");
+            LoadingNotify("Gagal mengambil data!", "error", false, true);
         },
     });
 }
@@ -118,16 +93,13 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
                 dataSrc: "datas",
                 type: "GET",
                 beforeSend: function () {
-                    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
-                    $('#loadingContetLoader').show(); // Tampilkan custom loading
+                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
                 },
                 complete: function () {
-                    toastr.success("Berhasil mengambil data", "Success!");
-                    $('#loadingContetLoader').hide(); // Sembunyikan custom loading
+                    LoadingNotify("Berhasil mengambil data!", "success", false, true);
                 },
                 error: function (xhr) {
-                    toastr.error("Gagal mengambil data", "Kesalahan!");
-                    $('#loadingContetLoader').hide();
+                    LoadingNotify("Gagal mengambil data!", "error", false, true);
                 }
             },
             columns: $table_coloumn
@@ -136,8 +108,7 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
 }
 
 function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
-    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
-    $('#loadingContetLoader').show();
+    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
 
     $(`${$id_content}`).DataTable({
         dom: '<"top flex justify-between"Bfr>t<"bottom"lp><"clear">', // Custom DOM layout
@@ -172,8 +143,7 @@ function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
     });
 
     setTimeout(function () {
-        $('#loadingContetLoader').hide();
-        toastr.success("Berhasil mengambil data", "Success!");
+        LoadingNotify("Berhasil mengambil data!", "success", false, true);
     }, 1500);
 }
 
@@ -214,16 +184,13 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
                 dataSrc: "datas",
                 type: "GET",
                 beforeSend: function () {
-                    toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
-                    $('#loadingContetLoader').show(); // Tampilkan custom loading
+                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
                 },
                 complete: function () {
-                    toastr.success("Berhasil mengambil data", "Success!");
-                    $('#loadingContetLoader').hide(); // Sembunyikan custom loading
+                    LoadingNotify("Berhasil mengambil data!", "success", false, true);
                 },
                 error: function (xhr) {
-                    toastr.error("Gagal mengambil data", "Kesalahan!");
-                    $('#loadingContetLoader').hide();
+                    LoadingNotify("Gagal mengambil data!", "error", false, true);
                 }
             },
             columns: $table_coloumn
@@ -236,13 +203,13 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
 async function GetFromAPI($url) {
     return new Promise(async function (resolve, reject) {
         try {
-            $('#loadingContetLoader').show();
+            LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
             await fetch(`${$base_url}${$url}`).then(async function ($list) {
-                $('#loadingContetLoader').hide();
+                LoadingNotify("Berhasil mengambil data!", "success", false);
                 console.dir("success", $list);
                 resolve(await $list.json());
             }).catch(function ($err) {
-                $('#loadingContetLoader').hide();
+                LoadingNotify("Gagal mengambil data!", "error", false);
                 console.dir("error", $err);
                 throw new Error($err);
             });
@@ -256,67 +223,37 @@ function IDRToDecimal($val) {
     return parseFloat($val.replace(/[^0-9.-]/g, ''))
 }
 
-function isnull($val) {
-    return $val === null || $val === "null";
+function isNull(val) {
+    return val === null || val === "null";
 }
 
-function isundefined($val) {
-    return $val === undefined || $val === "undefined";
+function isUndefined(val) {
+    return val === undefined || val === "undefined";
 }
 
-function empty($val) {
-    if (typeof $val === "undefined" && isundefined($val)) {
-        return true;
-    } else if (typeof $val === "object" && isnull($val)) {
-        return true;
-    } else if (typeof $val === "object" && $val.length === 0) {
-        return true;
-    } else if (typeof $val === "object" && Object.keys($val).length === 0) {
-        return true;
-    } else if (typeof $val === "boolean" && $val === "") {
-        return true;
-    } else if (typeof $val === "number" && $val === "") {
-        return true;
-    } else if (typeof $val === "string" && $val === "") {
-        return true;
-    }
-
-    return false;
+function empty(val) {
+    if (isUndefined(val) || isNull(val)) return true;
+    if (typeof val === "object" && (Array.isArray(val) ? val.length === 0 : Object.keys(val).length === 0)) return true;
+    return val === "" || val === 0;
 }
 
 function isset($val) {
-    if (typeof $val === "undefined" && isundefined($val)) {
-        return true;
-    } else if (typeof $val === "object" && isnull($val)) {
-        return true;
-    } else if (typeof $val === "object" && $val.length > 0) {
-        return true;
-    } else if (typeof $val === "object" && Object.values($val).length > 0) {
-        return true;
-    } else if (typeof $val === "boolean" && $val) {
-        return true;
-    } else if (typeof $val === "number" && $val) {
-        return true;
-    } else if (typeof $val === "string" && $val) {
-        return true;
-    }
-
-    return false;
+    return !empty($val);
 }
 
 function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-    const $tmpVal = (isset($key) && isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
+    const $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
 
     if (isset($tmpVal)) {
         if ($get == "value") {
             if (isset($other) && $other != null) {
-                return !empty($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
+                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
             } else {
-                return !empty($tmpVal) || $tmpVal == 0 ? $tmpVal : "";
+                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : "";
             }
         } else if (isset($other) && $other != null && $get == "equal") {
             return $tmpVal == $other;
-        } else if (!empty($tmpVal)) {
+        } else if (isset($tmpVal)) {
             return true;
         } else {
             return false;
@@ -339,6 +276,7 @@ function LoadingInput($section, $elemnt) {
 }
 
 function LoginAjaxSection($postFormData) {
+    localStorage.clear();
     $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
     $.ajaxSetup({
@@ -359,7 +297,7 @@ function LoginAjaxSection($postFormData) {
         },
         success: function (callback) {
             console.dir('success', callback);
-            toastr.success('berhasil login!', "Success!");
+            LoadingNotify("Berhasil Login! Selamat datang.", "success");
 
             setTimeout(() => {
                 window.location.href = `${$base_url}/dashboard`;
@@ -375,6 +313,7 @@ function LoginAjaxSection($postFormData) {
                 validator = validCallback;
             }
             console.dir('error', callback);
+            $(".hideBtnProcess").show();
 
             if (errors) {
                 for (let key in errors) {
@@ -384,17 +323,10 @@ function LoginAjaxSection($postFormData) {
                 }
             } else if (message || messages || errorInfo || validator) {
                 const tmpMsg = (validator ? "input data tidak sesuai atau tidak boleh kosong" : (errorInfo ? errorInfo[2] : (messages ? messages : message)));
-                toastr.error(tmpMsg, "Kesalahan!");
+                AllNotify(tmpMsg, "error");
             }
 
-            $("#loadingAjax").hide();
-            $(".hideBtnProcess").show();
-
-            Swal.fire({
-                title: "Kesalahan!",
-                text: message || messages || errorInfo || validator,
-                icon: "error"
-            });
+            LoadingNotify(null, null, false);
         },
     });
 }
@@ -631,18 +563,6 @@ function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slo
     $(`${$idContainer}`).html(html);
 }
 
-
-function Dropdown404Alpine($this, $target) {
-    const $length = $(`li.list_${$target}`).length;
-    const $404length = $(`li.list_${$target}`).filter(function() { return $(this).css('display') == 'none';}).length;
-
-    // if ($404length === $length) {
-    //     $(`#404_${$target}`).show();
-    // } else {
-    //     $(`#404_${$target}`).hide();
-    // }
-}
-
 async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
     $(`#${$target}`).val($val[0]);
 
@@ -652,6 +572,7 @@ async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
 }
 
 async function DropdownContentLoader($url, $target, $section = null) {
+    LoadingNotify(null, null, true);
     await $.ajax({
         url: `${$base_url}${$url}`,
         type: 'GET',
@@ -671,68 +592,62 @@ async function DropdownContentLoader($url, $target, $section = null) {
                     </li>
                     `;
                 });
-                $html += `<li id="404_${$target}" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default" style="display: none !important">Data tidak ditemukan.</li>`;
 
                 $(`#list_${$target}`).html($html);
             } else {
-                $(`#list_${$target}`).html("");
+                $html = `<li id="404_${$target}" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default">Data tidak ditemukan.</li>`;
+                $(`#list_${$target}`).html($html);
             }
+
+            LoadingNotify(null, null, false);
+        },
+        error: function ($xhr) {
+            LoadingNotify(null, null, false);
         }
     });
 }
 
 async function DropdownGetLoad($get, $from, $section = null, $searchForm = null) {
-    const $formArray = $(`${$searchForm}`).serializeArray();
-    const $localStorage = localStorage.getItem("search_params");
+    const $localStorage = localStorage.getItem($section);
+    let $localStorageData = (IsValidVal($localStorage) ? JSON.parse($localStorage) : []);
 
-    const $tmpDropdownData = [];
-    Object.values($formArray).forEach(function ($list) {
+    let $statusResult = $localStorageData.length > 0;
+    const $formArray = $(`${$searchForm}`).serializeArray();
+
+    const $newLocalDatas = [];
+    $formArray.forEach(function ($list) {
         const { name } = $list;
-        if (IsValidVal($(`#id_${name}`).val()) && (name !== $get)) {
-            $tmpDropdownData.push({ name: `id_${name}`, value: $(`#id_${name}`).val() });
+        if (IsValidVal($(`#id_${name}`).val())) {
+            $newLocalDatas.push({ name: `id_${name}`, value: $(`#id_${name}`).val() });
         }
     });
 
-    let $statusResult = true;
-    const $searchParams = (IsValidVal($localStorage) ? JSON.parse($localStorage) : []);
-    if (IsValidVal($localStorage)) {
-        $searchParams.forEach(function ($list, $index) {
-            const { name } = $list;
-            if (name.includes("id_") && (name !== $get)) {
-                if (JSON.stringify($list) != JSON.stringify($tmpDropdownData[$index])) {
-                    $statusResult = false;
-                    return;
-                }
+    if ($statusResult) {
+        $localStorageData.forEach(function ($list, $index) {
+            const { name, value } = $list;
+
+            if (IsValidVal(name, "equal", `id_${$from}`)) {
+                $statusResult = IsValidVal(name, "equal", `id_${$from}`) && IsValidVal(value, "equal", $(`#id_${$from}`).val());
             }
-        });
+        })
     }
+
+    $statusResult = JSON.stringify($newLocalDatas) == JSON.stringify($localStorageData) && ($(`.list_${$get}`)).length > 0;
 
     if (!$statusResult) {
-        Object.values($formArray).forEach(function ($list) {
+        localStorage.setItem($section, JSON.stringify($newLocalDatas));
+
+        const $listID = [];
+        $newLocalDatas.forEach(function ($list) {
             const { name } = $list;
-            if (IsValidVal($(`#id_${name}`).val()) && !name.includes("provinsi")) {
-                $(`#${name}`).val("");
-                $(`#id_${name}`).val("");
-                return;
+
+            if (name == `id_${$from}`) {
+                $listID.push(`${name}=${$(`#id_${$from}`).val()}`);
             }
         });
-    }
 
-    if (IsValidVal($tmpDropdownData)) {
-        localStorage.setItem("search_params", JSON.stringify($tmpDropdownData));
-
-        if ($tmpDropdownData.length != $searchParams.length || !$statusResult) {
-            const $listID = [];
-            Object.values($formArray).forEach(function ($list) {
-                const { name, value } = $list;
-                if (name.includes("id_") && IsValidVal(value) && (name !== $get)) {
-                    $listID.push(`${name}=${value}`);
-                }
-            });
-
-            const $params = IsValidVal($listID) && $listID.length > 0 ? $listID.join("&") : $listID;
-            const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
-            await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
-        }
+        const $params = $listID.length > 0 ? $listID.join("&") : $listID;
+        const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
+        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
     }
 }

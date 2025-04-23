@@ -106,7 +106,7 @@
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 style="display: none;" class="relative z-10">
                 <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
-                    <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." @input="Dropdown404Alpine(this, 'provinsi')" />
+                    <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." />
                     <ul id="list_provinsi" class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
                         @if (isset($listProvinsi) && !empty($listProvinsi))
                             @foreach ($listProvinsi as $key => $list)
@@ -182,7 +182,7 @@
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 style="display: none;" class="relative z-10">
                 <div class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg w-full">
-                    <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari {{ $get }}..." @input="Dropdown404Alpine(this, '{{ $get }}')" />
+                    <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari {{ $get }}..." />
                     <ul id="list_{{ $get }}" class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
                     </ul>
                 </div>

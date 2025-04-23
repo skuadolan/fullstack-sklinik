@@ -25,7 +25,9 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
 
     Route::prefix('v1')->group(function () {
-        Route::post('/pendaftaran-pasien', [PendaftaranPasienController::class, 'store']);
+        Route::prefix('transaksi')->group(function () {
+            Route::post('/pendaftaran-pasien', [PendaftaranPasienController::class, 'store']);
+        });
     });
 });
 

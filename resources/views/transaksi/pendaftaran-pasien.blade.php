@@ -326,7 +326,7 @@
                         toastr.warning("Sedang diproses, mohon tunggu!", "Peringatan!");
 
                         $.ajax({
-                            url: `${$base_url}/v1/pendaftaran-pasien`,
+                            url: `${$base_url}/v1/transaksi/pendaftaran-pasien`,
                             type: "POST",
                             data: $("#biodata_pendaftaran_pasien_form").serializeArray(),
                             xhrFields: {

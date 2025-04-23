@@ -85,4 +85,26 @@ trait Tools
     {
         $req->validate($form);
     }
+
+    public function GetUserIDFromRequest($req, $userSession)
+    {
+        if ($req->is('api/*')) {
+            $id_user = ($this->IsValidVal($req->id_user) ? $req->id_user : null);
+        } else {
+            $id_user = ($this->IsValidVal($userSession, "bool", null, "id_user") ? $userSession['id_user'] : null);
+        }
+
+        return $id_user;
+    }
+
+    public function GetClientIDFromRequest($req, $userSession)
+    {
+        if ($req->is('api/*')) {
+            $id_client = ($this->IsValidVal($req->id_client) ? $req->id_client : null);
+        } else {
+            $id_client = ($this->IsValidVal($userSession, "bool", null, "id_client") ? $userSession['id_client'] : null);
+        }
+
+        return $id_client;
+    }
 }
