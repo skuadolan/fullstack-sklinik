@@ -2,15 +2,12 @@
 
 namespace App\Http\Requests\Api;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -38,10 +35,11 @@ class UserRequest extends FormRequest
             'telegram' => ['nullable', 'string'],
             'birthdate' => ['nullable', 'date'],
             'address' => ['nullable', 'string'],
-            'id_gender' => ['required', 'integer', 'exists:gender,id'],
-            'id_golongan_darah' => ['required', 'integer', 'exists:golongan_darah,id'],
+            'gender' => ['required', 'string', Rule::in(['L', 'P'])],
+            'id_golongan_darah' => ['nullable', 'integer', 'exists:golongan_darah,id'],
         ];
     }
+
 
     public function messages(): array
     {
@@ -51,6 +49,11 @@ class UserRequest extends FormRequest
             'id_kecamatan.exists' => 'Kecamatan tidak ditemukan.',
             'id_kelurahan.exists' => 'Kelurahan tidak ditemukan.',
 
+            'password' => 'Password harus lebih dari 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
+            'email.email' => 'Format email tidak valid.',
+            'id_gender.exists' => 'Gender tidak ditemukan.',
+
             'nik.unique' => 'NIK sudah terdaftar.',
             'email.unique' => 'Email sudah terdaftar.',
             'username.unique' => 'Username sudah terdaftar.',
@@ -58,4 +61,18 @@ class UserRequest extends FormRequest
             'birthdate.date' => 'Tanggal lahir harus berupa format tanggal yang valid.',
         ];
     }
+
+    public function attributes(): array
+{
+    return [
+        'id_provinsi' => 'provinsi',
+        'id_kabupaten' => 'kabupaten',
+        'id_kecamatan' => 'kecamatan',
+        'id_kelurahan' => 'kelurahan',
+        'fullname' => 'nama lengkap',
+        'handphone' => 'nomor handphone',
+        'birthdate' => 'tanggal lahir',
+    ];
+}
+
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('list_clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('biodata')->nullable();
+            $table->longText('company_profile')->nullable();
             $table->unsignedBigInteger('id_provinsi');
             $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
             $table->unsignedBigInteger('id_kabupaten');

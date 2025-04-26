@@ -22,17 +22,7 @@ return new class extends Migration
             $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
 
             // ENUM SET START
-            $dbDriver = DB::connection()->getDriverName();
-
-            if ($dbDriver === 'pgsql') {
-                DB::statement("DROP TYPE IF EXISTS status_billing_pasien");
-                DB::statement("CREATE TYPE status_billing_pasien AS ENUM ('Belum', 'Lunas', 'Dicicil', 'Batal')");
-                $table->string('is_lunas')->default('Belum')->comment("Belum, Lunas, Dicicil, Batal");
-            }
-
-            if ($dbDriver === 'mysql') {
-                $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->default('Belum');
-            }
+            $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->comment("Belum, Lunas, Dicicil, Batal");
             // ENUM SET END
 
             $table->decimal('total_tagihan', 15, 2)->default(0)->comment("Total Tagihan = SUM(Sub Total Tagihan Detail Billing)");
@@ -44,8 +34,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::table('billing')->whereNotIn('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->update(['is_lunas' => 'Belum']);
     }
 
     /**

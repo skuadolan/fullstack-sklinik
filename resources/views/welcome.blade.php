@@ -109,6 +109,7 @@
                                 if (errors) {
                                     for (let key in errors) {
                                         AllNotify(errors[key][0], "error");
+                                        LoadingNotify(null, null);
                                         $(`#err_${key}`).show();
                                         $(`#err_${key} li`).html(errors[key][0]);
                                     }

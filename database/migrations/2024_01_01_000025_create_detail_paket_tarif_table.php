@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('detail_paket_tarif', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('id_paket_tarif');
             $table->foreign('id_paket_tarif')->references('id')->on('paket_tarif')->onDelete('cascade');

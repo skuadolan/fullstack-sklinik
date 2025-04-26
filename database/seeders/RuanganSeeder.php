@@ -17,7 +17,7 @@ class RuanganSeeder extends Seeder
         $datas = [
             [
                 "name" => "IGD / UGD",
-                "jenis_unit" => "rajal"
+                "jenis_unit" => "Rawat Jalan"
             ],
         ];
 

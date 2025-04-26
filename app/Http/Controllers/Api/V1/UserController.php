@@ -11,6 +11,10 @@ use App\Traits\ResponseCode;
 use Illuminate\Http\JsonResponse;
 use App\Services\V1\UserService;
 
+use Illuminate\Validation\Rules;
+
+use App\Http\Requests\Api\UserRequest;
+
 class UserController extends ApiController
 {
     use ResponseCode, Tools;
@@ -19,7 +23,7 @@ class UserController extends ApiController
 
     public function index(): JsonResponse { return $this->GetAllDatas(); }
 
-    public function store(Request $req): JsonResponse { return $this->CreateData($req); }
+    public function store(UserRequest $req): JsonResponse { return $this->CreateData($req); }
 
     public function show(string $id): JsonResponse { return $this->GetByID($id); }
 

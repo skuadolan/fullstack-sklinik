@@ -45,10 +45,10 @@
 
         <div id="userRegist">
             <div>
-                <label for="user_nik" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">
                     NIK<span class="text-red-500">*</span>
                 </label>
-                <x-text-input type="text" id="user_nik" name="user_nik" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('user_nik')" required />
+                <x-text-input type="text" id="nik" name="nik" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('nik')" required />
                 <x-input-error :messages="$errors->get('nik')" class="mt-2" />
             </div>
 
@@ -61,11 +61,19 @@
             </div>
 
             <div>
-                <label for="user_gender" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="id_gender" class="block text-sm font-medium text-gray-700 mb-2">
                     Jenis Kelamin<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout id="user_gender" name="user_gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
-                <x-input-error :messages="$errors->get('user_gender')" class="mt-2" />
+                <x-autocomplete-layout id="id_gender" name="id_gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('id_gender')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="id_golongan_darah" class="block text-sm font-medium text-gray-700 mb-2">
+                    Jenis Kelamin<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout id="id_golongan_darah" name="id_golongan_darah" section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('id_golongan_darah')" class="mt-2" />
             </div>
 
             <div>
