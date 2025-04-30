@@ -26,6 +26,8 @@ class Penduduk extends Model
         'birthdate',
         'goldar',
         'gender',
+        'tempat_lahir',
+        'agama',
         'address',
         'id_provinsi',
         'id_kabupaten',

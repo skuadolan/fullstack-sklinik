@@ -3,10 +3,9 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class PendudukRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,18 +15,6 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Insert into list_clients table
-            'klinik_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_]+$/'],
-            'klinik_biography' => ['nullable', 'longtext'],
-
-            // Insert into users table
-            'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'id_client' => ['nullable', 'integer', 'exists:list_clients,id'],
-            'id_penduduk' => ['nullable', 'integer', 'exists:penduduk,id'],
-
-            // Insert into penduduk table
             'nik_user' => ['required', 'string', 'max:255', 'unique:penduduk,nik', 'regex:/^[0-9]+$/'],
             'fullname_user' => ['required', 'string', 'max:255'],
             'handphone_user' => ['nullable', 'string'],
@@ -44,6 +31,7 @@ class UserRequest extends FormRequest
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
             'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
             'address' => ['nullable', 'string', 'max:255'],
+            // 'id_tier_level' => ['required', 'integer', 'exists:tier_level,id'],
         ];
     }
 
@@ -56,16 +44,8 @@ class UserRequest extends FormRequest
             'id_kecamatan.exists' => 'Kecamatan tidak ditemukan.',
             'id_kelurahan.exists' => 'Kelurahan tidak ditemukan.',
 
-            'password' => 'Password harus lebih dari 8 karakter.',
-            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
-            'email.email' => 'Email tidak valid.',
-            'gender.exists' => 'Gender tidak ditemukan.',
-
             'nik.unique' => 'NIK sudah terdaftar.',
             'nik.regex' => 'Username hanya boleh berisi angka.',
-            'email.unique' => 'Email sudah terdaftar.',
-            'username.unique' => 'Username sudah terdaftar.',
-            'username.regex' => 'Username hanya boleh berisi huruf, angka, dan underscore.',
             'birthdate.date' => 'Tanggal lahir harus berupa format tanggal yang valid.',
         ];
     }

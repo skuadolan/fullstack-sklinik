@@ -39,7 +39,13 @@ abstract class ApiController extends Controller
 
     public function CreateData(object $req): JsonResponse
     {
-        return $this->service->store($req);
+        try {
+            $datas = $this->service->store($req);
+
+            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
+        }
     }
 
     public function GetByID(string $id): JsonResponse
@@ -55,11 +61,23 @@ abstract class ApiController extends Controller
 
     public function UpdateByID(object $req, string $id): JsonResponse
     {
-        return $this->service->update($req, $id);
+        try {
+            $datas = $this->service->update($req, $id);
+
+            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
+        }
     }
 
     public function DeleteByID(string $id): JsonResponse
     {
-        return $this->service->delete($id);
+        try {
+            $datas = $this->service->delete($id);
+
+            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
+        }
     }
 }

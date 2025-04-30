@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
-use App\Models\ListClient;
+use App\Models\Penduduk;
 
-class ClientRepository
+class PendudukRepository
 {
     use ResponseCode, Tools;
     private $dateNow, $selectColmn;
@@ -21,7 +21,7 @@ class ClientRepository
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
         $this->selectColmn = [
-            "list_clients.*",
+            "penduduk.*",
             "prov.name AS provinsi",
             "kab.name AS kabupaten",
             "kec.name AS kecamatan",
@@ -31,29 +31,28 @@ class ClientRepository
 
     public function index($req = null)
     {
-        $rawQry = ListClient::query();
+        $rawQry = Penduduk::query();
         if ($req->filled('get_data')) { // Nama Kolom yang mau di car by
             $params = strtolower($req->input('params'));
             $colName = strtolower($req->input('get_data'));
 
             $rawQry->select($this->selectColmn)
-                ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-                ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-                ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-                ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+                ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
                 ->where(function ($qryI) use ($colName, $params) {
                     $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
                 });
         }
 
         $sortable = [
-            "id",
-            "name",
+            "penduduk.*",
+            "address",
             "provinsi",
             "kabupaten",
             "kecamatan",
             "kelurahan",
-            "created_at",
         ];
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
@@ -65,28 +64,28 @@ class ClientRepository
 
     public function store(array $req)
     {
-        return DB::table('list_clients')->insertGetId($req);
+        return DB::table('penduduk')->insertGetId($req);
     }
 
     public function show(string $id)
     {
-        return ListClient::select($this->selectColmn)
-            ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-            ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-            ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-            ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+        return Penduduk::select($this->selectColmn)
+            ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
+            ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
+            ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
+            ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
             ->find($id);
     }
 
     public function update(array $req, string $id)
     {
-        $user = ListClient::find($id);
+        $user = Penduduk::find($id);
         return $user->update($req);
     }
 
     public function destroy(string $id)
     {
-        $user = ListClient::find($id);
+        $user = Penduduk::find($id);
         return $user->delete();
     }
 }

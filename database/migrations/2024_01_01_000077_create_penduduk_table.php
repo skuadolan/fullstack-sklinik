@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('telegram')->nullable();
             $table->datetime('birthdate')->nullable();
             $table->string('goldar')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->string('agama')->nullable();
             $table->string('address')->nullable();
 
             // ENUM SET START

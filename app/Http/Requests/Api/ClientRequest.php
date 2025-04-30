@@ -21,7 +21,7 @@ class ClientRequest extends FormRequest
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
             'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
             'address' => ['nullable', 'string', 'max:255'],
-            'id_tier_level' => ['required', 'integer', 'exists:tier_level,id'],
+            // 'id_tier_level' => ['required', 'integer', 'exists:tier_level,id'],
         ];
     }
 
@@ -29,12 +29,10 @@ class ClientRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'klinik_name' => "Nama Klinik Tidak Boleh Kosong!",
-            'id_provinsi' => "Provinsi Tidak Boleh Kosong!",
-            'id_kabupaten' => "Kabupaten Tidak Boleh Kosong!",
-            'id_kecamatan' => "Kecamatan Tidak Boleh Kosong!",
-            'id_kelurahan' => "Kelurahan Tidak Boleh Kosong!",
-            'id_tier_level' => "Tier Level Tidak Boleh Kosong!",
+            'id_provinsi.exists' => 'Provinsi tidak ditemukan.',
+            'id_kabupaten.exists' => 'Kabupaten tidak ditemukan.',
+            'id_kecamatan.exists' => 'Kecamatan tidak ditemukan.',
+            'id_kelurahan.exists' => 'Kelurahan tidak ditemukan.',
         ];
     }
 

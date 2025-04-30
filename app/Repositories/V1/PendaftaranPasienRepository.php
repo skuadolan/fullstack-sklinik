@@ -5,7 +5,6 @@ namespace App\Repositories\V1;
 use Error;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
