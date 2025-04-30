@@ -12,11 +12,12 @@ class GolonganDarah extends Model
     use Notifiable, SoftDeletes, HasFactory;
 
     // Nama tabel di database
-    protected $table = 'golongan_darah';
+    protected $table = 'goldar';
 
     // Kolom-kolom yang boleh diisi secara mass-assignment
     protected $fillable = [
         'name',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',

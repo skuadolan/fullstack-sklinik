@@ -20,7 +20,7 @@ use App\Http\Requests\Api\UserRequest;
 class UserRepository
 {
     use ResponseCode, Tools;
-    private $dateNow, $selectColmn, $checkForm;
+    private $dateNow, $selectColmn;
     public function __construct()
     {
         setlocale(LC_TIME, 'id_ID.utf8');
@@ -35,41 +35,17 @@ class UserRepository
             "pdd.whatsapp",
             "pdd.telegram",
             "pdd.birthdate",
-            "pdd.id_gender",
-            "pdd.id_golongan_darah",
+            "pdd.gender",
+            "pdd.goldar",
             "pdd.id_provinsi",
             "pdd.id_kabupaten",
             "pdd.id_kecamatan",
             "pdd.id_kelurahan",
             "pdd.address"
         ];
-
-        $this->checkForm = [
-            // Inert List_Clients
-            'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
-            'id_kabupaten' => ['required', 'integer', 'exists:kabupaten,id'],
-            'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
-            'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
-
-            // Insert Users
-            'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-
-            // Insert Penduduk
-            'nik' => ['required', 'string', 'unique:penduduk,nik'],
-            'fullname' => ['required', 'string'],
-            'handphone' => ['nullable', 'string'],
-            'whatsapp' => ['nullable', 'string'],
-            'telegram' => ['nullable', 'string'],
-            'birthdate' => ['nullable', 'date'],
-            'address' => ['nullable', 'string'],
-            'id_gender' => ['required', 'integer', 'exists:gender,id'],
-            'id_golongan_darah' => ['required', 'integer', 'exists:golongan_darah,id'],
-        ];
     }
 
-    public function index()
+    public function index($req = null)
     {
         return User::select($this->selectColmn)
             ->join("roles AS rol", "rol.id", "=", "users.id_role")
@@ -80,7 +56,6 @@ class UserRepository
     public function store(object $req)
     {
         try {
-            // $validate = $this->ReqValidation($req, $this->checkForm);
             $expreDate = (clone $this->dateNow)->addDays(30)->toDateTimeString();
 
             if (!$this->IsValidAddress($req)) {
@@ -162,8 +137,6 @@ class UserRepository
     public function update(object $req, string $id)
     {
         try {
-            $validate = $this->ReqValidation($req, $this->checkForm);
-
             $user = User::find($id);
             $penduduk = Penduduk::find($user->id_penduduk);
 
@@ -198,12 +171,11 @@ class UserRepository
                 'updated_at' => $this->dateNow
             ]);
 
-            if ($this->IsValidVal($validate)) {
+            if ($this->IsValidVal($penduduk) || $this->IsValidVal($user)) {
                 DB::commit();
-                return $validate;
             } else {
                 DB::rollBack();
-                throw new ValidationException($validate);
+                throw new ValidationException("Gagal update data penduduk/user");
             }
         } catch (ValidationException $err) {
             return $this->SERVER_ERROR($err->errors());

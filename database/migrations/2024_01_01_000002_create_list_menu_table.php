@@ -25,8 +25,8 @@ return new class extends Migration
             $table->foreign('id_tier_level')->references('id')->on('tier_level')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

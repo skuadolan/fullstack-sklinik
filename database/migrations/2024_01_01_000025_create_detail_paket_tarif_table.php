@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('sub_total_biaya', 15, 2)->default(0)->comment("Sub Total Biaya = Biaya Master Data Tarif");
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

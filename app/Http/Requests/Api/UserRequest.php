@@ -16,7 +16,8 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Inert List_Clients
+            // Insert List_Clients
+            'klinik_name' => ['required', 'integer', 'exists:provinsi,id'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
             'id_kabupaten' => ['required', 'integer', 'exists:kabupaten,id'],
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
@@ -36,7 +37,7 @@ class UserRequest extends FormRequest
             'birthdate' => ['nullable', 'date'],
             'address' => ['nullable', 'string'],
             'gender' => ['required', 'string', Rule::in(['L', 'P'])],
-            'id_golongan_darah' => ['nullable', 'integer', 'exists:golongan_darah,id'],
+            'goldar' => ['nullable', 'string'],
         ];
     }
 

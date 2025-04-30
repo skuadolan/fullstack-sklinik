@@ -15,10 +15,10 @@ abstract class ApiController extends Controller
 
     public function __construct(private $service) {}
 
-    public function GetAllDatas(): JsonResponse
+    public function GetAllDatas(object $req): JsonResponse
     {
         try {
-            $datas = $this->service->index();
+            $datas = $this->service->index($req);
 
             return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
         } catch (Exception $err) {
@@ -60,12 +60,6 @@ abstract class ApiController extends Controller
 
     public function DeleteByID(string $id): JsonResponse
     {
-        try {
-            $datas = $this->service->destroy($id);
-
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
-        } catch (Exception $err) {
-            return $this->SERVER_ERROR($err->getMessage());
-        }
+        return $this->service->delete($id);
     }
 }

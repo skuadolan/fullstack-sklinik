@@ -20,14 +20,20 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'id_role',
         'id_client',
         'id_penduduk',
+        'email_verified_at',
+        'ip_address',
+        'last_login',
+        'id_user_created',
+        'id_user_updated',
         'expired_date',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',
-        'id_user_created',
-        'id_user_updated',
+        'deleted_at',
     ];
 
     /**

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('id_perusahaan_asuransi')->references('id')->on('perusahaan_asuransi')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

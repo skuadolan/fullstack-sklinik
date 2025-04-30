@@ -24,7 +24,7 @@
                                                 </label>
                                             </td>
                                             <td>:</td>
-                                            <td><x-autocomplete-layout section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." /></td>
+                                            <td><x-autocomplete-layout section="ssr-dropdown" get="goldar" placeholder="Pilih Golongan Darah..." /></td>
                                         </tr>
                                     </table>
 

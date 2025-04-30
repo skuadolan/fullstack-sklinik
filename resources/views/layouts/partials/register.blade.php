@@ -69,11 +69,11 @@
             </div>
 
             <div>
-                <label for="id_golongan_darah" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="goldar" class="block text-sm font-medium text-gray-700 mb-2">
                     Jenis Kelamin<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout id="id_golongan_darah" name="id_golongan_darah" section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Jenis Kelamin..." />
-                <x-input-error :messages="$errors->get('id_golongan_darah')" class="mt-2" />
+                <x-autocomplete-layout id="goldar" name="goldar" section="ssr-dropdown" get="goldar" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('goldar')" class="mt-2" />
             </div>
 
             <div>

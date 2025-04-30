@@ -26,7 +26,7 @@ return new class extends Migration
             "profesi",
             "spesialisasi",
             "gender",
-            "golongan_darah",
+            "goldar",
             "metode_bayar",
             "jenis_penjualan",
             "kelas",

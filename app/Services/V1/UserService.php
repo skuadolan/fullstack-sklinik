@@ -24,9 +24,9 @@ class UserService
         // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
     }
 
-    public function index()
+    public function index(object $req)
     {
-        return $this->repos->index();
+        return $this->repos->index($req);
     }
 
     public function store(object $req)

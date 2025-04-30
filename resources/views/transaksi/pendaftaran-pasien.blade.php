@@ -128,7 +128,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <x-autocomplete-layout id="goldar" name="goldar" section="ssr-dropdown" get="golongan_darah" placeholder="Pilih Golongan Darah..." />
+                                                    <x-autocomplete-layout id="goldar" name="goldar" section="ssr-dropdown" get="goldar" placeholder="Pilih Golongan Darah..." />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline">

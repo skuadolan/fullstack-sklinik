@@ -23,8 +23,8 @@ return new class extends Migration
             $table->decimal('biaya', 15, 2)->default(0);
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -7,12 +7,9 @@ use App\Http\Controllers\ApiController;
 
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
-
 use Illuminate\Http\JsonResponse;
+
 use App\Services\V1\UserService;
-
-use Illuminate\Validation\Rules;
-
 use App\Http\Requests\Api\UserRequest;
 
 class UserController extends ApiController
@@ -21,7 +18,7 @@ class UserController extends ApiController
 
     public function __construct(private UserService $service) { parent::__construct($this->service); }
 
-    public function index(): JsonResponse { return $this->GetAllDatas(); }
+    public function index(Request $req): JsonResponse { return $this->GetAllDatas($req); }
 
     public function store(UserRequest $req): JsonResponse { return $this->CreateData($req); }
 
