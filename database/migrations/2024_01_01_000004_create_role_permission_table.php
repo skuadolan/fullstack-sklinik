@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('id_menu')->references('id')->on('list_menus')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

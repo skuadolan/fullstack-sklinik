@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('detail_paket_tarif', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('id_paket_tarif');
             $table->foreign('id_paket_tarif')->references('id')->on('paket_tarif')->onDelete('cascade');
@@ -22,8 +21,8 @@ return new class extends Migration
             $table->decimal('sub_total_biaya', 15, 2)->default(0)->comment("Sub Total Biaya = Biaya Master Data Tarif");
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

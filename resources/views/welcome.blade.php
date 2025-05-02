@@ -28,9 +28,9 @@
             $(".hide_notif").hide();
 
             if ($section == "registerForm") {
-                if (!$("#company_name").val()) {
+                if (!$("#klinik_name").val()) {
                     AllNotify("Nama Klinik tidak boleh kosong!", "error");
-                    $("#company_name").focus();
+                    $("#klinik_name").focus();
                     return false;
                 }
 
@@ -109,6 +109,7 @@
                                 if (errors) {
                                     for (let key in errors) {
                                         AllNotify(errors[key][0], "error");
+                                        LoadingNotify(null, null);
                                         $(`#err_${key}`).show();
                                         $(`#err_${key} li`).html(errors[key][0]);
                                     }

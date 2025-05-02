@@ -15,10 +15,10 @@ abstract class ApiController extends Controller
 
     public function __construct(private $service) {}
 
-    public function GetAllDatas(): JsonResponse
+    public function GetAllDatas(object $req): JsonResponse
     {
         try {
-            $datas = $this->service->index();
+            $datas = $this->service->index($req);
 
             return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
         } catch (Exception $err) {
@@ -39,7 +39,13 @@ abstract class ApiController extends Controller
 
     public function CreateData(object $req): JsonResponse
     {
-        return $this->service->store($req);
+        try {
+            $datas = $this->service->store($req);
+
+            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
+        }
     }
 
     public function GetByID(string $id): JsonResponse
@@ -55,17 +61,23 @@ abstract class ApiController extends Controller
 
     public function UpdateByID(object $req, string $id): JsonResponse
     {
-        return $this->service->update($req, $id);
+        try {
+            $datas = $this->service->update($req, $id);
+
+            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
+        }
     }
 
     public function DeleteByID(string $id): JsonResponse
     {
         try {
-            $datas = $this->service->destroy($id);
+            $datas = $this->service->delete($id);
 
             return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
-        } catch (Exception $err) {
-            return $this->SERVER_ERROR($err->getMessage());
+        } catch (\Throwable $th) {
+            return $this->SERVER_ERROR($th->getMessage());
         }
     }
 }

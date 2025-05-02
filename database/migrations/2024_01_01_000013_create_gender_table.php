@@ -14,29 +14,17 @@ return new class extends Migration
     {
         Schema::create('gender', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name')->unique()->comment('Laki-Laki, Perempuan');
 
             // ENUM SET START
-            $dbDriver = DB::connection()->getDriverName();
-
-            if ($dbDriver === 'pgsql') {
-                DB::statement("DROP TYPE IF EXISTS jenis_kelamin_penduduk");
-                DB::statement("CREATE TYPE jenis_kelamin_penduduk AS ENUM ('L', 'P')");
-                $table->string('value')->comment("Laki - Laki, Perempuan");
-            }
-
-            if ($dbDriver === 'mysql') {
-                $table->enum('value', ['L', 'P'])->comment("Laki - Laki, Perempuan");
-            }
+            $table->enum('value', ['L', 'P'])->comment("L, P");
             // ENUM SET END
 
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
-
-        DB::table('gender')->whereNotIn('value', ['L', 'P']);
     }
 
     /**
@@ -44,18 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('gender', function (Blueprint $table) {
-            $dbDriver = DB::connection()->getDriverName();
-
-            if ($dbDriver === 'pgsql') {
-                DB::statement("DROP TYPE IF EXISTS jenis_kelamin_penduduk");
-            }
-
-            if ($dbDriver === 'mysql') {
-                $table->dropColumn(['value']);
-            }
-        });
-
         Schema::dropIfExists('gender');
     }
 };

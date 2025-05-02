@@ -5,7 +5,6 @@ namespace App\Repositories\V1;
 use Error;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
@@ -18,20 +17,18 @@ use App\Models\Pendaftaran;
 class PendaftaranPasienRepository
 {
     use ResponseCode, Tools;
-    private $userSession, $userSessionRedis, $dateNow, $selectColmn, $checkForm;
+    private $userSession, $userSessionRedis, $dateNow, $selectColmn;
     public function __construct()
     {
         setlocale(LC_TIME, 'id_ID.utf8');
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
         $this->selectColmn = [];
-
-        $this->checkForm = [];
     }
 
     public function index()
     {
-        $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, ppas.gender, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN golongan_darah goldar ON goldar.id = ppas.id_golongan_darah LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.fullname ASC";
+        $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, ppas.gender, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.fullname ASC";
 
         return DB::select("$qry");
     }
@@ -98,7 +95,7 @@ class PendaftaranPasienRepository
 
     public function show(string $id)
     {
-        $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, ppas.gender, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk AND pas.id = $id LEFT JOIN golongan_darah goldar ON goldar.id = ppas.id_golongan_darah LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.fullname ASC";
+        $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, ppas.gender, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk AND pas.id = $id LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.fullname ASC";
 
         return DB::select("$qry");
     }

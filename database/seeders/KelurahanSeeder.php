@@ -19,7 +19,6 @@ class KelurahanSeeder extends Seeder
         $jsonDataKels = File::get($jsonPath);
         $kels = json_decode($jsonDataKels, true);
 
-        $arryDatas = [];
         foreach (array_chunk($kels, 1000) as $chunk) {
             $arryDatas = [];
             foreach ($chunk as $kel) {

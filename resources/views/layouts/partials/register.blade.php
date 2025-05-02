@@ -5,38 +5,38 @@
 
         <div id="clientRegist">
             <div>
-                <label for="company_name" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="klinik_name" class="block text-sm font-medium text-gray-700 mb-2">
                     Nama Klinik<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="company_name" class="block mt-1 w-full check_form_client_register" type="text" name="company_name" autofocus />
-                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_company_name">
+                <x-text-input id="klinik_name" class="block mt-1 w-full check_form_client_register" type="text" name="klinik_name" />
+                <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_klinik_name">
                     <li></li>
                 </ul>
             </div>
 
             <div>
-                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                     Provinsi<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
             </div>
 
             <div id="container_kabupaten" class="address_hidden">
-                <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
             </div>
 
             <div id="container_kecamatan" class="address_hidden">
-                <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
             </div>
 
             <div id="container_kelurahan" class="address_hidden">
-                <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
                 <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#registerForm')" />
@@ -45,34 +45,42 @@
 
         <div id="userRegist">
             <div>
-                <label for="user_nik" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="nik_user" class="block text-sm font-medium text-gray-700 mb-2">
                     NIK<span class="text-red-500">*</span>
                 </label>
-                <x-text-input type="text" id="user_nik" name="user_nik" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('user_nik')" required />
-                <x-input-error :messages="$errors->get('nik')" class="mt-2" />
+                <x-text-input type="text" id="nik_user" name="nik_user" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('nik_user')" required />
+                <x-input-error :messages="$errors->get('nik_user')" class="mt-2" />
             </div>
 
             <div>
-                <label for="fullname" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="fullname_user" class="block text-sm font-medium text-gray-700 mb-2">
                     Nama Lengkap<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="fullname" class="block mt-1 w-full text-capitalize-input" type="text" name="fullname" :value="old('fullname')" required autofocus autocomplete="username" />
-                <x-input-error :messages="$errors->get('fullname')" class="mt-2" />
+                <x-text-input id="fullname_user" class="block mt-1 w-full text-capitalize-input" type="text" name="fullname_user" :value="old('fullname_user')" required autocomplete="username" />
+                <x-input-error :messages="$errors->get('fullname_user')" class="mt-2" />
             </div>
 
             <div>
-                <label for="user_gender" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="gender_user" class="block text-sm font-medium text-gray-700 mb-2">
                     Jenis Kelamin<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout id="user_gender" name="user_gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
-                <x-input-error :messages="$errors->get('user_gender')" class="mt-2" />
+                <x-autocomplete-layout id="gender_user" name="gender_user" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('gender_user')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="goldar_user" class="block text-sm font-medium text-gray-700 mb-2">
+                    Golongan Darah<span class="text-red-500">*</span>
+                </label>
+                <x-autocomplete-layout id="goldar_user" name="goldar_user" section="ssr-dropdown" get="goldar" placeholder="Pilih Jenis Kelamin..." />
+                <x-input-error :messages="$errors->get('goldar_user')" class="mt-2" />
             </div>
 
             <div>
                 <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
                     Username<span class="text-red-500">*</span>
                 </label>
-                <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+                <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('username')" class="mt-2" />
             </div>
 
@@ -141,18 +149,23 @@
             if ($sections == 'userRegist') {
                 let isFilled = false;
                 $(".check_form_client_register").each(function () {
-                    if (!IsValidVal($(this).val())) {
-                        $(this).focus();
-                        AllNotify("Inputan harus diisi!", "error");
-                        isFilled = false;
-                        return false;
+                    if ($(this).css('display') == 'block') {
+                        if (!IsValidVal($(this).val())) {
+                            $(this).focus();
+                            const $txtLabel = $(this).siblings("label").first().text().replace("*", "").trim();
+                            AllNotify(`Inputan ${$txtLabel} harus diisi!`, "error");
+
+
+                            isFilled = false;
+                            return false;
+                        }
                     } else {
                         isFilled = true;
                         return true;
                     }
                 })
 
-                if (IsValidVal(isFilled)) {
+                if (isFilled) {
                     $("#nextRegist").hide();
                     $("#clientRegist").hide();
                     $("#userRegist").show();

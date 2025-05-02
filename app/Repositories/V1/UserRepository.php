@@ -4,23 +4,22 @@ namespace App\Repositories\V1;
 
 use Error;
 
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use App\Services\V1\ClientService;
+use App\Services\V1\PegawaiService;
+use App\Services\V1\PendudukService;
 
 use App\Traits\Tools;
 use App\Traits\ResponseCode;
 
 use App\Models\User;
-use App\Models\Penduduk;
-
-use App\Http\Requests\Api\UserRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
     use ResponseCode, Tools;
-    private $dateNow, $selectColmn, $checkForm;
+    private $dateNow, $selectColmn;
+    private $clientService, $pendudukService, $pegawaiService;
     public function __construct()
     {
         setlocale(LC_TIME, 'id_ID.utf8');
@@ -35,119 +34,94 @@ class UserRepository
             "pdd.whatsapp",
             "pdd.telegram",
             "pdd.birthdate",
-            "pdd.id_gender",
-            "pdd.id_golongan_darah",
-            "pdd.id_provinsi",
-            "pdd.id_kabupaten",
-            "pdd.id_kecamatan",
-            "pdd.id_kelurahan",
+            "pdd.gender",
+            "pdd.goldar",
+            "prov.name AS provinsi",
+            "kab.name AS kabupaten",
+            "kec.name AS kecamatan",
+            "kel.name AS kelurahan",
             "pdd.address"
         ];
 
-        $this->checkForm = [
-            // Inert List_Clients
-            'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
-            'id_kabupaten' => ['required', 'integer', 'exists:kabupaten,id'],
-            'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
-            'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
-
-            // Insert Users
-            'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-
-            // Insert Penduduk
-            'nik' => ['required', 'string', 'unique:penduduk,nik'],
-            'fullname' => ['required', 'string'],
-            'handphone' => ['nullable', 'string'],
-            'whatsapp' => ['nullable', 'string'],
-            'telegram' => ['nullable', 'string'],
-            'birthdate' => ['nullable', 'date'],
-            'address' => ['nullable', 'string'],
-            'id_gender' => ['required', 'integer', 'exists:gender,id'],
-            'id_golongan_darah' => ['required', 'integer', 'exists:golongan_darah,id'],
-        ];
+        $this->clientService = new ClientService();
+        $this->pegawaiService = new PegawaiService();
+        $this->pendudukService = new PendudukService();
     }
 
-    public function index()
+    public function index($req = null)
     {
-        return User::select($this->selectColmn)
-            ->join("roles AS rol", "rol.id", "=", "users.id_role")
-            ->join("penduduk AS pdd", "pdd.id", "=", "users.id_penduduk")
-            ->get();
+        $rawQry = User::query();
+        if ($req->filled('get_data')) { // Nama Kolom yang mau di car by
+            $params = strtolower($req->input('params'));
+            $colName = strtolower($req->input('get_data'));
+
+            $rawQry->select($this->selectColmn)
+                ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+                ->join("roles AS rol", "rol.id", "=", "users.id_role")
+                ->join("penduduk AS pdd", "pdd.id", "=", "users.id_penduduk")
+                ->where(function ($qryI) use ($colName, $params) {
+                    $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
+                });
+        }
+
+        $sortable = [
+            "id",
+            "username",
+            "fullname",
+            "role_name",
+            "provinsi",
+            "kabupaten",
+            "kecamatan",
+            "kelurahan",
+            "created_at",
+        ];
+        $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
+        $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
+
+        $rawQry->orderBy($sortBy, $sorting);
+
+        return $rawQry->get();
     }
 
     public function store(object $req)
     {
-        try {
-            // $validate = $this->ReqValidation($req, $this->checkForm);
-            $expreDate = (clone $this->dateNow)->addDays(30)->toDateTimeString();
+        DB::beginTransaction();
+        $id_client = $this->clientService->store($req);
+        $id_penduduk = $this->pendudukService->store($req);
 
-            if (!$this->IsValidAddress($req)) {
-                throw new Error("Alamat tidak valid");
-            }
+        $dataUsr = [
+            'username' => $req->username,
+            'email' => $req->email,
+            'password' => Hash::make($req->password),
+            'id_client' => $id_client,
+            'id_penduduk' => $id_penduduk,
+            'created_at' => $req->created_at
+        ];
 
-            DB::beginTransaction();
+        $id_user = DB::table('users')->insertGetId($dataUsr);
 
-            $id_client = DB::table('list_clients')->insertGetId([
-                'name' => $req->company_name,
-                'id_provinsi' => $req->id_provinsi,
-                'id_kabupaten' => $req->id_kabupaten,
-                'id_kecamatan' => $req->id_kecamatan,
-                'id_kelurahan' => $req->id_kelurahan,
-                'created_at' => $this->dateNow,
-                'expired_date' => $expreDate,
-            ]);
+        $dataPegawai = [
+            'id_user' => $id_user,
+            'id_profesi' => $req->id_profesi,
+            'id_penduduk' => $id_penduduk,
+            'id_client' => $id_client,
+        ];
+        $dataPegawai = json_encode($dataPegawai);
+        $dataPegawai = json_decode($dataPegawai);
 
-            // Harusnya disini ada insert ke Clients Config terkait Tier Level
+        $id_pegwai = $this->pegawaiService->store($dataPegawai);
 
-            $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();
+        $pegwai = $this->pegawaiService->show($id_pegwai);
 
-            if (!$this->IsValidVal($dataPenduduk)) {
-                $id_penduduk = DB::table('penduduk')->insertGetId([
-                    'nik' => $req->nik,
-                    'fullname' => $req->fullname,
-                    'handphone' => $req->handphone,
-                    'whatsapp' => $req->whatsapp,
-                    'telegram' => $req->telegram,
-                    'birthdate' => $req->birthdate,
-                    'address' => $req->address,
-                    'gender' => $req->gender,
-                    'id_golongan_darah' => $req->goldar,
-                    'id_provinsi' => $req->id_provinsi,
-                    'id_kabupaten' => $req->id_kabupaten,
-                    'id_kecamatan' => $req->id_kecamatan,
-                    'id_kelurahan' => $req->id_kelurahan,
-                    'created_at' => $this->dateNow
-                ]);
-            }
-
-            $id_penduduk = (isset($dataPenduduk->id)) ? $dataPenduduk->id : $id_penduduk;
-
-            $id_user = DB::table('users')->insertGetId([
-                'username' => $req->username,
-                'email' => $req->email,
-                'password' => Hash::make($req->password),
-                'id_client' => $id_client,
-                'id_penduduk' => $id_penduduk,
-                'expired_date' => $expreDate,
-                'created_at' => $this->dateNow
-            ]);
-
-            $id_pegawai = DB::table('pegawai')->insertGetId([
-                'id_user' => $id_user,
-                'id_client' => $id_client,
-                'id_penduduk' => $id_penduduk,
-                'created_at' => $this->dateNow
-            ]);
-
+        if ($this->IsValidVal($pegwai)) {
             DB::commit();
-
-            return $this->OKE($id_pegawai);
-        } catch (ValidationException $err) {
+            return $pegwai;
+        } else {
             DB::rollBack();
-
-            return $this->SERVER_ERROR($err->errors());
+            return new Error("Kesalahan insert ke database");
         }
     }
 
@@ -159,60 +133,7 @@ class UserRepository
             ->find($id);
     }
 
-    public function update(object $req, string $id)
-    {
-        try {
-            $validate = $this->ReqValidation($req, $this->checkForm);
+    public function update(array $req, string $id) {}
 
-            $user = User::find($id);
-            $penduduk = Penduduk::find($user->id_penduduk);
-
-            if (!$this->IsValidAddress($req)) {
-                return $this->NOT_FOUND("Alamat tidak valid!");
-            }
-
-            DB::beginTransaction();
-
-            $user->update([
-                'username' => $req->username,
-                'email' => $req->email,
-                'password' => Hash::make($req->password),
-                'updated_at' => $this->dateNow
-            ]);
-
-            $penduduk->update([
-                'nik' => $req->nik,
-                'fullname' => $req->nama,
-                'handphone' => $req->handphone,
-                'whatsapp' => $req->whatsapp,
-                'telegram' => $req->telegram,
-                'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, true),
-                'address' => $req->address,
-                'id_gender' => $req->gender,
-                'id_golongan_darah' => $req->goldar,
-                'id_provinsi' => $req->id_provinsi,
-                'id_kabupaten' => $req->id_kabupaten,
-                'id_kecamatan' => $req->id_kecamatan,
-                'id_kelurahan' => $req->id_kelurahan,
-                'id_user_updated' => $req->id_user_updated,
-                'updated_at' => $this->dateNow
-            ]);
-
-            if ($this->IsValidVal($validate)) {
-                DB::commit();
-                return $validate;
-            } else {
-                DB::rollBack();
-                throw new ValidationException($validate);
-            }
-        } catch (ValidationException $err) {
-            return $this->SERVER_ERROR($err->errors());
-        }
-    }
-
-    public function destroy(string $id)
-    {
-        $user = User::find($id);
-        return $user->delete();
-    }
+    public function destroy(string $id) {}
 }

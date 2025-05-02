@@ -16,15 +16,15 @@ return new class extends Migration
             $table->unsignedBigInteger('id_billing');
             $table->foreign('id_billing')->references('id')->on('billing')->onDelete('cascade');
             $table->decimal('sub_total_tagihan', 15, 2)->default(0)->comment("Sub Total Tagihan = Total Biaya Paket Tarif");
-            $table->unsignedBigInteger('id_paket_tarif')->nullable();
-            $table->foreign('id_paket_tarif')->references('id')->on('paket_tarif')->onDelete('cascade');
+            $table->unsignedBigInteger('id_layanan')->nullable();
+            $table->foreign('id_layanan')->references('id')->on('layanan')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

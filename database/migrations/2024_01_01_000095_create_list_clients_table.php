@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('list_clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('biodata')->nullable();
+            $table->longText('company_profile')->nullable();
             $table->unsignedBigInteger('id_provinsi');
             $table->foreign('id_provinsi')->references('id')->on('provinsi')->onDelete('cascade');
             $table->unsignedBigInteger('id_kabupaten');
@@ -32,9 +32,9 @@ return new class extends Migration
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamp('expired_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

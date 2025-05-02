@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('master_data_tarif', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('id_layanan');
+            $table->foreign('id_layanan')->references('id')->on('layanan')->onDelete('cascade');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('id_kelas');
             $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
-            $table->unsignedBigInteger('id_layanan');
-            $table->foreign('id_layanan')->references('id')->on('layanan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_produk_asuransi');
+            $table->foreign('id_produk_asuransi')->references('id')->on('produk_asuransi')->onDelete('cascade');
             $table->decimal('biaya', 15, 2)->default(0);
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

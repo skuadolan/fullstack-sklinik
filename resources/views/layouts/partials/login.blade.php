@@ -6,7 +6,7 @@
         <!-- username Address -->
         <div>
             <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" />
 
             <ul class="hide_notif text-sm text-red-600 space-y-1 mt-2" id="err_username">
                 <li></li>

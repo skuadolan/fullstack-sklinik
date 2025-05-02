@@ -59,12 +59,12 @@
             </div>
         </div>
     @endif
-    @if ($get == 'golongan_darah')
-        <div id="golongan_darah_autocomplete_container" class="relative">
+    @if ($get == 'goldar')
+        <div id="goldar_autocomplete_container" class="relative">
             <div class="flex items-center">
                 <x-text-input
-                    {{ $attributes->merge(['id' => 'golongan_darah', 'name' => 'golongan_darah', 'type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none text-sm']) }} />
-                <x-text-input {{ $attributes->merge(['id' => 'id_golongan_darah', 'name' => 'id_golongan_darah', 'type' => 'hidden']) }} />
+                    {{ $attributes->merge(['id' => 'goldar', 'name' => 'goldar', 'type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none text-sm']) }} />
+                <x-text-input {{ $attributes->merge(['id' => 'id_goldar', 'name' => 'id_goldar', 'type' => 'hidden']) }} />
                 <span id="search-icon" class="absolute right-3">
                     <i class="fas fa-search text-gray-500"></i>
                 </span>
@@ -80,7 +80,7 @@
     @php
         $listNoAComplete = [
             'provinsi',
-            'golongan_darah',
+            'goldar',
             'gender',
             'unit'
         ];
@@ -125,12 +125,12 @@
         </div>
     @endif
 
-    @if ($get == 'golongan_darah')
+    @if ($get == 'goldar')
         <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
             <option value="" selected disabled>Pilih Opsi...</option>
             @if (isset($listGoldar) && !empty($listGoldar))
                 @foreach ($listGoldar as $key => $list)
-                    <option value="{{ $list->id }}">{{ $list->name }}</option>
+                    <option value="{{ $list->name }}">{{ $list->name }}</option>
                 @endforeach
             @endif
         </select>

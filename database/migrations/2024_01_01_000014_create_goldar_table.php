@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('golongan_darah', function (Blueprint $table) {
+        Schema::create('goldar', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('golongan_darah');
+        Schema::dropIfExists('goldar');
     }
 };

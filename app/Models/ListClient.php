@@ -19,17 +19,20 @@ class ListClient extends Model
      */
     protected $fillable = [
         'name',
-        'biodata',
+        'company_profile',
         'id_provinsi',
         'id_kabupaten',
         'id_kecamatan',
         'id_kelurahan',
         'address',
+        'id_tier_level',
+        'id_user_created',
+        'id_user_updated',
         'expired_date',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',
-        'id_user_created',
-        'id_user_updated',
+        'deleted_at',
     ];
 }

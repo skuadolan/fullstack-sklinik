@@ -22,8 +22,8 @@ return new class extends Migration
             $table->decimal('total_biaya', 15, 2)->default(0)->comment("Total Biaya = SUM(Sub Total Biaya Detail Paket Tarif)");
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

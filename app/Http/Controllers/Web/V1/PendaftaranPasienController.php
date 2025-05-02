@@ -12,7 +12,7 @@ class PendaftaranPasienController extends ApiController
 {
     public function __construct(private PendaftaranPasienService $service) { parent::__construct($this->service); }
 
-    public function index(): JsonResponse { return $this->GetAllDatas(); }
+    public function index(Request $req): JsonResponse { return $this->GetAllDatas($req); }
 
     public function store(Request $req): JsonResponse { return $this->CreateData($req); }
 

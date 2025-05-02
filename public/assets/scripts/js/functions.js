@@ -201,39 +201,39 @@ function InitAutocomplete() {
             };
         }
 
-        if ($("#golongan_darah").length) {
-            $("#golongan_darah").autocomplete({
+        if ($("#goldar").length) {
+            $("#goldar").autocomplete({
                 source: async function (request, response) {
                     if (request.term.length < 1) return;
 
-                    LoadingInput('loading', 'golongan_darah');
+                    LoadingInput('loading', 'goldar');
 
                     try {
                         const { datas } = await $.ajax({
-                            url: `/api/search?get_data=golongan_darah`,
+                            url: `/api/search?get_data=goldar`,
                             data: { q: request.term },
                         });
 
-                        LoadingInput('idle', 'golongan_darah');
+                        LoadingInput('idle', 'goldar');
                         response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
-                        LoadingInput('idle', 'golongan_darah');
+                        LoadingInput('idle', 'goldar');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }
                 },
                 minLength: 1,
                 focus: function (_, ui) {
                     if (ui.item.id) {
-                        $("#golongan_darah").val(ui.item.name);
-                        $("#id_golongan_darah").val(ui.item.id);
+                        $("#goldar").val(ui.item.name);
+                        $("#id_goldar").val(ui.item.id);
                     }
                     return false;
                 },
                 select: function (_, ui) {
                     if (ui.item.id) {
-                        $("#golongan_darah").val(ui.item.name);
-                        $("#id_golongan_darah").val(ui.item.id);
+                        $("#goldar").val(ui.item.name);
+                        $("#id_goldar").val(ui.item.id);
                     }
                     return false;
                 }

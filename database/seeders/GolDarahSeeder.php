@@ -29,6 +29,6 @@ class GolDarahSeeder extends Seeder
             ],
         ];
 
-        DB::table('golongan_darah')->insert($datas);
+        DB::table('goldar')->insert($datas);
     }
 }
