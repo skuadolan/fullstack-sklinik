@@ -61,7 +61,7 @@ class UserRequest extends FormRequest
             'email.email' => 'Email tidak valid.',
             'gender.exists' => 'Gender tidak ditemukan.',
 
-            'nik.unique' => 'NIK sudah terdaftar.',
+            'nik_user.unique' => 'NIK sudah terdaftar.',
             'nik.regex' => 'Username hanya boleh berisi angka.',
             'email.unique' => 'Email sudah terdaftar.',
             'username.unique' => 'Username sudah terdaftar.',

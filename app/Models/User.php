@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,6 @@ class User extends Authenticatable
         'last_login',
         'id_user_created',
         'id_user_updated',
-        'expired_date',
         'is_actived',
         'is_deleted',
         'created_at',
@@ -56,6 +56,24 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+        ];
+    }
+
+    public static function SchemaDataModel(object $req) {
+        $id_user = (isset($req->id_user) && !empty($req->id_user) ? $req->id_user : null);
+        $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : null);
+        $id_penduduk = (isset($req->id_penduduk) && !empty($req->id_penduduk) ? $req->id_penduduk : null);
+
+        return [
+            'username' => $req->username,
+            'email' => $req->email,
+            'password' => Hash::make($req->password),
+            'id_client' => $id_client,
+            'id_penduduk' => $id_penduduk,
+            'id_user_created' => $id_user,
+            'id_user_updated' => $id_user,
+            'created_at' => $req->dateNow,
+            'updated_at' => $req->dateNow,
         ];
     }
 }

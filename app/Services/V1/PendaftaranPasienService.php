@@ -2,26 +2,27 @@
 
 namespace App\Services\V1;
 
-use App\Repositories\V1\PendaftaranPasienRepository;
-
 use App\Traits\Tools;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
+
+use App\Repositories\V1\PendaftaranPasienRepository;
 
 class PendaftaranPasienService
 {
     use Tools;
 
-    private $repos, $userSession, $userSessionRedis, $dateNow, $selectColmn, $checkForm;
+private $dateNow, $repos, $userSession;
     public function __construct()
     {
         setlocale(LC_TIME, 'id_ID.utf8');
-        $this->repos = new PendaftaranPasienRepository();
+        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
-        // $sessionId = session()->getId();
         $this->userSession = session('user_login');
+        // $sessionId = session()->getId();
         // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+
+        $this->repos = new PendaftaranPasienRepository();
     }
 
     public function index()
@@ -46,42 +47,12 @@ class PendaftaranPasienService
 
     public function store(object $req)
     {
-        $id_user = $this->GetUserIDFromRequest($req, $this->userSession);
-        $id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
+        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
+        $req->birthdate_user = (isset($req->tanggal_lahir) && !empty($req->tanggal_lahir) ? $this->ReformatDateTime($req->tanggal_lahir, true) : null);
 
-        $id_user = ($this->IsValidVal($id_user) ? $id_user : Auth::id());
-        $id_client = ($this->IsValidVal($id_client) ? $id_client : null);
-
-        $data = [
-            // Penduduk
-            'nik' => $req->nik_pasien,
-            'fullname' => $req->nama_pasien,
-            'handphone' => $req->handphone_pasien,
-            'whatsapp' => $req->whatsapp_pasien,
-            'telegram' => $req->telegram_pasien,
-            'birthdate' => $this->ReformatDateTime($req->tanggal_lahir, true),
-            'address' => $req->address_pasien,
-            'gender' => $req->gender,
-            'id_golongan_darah' => $req->goldar,
-            'id_provinsi' => $req->id_provinsi,
-            'id_kabupaten' => $req->id_kabupaten,
-            'id_kecamatan' => $req->id_kecamatan,
-            'id_kelurahan' => $req->id_kelurahan,
-
-            // Pasien
-            'norm_pasien' => $req->norm_pasien,
-
-            // Pendaftaran
-            'jenis_pasien' => $req->jenis_pasien,
-
-            'id_client' => $id_client,
-            'id_user_created' => $id_user,
-            'id_user_updated' => $id_user,
-        ];
-
-        $data = json_encode($data);
-        $data = json_decode($data);
-        return $this->repos->store($data);
+        return $this->repos->store($req);
     }
 
     public function show(string $id)

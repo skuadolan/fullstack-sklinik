@@ -2,24 +2,18 @@
 
 namespace App\Repositories\V1;
 
-use Error;
-
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\Tools;
-use App\Traits\ResponseCode;
 
 use App\Models\ListClient;
 
 class ClientRepository
 {
-    use ResponseCode, Tools;
-    private $dateNow, $selectColmn;
+    use Tools;
+    private $selectColmn;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-
         $this->selectColmn = [
             "list_clients.*",
             "prov.name AS provinsi",
@@ -63,9 +57,11 @@ class ClientRepository
         return $rawQry->get();
     }
 
-    public function store(array $req)
+    public function store(object $req)
     {
-        return DB::table('list_clients')->insertGetId($req);
+        $dataClient = ListClient::SchemaDataModel($req);
+
+        return DB::table('list_clients')->insertGetId($dataClient);
     }
 
     public function show(string $id)
@@ -78,15 +74,23 @@ class ClientRepository
             ->find($id);
     }
 
-    public function update(array $req, string $id)
+    public function update(object $req, string $id)
     {
-        $user = ListClient::find($id);
-        return $user->update($req);
+        $client = ListClient::find($id);
+
+        $data = ListClient::SchemaDataModel($req);
+        $data = (object) $data;
+
+        unset($data->created_at);
+        unset($data->id_user_created);
+
+        return $client->update($req);
     }
 
     public function destroy(string $id)
     {
-        $user = ListClient::find($id);
-        return $user->delete();
+        $client = ListClient::find($id);
+
+        return $client->delete();
     }
 }

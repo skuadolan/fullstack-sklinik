@@ -5,6 +5,8 @@ namespace App\Traits;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
+
 trait Tools
 {
     public function show_array($var)
@@ -88,22 +90,17 @@ trait Tools
 
     public function GetUserIDFromRequest($req, $userSession)
     {
-        if ($req->is('api/*')) {
-            $id_user = ($this->IsValidVal($req->id_user) ? $req->id_user : null);
-        } else {
-            $id_user = ($this->IsValidVal($userSession, "bool", null, "id_user") ? $userSession['id_user'] : null);
-        }
+        $id_user = (isset($req->id_user) && !empty($req->id_user) ? $req->id_user : null);
+        $id_user = (isset($userSession['id_user']) && !empty($userSession['id_user']) ? $userSession['id_user'] : $id_user);
+        $id_user = ($this->IsValidVal($id_user) ? $id_user : Auth::id());
 
         return $id_user;
     }
 
     public function GetClientIDFromRequest($req, $userSession)
     {
-        if ($req->is('api/*')) {
-            $id_client = ($this->IsValidVal($req->id_client) ? $req->id_client : null);
-        } else {
-            $id_client = ($this->IsValidVal($userSession, "bool", null, "id_client") ? $userSession['id_client'] : null);
-        }
+        $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : null);
+        $id_client = (isset($userSession['id_client']) && !empty($userSession['id_client']) ? $userSession['id_client'] : $id_client);
 
         return $id_client;
     }

@@ -23,10 +23,26 @@ class Pendaftaran extends Model
         'is_lunas',
         'jenis_pasien',
         'status_pendaftaran',
+        'id_user_created',
+        'id_user_updated',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',
-        'id_user_created',
-        'id_user_updated',
+        'deleted_at',
     ];
+
+    public static function SchemaDataModel(object $req) {
+        return [
+            'id_pasien' => $req->id_pasien,
+            'id_client' => $req->id_client,
+            'is_lunas' => 'Belum',
+            'jenis_pasien' => 'Baru',
+            'status_pendaftaran' => 'Menunggu',
+            'id_user_created' => $req->id_user,
+            'id_user_updated' => $req->id_user,
+            'created_at' => $req->dateNow,
+            'updated_at' => $req->dateNow,
+        ];
+    }
 }

@@ -30,4 +30,21 @@ class Pegawai extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function SchemaDataModel(object $req) {
+        $id_profesi = (isset($req->id_profesi) && !empty($req->id_profesi) ? $req->id_profesi : null);
+
+        return [
+            'id_user' => $req->id_user,
+            'id_profesi' => $id_profesi,
+            'id_penduduk' => $req->id_penduduk,
+            'id_client' => $req->id_client,
+
+            'created_at' => $req->dateNow,
+            'updated_at' => $req->dateNow,
+
+            'id_user_created' => $req->id_user,
+            'id_user_updated' => $req->id_user,
+        ];
+    }
 }

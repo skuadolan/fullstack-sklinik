@@ -19,10 +19,13 @@ class ClientConfigs extends Model
      */
     protected $fillable = [
         'id_client',
+        'id_user_created',
+        'id_user_updated',
+        'expired_date',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',
-        'id_user_created',
-        'id_user_updated',
+        'deleted_at',
     ];
 }

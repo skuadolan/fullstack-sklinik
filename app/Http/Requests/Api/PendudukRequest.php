@@ -31,7 +31,6 @@ class PendudukRequest extends FormRequest
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
             'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
             'address' => ['nullable', 'string', 'max:255'],
-            // 'id_tier_level' => ['required', 'integer', 'exists:tier_level,id'],
         ];
     }
 
