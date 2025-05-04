@@ -83,12 +83,11 @@ class PendudukRepository
         $penduduk = Penduduk::find($id);
 
         $data = Penduduk::SchemaDataModel($req);
-        $data = (object) $data;
 
-        unset($data->created_at);
-        unset($data->id_user_created);
+        unset($data['created_at']);
+        unset($data['id_user_created']);
 
-        return $penduduk->update($req);
+        return $penduduk->update($data);
     }
 
     public function destroy(string $id)

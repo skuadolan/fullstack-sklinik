@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('status_pendaftaran', ['Batal', 'Menunggu', 'Diperiksa', 'Resep', 'Ranap', 'Selesai', 'Booking'])->comment("Batal, Menunggu, Diperiksa, Resep, Ranap, Selesai, Booking");
             // ENUM SET END
 
+            $table->jsonb("penanggung_jawab")->nullable();
+
             $table->unsignedBigInteger('id_user_created')->nullable();
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();

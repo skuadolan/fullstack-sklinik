@@ -224,43 +224,42 @@ function IDRToDecimal($val) {
 }
 
 function isNull(val) {
-    return val === null || val === "null";
+    return val === null || val === 'null';
 }
 
 function isUndefined(val) {
-    return val === undefined || val === "undefined";
+    return val === undefined || val === 'undefined';
 }
 
-function empty(val) {
-    if (isUndefined(val) || isNull(val)) return true;
-    if (typeof val === "object" && (Array.isArray(val) ? val.length === 0 : Object.keys(val).length === 0)) return true;
-    return val === "" || val === 0;
-}
-
-function isset($val) {
-    return !empty($val);
-}
-
-function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-    const $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
-
-    if (isset($tmpVal)) {
-        if ($get == "value") {
-            if (isset($other) && $other != null) {
-                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
-            } else {
-                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : "";
-            }
-        } else if (isset($other) && $other != null && $get == "equal") {
-            return $tmpVal == $other;
-        } else if (isset($tmpVal)) {
-            return true;
-        } else {
-            return false;
-        }
+function getVarValue(val, key = null, def = null) {
+    if (key && typeof val === 'object' && val !== null && key in val) {
+        return String(val[key]).trim();
     }
+    return val !== undefined && val !== null ? String(val).trim() : def;
+}
 
-    return $get == "value" ? "" : false;
+function isValEqual(val, key = null, compareValue) {
+    return getVarValue(val, key) == compareValue;
+}
+
+function valNotEmpty(val, key = null) {
+    const tmpVal = getVarValue(val, key);
+    return tmpVal !== '' && tmpVal !== undefined && tmpVal !== null;
+}
+
+function isValidVal(val, key = null, other = null, get = 'bool') {
+    const tmpVal = getVarValue(val, key);
+
+    if (get === 'value') {
+        return tmpVal !== '' && tmpVal != null ? tmpVal : (other ?? '');
+    } else if (get === 'equal') {
+        return tmpVal == other;
+    }
+    return tmpVal !== '' && tmpVal != null;
+}
+
+function ajaxJSONReturn(code, status, msg, data = {}) {
+    return { code, status, message: msg, data };
 }
 
 function LoadingInput($section, $elemnt) {
@@ -587,7 +586,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
                     const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
 
                     $html += `
-                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
+                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
                         ${$txtDisplay}
                     </li>
                     `;
