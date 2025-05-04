@@ -9,22 +9,17 @@ use App\Services\V1\PegawaiService;
 use App\Services\V1\PendudukService;
 
 use App\Traits\Tools;
-use App\Traits\ResponseCode;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
-    use ResponseCode, Tools;
-    private $dateNow, $selectColmn;
+    use Tools;
+    private $selectColmn;
     private $clientService, $pendudukService, $pegawaiService;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-
         $this->selectColmn = [
             "users.*",
             "rol.name AS role_name",
@@ -89,30 +84,14 @@ class UserRepository
     public function store(object $req)
     {
         DB::beginTransaction();
-        $id_client = $this->clientService->store($req);
-        $id_penduduk = $this->pendudukService->store($req);
+        $req->id_client = $this->clientService->store($req);
+        $req->id_penduduk = $this->pendudukService->store($req);
 
-        $dataUsr = [
-            'username' => $req->username,
-            'email' => $req->email,
-            'password' => Hash::make($req->password),
-            'id_client' => $id_client,
-            'id_penduduk' => $id_penduduk,
-            'created_at' => $req->created_at
-        ];
+        $dataUsr = User::SchemaDataModel($req);
 
-        $id_user = DB::table('users')->insertGetId($dataUsr);
+        $req->id_user = DB::table('users')->insertGetId($dataUsr);
 
-        $dataPegawai = [
-            'id_user' => $id_user,
-            'id_profesi' => $req->id_profesi,
-            'id_penduduk' => $id_penduduk,
-            'id_client' => $id_client,
-        ];
-        $dataPegawai = json_encode($dataPegawai);
-        $dataPegawai = json_decode($dataPegawai);
-
-        $id_pegwai = $this->pegawaiService->store($dataPegawai);
+        $id_pegwai = $this->pegawaiService->store($req);
 
         $pegwai = $this->pegawaiService->show($id_pegwai);
 
@@ -133,7 +112,32 @@ class UserRepository
             ->find($id);
     }
 
-    public function update(array $req, string $id) {}
+    public function update(object $req, string $id) {
+        $user = User::find($id);
+
+        if ($this->IsValidVal($user->id)) {
+            DB::beginTransaction();
+            $this->pendudukService->update($req, $user->id_penduduk);
+
+            $data = User::SchemaDataModel($req);
+            $data = (object) $data;
+
+            unset($data->created_at);
+            unset($data->id_user_created);
+
+            $result = $user->update($data);
+
+            if ($this->IsValidVal($result)) {
+                DB::commit();
+                return $result;
+            } else {
+                DB::rollBack();
+                return new Error("Kesalahan update ke database");
+            }
+        }
+
+        return $user;
+    }
 
     public function destroy(string $id) {}
 }

@@ -7,89 +7,94 @@ use Error;
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\Tools;
-use App\Traits\ResponseCode;
 
 use App\Models\Pasien;
 use App\Models\Penduduk;
-use App\Models\Kunjungan;
 use App\Models\Pendaftaran;
+
+use App\Services\V1\PasienService;
+use App\Services\V1\PendudukService;
+use App\Services\V1\KunjunganService;
 
 class PendaftaranPasienRepository
 {
-    use ResponseCode, Tools;
-    private $userSession, $userSessionRedis, $dateNow, $selectColmn;
+    use Tools;
+    private $selectColmn;
+    private $pendudukService, $pasienService, $kunjunganService;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-
         $this->selectColmn = [];
+
+        $this->pasienService = new PasienService();
+        $this->pendudukService = new PendudukService();
+        $this->kunjunganService = new KunjunganService();
     }
 
-    public function index()
+    public function index($req = null)
     {
-        $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.birthdate, ppas.address, ppas.gender, goldar.id AS id_goldar, goldar.name AS goldar, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan ORDER BY ppas.fullname ASC";
+        $rawQry = Pasien::query();
+        if ($req->filled('get_data')) { // Nama Kolom yang mau di car by
+            $params = strtolower($req->input('params'));
+            $colName = strtolower($req->input('get_data'));
 
-        return DB::select("$qry");
+            $rawQry->select($this->selectColmn)
+                ->join('penduduk AS pdd', 'pdd.id', '=', 'pasien.id_penduduk')
+                ->join('provinsi AS prov', 'prov.id', '=', 'pdd.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'pdd.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'pdd.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'pdd.id_kelurahan')
+                ->where(function ($qryI) use ($colName, $params) {
+                    $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
+                });
+        }
+
+        $sortable = [
+            "id",
+            "name",
+            "created_at",
+        ];
+        $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
+        $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
+
+        $rawQry->orderBy($sortBy, $sorting);
+
+        return $rawQry->get();
     }
 
     public function store(object $req)
     {
 
-        try {
-            if (!$this->IsValidAddress($req)) {
-                throw new Error("Alamat tidak valid");
-            }
+        if (!$this->IsValidAddress($req)) {
+            throw new Error("Alamat tidak valid");
+        }
 
-            $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();
+        $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();
 
-            DB::beginTransaction();
+        DB::beginTransaction();
 
-            if (!$this->IsValidVal($dataPenduduk)) {
-                $penduduk = Penduduk::create($req);
-            } else {
-                $dataPenduduk->update((array) $req);
-            }
+        if (!$this->IsValidVal($dataPenduduk)) {
+            $req->id_penduduk = $this->pendudukService->store($req);
+        } else {
+            $this->pendudukService->update($req, $dataPenduduk->id);
+            $req->id_penduduk = $dataPenduduk->id;
+        }
 
-            $id_penduduk = (isset($dataPenduduk->id)) ? $dataPenduduk->id : $penduduk->id;
+        if (!$this->isValidVal($req->norm_pasien)) {
+            $req->id_pasien = $this->pasienService->store($req);
+        }
 
-            if (!$this->isValidVal($req->norm_pasien)) {
-                $pasien = Pasien::create([
-                    'id_penduduk' => $id_penduduk,
-                    'id_client' => $req->id_client,
-                    'id_user_created' => $req->id_user_created,
-                    'created_at' => $this->dateNow
-                ]);
-            }
+        $dataPendaftaran = Pendaftaran::SchemaDataModel($req);
 
-            $id_pasien = ($this->IsValidVal($req->norm_pasien) ? $req->norm_pasien : $pasien->id);
+        $req->id_pendaftaran = (Pendaftaran::create($dataPendaftaran))->id;
 
-            $pendaftaran = Pendaftaran::create([
-                'id_pasien' => $id_pasien,
-                'id_client' => $req->id_client,
-                'jenis_pasien' => $req->jenis_pasien,
-                'id_user_created' => $req->id_user_created,
-                'created_at' => $this->dateNow
-            ]);
+        $kunjungan = $this->kunjunganService->store($req);
 
-            $kunjungan = Kunjungan::create([
-                'id_pendaftaran' => $pendaftaran->id,
-                // 'id_nakes' => $req->nakes,
-                // 'id_bed' => $req->bed,
-                'id_pasien' => $id_pasien,
-                'waktu_masuk' => $this->dateNow,
-                'id_client' => $req->id_client,
-                'id_user_created' => $req->id_user_created,
-                'created_at' => $this->dateNow
-            ]);
-
+        if ($this->IsValidVal($kunjungan)) {
             DB::commit();
-
-            return $this->OKE($kunjungan);
-        } catch (\Throwable $th) {
+            return $kunjungan;
+        } else {
             DB::rollBack();
-
-            return $this->SERVER_ERROR($th->getMessage());
+            return new Error("Kesalahan insert ke database");
         }
     }
 
@@ -102,18 +107,9 @@ class PendaftaranPasienRepository
 
     public function update(object $req, string $id)
     {
-        try {
-            return $this->OKE();
-        } catch (\Throwable $th) {
-            return $this->SERVER_ERROR($th->getMessage());
-        }
     }
 
     public function destroy(string $id)
     {
-        try {
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
     }
 }

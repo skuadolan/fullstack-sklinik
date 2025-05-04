@@ -16,11 +16,11 @@ class ClientService
         setlocale(LC_TIME, 'id_ID.utf8');
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
-        $this->repos = new ClientRepository();
-
         $this->userSession = session('user_login');
         // $sessionId = session()->getId();
         // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+
+        $this->repos = new ClientRepository();
     }
 
     public function index($req)
@@ -32,23 +32,11 @@ class ClientService
     {
         $day = 30;
         $days = (isset($req->actived_lifetime) && !empty($req->actived_lifetime) ? $req->actived_lifetime * $day : $day);
-        $expreDate = (clone $this->dateNow)->addDays($days)->toDateTimeString();
-        $expreDate = (isset($req->expired_date) && !empty($req->expired_date) ? $req->expired_date : $expreDate);
+        $req->expreDate = (clone $this->dateNow)->addDays($days)->toDateTimeString();
 
-        $data = [
-            'name' => $req->klinik_name,
-            'company_profile' => $req->klinik_biography,
-            'id_provinsi' => $req->id_provinsi,
-            'id_kabupaten' => $req->id_kabupaten,
-            'id_kecamatan' => $req->id_kecamatan,
-            'id_kelurahan' => $req->id_kelurahan,
-            'address' => $req->address,
-            // 'id_tier_level' => $req->id_tier_level,
-            'expired_date' => $this->ReformatDateTime($expreDate, true),
-            'created_at' => $this->ReformatDateTime($this->dateNow, true)
-        ];
+        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
 
-        return $this->repos->store($data);
+        return $this->repos->store($req);
     }
 
     public function show(string $id)
@@ -58,19 +46,11 @@ class ClientService
 
     public function update(object $req, string $id)
     {
-        $data = [
-            'name' => $req->klinik_name,
-            'company_profile' => $req->klinik_biography,
-            'id_provinsi' => $req->id_provinsi,
-            'id_kabupaten' => $req->id_kabupaten,
-            'id_kecamatan' => $req->id_kecamatan,
-            'id_kelurahan' => $req->id_kelurahan,
-            'address' => $req->address,
-            'id_tier_level' => $req->id_tier_level,
-            'updated_at' => $this->ReformatDateTime($this->dateNow, true)
-        ];
+        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
+        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
 
-        return $this->repos->update($data, $id);
+        return $this->repos->update($req, $id);
     }
 
     public function destroy(string $id)

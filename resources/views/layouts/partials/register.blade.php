@@ -1,5 +1,5 @@
 <x-card-box-shadow-layout>
-    <form id="registerForm" onsubmit="submitForm('registerForm')">
+    <form id="registerForm" onsubmit="submitForm('registerForm')" class="max-h-screen overflow-auto">
         @csrf
         <input type="hidden" name="token" class="csrf-token" />
 

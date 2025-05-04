@@ -16,11 +16,11 @@ class PegawaiService
         setlocale(LC_TIME, 'id_ID.utf8');
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
-        $this->repos = new PegawaiRepository();
-
         $this->userSession = session('user_login');
         // $sessionId = session()->getId();
         // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+
+        $this->repos = new PegawaiRepository();
     }
 
     public function index($req)
@@ -30,15 +30,11 @@ class PegawaiService
 
     public function store(object $req)
     {
-        $data = [
-            'id_user' => $req->id_user,
-            'id_profesi' => $req->id_profesi,
-            'id_penduduk' => $req->id_penduduk,
-            'id_client' => $req->id_client,
-            'created_at' => $this->ReformatDateTime($this->dateNow, true)
-        ];
+        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
+        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
 
-        return $this->repos->store($data);
+        return $this->repos->store($req);
     }
 
     public function show(string $id)
@@ -48,15 +44,11 @@ class PegawaiService
 
     public function update(object $req, string $id)
     {
-        $data = [
-            'id_user' => $req->id_user,
-            'id_profesi' => $req->id_profesi,
-            'id_penduduk' => $req->id_penduduk,
-            'id_client' => $req->id_client,
-            'updated_at' => $this->ReformatDateTime($this->dateNow, true)
-        ];
+        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
+        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
+        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
 
-        return $this->repos->update($data, $id);
+        return $this->repos->update($req, $id);
     }
 
     public function destroy(string $id)

@@ -2,18 +2,15 @@
 
 namespace App\Repositories\V1;
 
-use Error;
-
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\Tools;
-use App\Traits\ResponseCode;
 
 use App\Models\Pegawai;
 
 class PegawaiRepository
 {
-    use ResponseCode, Tools;
+    use Tools;
     private $dateNow, $selectColmn;
     public function __construct()
     {
@@ -81,9 +78,11 @@ class PegawaiRepository
         return $rawQry->get();
     }
 
-    public function store(array $req)
+    public function store(object $req)
     {
-        return DB::table('pegawai')->insertGetId($req);
+        $data = Pegawai::SchemaDataModel($req);
+
+        return DB::table('pegawai')->insertGetId($data);
     }
 
     public function show(string $id)
@@ -101,15 +100,23 @@ class PegawaiRepository
             ->find($id);
     }
 
-    public function update(array $req, string $id)
+    public function update(object $req, string $id)
     {
-        $user = Pegawai::find($id);
-        return $user->update($req);
+        $pegawai = Pegawai::find($id);
+
+        $data = Pegawai::SchemaDataModel($req);
+        $data = (object) $data;
+
+        unset($data->created_at);
+        unset($data->id_user_created);
+
+        return $pegawai->update($req);
     }
 
     public function destroy(string $id)
     {
-        $user = Pegawai::find($id);
-        return $user->delete();
+        $pegawai = Pegawai::find($id);
+
+        return $pegawai->delete();
     }
 }

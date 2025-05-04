@@ -2,15 +2,13 @@
 
 namespace App\Repositories\V1;
 
-use Error;
-
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\Tools;
 
-use App\Models\Penduduk;
+use App\Models\Pasien;
 
-class PendudukRepository
+class PasienRepository
 {
     use Tools;
     private $dateNow, $selectColmn;
@@ -20,38 +18,36 @@ class PendudukRepository
         $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
 
         $this->selectColmn = [
-            "penduduk.*",
-            "prov.name AS provinsi",
-            "kab.name AS kabupaten",
-            "kec.name AS kecamatan",
-            "kel.name AS kelurahan"
+            'pasien.*',
         ];
     }
 
     public function index($req = null)
     {
-        $rawQry = Penduduk::query();
+        $rawQry = Pasien::query();
         if ($req->filled('get_data')) { // Nama Kolom yang mau di car by
             $params = strtolower($req->input('params'));
             $colName = strtolower($req->input('get_data'));
 
             $rawQry->select($this->selectColmn)
-                ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
-                ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
-                ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
-                ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
+                ->join('users AS usr', 'usr.id', '=', 'pegawai.id_user')
+                ->join('penduduk AS pdd', 'pdd.id', '=', 'usr.id_penduduk')
+                ->join('list_clients AS lc', 'lc.id', '=', 'usr.id_client')
+                ->join('provinsi AS prov', 'prov.id', '=', 'pdd.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'pdd.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'pdd.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'pdd.id_kelurahan')
+                ->join("roles AS rol", "rol.id", "=", "usr.id_role")
+                ->leftJoin('profesi AS prof', 'prof.id', '=', 'pegawai.id_profesi')
                 ->where(function ($qryI) use ($colName, $params) {
                     $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
                 });
         }
 
         $sortable = [
-            "penduduk.*",
-            "address",
-            "provinsi",
-            "kabupaten",
-            "kecamatan",
-            "kelurahan",
+            "id",
+            "name",
+            "created_at",
         ];
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
@@ -63,38 +59,34 @@ class PendudukRepository
 
     public function store(object $req)
     {
-        $data = Penduduk::SchemaDataModel($req, $this->dateNow);
+        $data = Pasien::SchemaDataModel($req);
 
-        return DB::table('penduduk')->insertGetId($data);
+        return DB::table('pasien')->insertGetId($data);
     }
 
     public function show(string $id)
     {
-        return Penduduk::select($this->selectColmn)
-            ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
-            ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
-            ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
-            ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
+        return Pasien::select($this->selectColmn)
             ->find($id);
     }
 
     public function update(object $req, string $id)
     {
-        $penduduk = Penduduk::find($id);
+        $pasien = Pasien::find($id);
 
-        $data = Penduduk::SchemaDataModel($req);
+        $data = Pasien::SchemaDataModel($req);
         $data = (object) $data;
 
         unset($data->created_at);
         unset($data->id_user_created);
 
-        return $penduduk->update($req);
+        return $pasien->update($req);
     }
 
     public function destroy(string $id)
     {
-        $penduduk = Penduduk::find($id);
+        $pasien = Pasien::find($id);
 
-        return $penduduk->delete();
+        return $pasien->delete();
     }
 }

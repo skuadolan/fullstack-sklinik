@@ -4,10 +4,9 @@ namespace App\Services\V1;
 
 use App\Traits\Tools;
 
-use App\Repositories\V1\PendudukRepository;
+use App\Repositories\V1\KunjunganRepository;
 
-
-class PendudukService
+class KunjunganService
 {
     use Tools;
 
@@ -21,7 +20,7 @@ class PendudukService
         // $sessionId = session()->getId();
         // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
 
-        $this->repos = new PendudukRepository();
+        $this->repos = new KunjunganRepository();
     }
 
     public function index($req)

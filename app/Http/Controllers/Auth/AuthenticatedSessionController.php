@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Auth\LoginRequest;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redis;
 
 class AuthenticatedSessionController extends Controller
 {
