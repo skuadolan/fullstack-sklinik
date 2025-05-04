@@ -50,18 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('penjualan', function (Blueprint $table) {
-            $dbDriver = DB::connection()->getDriverName();
-
-            if ($dbDriver === 'pgsql') {
-                DB::statement("DROP TYPE IF EXISTS status_penjualan_pasien");
-            }
-
-            if ($dbDriver === 'mysql') {
-                $table->dropColumn(['is_lunas']);
-            }
-        });
-
         Schema::dropIfExists('penjualan');
     }
 };

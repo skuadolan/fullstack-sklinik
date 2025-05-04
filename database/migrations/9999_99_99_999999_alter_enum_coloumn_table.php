@@ -75,7 +75,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('gender', function (Blueprint $table) {
-            $dbDriver = DB::connection()->getDriverName();
+            $dbDriver = Schema::getConnection()->getDriverName();
 
             if ($dbDriver === 'pgsql') {
                 DB::statement("DROP TYPE IF EXISTS gender_enum");
