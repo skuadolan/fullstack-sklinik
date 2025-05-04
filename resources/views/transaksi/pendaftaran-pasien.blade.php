@@ -76,6 +76,18 @@
                                                     <x-autocomplete-layout id="unit" name="unit" section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
                                                 </td>
                                             </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Nakes<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input type="text" id="nama_nakes" name="nama_nakes" class="block mt-1 w-full text-number-input cursor-default" :value="old('nama_nakes')" readonly />
+                                                    <x-text-input id="id_nakes" type="hidden" name="id_nakes" />
+                                                </td>
+                                            </tr>
                                             <tr class="align-baseline hidden_if_pasien_baru">
                                                 <td>
                                                     <label for="norm_pasien" class="block text-sm font-medium text-gray-700 mb-2">
@@ -210,8 +222,10 @@
                                         </table>
                                     </div>
                                     <div class="w-1/2 h-screen overflow-auto">
+                                        <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Penanggung Jawab</h3>
                                         <table class="w-full table-no-border">
-                                            <tr class="align-baseline"></tr>
+                                            <tr class="align-baseline">
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -454,6 +468,7 @@
 
         async function PilihPasienLama($id_pasien) {
             const { datas } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
+            console.dir(datas);
 
             if (!IsValidVal(datas, "bool", null, 0)) {
                 AllNotify("Data Pasien tidak ditemukan!", "error");
@@ -465,8 +480,8 @@
                 ForceEmptyFormValue();
             }
 
-            const { norm, fullname, nik, birthdate, id_goldar, gender } = IsValidVal(datas, "value", null, "0");
-            const { address, id_provinsi, id_kabupaten, id_kecamatan, id_kelurahan } = IsValidVal(datas, "value", null, "0");
+            const { norm, fullname, nik, birthdate, goldar, gender } = IsValidVal(datas, "value", null, "0");
+            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = IsValidVal(datas, "value", null, "0");
             const { handphone, whatsapp, telegram } = IsValidVal(datas, "value", null, "0");
 
 
@@ -475,8 +490,19 @@
             $("#nik_pasien").val(nik);
             $("#tanggal_lahir").val(birthdate);
             $("#address_pasien").val(address);
-            $("#goldar").val(id_goldar).trigger('change');
+            $("#goldar").val(goldar).trigger('change');
             $("#gender").val(gender).trigger('change');
+
+            // Wilayah Pilih Pasien Lama START
+            $("#provinsi").val(provinsi);
+            $("#id_provinsi").val(id_provinsi);
+            $("#kabupaten").val(kabupaten);
+            $("#id_kabupaten").val(id_kabupaten);
+            $("#kecamatan").val(kecamatan);
+            $("#id_kecamatan").val(id_kecamatan);
+            $("#kelurahan").val(kelurahan);
+            $("#id_kelurahan").val(id_kelurahan);
+            // Wilayah Pilih Pasien Lama END
 
             if (IsValidVal(handphone)) {
                 $("#nomor_ponsel_pasien").val("handphone").trigger('change');

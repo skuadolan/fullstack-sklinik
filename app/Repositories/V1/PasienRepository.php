@@ -75,12 +75,11 @@ class PasienRepository
         $pasien = Pasien::find($id);
 
         $data = Pasien::SchemaDataModel($req);
-        $data = (object) $data;
 
-        unset($data->created_at);
-        unset($data->id_user_created);
+        unset($data['created_at']);
+        unset($data['id_user_created']);
 
-        return $pasien->update($req);
+        return $pasien->update($data);
     }
 
     public function destroy(string $id)

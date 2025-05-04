@@ -105,12 +105,11 @@ class PegawaiRepository
         $pegawai = Pegawai::find($id);
 
         $data = Pegawai::SchemaDataModel($req);
-        $data = (object) $data;
 
-        unset($data->created_at);
-        unset($data->id_user_created);
+        unset($data['created_at']);
+        unset($data['id_user_created']);
 
-        return $pegawai->update($req);
+        return $pegawai->update($data);
     }
 
     public function destroy(string $id)
