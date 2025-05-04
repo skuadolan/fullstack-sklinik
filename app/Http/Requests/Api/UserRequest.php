@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'id_penduduk' => ['nullable', 'integer', 'exists:penduduk,id'],
 
             // Insert into penduduk table
-            'nik_user' => ['required', 'string', 'max:255', 'unique:penduduk,nik', 'regex:/^[0-9]+$/'],
+            'nik_user' => ['nullable', 'string', 'max:255', 'regex:/^[0-9]+$/'],
             'fullname_user' => ['required', 'string', 'max:255'],
             'handphone_user' => ['nullable', 'string'],
             'whatsapp_user' => ['nullable', 'string'],

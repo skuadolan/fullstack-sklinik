@@ -15,7 +15,7 @@ class PendudukRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nik_user' => ['required', 'string', 'max:255', 'unique:penduduk,nik', 'regex:/^[0-9]+$/'],
+            'nik_user' => ['nullable', 'string', 'max:255', 'regex:/^[0-9]+$/'],
             'fullname_user' => ['required', 'string', 'max:255'],
             'handphone_user' => ['nullable', 'string'],
             'whatsapp_user' => ['nullable', 'string'],
