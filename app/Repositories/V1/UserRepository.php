@@ -89,6 +89,8 @@ class UserRepository
 
         $dataUsr = User::SchemaDataModel($req);
 
+        unset($dataUsr['id_user_created']);
+
         $req->id_user = DB::table('users')->insertGetId($dataUsr);
 
         $id_pegwai = $this->pegawaiService->store($req);
