@@ -68,7 +68,8 @@ class PendaftaranPasienRepository
             throw new Error("Alamat tidak valid");
         }
 
-        $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $req->nik)->first();
+        $nik = (isset($req->nik_pasien) && !empty($req->nik_pasien) ? $req->nik_pasien : $req->nik_user);
+        $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $nik)->first();
 
         DB::beginTransaction();
 
