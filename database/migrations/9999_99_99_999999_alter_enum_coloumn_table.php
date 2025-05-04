@@ -31,7 +31,7 @@ return new class extends Migration
         DB::statement("CREATE TYPE status_kunjungan_pasien_enum AS ENUM ('Batal', 'Masuk', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai')");
 
 
-        $dbDriver = DB::connection()->getDriverName();
+        $dbDriver = Schema::getConnection()->getDriverName();
 
         if ($dbDriver === 'pgsql') {
             if (Schema::hasColumn('gender', 'value')) {
