@@ -41,18 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('billing', function (Blueprint $table) {
-            $dbDriver = DB::connection()->getDriverName();
-
-            if ($dbDriver === 'pgsql') {
-                DB::statement("DROP TYPE IF EXISTS status_billing_pasien");
-            }
-
-            if ($dbDriver === 'mysql') {
-                $table->dropColumn(['is_lunas']);
-            }
-        });
-
         Schema::dropIfExists('billing');
     }
 };
