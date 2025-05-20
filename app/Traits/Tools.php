@@ -19,26 +19,44 @@ trait Tools
         echo json_encode($var, JSON_PRETTY_PRINT);
     }
 
-    public function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null)
-    {
-        $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
-        if (isset($tmpVal)) {
-            if ($get == "value") {
-                if (isset($other) && $other != null) {
-                    return !empty($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
-                } else {
-                    return !empty($tmpVal) || $tmpVal == 0 ? $tmpVal : "";
-                }
-            } else if (isset($other) && $other != null && $get == "equal") {
-                return $tmpVal == $other;
-            } else if (!empty($tmpVal)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+    public function isValidVal($val, $key = null, $other = null, $get = 'bool') {
+        $tmpVal = $this->getValue($val, $key);
 
-        return $get == "value" ? "" : false;
+        switch ($get) {
+            case 'value':
+                    return (!empty($tmpVal) ? $tmpVal : (!empty($other) ? $other : ''));
+            case 'equal':
+                    return $tmpVal == $other;
+            default:
+                    return isset($val) && !empty($val);
+        }
+    }
+
+    public function getVarValue($val, $key = null, $default = null) {
+        if ($key !== null && is_array($val) && isset($val[$key])) {
+            return trim($val[$key]);
+        }
+        return isset($val) ? trim($val) : $default;
+    }
+
+    public function isValEqual($var, $key = null, $value) {
+        $tmpVar = $this->getVarValue($var, $key);
+        return $tmpVar == $value;
+    }
+
+    public function valNotEmpty($var, $key = null) {
+        $tmpVar = $this->getVarValue($var, $key);
+        return isset($tmpVar) && !empty($tmpVar);
+    }
+
+    public function ajaxJSONReturn($code, $status, $msg, $data = []){
+        $return = [
+            'code' => $code,
+            'status' => $status,
+            'massage' => $msg,
+            'data' => $data
+        ];
+        return json_encode($return, JSON_PRETTY_PRINT);
     }
 
     public function IsValidAddress($req)
