@@ -20,7 +20,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->index($req);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->OKE("Data berhasil diambli!", $datas);
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -31,7 +31,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->params($req);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->OKE("Data berhasil diambli!", $datas);
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -42,7 +42,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->store($req);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->CREATED("Data berhasil disimpan!", $datas);
         } catch (\Throwable $th) {
             return $this->SERVER_ERROR($th->getMessage());
         }
@@ -53,7 +53,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->show($id);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->OKE("Data berhasil diambli!", $datas);
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -64,7 +64,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->update($req, $id);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->CREATED("Data berhasil disimpan!", $datas);
         } catch (\Throwable $th) {
             return $this->SERVER_ERROR($th->getMessage());
         }
@@ -75,7 +75,7 @@ abstract class ApiController extends Controller
         try {
             $datas = $this->service->delete($id);
 
-            return ($this->IsValidVal($datas) ? $this->OKE($datas) : $this->OKE([], "Data tidak ditemukan!"));
+            return $this->CREATED("Data berhasil dihapus!", $datas);
         } catch (\Throwable $th) {
             return $this->SERVER_ERROR($th->getMessage());
         }

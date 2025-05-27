@@ -223,39 +223,29 @@ function IDRToDecimal($val) {
     return parseFloat($val.replace(/[^0-9.-]/g, ''))
 }
 
-function isNull(val) {
-    return val === null || val === 'null';
+function getVarValue(val, key = null, defaultVal = null) {
+    let tmpVal = key !== null && val && typeof val === 'object' && val[key] != null && val[key] !== '' ? val[key] : defaultVal;
+    tmpVal = (key === null && val !== '' ? val : tmpVal);
+
+    return typeof tmpVal === 'string' ? tmpVal.trim() : tmpVal;
 }
 
-function isUndefined(val) {
-    return val === undefined || val === 'undefined';
+function isValidVal(val, key = null, mode = 'bool', other = null) {
+    const tmp = getVarValue(val, key, other);
+    return {
+        value: tmp,
+        equal: tmp == other,
+        bool: tmp != null && tmp !== ''
+    }[mode];
 }
 
-function getVarValue(val, key = null, def = null) {
-    if (key && typeof val === 'object' && val !== null && key in val) {
-        return String(val[key]).trim();
-    }
-    return val !== undefined && val !== null ? String(val).trim() : def;
-}
-
-function isValEqual(val, key = null, compareValue) {
-    return getVarValue(val, key) == compareValue;
+function isValEqual(val, key = null, value) {
+    return getVarValue(val, key) == value;
 }
 
 function valNotEmpty(val, key = null) {
-    const tmpVal = getVarValue(val, key);
-    return tmpVal !== '' && tmpVal !== undefined && tmpVal !== null;
-}
-
-function isValidVal(val, key = null, other = null, get = 'bool') {
-    const tmpVal = getVarValue(val, key);
-
-    if (get === 'value') {
-        return tmpVal !== '' && tmpVal != null ? tmpVal : (other ?? '');
-    } else if (get === 'equal') {
-        return tmpVal == other;
-    }
-    return tmpVal !== '' && tmpVal != null;
+    const tmp = getVarValue(val, key);
+    return tmp != null && tmp !== '';
 }
 
 function ajaxJSONReturn(code, status, msg, data = {}) {
