@@ -40,7 +40,7 @@ function ContentLoader($url, $id_content) {
         url: `${$base_url}${$url}`,
         type: 'GET',
         success: function ($response) {
-            const $html = IsValidVal($response.datas) ? $response.datas : $response;
+            const $html = IsValidVal($response.data) ? $response.data : $response;
             $(`${$id_content}`).html($html);
         },
         complete: function () {
@@ -90,7 +90,7 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
             // serverSide: true,
             ajax: {
                 url: `${$url}`,
-                dataSrc: "datas",
+                dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
                     LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
@@ -181,7 +181,7 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
             // serverSide: true,
             ajax: {
                 url: `${$url}`,
-                dataSrc: "datas",
+                dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
                     LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
@@ -230,7 +230,7 @@ function getVarValue(val, key = null, defaultVal = null) {
     return typeof tmpVal === 'string' ? tmpVal.trim() : tmpVal;
 }
 
-function isValidVal(val, key = null, mode = 'bool', other = null) {
+function IsValidVal(val, key = null, mode = 'bool', other = null) {
     const tmp = getVarValue(val, key, other);
     return {
         value: tmp,
@@ -294,10 +294,10 @@ function LoginAjaxSection($postFormData) {
         },
         error: function (callback) {
             const { responseJSON } = callback;
-            const { errors, message, messages, datas } = responseJSON;
+            const { errors, message, messages, data } = responseJSON;
             let errorInfo, validator;
-            if (datas) {
-                const { errorInfo: errInfo, validator: validCallback } = datas
+            if (data) {
+                const { errorInfo: errInfo, validator: validCallback } = data
                 errorInfo = errInfo;
                 validator = validCallback;
             }
@@ -348,9 +348,9 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc, $slot,
         $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
 
-    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
+    const $htmlTxtHead = (IsValidVal($headContent, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
@@ -421,9 +421,9 @@ function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slo
         $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
 
-    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
+    const $htmlTxtHead = (IsValidVal($headContent, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
@@ -566,7 +566,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
         url: `${$base_url}${$url}`,
         type: 'GET',
         success: function ($response) {
-            const $datas = IsValidVal($response.datas) ? $response.datas : $response;
+            const $datas = IsValidVal($response.data) ? $response.data : $response;
             if (IsValidVal($datas) && $datas.length > 0) {
                 let $html = ``;
                 $datas.forEach(function ($list) {

@@ -61,7 +61,7 @@ trait Tools
             'massage' => $msg,
             'data' => $data
         ];
-        return json_encode($return, JSON_PRETTY_PRINT);
+        return $return;
     }
 
     public function IsValidAddress($req)
