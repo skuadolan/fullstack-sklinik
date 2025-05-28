@@ -21,7 +21,8 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
 
     Route::prefix('transaksi')->group(function () {
-        Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien'])->name('transaksi.pendaftaran-pasien');
+        Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien']);
+        Route::get('/pelaksanaan-pelayanan', [WebController::class, 'PelaksanaanPelayanan']);
     });
 
     Route::prefix('v1')->group(function () {

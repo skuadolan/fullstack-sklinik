@@ -44,14 +44,14 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'provinsi');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=provinsi`,
                             data: { q: request.term },
                         });
 
                         LoadingInput('idle', 'provinsi');
 
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'provinsi');
@@ -86,13 +86,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kabupaten');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kabupaten`,
                             data: { q: request.term, id_provinsi: (IsValidVal($("#provinsi").val()) ? $("#id_provinsi").val() : null) },
                         });
 
                         LoadingInput('idle', 'kabupaten');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kabupaten');
@@ -127,13 +127,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kecamatan');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kecamatan`,
                             data: { q: request.term, id_kabupaten: IsValidVal($("#kabupaten").val()) ? $("#id_kabupaten").val() : null },
                         });
 
                         LoadingInput('idle', 'kecamatan');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kecamatan');
@@ -168,13 +168,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kelurahan');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kelurahan`,
                             data: { q: request.term, id_kecamatan: (IsValidVal($("#kecamatan").val()) ? $("#id_kecamatan").val() : null) },
                         });
 
                         LoadingInput('idle', 'kelurahan');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kelurahan');
@@ -209,13 +209,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'goldar');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=goldar`,
                             data: { q: request.term },
                         });
 
                         LoadingInput('idle', 'goldar');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'goldar');

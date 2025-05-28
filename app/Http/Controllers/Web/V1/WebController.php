@@ -50,4 +50,9 @@ class WebController extends Controller
     {
         return view('transaksi.pendaftaran-pasien');
     }
+
+    public function PelaksanaanPelayanan(Request $req)
+    {
+        return view('transaksi.pelaksanaan-pelayanan');
+    }
 }
