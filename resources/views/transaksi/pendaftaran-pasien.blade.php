@@ -50,18 +50,12 @@
                                                 <td>:</td>
                                                 <td>
                                                     <div class="flex gap-5">
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_radar" type="radio" name="jenis_kunjungan" required value="Rawat Darurat" checked />
-                                                            <x-input-label for="jenis_kunjungan_radar" class="text-nowrap" :value="__('Rawat Darurat')" />
-                                                        </div>
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="Rawat Jalan" checked />
-                                                            <x-input-label for="jenis_kunjungan_rajal" class="text-nowrap" :value="__('Rawat Jalan')" />
-                                                        </div>
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="Rawat Inap" />
-                                                            <x-input-label for="jenis_kunjungan_ranap" class="text-nowrap" :value="__('Rawat Inap')" />
-                                                        </div>
+                                                        <select id="jenis_kunjungan" name="jenis_kunjungan" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                            <option value="" selected disabled>Pilih Opsi...</option>
+                                                            <option value="Rawat Darurat">Rawat Darurat</option>
+                                                            <option value="Rawat Jalan">Rawat Jalan</option>
+                                                            <option value="Rawat Inap">Rawat Inap</option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -718,7 +712,7 @@
             const { data } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
             console.dir(data);
 
-            if (!IsValidVal(data, "bool", null, 0)) {
+            if (!IsValidVal(data, 0)) {
                 AllNotify("Data Pasien tidak ditemukan!", "error");
                 return false;
             }
@@ -728,9 +722,9 @@
                 ForceEmptyFormValue();
             }
 
-            const { norm, fullname, nik, birthdate, goldar, gender } = IsValidVal(data, "value", null, "0");
-            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = IsValidVal(data, "value", null, "0");
-            const { handphone, whatsapp, telegram } = IsValidVal(data, "value", null, "0");
+            const { norm, fullname, nik, birthdate, goldar, gender } = IsValidVal(data, 0);
+            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = IsValidVal(data, 0);
+            const { handphone, whatsapp, telegram } = IsValidVal(data, 0);
 
 
             $("#norm_pasien").val(norm);

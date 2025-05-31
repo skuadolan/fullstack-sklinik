@@ -19,6 +19,39 @@
                                     <table class="w-full table-no-border">
                                         <tr class="align-baseline">
                                             <td>
+                                                <label for="tanggal" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    Tanggal
+                                                </label>
+                                            </td>
+                                            <td>:</td>
+                                            <td>
+                                                <div class="flex gap-10 align-baseline">
+                                                    <x-date-time-picker-layout id="tanggal_awal" name="tanggal_awal" class="text-center" section="datepicker"></x-date-time-picker-layout>
+                                                    <span class="content-center">-</span>
+                                                    <x-date-time-picker-layout id="tanggal_akhir" name="tanggal_akhir" class="text-center" section="datepicker"></x-date-time-picker-layout>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="align-baseline">
+                                            <td>
+                                                <label for="jenis_kunjungan" class="block text-sm font-medium text-gray-700 mb-2 text-nowrap">
+                                                    Jenis Kunjungan<span class="text-red-500">*</span>
+                                                </label>
+                                            </td>
+                                            <td>:</td>
+                                            <td>
+                                                <div class="flex gap-5">
+                                                    <select id="jenis_kunjungan" name="jenis_kunjungan" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                        <option value="" selected disabled>Pilih Opsi...</option>
+                                                        <option value="Rawat Darurat">Rawat Darurat</option>
+                                                        <option value="Rawat Jalan">Rawat Jalan</option>
+                                                        <option value="Rawat Inap">Rawat Inap</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="align-baseline">
+                                            <td>
                                                 <label for="id_unit" class="block text-sm font-medium text-gray-700 mb-2">
                                                     Unit
                                                 </label>
@@ -28,11 +61,11 @@
                                         </tr>
                                     </table>
 
-                                    <x-btn-customize-layout type="button" id="btnSearch" section="success" class="ms-4" onclick="search('submit')">
+                                    <x-btn-customize-layout type="button" id="btnSearch" section="success" class="ms-4" onclick="search('cari')">
                                         {{ __('Cari') }}
                                     </x-btn-customize-layout>
 
-                                    <x-btn-customize-layout type="reset" section="danger" class="ms-4" onclick="search('reset')">
+                                    <x-btn-customize-layout type="button" section="danger" class="ms-4" onclick="search('reset')">
                                         {{ __('Reset') }}
                                     </x-btn-customize-layout>
                                 </form>
@@ -51,6 +84,8 @@
                                 <th class="px-4 py-2">{{ __('NIK') }}</th>
                                 <th class="px-4 py-2">{{ __('Nama') }}</th>
                                 <th class="px-4 py-2">{{ __('Alamat') }}</th>
+                                {{-- <th class="px-4 py-2">{{ __('Dokter') }}</th>
+                                <th class="px-4 py-2">{{ __('Poli/Unit') }}</th> --}}
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -63,7 +98,65 @@
     <script>
         $(document).ready(async function() {
             (async function() {
+                // Load After Component Created START
+                setTimeout(async() => {
+                    $("#tanggal_awal").val("{{ date('d-m-Y') }}");
+                    $("#tanggal_akhir").val("{{ date('d-m-Y') }}");
+
+                    await DataTablesListKunjungan();
+                }, 100);
+                // Load After Component Created END
             })();
         });
+
+        async function DataTablesListKunjungan() {
+            const $coloumnsArray = [{
+                data: null,
+                render: (data, type, row, meta) => meta.row + 1
+            }];
+            $coloumnsArray.push({
+                data: null,
+                autoWidth: false,
+                orderable: false,
+                searchable: false,
+                render: (data) =>
+                    `<div class='flex gap-1 justify-center'>
+                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer' onclick='PilihPasienLama(${data.id_pasien})'>pilih</span>
+                    </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
+            });
+            $coloumnsArray.push({ data: 'norm' }, { data: 'nik' }, { data: 'nama_pasien' }, { data: 'alamat' });//, { data: 'nama_dpjp' }, { data: 'nama_poli' });
+
+            const $formArray = $(`#searchForm`).serializeArray();
+            const $listParamsContent = [];
+            $formArray.forEach(function ($list) {
+                const { name } = $list;
+                if (IsValidVal($(`#${name}`).val())) {
+                    $listParamsContent.push(`${name}=${$(`#${name}`).val()}`);
+                }
+            });
+
+            const $params = $listParamsContent.length > 0 ? $listParamsContent.join("&") : $listParamsContent;
+            const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
+
+            if ($.fn.DataTable.isDataTable(`#pelaksanaan_pelayananTable`)) {
+                $(`#pelaksanaan_pelayananTable`).DataTable().destroy();
+            }
+
+            setTimeout(async function () { await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_pelaksanaan_pelayanan_kunjungan${$fxdParams}`,"#pelaksanaan_pelayananTable", $coloumnsArray); }, 10);
+        }
+
+        // Function On CLICK START
+        async function search(method) {
+            if (method == "reset") {
+                $("#searchForm")[0].reset();
+                $("#tanggal_awal").val("{{ date('d-m-Y') }}");
+                $("#tanggal_akhir").val("{{ date('d-m-Y') }}");
+            }
+
+            if (method == "cari") {
+                await DataTablesListKunjungan();
+            }
+        }
+        // Function On CLICK END
     </script>
 </x-dynamic-layout>

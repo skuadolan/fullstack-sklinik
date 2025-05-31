@@ -615,8 +615,8 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
         $localStorageData.forEach(function ($list, $index) {
             const { name, value } = $list;
 
-            if (IsValidVal(name, "equal", `id_${$from}`)) {
-                $statusResult = IsValidVal(name, "equal", `id_${$from}`) && IsValidVal(value, "equal", $(`#id_${$from}`).val());
+            if (isValEqual(name, null, `id_${$from}`)) {
+                $statusResult = isValEqual(name, null, `id_${$from}`) && IsValidVal(value, null, $(`#id_${$from}`).val());
             }
         })
     }
