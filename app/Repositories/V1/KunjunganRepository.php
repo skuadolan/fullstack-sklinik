@@ -66,12 +66,11 @@ class KunjunganRepository
         $kunjungan = Kunjungan::find($id);
 
         $data = Kunjungan::SchemaDataModel($req);
-        $data = (object) $data;
 
-        unset($data->created_at);
-        unset($data->id_user_created);
+        unset($data['created_at']);
+        unset($data['id_user_created']);
 
-        return $kunjungan->update($req);
+        return $kunjungan->update($data);
     }
 
     public function destroy(string $id)

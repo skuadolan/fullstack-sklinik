@@ -7,7 +7,7 @@
 
     <div class="w-full py-12">
         <div class="shadow max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div>
                 <div class="p-6 text-gray-900">
                     <fieldset>
                         <div class="w-full mb-4">
@@ -15,7 +15,7 @@
                                 @csrf
                                 <input type="hidden" name="token" class="csrf-token" />
                                 <div class="flex gap-10 justify-between">
-                                    <div class="w-1/2 h-screen overflow-auto">
+                                    <div class="w-1/2">
                                         <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Pasien</h3>
                                         <table class="w-full table-no-border">
                                             <tr class="align-baseline">
@@ -43,25 +43,19 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="jenis_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="jenis_kunjungan" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Jenis Kunjungan<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
                                                 <td>:</td>
                                                 <td>
                                                     <div class="flex gap-5">
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_radar" type="radio" name="jenis_kunjungan" required value="Rawat Darurat" checked />
-                                                            <x-input-label for="jenis_kunjungan_radar" class="text-nowrap" :value="__('Rawat Darurat')" />
-                                                        </div>
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_rajal" type="radio" name="jenis_kunjungan" required value="Rawat Jalan" checked />
-                                                            <x-input-label for="jenis_kunjungan_rajal" class="text-nowrap" :value="__('Rawat Jalan')" />
-                                                        </div>
-                                                        <div class="flex gap-2 items-center">
-                                                            <x-text-input id="jenis_kunjungan_ranap" type="radio" name="jenis_kunjungan" required value="Rawat Inap" />
-                                                            <x-input-label for="jenis_kunjungan_ranap" class="text-nowrap" :value="__('Rawat Inap')" />
-                                                        </div>
+                                                        <select id="jenis_kunjungan" name="jenis_kunjungan" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                                                            <option value="" selected disabled>Pilih Opsi...</option>
+                                                            <option value="Rawat Darurat">Rawat Darurat</option>
+                                                            <option value="Rawat Jalan">Rawat Jalan</option>
+                                                            <option value="Rawat Inap">Rawat Inap</option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -74,6 +68,18 @@
                                                 <td>:</td>
                                                 <td>
                                                     <x-autocomplete-layout id="unit" name="unit" section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nakes" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Nakes<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input type="text" id="nama_nakes" name="nama_nakes" class="block mt-1 w-full text-number-input cursor-default" :value="old('nama_nakes')" readonly />
+                                                    <x-text-input id="id_nakes" type="hidden" name="id_nakes" />
                                                 </td>
                                             </tr>
                                             <tr class="align-baseline hidden_if_pasien_baru">
@@ -111,7 +117,7 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Tanggal Lahir<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -122,7 +128,7 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="goldar" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Golongan Darah<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -133,7 +139,7 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Jenis Kelamin<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -144,7 +150,7 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="address_pasien" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Alamat Pasien<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -188,7 +194,7 @@
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
-                                                    <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                    <label for="nomor_ponsel_pasien" class="block text-sm font-medium text-gray-700 mb-2">
                                                         Nomor Ponsel<span class="text-red-500">*</span>
                                                     </label>
                                                 </td>
@@ -207,11 +213,261 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="status_pernikahan_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Status Pernikahan<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout id="status_pernikahan_pasien" name="status_pernikahan_pasien" section="ssr-dropdown" get="status_pernikahan" placeholder="Pilih Status Pernikahan..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="pendidikan_terakhir_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Pendidikan Terkahir<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout id="pendidikan_terakhir_pasien" name="pendidikan_terakhir_pasien" section="ssr-dropdown" get="status_pendidikan" placeholder="Pilih Status Pendidikan..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="pekerjaan_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Pekerjaan<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout id="pekerjaan_pasien" name="pekerjaan_pasien" section="ssr-dropdown" get="list_pekerjaan" placeholder="Pilih Status Pekerjaan..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="agama_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Agama<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-autocomplete-layout id="agama_pasien" name="agama_pasien" section="ssr-dropdown" get="list_agama" placeholder="Pilih Status Agama..." />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nama_ibu_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Ibu Kandung<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input id="nama_ibu_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_ibu_pasien" required />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nama_ayah_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Ayah Kandung<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input id="nama_ayah_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_ayah_pasien" required />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nama_suami_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Suami<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input id="nama_suami_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_suami_pasien" required />
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <label for="nama_istri_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                        Nama Istri<span class="text-red-500">*</span>
+                                                    </label>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    <x-text-input id="nama_istri_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_istri_pasien" required />
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
-                                    <div class="w-1/2 h-screen overflow-auto">
+                                    <div class="w-1/2">
+                                        <h3 class="font-semibold text-xl text-gray-800 leading-tight">Biodata Penanggung Jawab</h3>
                                         <table class="w-full table-no-border">
-                                            <tr class="align-baseline"></tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <fieldset class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm">
+                                                        <legend>Rencana Pembayaran<span class="text-red-500">*</span></legend>
+                                                        <div class="flex gap-10">
+                                                            <div class="flex gap-2 items-center">
+                                                                <x-text-input id="jenis_pembayaran_pasen" type="radio" name="jenis_pembayaran_pasen" required value="Bayar Sendiri" checked />
+                                                                <x-input-label for="jenis_pembayaran_pasen" :value="__('Bayar Sendiri')" />
+                                                            </div>
+                                                            <div class="flex gap-2 items-center">
+                                                                <x-text-input id="jenis_pembayaran_pasen" type="radio" name="jenis_pembayaran_pasen" required value="Asuransi" />
+                                                                <x-input-label for="jenis_pembayaran_pasen" :value="__('Asuransi')" />
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <fieldset class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm">
+                                                        <legend>Penanggung Jawab<span class="text-red-500">*</span></legend>
+                                                        <div class="flex gap-10">
+                                                            <table class="w-full table-no-border">
+                                                                <tr class="align-baseline">
+                                                                    <td colspan="3">
+                                                                        <div class="flex gap-2 items-center">
+                                                                            <x-text-input type="checkbox" id="penanggung_jawab_sama_dengan_pasien" />
+                                                                            <x-input-label for="penanggung_jawab_sama_dengan_pasien" :value="__('Penanggung Jawab Sama Dengan Pasien')" class="text-nowrap" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="nama_penanggung_jawab_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Nama<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input id="nama_penanggung_jawab_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_penanggung_jawab_pasien" required />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="hubungan_penanggung_jawab_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Hubungan Keluarga<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-autocomplete-layout id="hubungan_penanggung_jawab_pasien" name="hubungan_penanggung_jawab_pasien" section="ssr-dropdown" get="list_hubungan_keluarga" placeholder="Pilih Hubungan Keluarga..." />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="alamat_penanggung_jawab_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Alamat<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input id="alamat_penanggung_jawab_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="alamat_penanggung_jawab_pasien" required />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="nohandphone_penanggung_jawab_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            No. Handphone<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input type="text" id="nohandphone_penanggung_jawab_pasien" name="nohandphone_penanggung_jawab_pasien" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </fieldset>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <fieldset class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm">
+                                                        <legend>Keluarga yang bisa diihubungi<span class="text-red-500">*</span></legend>
+                                                        <div class="flex gap-10">
+                                                            <table class="w-full table-no-border">
+                                                                <tr class="align-baseline">
+                                                                    <td colspan="3">
+                                                                        <div class="flex gap-2 items-center">
+                                                                            <x-text-input type="checkbox" id="keluarga_sama_dengan_penanggung_jawab" />
+                                                                            <x-input-label for="keluarga_sama_dengan_penanggung_jawab" :value="__('Keluarga Sama Dengan Penanggung Jawab')" class="text-nowrap" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="nama_keluarga_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Nama<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input id="nama_keluarga_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_keluarga_pasien" required />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="hubungan_keluarga_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Hubungan Keluarga<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-autocomplete-layout id="hubungan_keluarga_pasien" name="hubungan_keluarga_pasien" section="ssr-dropdown" get="list_hubungan_keluarga" placeholder="Pilih Hubungan Keluarga..." />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="alamat_keluarga_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            Alamat<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input id="alamat_keluarga_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="alamat_keluarga_pasien" required />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="align-baseline">
+                                                                    <td>
+                                                                        <label for="nohandphone_keluarga_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                                                            No. Handphone<span class="text-red-500">*</span>
+                                                                        </label>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <x-text-input type="text" id="nohandphone_keluarga_pasien" name="nohandphone_keluarga_pasien" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" />
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </fieldset>
+                                                </td>
+                                            </tr>
+                                            <tr class="align-baseline">
+                                                <td>
+                                                    <fieldset class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm">
+                                                        <legend>Riwayat Kunjungan Pasien</legend>
+                                                        <div class="flex gap-10">
+                                                            <table id="DataTablesRiwayatKunjunganPasien" class="min-w-full table-auto table-text-center-important">
+                                                                <thead>
+                                                                    <tr class="bg-gray-100">
+                                                                        <th class="px-4 py-2">Tanggal</th>
+                                                                        <th class="px-4 py-2">Status</th>
+                                                                        <th class="px-4 py-2">No. Registrasi</th>
+                                                                        <th class="px-4 py-2">Poli/Unit</th>
+                                                                    </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </fieldset>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -346,10 +602,10 @@
                             },
                             error: function(callback) {
                                 const { responseJSON } = callback;
-                                const { errors, message, messages, datas } = responseJSON;
+                                const { errors, message, messages, data } = responseJSON;
                                 let errorInfo, validator;
-                                if (datas) {
-                                    const { errorInfo: errInfo, validator: validCallback } = datas
+                                if (data) {
+                                    const { errorInfo: errInfo, validator: validCallback } = data
                                     errorInfo = errInfo;
                                     validator = validCallback;
                                 }
@@ -453,9 +709,10 @@
         }
 
         async function PilihPasienLama($id_pasien) {
-            const { datas } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
+            const { data } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
+            console.dir(data);
 
-            if (!IsValidVal(datas, "bool", null, 0)) {
+            if (!IsValidVal(data, 0)) {
                 AllNotify("Data Pasien tidak ditemukan!", "error");
                 return false;
             }
@@ -465,9 +722,9 @@
                 ForceEmptyFormValue();
             }
 
-            const { norm, fullname, nik, birthdate, id_goldar, gender } = IsValidVal(datas, "value", null, "0");
-            const { address, id_provinsi, id_kabupaten, id_kecamatan, id_kelurahan } = IsValidVal(datas, "value", null, "0");
-            const { handphone, whatsapp, telegram } = IsValidVal(datas, "value", null, "0");
+            const { norm, fullname, nik, birthdate, goldar, gender } = IsValidVal(data, 0);
+            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = IsValidVal(data, 0);
+            const { handphone, whatsapp, telegram } = IsValidVal(data, 0);
 
 
             $("#norm_pasien").val(norm);
@@ -475,8 +732,19 @@
             $("#nik_pasien").val(nik);
             $("#tanggal_lahir").val(birthdate);
             $("#address_pasien").val(address);
-            $("#goldar").val(id_goldar).trigger('change');
+            $("#goldar").val(goldar).trigger('change');
             $("#gender").val(gender).trigger('change');
+
+            // Wilayah Pilih Pasien Lama START
+            $("#provinsi").val(provinsi);
+            $("#id_provinsi").val(id_provinsi);
+            $("#kabupaten").val(kabupaten);
+            $("#id_kabupaten").val(id_kabupaten);
+            $("#kecamatan").val(kecamatan);
+            $("#id_kecamatan").val(id_kecamatan);
+            $("#kelurahan").val(kelurahan);
+            $("#id_kelurahan").val(id_kelurahan);
+            // Wilayah Pilih Pasien Lama END
 
             if (IsValidVal(handphone)) {
                 $("#nomor_ponsel_pasien").val("handphone").trigger('change');
@@ -494,6 +762,9 @@
             }
 
             $(".modal_section_close_btn").click();
+        }
+
+        async function OnLoadDatasPasien() {
         }
 
         // DO NOT ADD THIS FUNCTION IN *Radio Button Jenis Pasien onClick/onChecked

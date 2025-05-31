@@ -89,6 +89,20 @@ class HeaderMainMenu extends Seeder
                 'icon' => 'assets/images/icons/main-menu/12087772.png',
                 'id_parent' => $lastID,
             ],
+            [
+                'name' => 'Nakes',
+                'route_name' => 'master-data.nakes',
+                'link' => '/master-data/nakes',
+                'icon' => 'assets/images/icons/main-menu/4807695.png',
+                'id_parent' => $lastID,
+            ],
+            [
+                'name' => 'Jadwal Dokter',
+                'route_name' => 'master-data.jadok',
+                'link' => '/master-data/jadok',
+                'icon' => 'assets/images/icons/main-menu/7372845.png',
+                'id_parent' => $lastID,
+            ],
         ];
 
         DB::table('list_menus')->insert($datas);

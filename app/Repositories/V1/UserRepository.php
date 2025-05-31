@@ -122,10 +122,9 @@ class UserRepository
             $this->pendudukService->update($req, $user->id_penduduk);
 
             $data = User::SchemaDataModel($req);
-            $data = (object) $data;
 
-            unset($data->created_at);
-            unset($data->id_user_created);
+            unset($data['created_at']);
+            unset($data['id_user_created']);
 
             $result = $user->update($data);
 

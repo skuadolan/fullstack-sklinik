@@ -79,12 +79,11 @@ class ClientRepository
         $client = ListClient::find($id);
 
         $data = ListClient::SchemaDataModel($req);
-        $data = (object) $data;
 
-        unset($data->created_at);
-        unset($data->id_user_created);
+        unset($data['created_at']);
+        unset($data['id_user_created']);
 
-        return $client->update($req);
+        return $client->update($data);
     }
 
     public function destroy(string $id)

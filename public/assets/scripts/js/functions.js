@@ -44,14 +44,14 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'provinsi');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=provinsi`,
                             data: { q: request.term },
                         });
 
                         LoadingInput('idle', 'provinsi');
 
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'provinsi');
@@ -86,13 +86,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kabupaten');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kabupaten`,
                             data: { q: request.term, id_provinsi: (IsValidVal($("#provinsi").val()) ? $("#id_provinsi").val() : null) },
                         });
 
                         LoadingInput('idle', 'kabupaten');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kabupaten');
@@ -127,13 +127,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kecamatan');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kecamatan`,
                             data: { q: request.term, id_kabupaten: IsValidVal($("#kabupaten").val()) ? $("#id_kabupaten").val() : null },
                         });
 
                         LoadingInput('idle', 'kecamatan');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kecamatan');
@@ -168,13 +168,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'kelurahan');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=kelurahan`,
                             data: { q: request.term, id_kecamatan: (IsValidVal($("#kecamatan").val()) ? $("#id_kecamatan").val() : null) },
                         });
 
                         LoadingInput('idle', 'kelurahan');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'kelurahan');
@@ -209,13 +209,13 @@ function InitAutocomplete() {
                     LoadingInput('loading', 'goldar');
 
                     try {
-                        const { datas } = await $.ajax({
+                        const { data } = await $.ajax({
                             url: `/api/search?get_data=goldar`,
                             data: { q: request.term },
                         });
 
                         LoadingInput('idle', 'goldar');
-                        response(datas.length ? datas : [{ name: 'Data tidak ditemukan', id: '' }]);
+                        response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
                         console.dir("error", error);
                         LoadingInput('idle', 'goldar');
@@ -328,8 +328,6 @@ function AllNotify($msg, $section) {
         })
         toastr.info($msg, "Sekilas Info!");
     }
-
-    return;
 }
 
 function LoadingNotify($msg, $section, $isElmentShow, $isContentLoader) {
@@ -362,40 +360,30 @@ function LoadingNotify($msg, $section, $isElmentShow, $isContentLoader) {
             $('#loadingAjax').hide();
         }
     }
-
-    return;
 }
 
 function ClassDOMInputStrict() {
-    $(".convert_to_idr").on("input", function () {
-        let value = $(this).val().replace(/[^0-9]/g, "");
-        let formatted = new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 2}).format(value);
-        $(this).val(formatted);
-    });
+    const $inputs = $(".convert_to_idr, .input_number_only, .capitalize, .text-capitalize-input, .text-check-input-symbol, .text-number-input");
 
-    $(".input_number_only").on("input", function () {
-        let value = $(this).val().replace(/[^0-9]/g, "");
-        $(this).val(value);
-    });
+    $inputs.on("input", function(e) {
+        const $this = $(this);
+        const value = $this.val();
 
-    $(".capitalize").on("input", function () {
-        let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-        $(this).val($newVal);
-    });
-    $(".text-capitalize-input").on("input", function () {
-        TxtCheckInputSymbol(this);
-
-        let $newVal = $(this).val().toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
-        $(this).val($newVal);
-    });
-    $(".text-check-input-symbol").on("input", function () {
-        TxtCheckInputSymbol(this);
-    });
-    $(".text-number-input").on("input", function () {
-        TxtCheckInputSymbol(this);
-
-        let $newVal = $(this).val().replace(/\D/g, "");;
-        $(this).val($newVal);
+        if ($this.hasClass("convert_to_idr")) {
+            $this.val(new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 2}).format(value.replace(/[^0-9]/g, "")));
+        } else if ($this.hasClass("input_number_only")) {
+            $this.val(value.replace(/[^0-9]/g, ""));
+        } else if ($this.hasClass("capitalize")) {
+            $this.val(value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()));
+        } else if ($this.hasClass("text-capitalize-input")) {
+            TxtCheckInputSymbol(this);
+            $this.val(value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()));
+        } else if ($this.hasClass("text-check-input-symbol")) {
+            TxtCheckInputSymbol(this);
+        } else if ($this.hasClass("text-number-input")) {
+            TxtCheckInputSymbol(this);
+            $this.val(value.replace(/\D/g, ""));
+        }
     });
 }
 

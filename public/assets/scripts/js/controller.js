@@ -40,7 +40,7 @@ function ContentLoader($url, $id_content) {
         url: `${$base_url}${$url}`,
         type: 'GET',
         success: function ($response) {
-            const $html = IsValidVal($response.datas) ? $response.datas : $response;
+            const $html = IsValidVal($response.data) ? $response.data : $response;
             $(`${$id_content}`).html($html);
         },
         complete: function () {
@@ -90,7 +90,7 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
             // serverSide: true,
             ajax: {
                 url: `${$url}`,
-                dataSrc: "datas",
+                dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
                     LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
@@ -181,7 +181,7 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
             // serverSide: true,
             ajax: {
                 url: `${$url}`,
-                dataSrc: "datas",
+                dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
                     LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
@@ -223,44 +223,33 @@ function IDRToDecimal($val) {
     return parseFloat($val.replace(/[^0-9.-]/g, ''))
 }
 
-function isNull(val) {
-    return val === null || val === "null";
+function getVarValue(val, key = null, defaultVal = null) {
+    let tmpVal = key !== null && val && typeof val === 'object' && val[key] != null && val[key] !== '' ? val[key] : defaultVal;
+    tmpVal = (key === null && val !== '' ? val : tmpVal);
+
+    return typeof tmpVal === 'string' ? tmpVal.trim() : tmpVal;
 }
 
-function isUndefined(val) {
-    return val === undefined || val === "undefined";
+function IsValidVal(val, key = null, mode = 'bool', other = null) {
+    const tmp = getVarValue(val, key, other);
+    return {
+        value: tmp,
+        equal: tmp == other,
+        bool: tmp != null && tmp !== ''
+    }[mode];
 }
 
-function empty(val) {
-    if (isUndefined(val) || isNull(val)) return true;
-    if (typeof val === "object" && (Array.isArray(val) ? val.length === 0 : Object.keys(val).length === 0)) return true;
-    return val === "" || val === 0;
+function isValEqual(val, key = null, value) {
+    return getVarValue(val, key) == value;
 }
 
-function isset($val) {
-    return !empty($val);
+function valNotEmpty(val, key = null) {
+    const tmp = getVarValue(val, key);
+    return tmp != null && tmp !== '';
 }
 
-function IsValidVal($val, $get = ["bool", "value", "equal"], $other = null, $key = null) {
-    const $tmpVal = (isset($key) && $key != null ? (isset($val[$key]) ? $val[$key] : "") : (isset($val) ? $val : ""));
-
-    if (isset($tmpVal)) {
-        if ($get == "value") {
-            if (isset($other) && $other != null) {
-                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : $other;
-            } else {
-                return isset($tmpVal) || $tmpVal == 0 ? $tmpVal : "";
-            }
-        } else if (isset($other) && $other != null && $get == "equal") {
-            return $tmpVal == $other;
-        } else if (isset($tmpVal)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    return $get == "value" ? "" : false;
+function ajaxJSONReturn(code, status, msg, data = {}) {
+    return { code, status, message: msg, data };
 }
 
 function LoadingInput($section, $elemnt) {
@@ -305,10 +294,10 @@ function LoginAjaxSection($postFormData) {
         },
         error: function (callback) {
             const { responseJSON } = callback;
-            const { errors, message, messages, datas } = responseJSON;
+            const { errors, message, messages, data } = responseJSON;
             let errorInfo, validator;
-            if (datas) {
-                const { errorInfo: errInfo, validator: validCallback } = datas
+            if (data) {
+                const { errorInfo: errInfo, validator: validCallback } = data
                 errorInfo = errInfo;
                 validator = validCallback;
             }
@@ -359,9 +348,9 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc, $slot,
         $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
 
-    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
+    const $htmlTxtHead = (IsValidVal($headContent, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
@@ -432,9 +421,9 @@ function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slo
         $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
     }
 
-    const $htmlTxtHead = (IsValidVal($headContent, "bool", null, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($headContent, "bool", null, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footerContent, "bool", null, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
+    const $htmlTxtHead = (IsValidVal($headContent, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
+    const $htmlTxtDescription = (IsValidVal($headContent, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
+    const $htmlTxtFoot = (IsValidVal($footerContent, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
     const $htmlSlot = (IsValidVal($slot) ? $slot : "");
 
     const $htmlForm = (IsValidVal($formID) ? `
@@ -577,7 +566,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
         url: `${$base_url}${$url}`,
         type: 'GET',
         success: function ($response) {
-            const $datas = IsValidVal($response.datas) ? $response.datas : $response;
+            const $datas = IsValidVal($response.data) ? $response.data : $response;
             if (IsValidVal($datas) && $datas.length > 0) {
                 let $html = ``;
                 $datas.forEach(function ($list) {
@@ -587,7 +576,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
                     const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
 
                     $html += `
-                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id }], '${$target}')">
+                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
                         ${$txtDisplay}
                     </li>
                     `;
@@ -626,8 +615,8 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
         $localStorageData.forEach(function ($list, $index) {
             const { name, value } = $list;
 
-            if (IsValidVal(name, "equal", `id_${$from}`)) {
-                $statusResult = IsValidVal(name, "equal", `id_${$from}`) && IsValidVal(value, "equal", $(`#id_${$from}`).val());
+            if (isValEqual(name, null, `id_${$from}`)) {
+                $statusResult = isValEqual(name, null, `id_${$from}`) && IsValidVal(value, null, $(`#id_${$from}`).val());
             }
         })
     }
