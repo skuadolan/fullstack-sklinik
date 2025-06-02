@@ -7,10 +7,15 @@ use Illuminate\View\Component;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Traits\Tools;
+
 class AutocompleteLayout extends Component
 {
+    use Tools;
+
     public $section, $get;
     public $listProvinsi, $listGoldar, $listGender, $listUnit;
+    public $listStatusPendaftaran, $jenisKunjungan;
     public function __construct($section = null, $get = null)
     {
         $this->section = $section;
@@ -35,6 +40,9 @@ class AutocompleteLayout extends Component
             $qry = "SELECT unt.id, unt.name FROM unit unt ORDER BY unt.name ASC";
             $this->listUnit = DB::select("$qry");
         }
+
+        $this->listStatusPendaftaran = ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'];
+        $this->jenisKunjungan = ['Rawat Darurat', 'Rawat Jalan', 'Rawat Inap'];
     }
 
     public function render(): View

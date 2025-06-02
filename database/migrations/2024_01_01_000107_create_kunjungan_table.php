@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
 
             // ENUM SET START
-            $table->enum('status_kunjungan', ['Batal', 'Masuk', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai'])->comment("Batal, Masuk, Mutasi Rajal, Ranap, Mutasi Ranap, Keluar, Selesai");
+            $table->enum('status_kunjungan', ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'])->comment("Batal, Masuk, Menunggu, Diperiksa, Resep, Mutasi Rajal, Ranap, Mutasi Ranap, Keluar, Selesai");
             // ENUM SET END
 
             // $table->unsignedBigInteger('id_nakes');

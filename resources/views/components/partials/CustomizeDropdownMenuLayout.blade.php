@@ -37,15 +37,15 @@
                 @if (isset($listMenu) && !empty($listMenu))
                     @foreach ($listMenu as $list)
                         <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer flex flex-wrap justify-center text-center items-center text-pretty w-24"
+                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer w-24"
                             onclick="OpenLink('{{ $list->link }}', 'self')">
-                            <div class="w-full flex justify-center ">
+                            <div class="w-full flex flex-wrap justify-center text-center items-center">
                                 <div class="w-10">
                                     <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
                                         srcset="{{ url("$list->icon") }}" />
                                 </div>
+                                <p class="text-pretty">{{ $list->name }}</p>
                             </div>
-                            {{ $list->name }}
                         </li>
                     @endforeach
                 @endif

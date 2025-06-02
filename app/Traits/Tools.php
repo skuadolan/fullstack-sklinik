@@ -35,8 +35,10 @@ trait Tools
 
     public function getVarValue($val, $key = null, $default = null)
     {
-        $tmpVal = (($key !== null) && is_array($val) && isset($val[$key]) && !empty($val[$key]) ? $val : $default);
-        $tmpVal = (($key === null) && !empty($val) ? $val : $tmpVal);
+        $tmpVal = (($key === null) && !empty($val) ? $val : $default);
+        if (($key !== null) && is_array($val)) {
+            $tmpVal = (isset($val[$key]) && !empty($val[$key]) ? $val : $tmpVal);
+        }
 
         return (is_string($tmpVal) ? trim($tmpVal) : $tmpVal);
     }

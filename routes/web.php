@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Web\V1\WebController;
+use App\Http\Controllers\Web\V1\PendaftaranPasienController;
+use App\Http\Controllers\Web\V1\PelaksanaanPelayananController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-use App\Http\Controllers\Web\V1\WebController;
-use App\Http\Controllers\Web\V1\PendaftaranPasienController;
 Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -22,7 +24,11 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     Route::prefix('transaksi')->group(function () {
         Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien']);
-        Route::get('/pelaksanaan-pelayanan', [WebController::class, 'PelaksanaanPelayanan']);
+
+        Route::prefix('pelaksanaan-pelayanan')->group(function () {
+            Route::get('/', [PelaksanaanPelayananController::class, 'index']);
+            Route::get('/{id_kunjungan}', [PelaksanaanPelayananController::class, 'show']);
+        });
     });
 
     Route::prefix('v1')->group(function () {

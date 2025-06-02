@@ -19,7 +19,7 @@ return new class extends Migration
             // ENUM SET START
             $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->comment("Belum, Lunas, Dicicil, Batal");
             $table->enum('jenis_pasien', ['Baru', 'Lama'])->comment("Baru, Lama");
-            $table->enum('status_pendaftaran', ['Batal', 'Menunggu', 'Diperiksa', 'Resep', 'Ranap', 'Selesai', 'Booking'])->comment("Batal, Menunggu, Diperiksa, Resep, Ranap, Selesai, Booking");
+            $table->enum('status_pendaftaran', ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'])->comment("Batal, Masuk, Menunggu, Diperiksa, Resep, Mutasi Rajal, Ranap, Mutasi Ranap, Keluar, Selesai");
             // ENUM SET END
 
             $table->jsonb("penanggung_jawab")->nullable();

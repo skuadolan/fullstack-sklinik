@@ -109,7 +109,7 @@
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#user_container", "userModal", "userForm", "simpanUser()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "User"], null, { btn: true });
+                await CreatePopUpModal("#user_container", "userModal", "userForm", ["simpanUser()"], $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "User"], null, { btn: true });
 
                 const $htmlParamsType = `
                     <li @click="open = false" x-show="!search || 'Roles'.toLowerCase().includes(search.toLowerCase())" class="list_params_type text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['Roles', 'provinsi'], 'params_type')">
@@ -175,6 +175,10 @@
         }
 
         // Functions event onclick start
+        function simpanUser() {
+            AllNotify("Data berhasil disimpan!", "success");
+        }
+
         async function search($method) {
             if ($method == 'reset') {
                 localStorage.removeItem("search_params");
