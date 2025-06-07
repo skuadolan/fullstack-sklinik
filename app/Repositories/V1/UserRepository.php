@@ -12,6 +12,9 @@ use App\Traits\Tools;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
+use Exception;
 
 class UserRepository
 {
@@ -73,6 +76,7 @@ class UserRepository
             "kelurahan",
             "created_at",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -83,26 +87,32 @@ class UserRepository
 
     public function store(object $req)
     {
-        DB::beginTransaction();
-        $req->id_client = $this->clientService->store($req);
-        $req->id_penduduk = $this->pendudukService->store($req);
+        try {
+            Log::info("START SIMPAN USER: " . $req->all());
+            DB::beginTransaction();
+            $req->id_client = $this->clientService->store($req);
+            $req->id_penduduk = $this->pendudukService->store($req);
 
-        $dataUsr = User::SchemaDataModel($req);
+            $dataUsr = User::SchemaDataModel($req);
 
-        unset($dataUsr['id_user_created']);
+            unset($dataUsr['id_user_created']);
 
-        $req->id_user = DB::table('users')->insertGetId($dataUsr);
+            $req->id_user = DB::table('users')->insertGetId($dataUsr);
 
-        $id_pegwai = $this->pegawaiService->store($req);
+            $id_pegwai = $this->pegawaiService->store($req);
 
-        $pegwai = $this->pegawaiService->show($id_pegwai);
+            $pegwai = $this->pegawaiService->show($id_pegwai);
 
-        if ($this->IsValidVal($pegwai)) {
+            if (!$this->IsValidVal($pegwai)) {
+                throw new Exception("Gagal menyimpan data ke database, terdapat kesalahan data.");
+            }
+
             DB::commit();
             return $pegwai;
-        } else {
+        } catch (\Throwable $th) {
             DB::rollBack();
-            return new Error("Kesalahan insert ke database");
+            Log::error("GAGAL SIMPAN USER: " . $th->getMessage());
+            throw $th;
         }
     }
 
@@ -114,30 +124,33 @@ class UserRepository
             ->find($id);
     }
 
-    public function update(object $req, string $id) {
-        $user = User::find($id);
+    public function update(object $req, string $id)
+    {
+        try {
+            $user = User::find($id);
 
-        if ($this->IsValidVal($user->id)) {
-            DB::beginTransaction();
-            $this->pendudukService->update($req, $user->id_penduduk);
+            if ($this->IsValidVal($user->id)) {
+                Log::info("START UPDATE USER: " . $req->all());
+                $this->pendudukService->update($req, $user->id_penduduk);
 
-            $data = User::SchemaDataModel($req);
+                $data = User::SchemaDataModel($req);
 
-            unset($data['created_at']);
-            unset($data['id_user_created']);
+                unset($data['deleted_at']);
+                unset($data['created_at']);
+                unset($data['id_user_created']);
 
-            $result = $user->update($data);
+                $result = $user->update($data);
 
-            if ($this->IsValidVal($result)) {
-                DB::commit();
-                return $result;
-            } else {
-                DB::rollBack();
-                return new Error("Kesalahan update ke database");
+                if (!$this->IsValidVal($result)) {
+                    throw new Exception("Gagal menyimpan data ke database, terdapat kesalahan data.");
+                }
             }
-        }
 
-        return $user;
+            return $user;
+        } catch (\Throwable $th) {
+            Log::error("GAGAL UPDATE USER: " . $th->getMessage());
+            throw $th;
+        }
     }
 
     public function destroy(string $id) {}

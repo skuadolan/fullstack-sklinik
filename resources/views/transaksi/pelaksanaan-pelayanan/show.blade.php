@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    @php
+        dd($dataPasienKunjungan);
+    @endphp
+
     <div class="w-full py-12">
         <div class="shadow max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>

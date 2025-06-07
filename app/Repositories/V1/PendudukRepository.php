@@ -53,6 +53,7 @@ class PendudukRepository
             "kecamatan",
             "kelurahan",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -63,7 +64,7 @@ class PendudukRepository
 
     public function store(object $req)
     {
-        $data = Penduduk::SchemaDataModel($req, $this->dateNow);
+        $data = Penduduk::SchemaDataModel($req);
 
         return DB::table('penduduk')->insertGetId($data);
     }
@@ -84,6 +85,7 @@ class PendudukRepository
 
         $data = Penduduk::SchemaDataModel($req);
 
+        unset($data['deleted_at']);
         unset($data['created_at']);
         unset($data['id_user_created']);
 

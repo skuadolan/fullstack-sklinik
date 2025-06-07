@@ -70,6 +70,7 @@ class PegawaiRepository
             "name",
             "created_at",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -106,6 +107,7 @@ class PegawaiRepository
 
         $data = Pegawai::SchemaDataModel($req);
 
+        unset($data['deleted_at']);
         unset($data['created_at']);
         unset($data['id_user_created']);
 

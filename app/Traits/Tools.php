@@ -79,7 +79,7 @@ trait Tools
         return $datas;
     }
 
-    public function ReformatDateTime($date, $format = "Y-m-d H:i:s", $toDB = false)
+    public function ReformatDateTime($date, $toDB = false, $format = "Y-m-d H:i:s")
     {
         if ($toDB && env("DB_CONNECTION") === "mysql") {
             return Carbon::parse($date)->format("Y-m-d H:i:s");

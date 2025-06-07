@@ -49,6 +49,7 @@ class ClientRepository
             "kelurahan",
             "created_at",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -80,6 +81,7 @@ class ClientRepository
 
         $data = ListClient::SchemaDataModel($req);
 
+        unset($data['deleted_at']);
         unset($data['created_at']);
         unset($data['id_user_created']);
 
