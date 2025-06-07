@@ -16,7 +16,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // Insert into list_clients table
+            // Insert into list_client table
             'klinik_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_]+$/'],
             'klinik_biography' => ['nullable', 'longtext'],
 
@@ -24,7 +24,7 @@ class UserRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'id_client' => ['nullable', 'integer', 'exists:list_clients,id'],
+            'id_client' => ['nullable', 'integer', 'exists:list_client,id'],
             'id_penduduk' => ['nullable', 'integer', 'exists:penduduk,id'],
 
             // Insert into penduduk table

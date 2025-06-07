@@ -54,10 +54,10 @@ class UserRepository
             $colName = strtolower($req->input('get_data'));
 
             $rawQry->select($this->selectColmn)
-                ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-                ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-                ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-                ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+                ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
                 ->join("roles AS rol", "rol.id", "=", "users.id_role")
                 ->join("penduduk AS pdd", "pdd.id", "=", "users.id_penduduk")
                 ->where(function ($qryI) use ($colName, $params) {

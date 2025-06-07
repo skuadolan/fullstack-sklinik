@@ -1,4 +1,4 @@
-Table list_menus {
+Table list_menu {
   id integer [primary key, note: 'Auto increament']
   name string
   icon string
@@ -20,7 +20,7 @@ Table roles {
   is_delete integer [note: '0 No || 1 Yes']
 }
 
-Table list_clients {
+Table list_client {
   id integer [primary key, note: 'Auto increament']
   name string
   biodata longtext [note: 'Nullable']
@@ -58,7 +58,7 @@ Table client_configs {
   is_deleted integer [note: 'Default 0/Inactive']
 }
 Ref: configs.id < client_configs.id_config
-Ref: list_clients.id < client_configs.id_client
+Ref: list_client.id < client_configs.id_client
 
 Table pendaftaran {
   id integer [primary key, note: 'Auto increament']

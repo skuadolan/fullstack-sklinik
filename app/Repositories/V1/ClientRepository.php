@@ -15,7 +15,7 @@ class ClientRepository
     public function __construct()
     {
         $this->selectColmn = [
-            "list_clients.*",
+            "list_client.*",
             "prov.name AS provinsi",
             "kab.name AS kabupaten",
             "kec.name AS kecamatan",
@@ -31,10 +31,10 @@ class ClientRepository
             $colName = strtolower($req->input('get_data'));
 
             $rawQry->select($this->selectColmn)
-                ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-                ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-                ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-                ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+                ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
                 ->where(function ($qryI) use ($colName, $params) {
                     $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
                 });
@@ -62,16 +62,16 @@ class ClientRepository
     {
         $dataClient = ListClient::SchemaDataModel($req);
 
-        return DB::table('list_clients')->insertGetId($dataClient);
+        return DB::table('list_client')->insertGetId($dataClient);
     }
 
     public function show(string $id)
     {
         return ListClient::select($this->selectColmn)
-            ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-            ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-            ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-            ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+            ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
+            ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
+            ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
+            ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
             ->find($id);
     }
 

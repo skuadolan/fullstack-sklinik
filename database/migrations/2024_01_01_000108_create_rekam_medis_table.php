@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
+            $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
             $table->jsonb('resume_rajal')->nullable();
             $table->jsonb('resume_ranap')->nullable();
             $table->jsonb('resume_darurat')->nullable();

@@ -51,13 +51,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_clients');
+        Schema::dropIfExists('list_client');
     }
 
     public function SetClient($table)
     {
         $table->unsignedBigInteger('id_client')->nullable();
-        $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
+        $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
     }
 
     public function SetRole($table)

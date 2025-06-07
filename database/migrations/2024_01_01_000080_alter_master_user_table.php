@@ -14,7 +14,7 @@ return new class extends Migration
         $listTables = [
             "configs",
             "tier_level",
-            "list_menus",
+            "list_menu",
             "roles",
             "role_permissions",
             "provinsi",
@@ -50,7 +50,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_clients');
+        Schema::dropIfExists('list_client');
     }
 
     public function SetUser($table)

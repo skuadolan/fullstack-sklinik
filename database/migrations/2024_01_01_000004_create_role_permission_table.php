@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_role');
             $table->foreign('id_role')->references('id')->on('roles')->onDelete('cascade');
             $table->unsignedBigInteger('id_menu');
-            $table->foreign('id_menu')->references('id')->on('list_menus')->onDelete('cascade');
+            $table->foreign('id_menu')->references('id')->on('list_menu')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();

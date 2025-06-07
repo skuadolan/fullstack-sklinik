@@ -11,7 +11,7 @@ use App\Traits\Tools;
 
 class ListClient extends Model
 {
-    protected $table = 'list_clients';
+    protected $table = 'list_client';
     use Notifiable, SoftDeletes, HasFactory, Tools;
 
     /**

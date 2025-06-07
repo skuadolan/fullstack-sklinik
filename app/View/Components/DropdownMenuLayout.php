@@ -11,7 +11,7 @@ class DropdownMenuLayout extends Component
     public $listMenu;
     public function __construct($parent)
     {
-        $result = (isset($parent) && !empty($parent) ? DB::select("SELECT * FROM list_menus lsmenu WHERE lsmenu.id_parent = $parent ORDER BY lsmenu.name ASC") : []);
+        $result = (isset($parent) && !empty($parent) ? DB::select("SELECT * FROM list_menu lsmenu WHERE lsmenu.id_parent = $parent ORDER BY lsmenu.name ASC") : []);
         $this->listMenu = $result;
     }
 

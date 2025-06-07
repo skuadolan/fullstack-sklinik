@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('client_permissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_menu')->comment("Didapat dari level tier di tabel list_menu berdasarkan tier level");
-            $table->foreign('id_menu')->references('id')->on('list_menus')->onDelete('cascade');
+            $table->foreign('id_menu')->references('id')->on('list_menu')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
+            $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();

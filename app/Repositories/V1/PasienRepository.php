@@ -32,7 +32,7 @@ class PasienRepository
             $rawQry->select($this->selectColmn)
                 ->join('users AS usr', 'usr.id', '=', 'pegawai.id_user')
                 ->join('penduduk AS pdd', 'pdd.id', '=', 'usr.id_penduduk')
-                ->join('list_clients AS lc', 'lc.id', '=', 'usr.id_client')
+                ->join('list_client AS lc', 'lc.id', '=', 'usr.id_client')
                 ->join('provinsi AS prov', 'prov.id', '=', 'pdd.id_provinsi')
                 ->join('kabupaten AS kab', 'kab.id', '=', 'pdd.id_kabupaten')
                 ->join('kecamatan AS kec', 'kec.id', '=', 'pdd.id_kecamatan')
