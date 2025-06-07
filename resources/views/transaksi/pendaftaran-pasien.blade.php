@@ -564,8 +564,8 @@
                     if (result.isConfirmed) {
                         $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
-                        const $isInputFormValid = CheckFormBeforeSubmit();
-                        if (!$isInputFormValid) { return; }
+                        // const $isInputFormValid = CheckFormBeforeSubmit();
+                        // if (!$isInputFormValid) { return; }
 
                         $("#loadingAjax").show();
 
@@ -584,7 +584,7 @@
                             },
                             success: function(callback) {
                                 const { messages, message } = callback;
-                                console.dir('success', callback);
+                                console.dir(callback);
                                 toastr.success(messages || message, "Success!");
 
                                 setTimeout(() => {
@@ -600,7 +600,7 @@
                                     errorInfo = errInfo;
                                     validator = validCallback;
                                 }
-                                console.dir('error', callback);
+                                console.dir(callback);
 
                                 if (errors) {
                                     for (let key in errors) {

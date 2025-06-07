@@ -37,7 +37,7 @@ class Kunjungan extends Model
         'deleted_at',
     ];
 
-    public static function SchemaDataModel(object $req) {
+    public function SchemaDataModel(object $req) {
         return [
             'id_pendaftaran' => $req->id_pendaftaran,
             // 'id_nakes' => (isset($req->id_nakes) && !empty($req->id_nakes) ? $req->id_nakes : null),

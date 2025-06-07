@@ -53,7 +53,7 @@ function InitAutocomplete() {
 
                         response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
-                        console.dir("error", error);
+                        console.dir(error);
                         LoadingInput('idle', 'provinsi');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }
@@ -94,7 +94,7 @@ function InitAutocomplete() {
                         LoadingInput('idle', 'kabupaten');
                         response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
-                        console.dir("error", error);
+                        console.dir(error);
                         LoadingInput('idle', 'kabupaten');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }
@@ -135,7 +135,7 @@ function InitAutocomplete() {
                         LoadingInput('idle', 'kecamatan');
                         response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
-                        console.dir("error", error);
+                        console.dir(error);
                         LoadingInput('idle', 'kecamatan');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }
@@ -176,7 +176,7 @@ function InitAutocomplete() {
                         LoadingInput('idle', 'kelurahan');
                         response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
-                        console.dir("error", error);
+                        console.dir(error);
                         LoadingInput('idle', 'kelurahan');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }
@@ -217,7 +217,7 @@ function InitAutocomplete() {
                         LoadingInput('idle', 'goldar');
                         response(data.length ? data : [{ name: 'Data tidak ditemukan', id: '' }]);
                     } catch (error) {
-                        console.dir("error", error);
+                        console.dir(error);
                         LoadingInput('idle', 'goldar');
                         response([{ name: 'Data tidak ditemukan', id: '' }]);
                     }

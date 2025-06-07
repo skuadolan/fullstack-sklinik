@@ -110,7 +110,7 @@
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." />
-                        <ul id="list_provinsi" class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
+                        <ul id="list_provinsi" class="abosolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
                             @if (isset($listProvinsi) && !empty($listProvinsi))
                                 @foreach ($listProvinsi as $key => $list)
                                     <li @click="open = !open" x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())" class="list_provinsi text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
@@ -208,7 +208,7 @@
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari {{ $get }}..." />
-                        <ul id="list_{{ $get }}" class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
+                        <ul id="list_{{ $get }}" class="abosolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
                         </ul>
                     </div>
                 </div>

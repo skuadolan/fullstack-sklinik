@@ -104,7 +104,7 @@ class SearchService
 
                 case 'list_pasien_pelaksanaan_pelayanan_kunjungan':
                     $wheres = ($this->IsValidVal($req->id_pasien) ? " WHERE pas.id = '$req->id_pasien' AND " : " WHERE ");
-                    $wheres .= ($this->IsValidVal($req->tanggal_awal) && $this->IsValidVal($req->tanggal_akhir) ? " kun.waktu_masuk BETWEEN to_date('$req->tanggal_awal 00:00:00', 'dd-mm-yyyy hh24:mi:ss') AND to_date('$req->tanggal_akhir 23:59:59', 'dd-mm-yyyy hh24:mi:ss') AND " : " WHERE ");
+                    $wheres .= ($this->IsValidVal($req->tanggal_awal) && $this->IsValidVal($req->tanggal_akhir) ? " kun.waktu_masuk BETWEEN to_timestamp('$req->tanggal_awal 00:00:00', 'dd-mm-yyyy hh24:mi:ss') AND to_timestamp('$req->tanggal_akhir 23:59:59', 'dd-mm-yyyy hh24:mi:ss') AND " : " WHERE ");
                     $wheres .= ($this->IsValidVal($req->nama_pasien) ? " LOWER(pas.fullname) LIKE LOWER('$req->nama_pasien%') " : " 1=1 ");
 
                     $qry = "SELECT kun.id id_kunjungan, kun.id_pasien norm, ppas.nik, ppas.fullname nama_pasien, ppas.address alamat FROM kunjungan kun

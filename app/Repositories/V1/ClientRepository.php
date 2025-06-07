@@ -11,9 +11,11 @@ use App\Models\ListClient;
 class ClientRepository
 {
     use Tools;
-    private $selectColmn;
+    private $selectColmn, $listClientModel;
     public function __construct()
     {
+        $this->listClientModel = new ListClient();
+
         $this->selectColmn = [
             "list_client.*",
             "prov.name AS provinsi",
@@ -60,26 +62,31 @@ class ClientRepository
 
     public function store(object $req)
     {
-        $dataClient = ListClient::SchemaDataModel($req);
+        $dataClient = $this->listClientModel->SchemaDataModel($req);
+
+        unset($dataClient['deleted_at']);
 
         return DB::table('list_client')->insertGetId($dataClient);
     }
 
     public function show(string $id)
     {
-        return ListClient::select($this->selectColmn)
+        $rawQry = ListClient::query();
+        $rawQry->select($this->selectColmn)
             ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
             ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
             ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
             ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
-            ->find($id);
+            ->where('list_pasien.id', $id);
+
+        return $rawQry->first();
     }
 
     public function update(object $req, string $id)
     {
         $client = ListClient::find($id);
 
-        $data = ListClient::SchemaDataModel($req);
+        $data = $this->listClientModel->SchemaDataModel($req);
 
         unset($data['deleted_at']);
         unset($data['created_at']);

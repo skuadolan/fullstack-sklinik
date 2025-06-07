@@ -80,8 +80,6 @@ class Penduduk extends Model
             'id_kelurahan' => $req->id_kelurahan,
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
-            'is_actived' => $req->is_actived,
-            'is_deleted' => $req->is_deleted,
             'created_at' => $date,
             'updated_at' => $date,
             'deleted_at' => $date,

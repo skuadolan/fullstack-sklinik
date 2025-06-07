@@ -60,7 +60,7 @@ trait Tools
         $return = [
             'code' => $code,
             'status' => $status,
-            'massage' => $msg,
+            'message' => $msg,
             'data' => $data
         ];
         return $return;

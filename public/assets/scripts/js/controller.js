@@ -206,11 +206,11 @@ async function GetFromAPI($url) {
             LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
             await fetch(`${$base_url}${$url}`).then(async function ($list) {
                 LoadingNotify("Berhasil mengambil data!", "success", false);
-                console.dir("success", $list);
+                console.dir($list);
                 resolve(await $list.json());
             }).catch(function ($err) {
                 LoadingNotify("Gagal mengambil data!", "error", false);
-                console.dir("error", $err);
+                console.dir($err);
                 throw new Error($err);
             });
         } catch (err) {
@@ -285,7 +285,7 @@ function LoginAjaxSection($postFormData) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (callback) {
-            console.dir('success', callback);
+            console.dir(callback);
             LoadingNotify("Berhasil Login! Selamat datang.", "success");
 
             setTimeout(() => {
@@ -301,7 +301,7 @@ function LoginAjaxSection($postFormData) {
                 errorInfo = errInfo;
                 validator = validCallback;
             }
-            console.dir('error', callback);
+            console.dir(callback);
             $(".hideBtnProcess").show();
 
             if (errors) {

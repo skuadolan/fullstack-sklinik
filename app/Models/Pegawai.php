@@ -43,6 +43,9 @@ class Pegawai extends Model
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
         $id_client = $this->GetClientIDFromRequest($req, $userSession);
 
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+
         return [
             'id_user' => $id_user,
             'id_profesi' => $req->id_profesi,
@@ -50,8 +53,8 @@ class Pegawai extends Model
             'id_client' => $id_client,
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
-            'is_actived' => $req->is_actived,
-            'is_deleted' => $req->is_deleted,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
             'created_at' => $date,
             'updated_at' => $date,
             'deleted_at' => $date,

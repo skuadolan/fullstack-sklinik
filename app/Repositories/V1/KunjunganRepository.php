@@ -11,11 +11,10 @@ use App\Models\Kunjungan;
 class KunjunganRepository
 {
     use Tools;
-    private $dateNow, $selectColmn;
+    private $selectColmn, $kunjunganModel;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $this->kunjunganModel = new Kunjungan();
 
         $this->selectColmn = [
             'kunjungan.*',
@@ -50,22 +49,21 @@ class KunjunganRepository
 
     public function store(object $req)
     {
-        $data = Kunjungan::SchemaDataModel($req);
+        $data = $this->kunjunganModel->SchemaDataModel($req);
 
         return DB::table('kunjungan')->insertGetId($data);
     }
 
     public function show(string $id)
     {
-        return Kunjungan::select($this->selectColmn)
-            ->find($id);
+        return Kunjungan::find($id);
     }
 
     public function update(object $req, string $id)
     {
         $kunjungan = Kunjungan::find($id);
 
-        $data = Kunjungan::SchemaDataModel($req);
+        $data = $this->kunjunganModel->SchemaDataModel($req);
 
         unset($data['created_at']);
         unset($data['id_user_created']);

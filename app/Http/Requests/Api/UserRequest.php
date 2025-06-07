@@ -17,8 +17,7 @@ class UserRequest extends FormRequest
     {
         return [
             // Insert into list_client table
-            'klinik_name' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9_]+$/'],
-            'klinik_biography' => ['nullable', 'longtext'],
+            'klinik_name' => ['string', 'max:255', 'regex:/^[a-zA-Z0-9_]+$/'],
 
             // Insert into users table
             'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],

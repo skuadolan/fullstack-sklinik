@@ -52,8 +52,12 @@ class ListClient extends Model
         $days = ($this->isValidVal($req->actived_lifetime) ? $req->actived_lifetime * $day : $day);
         $expired_date = (clone $dateNow)->addDays($days)->toDateTimeString();
 
+        $name = ($this->isValidVal($req->name) ? $req->name : $req->klinik_name);
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+
         return [
-            'name' => $req->name,
+            'name' => $name,
             'company_profile' => $req->company_profile,
             'id_provinsi' => $req->id_provinsi,
             'id_kabupaten' => $req->id_kabupaten,
@@ -64,8 +68,8 @@ class ListClient extends Model
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
             'expired_date' => $expired_date,
-            'is_actived' => $req->is_actived,
-            'is_deleted' => $req->is_deleted,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
             'created_at' => $date,
             'updated_at' => $date,
             'deleted_at' => $date,

@@ -70,12 +70,16 @@ class User extends Authenticatable
         $date = $this->ReformatDateTime($dateNow, true);
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
         $id_client = $this->GetClientIDFromRequest($req, $userSession);
+        $id_role = ($this->isValidVal($req->id_role) ? $req->id_role : 1);
+
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
 
         return [
             'username' => $req->username,
             'email' => $req->email,
             'password' => Hash::make($req->password),
-            'id_role' => $req->id_role,
+            'id_role' => $id_role,
             'id_client' => $id_client,
             'id_penduduk' => $req->id_penduduk,
             'email_verified_at' => $req->email_verified_at,
@@ -83,8 +87,8 @@ class User extends Authenticatable
             'last_login' => $req->last_login,
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
-            'is_actived' => $req->is_actived,
-            'is_deleted' => $req->is_deleted,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
             'created_at' => $date,
             'updated_at' => $date,
             'deleted_at' => $date,
