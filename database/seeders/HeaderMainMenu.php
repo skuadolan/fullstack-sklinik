@@ -100,7 +100,7 @@ class HeaderMainMenu extends Seeder
                 'name' => 'Jadwal Dokter',
                 'route_name' => 'master-data.jadok',
                 'link' => '/master-data/jadok',
-                'icon' => 'assets/images/icons/main-menu/7372845.png',
+                'icon' => 'assets/images/icons/main-menu/13214611.png',
                 'id_parent' => $lastID,
             ],
         ];

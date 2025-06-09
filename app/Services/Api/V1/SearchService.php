@@ -143,14 +143,17 @@ class SearchService
             if ($this->IsValidVal($id_kunjungan)) {
                 $wheres = ($this->IsValidVal($id_kunjungan) ? " WHERE kun.id = '$id_kunjungan' " : "");
 
-                $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.goldar, ppas.birthdate, ppas.address, ppas.gender, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM kunjungan kun
+                $qry = "SELECT kun.created_at tanggal_kunjungan, pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.goldar, ppas.birthdate, ppas.address, ppas.gender, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM kunjungan kun
                 JOIN pasien pas ON pas.id = kun.id_pasien LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan $wheres ORDER BY ppas.fullname ASC ";
 
                 $fxdResultReturn = DB::selectOne("$qry");
                 $fxdResultReturn = json_decode(json_encode($fxdResultReturn), true);
+                $fxdResultReturn["tanggal_kunjungan"] = $this->ReformatDateTime($fxdResultReturn["tanggal_kunjungan"], false, "d-m-Y H:i:s");
                 $fxdResultReturn["norm"] = $this->reformatNoRM($fxdResultReturn["norm"]);
                 $fxdResultReturn["birthdate"] = $this->ReformatDateTime($fxdResultReturn["birthdate"], false, "d-m-Y");
+                $fxdResultReturn["umur"] = $this->GetAgedByBirthDate($fxdResultReturn["birthdate"], "d-m-Y");
                 $fxdResultReturn["jenis_kelamin"] = $fxdResultReturn["jenis_kelamin"] == "L" ? "Laki-laki" : "Perempuan";
+                $fxdResultReturn["full_address"] = $fxdResultReturn["address"] . ", " . $fxdResultReturn["kelurahan"] . ", " . $fxdResultReturn["kecamatan"] . ", " . $fxdResultReturn["kabupaten"] . ", " . $fxdResultReturn["provinsi"];
             }
 
             return $fxdResultReturn;

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -130,5 +131,19 @@ trait Tools
         $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : $id_client);
 
         return $id_client;
+    }
+
+    public function IsValidDateTime($val, $format = 'Y-m-d') {
+        $dt = DateTime::createFromFormat($format, $val);
+        $isValidDate = $dt && $dt->format($format) === $val;
+
+        if ($isValidDate) { return $val; }
+
+        if (is_numeric($val)) { return date($format, strtotime("-" . intval($val + 1) . " years")); }
+    }
+
+    public function GetAgedByBirthDate($val, $format = 'd-m-Y') {
+        $tmpDate = $this->IsValidDateTime($val, $format);
+        return Carbon::parse($tmpDate)->age;
     }
 }

@@ -14,7 +14,7 @@
                             {{ __('Parameter Pencarian') }}
                         </legend>
                         <div class="w-full flex mb-4">
-                            <div class="w-full sm:w-1/2 flex flex-wrap">
+                            <div class="w-full sm:w-2/5 flex flex-wrap">
                                 <form id="searchForm" onsubmit="search('submit')">
                                     <table class="w-full table-no-border">
                                         <tr class="align-baseline">
