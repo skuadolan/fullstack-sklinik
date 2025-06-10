@@ -206,11 +206,11 @@ async function GetFromAPI($url) {
             LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
             await fetch(`${$base_url}${$url}`).then(async function ($list) {
                 LoadingNotify("Berhasil mengambil data!", "success", false);
-                console.dir("success", $list);
+                console.dir($list);
                 resolve(await $list.json());
             }).catch(function ($err) {
                 LoadingNotify("Gagal mengambil data!", "error", false);
-                console.dir("error", $err);
+                console.dir($err);
                 throw new Error($err);
             });
         } catch (err) {
@@ -285,7 +285,7 @@ function LoginAjaxSection($postFormData) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (callback) {
-            console.dir('success', callback);
+            console.dir(callback);
             LoadingNotify("Berhasil Login! Selamat datang.", "success");
 
             setTimeout(() => {
@@ -301,7 +301,7 @@ function LoginAjaxSection($postFormData) {
                 errorInfo = errInfo;
                 validator = validCallback;
             }
-            console.dir('error', callback);
+            console.dir(callback);
             $(".hideBtnProcess").show();
 
             if (errors) {
@@ -321,20 +321,22 @@ function LoginAjaxSection($postFormData) {
 }
 
 function OpenLink($link, $options = ["self", "new", "popup"]) {
-    if ($options == "self") {
-        window.location.href = `${$base_url}${$link}`;
-    }
+    setTimeout(() => {
+        if ($options == "self") {
+            window.location.href = `${$base_url}${$link}`;
+        }
 
-    if ($options == "new") {
-        window.open(`${$base_url}${$link}`, "_blank");
-    }
+        if ($options == "new") {
+            window.open(`${$base_url}${$link}`, "_blank");
+        }
 
-    if ($options == "popup") {
-        window.open(`${$base_url}${$link}`, "_blank", "width=800,height=600,top=100,left=100,resizable=yes,scrollbars=yes");
-    }
+        if ($options == "popup") {
+            window.open(`${$base_url}${$link}`, "_blank", "width=800,height=600,top=100,left=100,resizable=yes,scrollbars=yes");
+        }
+    }, 100);
 }
 
-function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
+function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc = [], $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
     const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
     const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
     const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
@@ -555,7 +557,7 @@ function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slo
 async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
     $(`#${$target}`).val($val[0]);
 
-    if (IsValidVal($val[1])) {
+    if (IsValidVal($val, 1)) {
         $(`#id_${$target}`).val($val[1]);
     }
 }
@@ -616,7 +618,7 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
             const { name, value } = $list;
 
             if (isValEqual(name, null, `id_${$from}`)) {
-                $statusResult = isValEqual(name, null, `id_${$from}`) && IsValidVal(value, null, $(`#id_${$from}`).val());
+                $statusResult = isValEqual(name, null, `id_${$from}`) && isValEqual(value, null, $(`#id_${$from}`).val());
             }
         })
     }

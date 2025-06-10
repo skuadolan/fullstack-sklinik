@@ -14,13 +14,13 @@ class HeaderMainMenu extends Seeder
     {
         setlocale(LC_TIME, 'id_ID.utf8');
 
-        // DB::table('list_menus')->insert([
+        // DB::table('list_menu')->insert([
         //     'name' => 'Dashboard',
         //     'route_name' => 'dashboard',
         //     'link' => '/dashboard',
         // ]);
 
-        $lastID = DB::table('list_menus')->insertGetId([
+        $lastID = DB::table('list_menu')->insertGetId([
             'name' => 'Master Data',
             'is_parent' => 1,
         ]);
@@ -100,14 +100,14 @@ class HeaderMainMenu extends Seeder
                 'name' => 'Jadwal Dokter',
                 'route_name' => 'master-data.jadok',
                 'link' => '/master-data/jadok',
-                'icon' => 'assets/images/icons/main-menu/7372845.png',
+                'icon' => 'assets/images/icons/main-menu/13214611.png',
                 'id_parent' => $lastID,
             ],
         ];
 
-        DB::table('list_menus')->insert($datas);
+        DB::table('list_menu')->insert($datas);
 
-        $lastID = DB::table('list_menus')->insertGetId([
+        $lastID = DB::table('list_menu')->insertGetId([
             'name' => 'Transaksi',
             'is_parent' => 1,
         ]);
@@ -143,9 +143,9 @@ class HeaderMainMenu extends Seeder
             ]
         ];
 
-        DB::table('list_menus')->insert($datas);
+        DB::table('list_menu')->insert($datas);
 
-        $lastID = DB::table('list_menus')->insertGetId([
+        $lastID = DB::table('list_menu')->insertGetId([
             'name' => 'Inventory',
             'is_parent' => 1,
         ]);
@@ -167,9 +167,9 @@ class HeaderMainMenu extends Seeder
             ]
         ];
 
-        DB::table('list_menus')->insert($datas);
+        DB::table('list_menu')->insert($datas);
 
-        $lastID = DB::table('list_menus')->insertGetId([
+        $lastID = DB::table('list_menu')->insertGetId([
             'name' => 'Informasi',
             'is_parent' => 1,
         ]);
@@ -205,9 +205,9 @@ class HeaderMainMenu extends Seeder
             ],
         ];
 
-        DB::table('list_menus')->insert($datas);
+        DB::table('list_menu')->insert($datas);
 
-        $lastID = DB::table('list_menus')->insertGetId([
+        $lastID = DB::table('list_menu')->insertGetId([
             'name' => 'Seklinik',
             'is_parent' => 1,
         ]);
@@ -229,6 +229,6 @@ class HeaderMainMenu extends Seeder
             ]
         ];
 
-        DB::table('list_menus')->insert($datas);
+        DB::table('list_menu')->insert($datas);
     }
 }

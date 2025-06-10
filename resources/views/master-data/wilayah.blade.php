@@ -175,7 +175,7 @@
                     <input type="text" id="nama" name="nama" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
                 </div>
                 `;
-                await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", "simpanWilayah()", $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, {
+                await CreatePopUpModal("#wilayah_container", "wilayahModal", "wilayahForm", ["simpanWilayah()"], $modalSlotContent, ["Tambah Data", "Simpan", "Reset", "Tutup"], ["Form Tambah Data", "Wilayah"], null, {
                     btn: true
                 });
             })();
@@ -250,6 +250,10 @@
         }
 
         // Functions event onclick start
+        function simpanWilayah() {
+            AllNotify("Data berhasil disimpan!", "success");
+        }
+
         async function search($method) {
             if ($method == 'reset') {
                 localStorage.removeItem("search_params");

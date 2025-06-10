@@ -13,13 +13,6 @@ class PegawaiService
     private $dateNow, $repos, $userSession;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-
-        $this->userSession = session('user_login');
-        // $sessionId = session()->getId();
-        // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
-
         $this->repos = new PegawaiRepository();
     }
 
@@ -30,10 +23,6 @@ class PegawaiService
 
     public function store(object $req)
     {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
-        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
-
         return $this->repos->store($req);
     }
 
@@ -44,10 +33,6 @@ class PegawaiService
 
     public function update(object $req, string $id)
     {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
-        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
-
         return $this->repos->update($req, $id);
     }
 

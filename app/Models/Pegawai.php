@@ -7,10 +7,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+use App\Traits\Tools;
+
 class Pegawai extends Model
 {
     protected $table = 'pegawai';
-    use Notifiable, SoftDeletes, HasFactory;
+    use Notifiable, SoftDeletes, HasFactory, Tools;
 
     /**
      * The attributes that are mass assignable.
@@ -31,20 +33,31 @@ class Pegawai extends Model
         'deleted_at',
     ];
 
-    public static function SchemaDataModel(object $req) {
-        $id_profesi = (isset($req->id_profesi) && !empty($req->id_profesi) ? $req->id_profesi : null);
+    public function SchemaDataModel(object $req)
+    {
+        setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $userSession = session('user_login');
+
+        $date = $this->ReformatDateTime($dateNow, true);
+        $id_user = $this->GetUserIDFromRequest($req, $userSession);
+        $id_client = $this->GetClientIDFromRequest($req, $userSession);
+
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
 
         return [
-            'id_user' => $req->id_user,
-            'id_profesi' => $id_profesi,
+            'id_user' => $id_user,
+            'id_profesi' => $req->id_profesi,
             'id_penduduk' => $req->id_penduduk,
-            'id_client' => $req->id_client,
-
-            'created_at' => $req->dateNow,
-            'updated_at' => $req->dateNow,
-
-            'id_user_created' => $req->id_user,
-            'id_user_updated' => $req->id_user,
+            'id_client' => $id_client,
+            'id_user_created' => $id_user,
+            'id_user_updated' => $id_user,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
+            'created_at' => $date,
+            'updated_at' => $date,
+            'deleted_at' => $date,
         ];
     }
 }

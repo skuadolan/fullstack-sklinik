@@ -11,11 +11,10 @@ use App\Models\Pasien;
 class PasienRepository
 {
     use Tools;
-    private $dateNow, $selectColmn;
+    private $selectColmn, $pasienModel;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $this->pasienModel = new Pasien();
 
         $this->selectColmn = [
             'pasien.*',
@@ -32,7 +31,7 @@ class PasienRepository
             $rawQry->select($this->selectColmn)
                 ->join('users AS usr', 'usr.id', '=', 'pegawai.id_user')
                 ->join('penduduk AS pdd', 'pdd.id', '=', 'usr.id_penduduk')
-                ->join('list_clients AS lc', 'lc.id', '=', 'usr.id_client')
+                ->join('list_client AS lc', 'lc.id', '=', 'usr.id_client')
                 ->join('provinsi AS prov', 'prov.id', '=', 'pdd.id_provinsi')
                 ->join('kabupaten AS kab', 'kab.id', '=', 'pdd.id_kabupaten')
                 ->join('kecamatan AS kec', 'kec.id', '=', 'pdd.id_kecamatan')
@@ -59,22 +58,34 @@ class PasienRepository
 
     public function store(object $req)
     {
-        $data = Pasien::SchemaDataModel($req);
+        $data = $this->pasienModel->SchemaDataModel($req);
 
         return DB::table('pasien')->insertGetId($data);
     }
 
     public function show(string $id)
     {
-        return Pasien::select($this->selectColmn)
-            ->find($id);
+        $rawQry = Pasien::query();
+        $rawQry->select($this->selectColmn)
+            ->join('users AS usr', 'usr.id', '=', 'pegawai.id_user')
+            ->join('penduduk AS pdd', 'pdd.id', '=', 'usr.id_penduduk')
+            ->join('list_client AS lc', 'lc.id', '=', 'usr.id_client')
+            ->join('provinsi AS prov', 'prov.id', '=', 'pdd.id_provinsi')
+            ->join('kabupaten AS kab', 'kab.id', '=', 'pdd.id_kabupaten')
+            ->join('kecamatan AS kec', 'kec.id', '=', 'pdd.id_kecamatan')
+            ->join('kelurahan AS kel', 'kel.id', '=', 'pdd.id_kelurahan')
+            ->join("roles AS rol", "rol.id", "=", "usr.id_role")
+            ->leftJoin('profesi AS prof', 'prof.id', '=', 'pegawai.id_profesi')
+            ->where('pasien.id', $id);
+
+        return $rawQry->first();
     }
 
     public function update(object $req, string $id)
     {
         $pasien = Pasien::find($id);
 
-        $data = Pasien::SchemaDataModel($req);
+        $data = $this->pasienModel->SchemaDataModel($req);
 
         unset($data['created_at']);
         unset($data['id_user_created']);

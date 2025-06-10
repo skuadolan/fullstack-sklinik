@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -35,8 +36,10 @@ trait Tools
 
     public function getVarValue($val, $key = null, $default = null)
     {
-        $tmpVal = (($key !== null) && is_array($val) && isset($val[$key]) && !empty($val[$key]) ? $val : $default);
-        $tmpVal = (($key === null) && !empty($val) ? $val : $tmpVal);
+        $tmpVal = (($key === null) && !empty($val) ? $val : $default);
+        if (($key !== null) && is_array($val)) {
+            $tmpVal = (isset($val[$key]) && !empty($val[$key]) ? $val : $tmpVal);
+        }
 
         return (is_string($tmpVal) ? trim($tmpVal) : $tmpVal);
     }
@@ -58,7 +61,7 @@ trait Tools
         $return = [
             'code' => $code,
             'status' => $status,
-            'massage' => $msg,
+            'message' => $msg,
             'data' => $data
         ];
         return $return;
@@ -77,7 +80,7 @@ trait Tools
         return $datas;
     }
 
-    public function ReformatDateTime($date, $format = "Y-m-d H:i:s", $toDB = false)
+    public function ReformatDateTime($date, $toDB = false, $format = "Y-m-d H:i:s")
     {
         if ($toDB && env("DB_CONNECTION") === "mysql") {
             return Carbon::parse($date)->format("Y-m-d H:i:s");
@@ -128,5 +131,19 @@ trait Tools
         $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : $id_client);
 
         return $id_client;
+    }
+
+    public function IsValidDateTime($val, $format = 'Y-m-d') {
+        $dt = DateTime::createFromFormat($format, $val);
+        $isValidDate = $dt && $dt->format($format) === $val;
+
+        if ($isValidDate) { return $val; }
+
+        if (is_numeric($val)) { return date($format, strtotime("-" . intval($val + 1) . " years")); }
+    }
+
+    public function GetAgedByBirthDate($val, $format = 'd-m-Y') {
+        $tmpDate = $this->IsValidDateTime($val, $format);
+        return Carbon::parse($tmpDate)->age;
     }
 }

@@ -11,11 +11,13 @@ use App\Models\ListClient;
 class ClientRepository
 {
     use Tools;
-    private $selectColmn;
+    private $selectColmn, $listClientModel;
     public function __construct()
     {
+        $this->listClientModel = new ListClient();
+
         $this->selectColmn = [
-            "list_clients.*",
+            "list_client.*",
             "prov.name AS provinsi",
             "kab.name AS kabupaten",
             "kec.name AS kecamatan",
@@ -31,10 +33,10 @@ class ClientRepository
             $colName = strtolower($req->input('get_data'));
 
             $rawQry->select($this->selectColmn)
-                ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-                ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-                ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-                ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
+                ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
+                ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
+                ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
+                ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
                 ->where(function ($qryI) use ($colName, $params) {
                     $qryI->whereRaw("LOWER($colName) LIKE ?", ["%$params%"]);
                 });
@@ -49,6 +51,7 @@ class ClientRepository
             "kelurahan",
             "created_at",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -59,27 +62,33 @@ class ClientRepository
 
     public function store(object $req)
     {
-        $dataClient = ListClient::SchemaDataModel($req);
+        $dataClient = $this->listClientModel->SchemaDataModel($req);
 
-        return DB::table('list_clients')->insertGetId($dataClient);
+        unset($dataClient['deleted_at']);
+
+        return DB::table('list_client')->insertGetId($dataClient);
     }
 
     public function show(string $id)
     {
-        return ListClient::select($this->selectColmn)
-            ->join('provinsi AS prov', 'prov.id', '=', 'list_clients.id_provinsi')
-            ->join('kabupaten AS kab', 'kab.id', '=', 'list_clients.id_kabupaten')
-            ->join('kecamatan AS kec', 'kec.id', '=', 'list_clients.id_kecamatan')
-            ->join('kelurahan AS kel', 'kel.id', '=', 'list_clients.id_kelurahan')
-            ->find($id);
+        $rawQry = ListClient::query();
+        $rawQry->select($this->selectColmn)
+            ->join('provinsi AS prov', 'prov.id', '=', 'list_client.id_provinsi')
+            ->join('kabupaten AS kab', 'kab.id', '=', 'list_client.id_kabupaten')
+            ->join('kecamatan AS kec', 'kec.id', '=', 'list_client.id_kecamatan')
+            ->join('kelurahan AS kel', 'kel.id', '=', 'list_client.id_kelurahan')
+            ->where('list_pasien.id', $id);
+
+        return $rawQry->first();
     }
 
     public function update(object $req, string $id)
     {
         $client = ListClient::find($id);
 
-        $data = ListClient::SchemaDataModel($req);
+        $data = $this->listClientModel->SchemaDataModel($req);
 
+        unset($data['deleted_at']);
         unset($data['created_at']);
         unset($data['id_user_created']);
 

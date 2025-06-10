@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Traits\Tools;
+
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes, HasFactory;
+    use Notifiable, SoftDeletes, HasFactory, Tools;
 
     /**
      * The attributes that are mass assignable.
@@ -59,21 +61,37 @@ class User extends Authenticatable
         ];
     }
 
-    public static function SchemaDataModel(object $req) {
-        $id_user = (isset($req->id_user) && !empty($req->id_user) ? $req->id_user : null);
-        $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : null);
-        $id_penduduk = (isset($req->id_penduduk) && !empty($req->id_penduduk) ? $req->id_penduduk : null);
+    public function SchemaDataModel(object $req)
+    {
+        setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $userSession = session('user_login');
+
+        $date = $this->ReformatDateTime($dateNow, true);
+        $id_user = $this->GetUserIDFromRequest($req, $userSession);
+        $id_client = $this->GetClientIDFromRequest($req, $userSession);
+        $id_role = ($this->isValidVal($req->id_role) ? $req->id_role : 1);
+
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
 
         return [
             'username' => $req->username,
             'email' => $req->email,
             'password' => Hash::make($req->password),
+            'id_role' => $id_role,
             'id_client' => $id_client,
-            'id_penduduk' => $id_penduduk,
+            'id_penduduk' => $req->id_penduduk,
+            'email_verified_at' => $req->email_verified_at,
+            'ip_address' => $req->ip_address,
+            'last_login' => $req->last_login,
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
-            'created_at' => $req->dateNow,
-            'updated_at' => $req->dateNow,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
+            'created_at' => $date,
+            'updated_at' => $date,
+            'deleted_at' => $date,
         ];
     }
 }

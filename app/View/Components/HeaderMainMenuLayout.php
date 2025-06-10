@@ -11,7 +11,7 @@ class HeaderMainMenuLayout extends Component
     public $listMenu;
     public function __construct()
     {
-        $qry = "SELECT * FROM list_menus lsmenu ORDER BY lsmenu.name ASC";
+        $qry = "SELECT * FROM list_menu lsmenu ORDER BY lsmenu.name ASC";
         $this->listMenu = DB::select("$qry");
     }
 

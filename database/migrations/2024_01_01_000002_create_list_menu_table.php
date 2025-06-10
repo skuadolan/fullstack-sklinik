@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_menus', function (Blueprint $table) {
+        Schema::create('list_menu', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('icon')->default('assets/images/icons/12087772.png');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->boolean('is_parent')->default(false);
             $table->unsignedBigInteger('id_parent')->nullable();
-            $table->foreign('id_parent')->references('id')->on('list_menus')->onDelete('cascade');
+            $table->foreign('id_parent')->references('id')->on('list_menu')->onDelete('cascade');
             $table->unsignedBigInteger('id_tier_level')->default(1);
             $table->foreign('id_tier_level')->references('id')->on('tier_level')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_menus');
+        Schema::dropIfExists('list_menu');
     }
 };

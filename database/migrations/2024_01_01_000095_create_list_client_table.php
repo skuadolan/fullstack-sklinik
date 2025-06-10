@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_clients', function (Blueprint $table) {
+        Schema::create('list_client', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->longText('company_profile')->nullable();
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_clients');
+        Schema::dropIfExists('list_client');
     }
 };

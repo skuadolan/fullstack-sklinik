@@ -13,11 +13,10 @@ use App\Models\Penduduk;
 class PendudukRepository
 {
     use Tools;
-    private $dateNow, $selectColmn;
+    private $selectColmn, $pendudukModel;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $this->pendudukModel = new Penduduk();
 
         $this->selectColmn = [
             "penduduk.*",
@@ -53,6 +52,7 @@ class PendudukRepository
             "kecamatan",
             "kelurahan",
         ];
+
         $sortBy = (in_array($req->input('sort_by'), $sortable) ? $req->input('sort_by') : "id");
         $sorting = (in_array($req->input('sorting'), ['asc', 'desc']) ? $req->input('sorting') : "asc");
 
@@ -63,27 +63,33 @@ class PendudukRepository
 
     public function store(object $req)
     {
-        $data = Penduduk::SchemaDataModel($req, $this->dateNow);
+        $data = $this->pendudukModel->SchemaDataModel($req);
+
+        unset($data['deleted_at']);
 
         return DB::table('penduduk')->insertGetId($data);
     }
 
     public function show(string $id)
     {
-        return Penduduk::select($this->selectColmn)
+        $rawQry = Penduduk::query();
+        $rawQry->select($this->selectColmn)
             ->join('provinsi AS prov', 'prov.id', '=', 'penduduk.id_provinsi')
             ->join('kabupaten AS kab', 'kab.id', '=', 'penduduk.id_kabupaten')
             ->join('kecamatan AS kec', 'kec.id', '=', 'penduduk.id_kecamatan')
             ->join('kelurahan AS kel', 'kel.id', '=', 'penduduk.id_kelurahan')
-            ->find($id);
+            ->where('penduduk.id', $id);
+
+        return $rawQry->first();
     }
 
     public function update(object $req, string $id)
     {
         $penduduk = Penduduk::find($id);
 
-        $data = Penduduk::SchemaDataModel($req);
+        $data = $this->pendudukModel->SchemaDataModel($req);
 
+        unset($data['deleted_at']);
         unset($data['created_at']);
         unset($data['id_user_created']);
 

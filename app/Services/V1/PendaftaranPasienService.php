@@ -4,8 +4,6 @@ namespace App\Services\V1;
 
 use App\Traits\Tools;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Repositories\V1\PendaftaranPasienRepository;
 
 class PendaftaranPasienService

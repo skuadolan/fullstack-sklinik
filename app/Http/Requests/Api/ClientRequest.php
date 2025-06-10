@@ -14,14 +14,15 @@ class ClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'klinik_name' => ['required', 'string', 'max:255'],
-            'klinik_biography' => ['nullable', 'longtext'],
+            'name' => ['required', 'string', 'max:255'],
+            'company_profile' => ['nullable', 'longtext'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
             'id_kabupaten' => ['required', 'integer', 'exists:kabupaten,id'],
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
             'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
             'address' => ['nullable', 'string', 'max:255'],
             // 'id_tier_level' => ['required', 'integer', 'exists:tier_level,id'],
+            'is_actived' => ['required', 'boolean'],
         ];
     }
 

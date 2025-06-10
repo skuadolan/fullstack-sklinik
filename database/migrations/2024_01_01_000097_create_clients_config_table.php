@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_configs', function (Blueprint $table) {
+        Schema::create('client_config', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_config');
             $table->foreign('id_config')->references('id')->on('configs')->onDelete('cascade');
             $table->string('value')->nullable();
             $table->unsignedBigInteger('id_client');
-            $table->foreign('id_client')->references('id')->on('list_clients')->onDelete('cascade');
+            $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();

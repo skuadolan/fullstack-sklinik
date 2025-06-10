@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('client_role_permissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_menu')->comment("Didapat dari tabel client_premission");
-            $table->foreign('id_menu')->references('id')->on('list_menus')->onDelete('cascade');
+            $table->foreign('id_menu')->references('id')->on('list_menu')->onDelete('cascade');
             $table->unsignedBigInteger('id_client_role');
             $table->foreign('id_client_role')->references('id')->on('client_roles')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_created')->nullable();

@@ -25,10 +25,7 @@ return new class extends Migration
         DB::statement("CREATE TYPE status_jenis_pasien_enum AS ENUM ('Baru', 'Lama')");
 
         DB::statement("DROP TYPE IF EXISTS status_pendaftaran_pasien_enum");
-        DB::statement("CREATE TYPE status_pendaftaran_pasien_enum AS ENUM ('Batal', 'Menunggu', 'Diperiksa', 'Resep', 'Ranap', 'Selesai', 'Booking')");
-
-        DB::statement("DROP TYPE IF EXISTS status_kunjungan_pasien_enum");
-        DB::statement("CREATE TYPE status_kunjungan_pasien_enum AS ENUM ('Batal', 'Masuk', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai')");
+        DB::statement("CREATE TYPE status_pendaftaran_pasien_enum AS ENUM ('Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking')");
 
 
         $dbDriver = Schema::getConnection()->getDriverName();
@@ -52,7 +49,7 @@ return new class extends Migration
             }
 
             if (Schema::hasTable('kunjungan')) {
-                DB::statement("ALTER TABLE kunjungan ALTER COLUMN status_kunjungan TYPE status_kunjungan_pasien_enum USING (status_kunjungan::status_kunjungan_pasien_enum);");
+                DB::statement("ALTER TABLE kunjungan ALTER COLUMN status_kunjungan TYPE status_pendaftaran_pasien_enum USING (status_kunjungan::status_pendaftaran_pasien_enum);");
             }
 
             if (Schema::hasTable('penjualan')) {
@@ -83,7 +80,6 @@ return new class extends Migration
                 DB::statement("DROP TYPE IF EXISTS status_billing_pendaftaran_enum");
                 DB::statement("DROP TYPE IF EXISTS status_jenis_pasien_enum");
                 DB::statement("DROP TYPE IF EXISTS status_pendaftaran_pasien_enum");
-                DB::statement("DROP TYPE IF EXISTS status_kunjungan_pasien_enum");
             }
         });
     }

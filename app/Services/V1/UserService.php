@@ -13,13 +13,6 @@ class UserService
     private $dateNow, $repos, $userSession;
     public function __construct()
     {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
-
-        $this->userSession = session('user_login');
-        // $sessionId = session()->getId();
-        // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
-
         $this->repos = new UserRepository();
     }
 
@@ -30,9 +23,6 @@ class UserService
 
     public function store(object $req)
     {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->birthdate_user = (isset($req->birthdate_user) && !empty($req->birthdate_user) ? $this->ReformatDateTime($req->birthdate_user, true) : null);
-
         return $this->repos->store($req);
     }
 
@@ -43,11 +33,6 @@ class UserService
 
     public function update(object $req, string $id)
     {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
-        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
-        $req->birthdate_user = (isset($req->birthdate_user) && !empty($req->birthdate_user) ? $this->ReformatDateTime($req->birthdate_user, true) : null);
-
         return $this->repos->update($req, $id);
     }
 

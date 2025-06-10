@@ -32,7 +32,7 @@ class Pendaftaran extends Model
         'deleted_at',
     ];
 
-    public static function SchemaDataModel(object $req) {
+    public function SchemaDataModel(object $req) {
         return [
             'id_pasien' => $req->id_pasien,
             'id_client' => $req->id_client,

@@ -48,16 +48,7 @@
                                                     </label>
                                                 </td>
                                                 <td>:</td>
-                                                <td>
-                                                    <div class="flex gap-5">
-                                                        <select id="jenis_kunjungan" name="jenis_kunjungan" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                                                            <option value="" selected disabled>Pilih Opsi...</option>
-                                                            <option value="Rawat Darurat">Rawat Darurat</option>
-                                                            <option value="Rawat Jalan">Rawat Jalan</option>
-                                                            <option value="Rawat Inap">Rawat Inap</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
+                                                <td><x-autocomplete-layout id="jenis_kunjungan" name="jenis_kunjungan" class="check_form_search w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200" section="ssr-dropdown" get="jenis_kunjungan" placeholder="Pilih Jenis Kunjungan..." /></td>
                                             </tr>
                                             <tr class="align-baseline">
                                                 <td>
@@ -573,8 +564,8 @@
                     if (result.isConfirmed) {
                         $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
 
-                        const $isInputFormValid = CheckFormBeforeSubmit();
-                        if (!$isInputFormValid) { return; }
+                        // const $isInputFormValid = CheckFormBeforeSubmit();
+                        // if (!$isInputFormValid) { return; }
 
                         $("#loadingAjax").show();
 
@@ -593,7 +584,7 @@
                             },
                             success: function(callback) {
                                 const { messages, message } = callback;
-                                console.dir('success', callback);
+                                console.dir(callback);
                                 toastr.success(messages || message, "Success!");
 
                                 setTimeout(() => {
@@ -609,7 +600,7 @@
                                     errorInfo = errInfo;
                                     validator = validCallback;
                                 }
-                                console.dir('error', callback);
+                                console.dir(callback);
 
                                 if (errors) {
                                     for (let key in errors) {
@@ -722,9 +713,9 @@
                 ForceEmptyFormValue();
             }
 
-            const { norm, fullname, nik, birthdate, goldar, gender } = IsValidVal(data, 0);
-            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = IsValidVal(data, 0);
-            const { handphone, whatsapp, telegram } = IsValidVal(data, 0);
+            const { norm, fullname, nik, birthdate, goldar, gender } = getVarValue(data, 0);
+            const { address, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = getVarValue(data, 0);
+            const { handphone, whatsapp, telegram } = getVarValue(data, 0);
 
 
             $("#norm_pasien").val(norm);

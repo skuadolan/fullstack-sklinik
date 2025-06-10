@@ -19,10 +19,11 @@ use App\Services\V1\KunjunganService;
 class PendaftaranPasienRepository
 {
     use Tools;
-    private $selectColmn;
+    private $selectColmn, $pndaftaranPasienModel;
     private $pendudukService, $pasienService, $kunjunganService;
     public function __construct()
     {
+        $this->pndaftaranPasienModel = new Pendaftaran();
         $this->selectColmn = [];
 
         $this->pasienService = new PasienService();
@@ -84,7 +85,7 @@ class PendaftaranPasienRepository
             $req->id_pasien = $this->pasienService->store($req);
         }
 
-        $dataPendaftaran = Pendaftaran::SchemaDataModel($req);
+        $dataPendaftaran = $this->pndaftaranPasienModel->SchemaDataModel($req);
 
         $req->id_pendaftaran = (Pendaftaran::create($dataPendaftaran))->id;
 

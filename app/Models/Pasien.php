@@ -28,7 +28,7 @@ class Pasien extends Model
         'deleted_at',
     ];
 
-    public static function SchemaDataModel(object $req) {
+    public function SchemaDataModel(object $req) {
         return [
             'id_client' => $req->id_client,
             'id_penduduk' => $req->id_penduduk,
