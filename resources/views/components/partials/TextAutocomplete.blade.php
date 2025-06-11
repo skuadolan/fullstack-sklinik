@@ -85,7 +85,8 @@
                 'gender',
                 'unit',
                 'status_pendaftaran',
-                'jenis_kunjungan'
+                'jenis_kunjungan',
+                'perkiraan_umur'
             ];
         @endphp
 
@@ -110,7 +111,7 @@
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." />
-                        <ul id="list_provinsi" class="abosolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
+                        <ul id="list_provinsi" class="abosolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
                             @if (isset($listProvinsi) && !empty($listProvinsi))
                                 @foreach ($listProvinsi as $key => $list)
                                     <li @click="open = !open" x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())" class="list_provinsi text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
@@ -144,7 +145,18 @@
                 <option value="" selected disabled>Pilih Opsi...</option>
                 @if (isset($listGender) && !empty($listGender))
                     @foreach ($listGender as $key => $list)
-                        <option value="{{ $list->value }}">{{ $list->name }}</option>
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'perkiraan_umur')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi...</option>
+                @if (isset($listPerkiraanUmur) && !empty($listPerkiraanUmur))
+                    @foreach ($listPerkiraanUmur as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
                     @endforeach
                 @endif
             </select>
@@ -206,9 +218,9 @@
                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                     style="display: none;" class="relative z-10">
-                    <div class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg w-full">
+                    <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari {{ $get }}..." />
-                        <ul id="list_{{ $get }}" class="abosolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
+                        <ul id="list_{{ $get }}" class="abosolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
                         </ul>
                     </div>
                 </div>
@@ -218,7 +230,7 @@
 @endif
 
 @if (empty($section) && empty($get))
-    <div id="autocomplete_container" class="relative">
+    <div id="autocomplete_search_container" class="relative">
         <div class="flex items-center">
             <x-text-input
                 {{ $attributes->merge(['type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none text-sm']) }} />

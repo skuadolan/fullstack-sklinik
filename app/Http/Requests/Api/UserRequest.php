@@ -35,7 +35,7 @@ class UserRequest extends FormRequest
             'agama_user' => ['nullable', 'string'],
             'tempat_lahir_user' => ['nullable', 'string'],
             'birthdate_user' => ['nullable', 'date'],
-            'gender_user' => ['required', 'string', Rule::in(['L', 'P'])],
+            'gender_user' => ['required', 'string', Rule::in(['Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi'])],
             'goldar_user'=> ['nullable', 'string', 'exists:goldar,name'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],

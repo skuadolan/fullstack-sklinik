@@ -18,7 +18,10 @@ class UserSeeder extends Seeder
 
         $id_penduduk = DB::table('penduduk')->insertGetId([
             'fullname' => 'root',
-            'gender' => 'L',
+            'gender' => 'Laki-Laki',
+            'pendidikan' => 'Tidak Diketahui',
+            'pekerjaan' => 'Tidak Diketahui',
+            'status_pernikahan' => 'Tidak Diketahui',
             'created_at' => $dateNow
         ]);
 

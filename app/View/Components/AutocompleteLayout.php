@@ -15,7 +15,7 @@ class AutocompleteLayout extends Component
 
     public $section, $get;
     public $listProvinsi, $listGoldar, $listGender, $listUnit;
-    public $listStatusPendaftaran, $jenisKunjungan;
+    public $listStatusPendaftaran, $jenisKunjungan, $listPerkiraanUmur;
     public function __construct($section = null, $get = null)
     {
         $this->section = $section;
@@ -32,8 +32,7 @@ class AutocompleteLayout extends Component
         }
 
         if ($section = "ssr-dropdown" && $get == 'gender') {
-            $qry = "SELECT gndr.id, gndr.name, gndr.value FROM gender gndr ORDER BY gndr.name ASC LIMIT 2";
-            $this->listGender = DB::select("$qry");
+            $this->listGender = ['Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi'];
         }
 
         if ($section = "ssr-dropdown" && $get == 'unit') {
@@ -41,8 +40,17 @@ class AutocompleteLayout extends Component
             $this->listUnit = DB::select("$qry");
         }
 
-        $this->listStatusPendaftaran = ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'];
-        $this->jenisKunjungan = ['Rawat Darurat', 'Rawat Jalan', 'Rawat Inap'];
+        if ($section = "ssr-dropdown" && $get == 'status_pendaftaran') {
+            $this->listStatusPendaftaran = ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'];
+        }
+
+        if ($section = "ssr-dropdown" && $get == 'jenis_kunjungan') {
+            $this->jenisKunjungan = ['Rawat Darurat', 'Rawat Jalan', 'Rawat Inap'];
+        }
+
+        if ($section = "ssr-dropdown" && $get == 'perkiraan_umur') {
+            $this->listPerkiraanUmur = ['Tidak Tau', '0 - 5', '6 - 11', '12 - 17', '18 - 40', '41 - 65', '> 65'];
+        }
     }
 
     public function render(): View
