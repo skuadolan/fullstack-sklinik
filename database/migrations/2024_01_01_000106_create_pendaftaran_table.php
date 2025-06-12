@@ -35,7 +35,6 @@ return new class extends Migration
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
-            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

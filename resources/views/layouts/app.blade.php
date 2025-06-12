@@ -49,6 +49,7 @@
 
     <link rel="stylesheet" media="all" href="{{ asset("/assets/scripts/css/app.css") }}" />
     <script src="{{ asset("/assets/vendor/tailwindcss/tailwindcss-3.4.5.js") }}"></script>
+    <link rel="stylesheet" media="all" href="{{ asset("/assets/vendor/swiper/swiper-bundle.min.css") }}" />
 
     <script src="{{ asset("/assets/vendor/jquery/jquery.js") }}"></script>
     <script src="{{ asset("/assets/vendor/jquery/jquery-ui.js") }}"></script>
@@ -64,6 +65,7 @@
     <script src="{{ asset("/assets/vendor/sweetalert/sweetalert2@11.js") }}"></script>
     <script src="{{ asset("/assets/vendor/alpinejs/alpinejs@3.14.3.min.js") }}" defer></script>
     <script src="{{ asset("/assets/vendor/datatables/datatables.js") }}" defer></script>
+    <script src="{{ asset("/assets/vendor/swiper/swiper-bundle.min.js") }}"></script>
 
     <!-- Vite Section -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
