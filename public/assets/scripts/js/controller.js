@@ -18,6 +18,10 @@ $(document).ready(function () {
         function LoadingNotify($msg, $section, $isElmentShow) {
             LoadingNotify($msg, $section, $isElmentShow)
         }
+
+        function AutoInitListJSSearch($get) {
+            AutoInitListJSSearch($get);
+        };
         // Function ReImplement END
 
         // Class for DOM elements START
@@ -28,6 +32,12 @@ $(document).ready(function () {
     $("#loadingAjax").hide();
     $("#loadingContetLoader").hide();
 });
+
+(async function () {
+    setTimeout(() => {
+        AutoInitListJSSearch("provinsi");
+    }, 1000);
+})();
 
 function ConvertToIDR($val) {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 2 }).format($val);
@@ -567,7 +577,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
     await $.ajax({
         url: `${$base_url}${$url}`,
         type: 'GET',
-        success: function ($response) {
+        success: async function ($response) {
             const $datas = IsValidVal($response.data) ? $response.data : $response;
             if (IsValidVal($datas) && $datas.length > 0) {
                 let $html = ``;
@@ -575,10 +585,10 @@ async function DropdownContentLoader($url, $target, $section = null) {
                     const { type, postal_code } = $list;
                     const $tmpType = IsValidVal(type) && $section === "wilayah" ? `${type} ` : "";
                     const $tmpPostalCode = IsValidVal(postal_code) && $section === "wilayah" ? `<p><strong>Kode Pos: </strong>${postal_code}</p> ` : "";
-                    const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
+                    const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p class="nama_${$target}">${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
 
                     $html += `
-                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
+                    <li @click="open = !open" class="list_${$target} text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
                         ${$txtDisplay}
                     </li>
                     `;
@@ -590,6 +600,9 @@ async function DropdownContentLoader($url, $target, $section = null) {
                 $(`#list_${$target}`).html($html);
             }
 
+            setTimeout(() => {
+                AutoInitListJSSearch($target);
+            }, 1000);
             LoadingNotify(null, null, false);
         },
         error: function ($xhr) {

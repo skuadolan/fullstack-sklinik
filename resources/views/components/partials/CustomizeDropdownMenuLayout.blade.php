@@ -26,11 +26,8 @@
         {{-- @click="open = false"> --}}
         <div x-data="{ search: '' }"
             class="flex flex-wrap justify-start fixed left-0 z-10 w-full mt-2 bg-white rounded-md shadow-lg max-h-50 {{ $contentClasses }}">
-            <!-- Search Input -->
             <div class="p-2 flex justify-center w-full">
-                <x-autocomplete-layout section="" get="" x-model="search" type="text"
-                    placeholder="Search..."
-                    class="w-full px-4 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <x-autocomplete-layout type="button" x-model="search" type="text" placeholder="Cari Menu..." />
             </div>
 
             <ul class="flex flex-wrap max-h-50 overflow-y-auto">

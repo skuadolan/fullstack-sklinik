@@ -7,7 +7,7 @@
 
     <div class="w-full py-12">
         <div class="relative shadow w-full mx-auto sm:px-6 lg:px-8">
-            <form onsubmit="return false">
+            <form id="biodata_pendaftaran_pasien_form">
                 @csrf
                 <input type="hidden" name="token" class="csrf-token" />
 
@@ -515,7 +515,7 @@
                 <button id="resetBtn" type="reset"></button>
             </form>
 
-            <div class="absolute flex right-10 bottom-20 z-50">
+            <div class="absolute flex right-10 bottom-3 z-50">
                 <div class="btn-prev-swiper">
                     <x-btn-customize-layout section="warning" class="ms-4">
                         {{ __('Sebelumnya') }}

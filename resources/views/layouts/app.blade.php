@@ -66,6 +66,8 @@
     <script src="{{ asset("/assets/vendor/alpinejs/alpinejs@3.14.3.min.js") }}" defer></script>
     <script src="{{ asset("/assets/vendor/datatables/datatables.js") }}" defer></script>
     <script src="{{ asset("/assets/vendor/swiper/swiper-bundle.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/ag_grid/ag-grid-community.min.js") }}"></script>
+    <script src="{{ asset("/assets/vendor/listjs/list.min.js") }}"></script>
 
     <!-- Vite Section -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
