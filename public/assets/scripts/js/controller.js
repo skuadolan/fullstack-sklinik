@@ -18,6 +18,10 @@ $(document).ready(function () {
         function LoadingNotify($msg, $section, $isElmentShow) {
             LoadingNotify($msg, $section, $isElmentShow)
         }
+
+        function AutoInitListJSSearch($get) {
+            AutoInitListJSSearch($get);
+        };
         // Function ReImplement END
 
         // Class for DOM elements START
@@ -29,12 +33,18 @@ $(document).ready(function () {
     $("#loadingContetLoader").hide();
 });
 
+(async function () {
+    setTimeout(() => {
+        AutoInitListJSSearch("provinsi");
+    }, 1000);
+})();
+
 function ConvertToIDR($val) {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 2 }).format($val);
 }
 
 function ContentLoader($url, $id_content) {
-    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
+    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
 
     $.ajax({
         url: `${$base_url}${$url}`,
@@ -44,10 +54,10 @@ function ContentLoader($url, $id_content) {
             $(`${$id_content}`).html($html);
         },
         complete: function () {
-            LoadingNotify("Berhasil mengambil data!", "success", false, true);
+            LoadingNotify("Berhasil mengambil data!", "success", false);
         },
         error: function () {
-            LoadingNotify("Gagal mengambil data!", "error", false, true);
+            LoadingNotify("Gagal mengambil data!", "error", false);
         },
     });
 }
@@ -93,13 +103,13 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
                 dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
-                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
+                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
                 },
                 complete: function () {
-                    LoadingNotify("Berhasil mengambil data!", "success", false, true);
+                    LoadingNotify("Berhasil mengambil data!", "success", false);
                 },
                 error: function (xhr) {
-                    LoadingNotify("Gagal mengambil data!", "error", false, true);
+                    LoadingNotify("Gagal mengambil data!", "error", false);
                 }
             },
             columns: $table_coloumn
@@ -108,7 +118,7 @@ async function ContentLoaderDataTable($url, $id_content, $table_coloumn) {
 }
 
 function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
-    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
+    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
 
     $(`${$id_content}`).DataTable({
         dom: '<"top flex justify-between"Bfr>t<"bottom"lp><"clear">', // Custom DOM layout
@@ -143,7 +153,7 @@ function ContentLoaderDataTableV2($datas, $id_content, $table_coloumn) {
     });
 
     setTimeout(function () {
-        LoadingNotify("Berhasil mengambil data!", "success", false, true);
+        LoadingNotify("Berhasil mengambil data!", "success", false);
     }, 1500);
 }
 
@@ -184,13 +194,13 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
                 dataSrc: "data",
                 type: "GET",
                 beforeSend: function () {
-                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true, true);
+                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
                 },
                 complete: function () {
-                    LoadingNotify("Berhasil mengambil data!", "success", false, true);
+                    LoadingNotify("Berhasil mengambil data!", "success", false);
                 },
                 error: function (xhr) {
-                    LoadingNotify("Gagal mengambil data!", "error", false, true);
+                    LoadingNotify("Gagal mengambil data!", "error", false);
                 }
             },
             columns: $table_coloumn
@@ -198,6 +208,121 @@ async function ContentLoaderDataTableV3($url, $id_content, $table_coloumn) {
     } else {
         $(`${$id_content}`).DataTable().ajax.reload();
     }
+}
+
+async function ContentLoaderDataTableV4($url, $target, $colomn) {
+    LoadingNotify("Sedang mengambil data! Mohon Ditunguu.", "info", true);
+
+    await $.ajax({
+        url: `${$url}`,
+        type: "GET",
+        xhrFields: {
+            withCredentials: true
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(callback) {
+            const { data } = callback;
+            // const { errors, message, messages, data } = getVarValue(responseJSON);
+            console.dir(callback);
+
+            const myTheme = agGrid.themeQuartz.withParams({
+                browserColorScheme: "inherit",
+                headerFontSize: 14
+            });
+
+            const gridOptions = {
+                theme: myTheme,
+                pagination: true,
+                rowData: callback,
+                columnDefs: $colomn,
+                localeText: {
+                    // Umum
+                    page: 'Halaman',
+                    more: 'Lainnya',
+                    to: 'sampai',
+                    of: 'dari',
+                    next: 'Berikutnya',
+                    last: 'Terakhir',
+                    first: 'Pertama',
+                    previous: 'Sebelumnya',
+
+                    // Filter
+                    searchOoo: 'Cari...',
+                    equals: 'Sama dengan',
+                    notEqual: 'Tidak sama dengan',
+                    contains: 'Mengandung',
+                    notContains: 'Tidak mengandung',
+                    startsWith: 'Diawali dengan',
+                    endsWith: 'Diakhiri dengan',
+
+                    // Panel filter
+                    applyFilter: 'Terapkan Filter',
+                    resetFilter: 'Atur Ulang Filter',
+                    clearFilter: 'Hapus Filter',
+
+                    // Menu kolom
+                    columns: 'Kolom',
+                    filters: 'Filter',
+                    pivotMode: 'Mode Pivot',
+                    groups: 'Grup',
+                    values: 'Nilai',
+                    pivots: 'Pivot',
+
+                    // Lainnya (sesuai kebutuhan)
+                    noRowsToShow: 'Tidak ada data untuk ditampilkan',
+                    loadingOoo: 'Memuat...',
+                }
+            }
+
+            gridOptions.onRowClicked = function(event) {
+                 const menu = document.querySelector('.ag-filter-menu');
+
+                if (menu) {
+                    // AG Grid simulates outside click with internal event manager
+                    // Force remove the popup safely
+                    const closeButton = menu.querySelector('.ag-tab-header .ag-tab ag-tab-selected'); // Try any child
+                    if (document.activeElement && document.activeElement.blur) {
+                    document.activeElement.blur(); // Remove focus from filter input
+                    }
+
+                    // Dispatch mousedown outside to force close
+                    const mouseDownEvent = new MouseEvent('mousedown', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                    });
+                    document.body.dispatchEvent(mouseDownEvent);
+                }
+            };
+
+            const myGridElement = document.querySelector(`${$target}`);
+            agGrid.createGrid(myGridElement, gridOptions);
+
+            LoadingNotify(null, "success");
+        },
+        error: function(callback) {
+            const { responseJSON } = callback;
+            const { message, messages, data } = getVarValue(responseJSON);
+            let errorInfo, validator;
+            if (data) {
+                const { errorInfo: errInfo, validator: validCallback } = data
+                errorInfo = errInfo;
+                validator = validCallback;
+            }
+            console.dir(callback);
+
+            if (message || messages || errorInfo || validator) {
+                const $txtMsgAlert = (validator ? "input data tidak sesuai atau tidak boleh kosong" : ( errorInfo ? errorInfo[2] : (messages ? messages : message)));
+                LoadingNotify($txtMsgAlert, "error");
+            }
+
+            LoadingNotify();
+        },
+    });
+
+    LoadingNotify();
 }
 
 async function GetFromAPI($url) {
@@ -294,7 +419,7 @@ function LoginAjaxSection($postFormData) {
         },
         error: function (callback) {
             const { responseJSON } = callback;
-            const { errors, message, messages, data } = responseJSON;
+            const { errors, message, messages, data } = getVarValue(responseJSON);
             let errorInfo, validator;
             if (data) {
                 const { errorInfo: errInfo, validator: validCallback } = data
@@ -339,7 +464,7 @@ function OpenLink($link, $options = ["self", "new", "popup"]) {
 function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc = [], $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
     const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
     const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
-    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
+    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
     let $htmlBtnSubmit = "";
     let $htmlBtnReset = "";
     let $htmlBtnClose = "";
@@ -373,22 +498,23 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc = [], $
     </div>
     ` : "");
 
-    const html = `
-    ${$htmlBtnOpen}
+    const htmlBtn = `${$htmlBtnOpen}`;
+
+    const htmlModal = `
+    <button class="hidden" @click="${$valModal} = true"></button>
 
     <div class="modal_section">
         <div
             x-show="${$valModal}"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
+            class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50 p-4"
             x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-300"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            style="display: none;"
         >
-            <div class="bg-white w-full max-w-7xl mx-auto rounded-lg shadow-lg p-6 max-h-[80vh] overflow-y-auto" @click.away="${$valModal} = false" @keydown.escape.window="${$valModal} = false">
+            <div class="bg-white w-full max-w-7xl mx-auto rounded-lg shadow-lg p-6 max-h-[100vh] overflow-y-auto" @click.away="${$valModal} = false" @keydown.escape.window="${$valModal} = false">
                 <div class="flex justify-between items-center border-b pb-3">
                     ${$htmlTxtHead}
                     <span class="modal_section_close_btn" @click="${$valModal} = false" class="text-gray-500 hover:text-gray-700 text-xl cursor-pointer">
@@ -406,154 +532,9 @@ function CreatePopUpModal($idContainer, $valModal, $formID, $btnFormFunc = [], $
     </div>
     `;
 
-    $(`${$idContainer}`).html(html);
+    $(`${$idContainer[0]}`).html(htmlBtn);
+    $(`${$idContainer[1]}`).html(htmlModal);
 }
-
-function CreatePopUpModalV2($idContainer, $valModal, $formID, $btnFormFunc, $slot, $btnTxt = ["Open Modal", "Simpan", "Reset", "Tutup"], $headContent = [], $footerContent = [], $ifSectionShow = { btn: true, funcBtnOpen: null }) {
-    const { btn: $isBtnSection, funcBtnOpen } = $ifSectionShow;
-    const $txtFuncBtnOpen = (IsValidVal(funcBtnOpen) ? `onclick="${funcBtnOpen}"` : "");
-    const $htmlBtnOpen = `<span class="cursor-pointer inline-flex items-center px-4 py-2 bg-info border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-info focus:bg-info active:bg-info focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" @click="${$valModal} = true" ${$txtFuncBtnOpen}>${$btnTxt[0]}</span>`;
-    let $htmlBtnSubmit = "";
-    let $htmlBtnReset = "";
-    let $htmlBtnClose = "";
-
-    if ($isBtnSection) {
-        $htmlBtnSubmit = `<span type="submit" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer" onclick="${$btnFormFunc[0]}">${$btnTxt[1]}</span>`;
-        $htmlBtnReset = `<span type="reset" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer ms-3" onclick="${$btnFormFunc[1]}">${$btnTxt[2]}</span>`;
-        $htmlBtnClose = `<span type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" @click="${$valModal} = false">${$btnTxt[3]}</span>`;
-    }
-
-    const $htmlTxtHead = (IsValidVal($headContent, 0) ? `<h2 class="text-lg font-bold">${$headContent[0]}</h2>` : "");
-    const $htmlTxtDescription = (IsValidVal($headContent, 1) ? `<div class="flex text-lg text-gray-800/50"><h3 class="mt-4">${$headContent[1]}</h3></div>` : "");
-    const $htmlTxtFoot = (IsValidVal($footerContent, 0) ? `<div class="mt-6 flex justify-center"><p class="mt-4">${$footerContent[0]}</p></div>` : "");
-    const $htmlSlot = (IsValidVal($slot) ? $slot : "");
-
-    const $htmlForm = (IsValidVal($formID) ? `
-    <div>
-        <div class="mt-4">
-            ${$htmlSlot}
-        </div>
-
-        <div class="mt-6 flex justify-end space-x-2">
-            ${$htmlTxtFoot}
-
-            ${$htmlBtnClose}
-
-            ${$htmlBtnReset}
-
-            ${$htmlBtnSubmit}
-        </div>
-    </div>
-    ` : "");
-
-    const html = `
-    ${$htmlBtnOpen}
-
-    <div id="projectPopUp" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
-        <div class="bg-white rounded-lg shadow-lg w-96 p-6">
-            <h2 class="text-lg font-semibold mb-4">Project Details</h2>
-            <div id="popUpContent">
-                <div class="mt-4">
-                    <input type="hidden" id="project_id" name="id" />
-                    <form id="ProjectFormPupUpModal" onsubmit="simpanProject('ProjectFormPupUpModal')" enctype="multipart/form-data">
-                        <table class="table-no-border">
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="project_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Nama Project
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" id="project_name" name="project_name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="leader_photo" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Leader Photo
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="file" id="leader_photo" name="leader_photo" class="w-full p-2 border rounded-md" accept="image/*" />
-                                    <input type="hidden" id="old_leader_photo" name="old_leader_photo" />
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="project_lead" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Project Leader
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" id="project_lead" name="project_lead" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-capitalize-input" required />
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="client_name" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Client
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" id="client_name" name="client_name" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required />
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="project_progress" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Project Progress
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <div class="flex items-baseline" x-data="{ value_project_progress: 50 }">
-                                        <input id="project_progress" name="project_progress" type="range" id="slider" x-model="value_project_progress" min="0" max="100" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-blue-600" required />
-                                        <div class="text-center font-semibold text-blue-600"><span x-text="value_project_progress" id="value_project_progress"></span>%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
-                                        Start
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" id="start_date" name="start_date" class="datepicker border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm cursor-pointer" required readonly />
-                                </td>
-                            </tr>
-                            <tr class="align-baseline">
-                                <td>
-                                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
-                                        End
-                                    </label>
-                                </td>
-                                <td>:</td>
-                                <td>
-                                    <input type="text" id="end_date" name="end_date" class="datepicker border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm cursor-pointer" required readonly />
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="flex items-center justify-end mt-4 gap-10">
-                            <button type="submit" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-success border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-success focus:bg-success active:bg-success focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">Simpan</button>
-                            <button type="reset" class="hideBtnProcess inline-flex items-center px-4 py-2 bg-danger border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-danger focus:bg-danger active:bg-danger focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer ms-3">Reset</button>
-                            <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 cursor-pointer" onclick="popUpModalExecAction('close')">Tutup</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
-
-    $(`${$idContainer}`).html(html);
-}
-
 async function DropdownSelectAlpine($val = ["name", "id's"], $target) {
     $(`#${$target}`).val($val[0]);
 
@@ -567,7 +548,7 @@ async function DropdownContentLoader($url, $target, $section = null) {
     await $.ajax({
         url: `${$base_url}${$url}`,
         type: 'GET',
-        success: function ($response) {
+        success: async function ($response) {
             const $datas = IsValidVal($response.data) ? $response.data : $response;
             if (IsValidVal($datas) && $datas.length > 0) {
                 let $html = ``;
@@ -575,10 +556,10 @@ async function DropdownContentLoader($url, $target, $section = null) {
                     const { type, postal_code } = $list;
                     const $tmpType = IsValidVal(type) && $section === "wilayah" ? `${type} ` : "";
                     const $tmpPostalCode = IsValidVal(postal_code) && $section === "wilayah" ? `<p><strong>Kode Pos: </strong>${postal_code}</p> ` : "";
-                    const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p>${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
+                    const $txtDisplay = IsValidVal($section) && $section === "wilayah" ? `<p class="nama_${$target}">${$tmpType}${$list.name}${$tmpPostalCode}</p>` : `${$list.name}`;
 
                     $html += `
-                    <li @click="open = false" x-show="!search || '${$list.name}'.toLowerCase().includes(search.toLowerCase())" class="list_${$target} text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
+                    <li @click="open = !open" class="list_${$target} text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['${$list.name}', ${$list.id}], '${$target}')">
                         ${$txtDisplay}
                     </li>
                     `;
@@ -590,6 +571,9 @@ async function DropdownContentLoader($url, $target, $section = null) {
                 $(`#list_${$target}`).html($html);
             }
 
+            setTimeout(() => {
+                AutoInitListJSSearch($target);
+            }, 1000);
             LoadingNotify(null, null, false);
         },
         error: function ($xhr) {

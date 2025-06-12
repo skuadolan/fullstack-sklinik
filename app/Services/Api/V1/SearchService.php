@@ -84,7 +84,7 @@ class SearchService
                     $wheres = ($this->IsValidVal($req->id_pasien) ? " WHERE pas.id = '$req->id_pasien' AND " : " WHERE ");
                     $wheres .= ($this->IsValidVal($req->q) ? " LOWER(pas.fullname) LIKE LOWER('%$req->q%') " : " 1=1 ");
 
-                    $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.goldar, ppas.birthdate, ppas.address, ppas.gender, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan $wheres ORDER BY ppas.fullname ASC ";
+                    $qry = "SELECT pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.goldar, ppas.birthdate, ppas.alamat_ktp, ppas.gender, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM pasien pas LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan $wheres ORDER BY ppas.fullname ASC ";
                     $fxdResultReturn = DB::select("$qry");
                     $fxdResultReturn = json_decode(json_encode($fxdResultReturn), true);
 
@@ -107,7 +107,7 @@ class SearchService
                     $wheres .= ($this->IsValidVal($req->tanggal_awal) && $this->IsValidVal($req->tanggal_akhir) ? " kun.waktu_masuk BETWEEN to_timestamp('$req->tanggal_awal 00:00:00', 'dd-mm-yyyy hh24:mi:ss') AND to_timestamp('$req->tanggal_akhir 23:59:59', 'dd-mm-yyyy hh24:mi:ss') AND " : " WHERE ");
                     $wheres .= ($this->IsValidVal($req->nama_pasien) ? " LOWER(pas.fullname) LIKE LOWER('$req->nama_pasien%') " : " 1=1 ");
 
-                    $qry = "SELECT kun.id id_kunjungan, kun.id_pasien norm, ppas.nik, ppas.fullname nama_pasien, ppas.address alamat FROM kunjungan kun
+                    $qry = "SELECT kun.id id_kunjungan, kun.id_pasien norm, ppas.nik, ppas.fullname nama_pasien, ppas.alamat_ktp alamat FROM kunjungan kun
                     JOIN pendaftaran pndftr ON pndftr.id = kun.id_pendaftaran
                     JOIN pasien pas ON pas.id = kun.id_pasien
                     JOIN penduduk ppas ON ppas.id = pas.id_penduduk $wheres";
@@ -121,7 +121,7 @@ class SearchService
 
                     break;
 
-                case 'data_lengkap_pasien_lama':
+                case 'data_pasien_by_kunjungan':
                     return $this->GetDataPasienByIdKunjungan($req->id_kunjungan);
                     break;
 
@@ -143,7 +143,7 @@ class SearchService
             if ($this->IsValidVal($id_kunjungan)) {
                 $wheres = ($this->IsValidVal($id_kunjungan) ? " WHERE kun.id = '$id_kunjungan' " : "");
 
-                $qry = "SELECT kun.created_at tanggal_kunjungan, pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.handphone, ppas.whatsapp, ppas.telegram, ppas.goldar, ppas.birthdate, ppas.address, ppas.gender, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM kunjungan kun
+                $qry = "SELECT kun.created_at tanggal_kunjungan, pas.id AS id_pasien, pas.id AS norm, ppas.nik, ppas.fullname, ppas.goldar, ppas.birthdate, ppas.address, ppas.gender AS jenis_kelamin, ppas.id_provinsi, prov.name AS provinsi, ppas.id_kabupaten, kab.name AS kabupaten, ppas.id_kecamatan, kec.name AS kecamatan, ppas.id_kelurahan, kel.name AS kelurahan FROM kunjungan kun
                 JOIN pasien pas ON pas.id = kun.id_pasien LEFT JOIN penduduk ppas ON ppas.id = pas.id_penduduk LEFT JOIN provinsi prov ON prov.id = ppas.id_provinsi LEFT JOIN kabupaten kab ON kab.id = ppas.id_kabupaten LEFT JOIN kecamatan kec ON kec.id = ppas.id_kecamatan LEFT JOIN kelurahan kel ON kel.id = ppas.id_kelurahan $wheres ORDER BY ppas.fullname ASC ";
 
                 $fxdResultReturn = DB::selectOne("$qry");

@@ -14,10 +14,9 @@ return new class extends Migration
     {
         Schema::create('gender', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->comment('Laki-Laki, Perempuan');
 
             // ENUM SET START
-            $table->enum('value', ['L', 'P'])->comment("L, P");
+            $table->enum('name', ['Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi'])->comment("Tidak Diketahui, Laki-Laki, Perempuan, Tidak Dapat Ditentukan, Tidak Mengisi");
             // ENUM SET END
 
             $table->boolean('is_actived')->default(true);

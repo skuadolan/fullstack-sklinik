@@ -6,13 +6,12 @@ use App\Traits\Tools;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Penduduk extends Model
 {
     protected $table = 'penduduk';
-    use Notifiable, SoftDeletes, HasFactory, Tools;
+    use Notifiable, HasFactory, Tools;
 
     /**
      * The attributes that are mass assignable.
@@ -20,25 +19,36 @@ class Penduduk extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nik',
         'fullname',
-        'handphone',
-        'whatsapp',
-        'telegram',
-        'birthdate',
-        'goldar',
-        'gender',
+        'nik',
+        'nomor_identitas_lain',
+        'nama_ibu',
+        'nik_ibu',
         'tempat_lahir',
+        'birthdate',
         'agama',
-        'address',
+        'ras_suku',
+        'goldar',
+        'alamat_domisili',
+        'alamat_ktp',
+        'dinamis_penduduk',
+        'pendidikan',
+        'pekerjaan',
+        'status_pernikahan',
+        'gender',
+        'perkiraan_umur',
+        'lokasi_ditemukan',
+        'tanggal_ditemukan',
+        'id_provinsi',
         'id_provinsi',
         'id_kabupaten',
+        'id_kabupaten',
         'id_kecamatan',
+        'id_kecamatan',
+        'id_kelurahan',
         'id_kelurahan',
         'id_user_created',
         'id_user_updated',
-        'is_actived',
-        'is_deleted',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -55,25 +65,31 @@ class Penduduk extends Model
         $nik = ($this->isValidVal($req->nik_user) ? $req->nik_user : $req->nik_pasien);
         $gender = ($this->isValidVal($req->gender_user) ? $req->gender_user : $req->gender);
         $goldar = ($this->isValidVal($req->goldar_user) ? $req->goldar_user : $req->goldar);
-        $address = ($this->isValidVal($req->address_user) ? $req->address_user : $req->address_pasien);
+        $alamat_ktp = ($this->isValidVal($req->address_user) ? $req->address_user : $req->address_pasien);
         $fullname = ($this->isValidVal($req->fullname_user) ? $req->fullname_user : $req->nama_pasien);
-        $whatsapp = ($this->isValidVal($req->whatsapp_user) ? $req->whatsapp_user : $req->whatsapp_pasien);
-        $telegram = ($this->isValidVal($req->telegram_user) ? $req->telegram_user : $req->telegram_pasien);
-        $handphone = ($this->isValidVal($req->handphone_user) ? $req->handphone_user : $req->handphone_pasien);
         $tanggal_lahir = ($this->isValidVal($req->tanggal_lahir_pasien) ? $req->tanggal_lahir_pasien : $req->tanggal_lahir);
 
         return [
-            'nik' => $nik,
             'fullname' => $fullname,
-            'handphone' => $handphone,
-            'whatsapp' => $whatsapp,
-            'telegram' => $telegram,
-            'birthdate' => $tanggal_lahir,
-            'goldar' => $goldar,
-            'gender' => $gender,
+            'nik' => $nik,
+            'nomor_identitas_lain' => $req->nomor_identitas_lain,
+            'nama_ibu' => $req->nama_ibu,
+            'nik_ibu' => $req->nik_ibu,
             'tempat_lahir' => $req->tempat_lahir,
+            'birthdate' => $tanggal_lahir,
             'agama' => $req->agama,
-            'address' => $address,
+            'ras_suku' => $req->ras_suku,
+            'goldar' => $goldar,
+            'alamat_domisili' => $req->alamat_domisili,
+            'alamat_ktp' => $alamat_ktp,
+            'dinamis_penduduk' => $req->dinamis_penduduk,
+            'pendidikan' => $req->pendidikan,
+            'pekerjaan' => $req->pekerjaan,
+            'status_pernikahan' => $req->status_pernikahan,
+            'gender' => $gender,
+            'perkiraan_umur' => $req->perkiraan_umur,
+            'lokasi_ditemukan' => $req->lokasi_ditemukan,
+            'tanggal_ditemukan' => $req->tanggal_ditemukan,
             'id_provinsi' => $req->id_provinsi,
             'id_kabupaten' => $req->id_kabupaten,
             'id_kecamatan' => $req->id_kecamatan,

@@ -15,34 +15,44 @@ class AutocompleteLayout extends Component
 
     public $section, $get;
     public $listProvinsi, $listGoldar, $listGender, $listUnit;
-    public $listStatusPendaftaran, $jenisKunjungan;
+    public $listStatusPendaftaran, $jenisKunjungan, $listPerkiraanUmur;
     public function __construct($section = null, $get = null)
     {
         $this->section = $section;
         $this->get = $get;
 
-        if ($section = "ssr-dropdown" && $get == 'provinsi') {
-            $qry = "SELECT prov.id, prov.name FROM provinsi prov ORDER BY prov.name ASC";
-            $this->listProvinsi = DB::select("$qry");
-        }
+        if ($section = "ssr-dropdown") {
+            if ($get == 'provinsi') {
+                $qry = "SELECT prov.id, prov.name FROM provinsi prov ORDER BY prov.name ASC";
+                $this->listProvinsi = DB::select("$qry");
+            }
 
-        if ($section = "ssr-dropdown" && $get == 'goldar') {
-            $qry = "SELECT goldar.id, goldar.name FROM goldar goldar ORDER BY goldar.name ASC";
-            $this->listGoldar = DB::select("$qry");
-        }
+            if ($get == 'goldar') {
+                $qry = "SELECT goldar.id, goldar.name FROM goldar goldar ORDER BY goldar.name ASC";
+                $this->listGoldar = DB::select("$qry");
+            }
 
-        if ($section = "ssr-dropdown" && $get == 'gender') {
-            $qry = "SELECT gndr.id, gndr.name, gndr.value FROM gender gndr ORDER BY gndr.name ASC LIMIT 2";
-            $this->listGender = DB::select("$qry");
-        }
+            if ($get == 'gender') {
+                $this->listGender = ['Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi'];
+            }
 
-        if ($section = "ssr-dropdown" && $get == 'unit') {
-            $qry = "SELECT unt.id, unt.name FROM unit unt ORDER BY unt.name ASC";
-            $this->listUnit = DB::select("$qry");
-        }
+            if ($get == 'unit') {
+                $qry = "SELECT unt.id, unt.name FROM unit unt ORDER BY unt.name ASC";
+                $this->listUnit = DB::select("$qry");
+            }
 
-        $this->listStatusPendaftaran = ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'];
-        $this->jenisKunjungan = ['Rawat Darurat', 'Rawat Jalan', 'Rawat Inap'];
+            if ($get == 'status_pendaftaran') {
+                $this->listStatusPendaftaran = ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'];
+            }
+
+            if ($get == 'jenis_kunjungan') {
+                $this->jenisKunjungan = ['Rawat Darurat', 'Rawat Jalan', 'Rawat Inap'];
+            }
+
+            if ($get == 'perkiraan_umur') {
+                $this->listPerkiraanUmur = ['Tidak Tau', '0 - 5', '6 - 11', '12 - 17', '18 - 40', '41 - 65', '> 65'];
+            }
+        }
     }
 
     public function render(): View

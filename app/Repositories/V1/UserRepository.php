@@ -30,9 +30,6 @@ class UserRepository
             "rol.name AS role_name",
             "pdd.nik",
             "pdd.fullname",
-            "pdd.handphone",
-            "pdd.whatsapp",
-            "pdd.telegram",
             "pdd.birthdate",
             "pdd.gender",
             "pdd.goldar",
@@ -40,7 +37,7 @@ class UserRepository
             "kab.name AS kabupaten",
             "kec.name AS kecamatan",
             "kel.name AS kelurahan",
-            "pdd.address"
+            "pdd.alamat_ktp"
         ];
 
         $this->clientService = new ClientService();

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             TierSeeder::class,
             UserSeeder::class,
-            GenderSeeder::class,
+            // GenderSeeder::class,
             RuanganSeeder::class,
             HeaderMainMenu::class,
             ProvinsiSeeder::class,

@@ -79,18 +79,11 @@
 
     @if ($section == 'ssr-dropdown')
         @php
-            $listNoAComplete = [
-                'provinsi',
-                'goldar',
-                'gender',
-                'unit',
-                'status_pendaftaran',
-                'jenis_kunjungan'
-            ];
+            $listNoAComplete = ['provinsi', 'goldar', 'gender', 'unit', 'status_pendaftaran', 'jenis_kunjungan', 'perkiraan_umur'];
         @endphp
 
         @if ($get == 'provinsi')
-            <div x-data="{ open: false, search: '' }" @click.outside="open = false" @close.stop="open = false">
+            <div x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                 <div id="provinsi_autocomplete_container" class="relative">
                     <div class="flex items-center">
                         <x-text-input @click="open = !open"
@@ -109,20 +102,19 @@
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
-                        <x-autocomplete-layout type="button" section="" get="" x-model="search" type="text" placeholder="Cari provinsi..." />
-                        <ul id="list_provinsi" class="abosolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
-                            @if (isset($listProvinsi) && !empty($listProvinsi))
-                                @foreach ($listProvinsi as $key => $list)
-                                    <li @click="open = !open" x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())" class="list_provinsi text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
-                                        {{ $list->name }}
-                                    </li>
-                                @endforeach
+                        <div id="list_provinsi_wrapper">
+                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari provinsi..." />
 
-                                <li id="404_provinsi" class="text-sm px-4 py-2 text-gray-500 hidden cursor-default" style="display: none !important">
-                                    Data tidak ditemukan.
-                                </li>
-                            @endif
-                        </ul>
+                            <ul id="list_provinsi" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
+                                @if (isset($listProvinsi) && !empty($listProvinsi))
+                                    @foreach ($listProvinsi as $key => $list)
+                                        <li @click="open = !open" class="text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
+                                            <p class="nama_provinsi">{{ $list->name }}</p>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,7 +136,18 @@
                 <option value="" selected disabled>Pilih Opsi...</option>
                 @if (isset($listGender) && !empty($listGender))
                     @foreach ($listGender as $key => $list)
-                        <option value="{{ $list->value }}">{{ $list->name }}</option>
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'perkiraan_umur')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi...</option>
+                @if (isset($listPerkiraanUmur) && !empty($listPerkiraanUmur))
+                    @foreach ($listPerkiraanUmur as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
                     @endforeach
                 @endif
             </select>
@@ -188,8 +191,8 @@
                 $idGet = "id_$get";
             @endphp
 
-            <div x-data="{ open: false, search: '' }" @click.outside="open = false" @close.stop="open = false">
-                <div id="autocomplete_container" class="relative">
+            <div x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+                <div id="{{ $get }}_autocomplete_container" class="relative">
                     <div class="flex items-center">
                         <x-text-input @click="open = !open"
                             {{ $attributes->merge(['id' => $get, 'name' => $get, 'type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none text-sm cursor-pointer']) }} readonly />
@@ -206,10 +209,20 @@
                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                     style="display: none;" class="relative z-10">
-                    <div class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg w-full">
-                        <x-autocomplete-layout section="" get="" x-model="search" type="text" placeholder="Cari {{ $get }}..." />
-                        <ul id="list_{{ $get }}" class="abosolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full">
-                        </ul>
+                    <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
+                        <div id="list_{{ $get }}_wrapper">
+                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari {{ $get }}..." />
+
+                            <ul id="list_{{ $get }}" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
+                                @if (isset($listProvinsi) && !empty($listProvinsi))
+                                    @foreach ($listProvinsi as $key => $list)
+                                        <li @click="open = !open" class="text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
+                                            <p class="nama_provinsi">{{ $list->name }}</p>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,7 +231,7 @@
 @endif
 
 @if (empty($section) && empty($get))
-    <div id="autocomplete_container" class="relative">
+    <div id="autocomplete_search_container" class="relative">
         <div class="flex items-center">
             <x-text-input
                 {{ $attributes->merge(['type' => 'text', 'class' => 'border rounded-lg w-full px-3 py-2 focus:outline-none text-sm']) }} />

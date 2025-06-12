@@ -175,4 +175,10 @@
         }
         // FUNCTION ON CLICK ON CLICK END
     </script>
+
+    <style>
+        .position_can_fixed {
+            position: fixed !important;
+        }
+    </style>
 </x-card-box-shadow-layout>

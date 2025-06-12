@@ -390,3 +390,13 @@ function ClassDOMInputStrict() {
 function ClearLocalStorage() {
     localStorage.removeItem("search_params");
 }
+
+function AutoInitListJSSearch($get = null) {
+    if ($(`#list_${$get} li`).length) {
+        const options = {
+            valueNames: [`nama_${$get}`]
+        }
+
+        new List(`list_${$get}_wrapper`, options);
+    }
+}

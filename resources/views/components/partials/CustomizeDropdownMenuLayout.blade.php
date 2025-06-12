@@ -26,27 +26,25 @@
         {{-- @click="open = false"> --}}
         <div x-data="{ search: '' }"
             class="flex flex-wrap justify-start fixed left-0 z-10 w-full mt-2 bg-white rounded-md shadow-lg max-h-50 {{ $contentClasses }}">
-            <!-- Search Input -->
             <div class="p-2 flex justify-center w-full">
-                <x-autocomplete-layout section="" get="" x-model="search" type="text"
-                    placeholder="Search..."
-                    class="w-full px-4 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <x-autocomplete-layout type="button" x-model="search" type="text" placeholder="Cari Menu..." />
             </div>
 
             <ul class="flex flex-wrap max-h-50 overflow-y-auto">
                 @if (isset($listMenu) && !empty($listMenu))
                     @foreach ($listMenu as $list)
-                        <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
-                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer w-24"
-                            onclick="OpenLink('{{ $list->link }}', 'self')">
-                            <div class="w-full flex flex-wrap justify-center text-center items-center">
-                                <div class="w-10">
-                                    <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
-                                        srcset="{{ url("$list->icon") }}" />
+                        <a href="{{ $list->link }}">
+                            <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer w-24">
+                                <div class="w-full flex flex-wrap justify-center text-center items-center">
+                                    <div class="w-10">
+                                        <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
+                                            srcset="{{ url("$list->icon") }}" />
+                                    </div>
+                                    <p class="text-pretty">{{ $list->name }}</p>
                                 </div>
-                                <p class="text-pretty">{{ $list->name }}</p>
-                            </div>
-                        </li>
+                            </li>
+                        </a>
                     @endforeach
                 @endif
             </ul>
