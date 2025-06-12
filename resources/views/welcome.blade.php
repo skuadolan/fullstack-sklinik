@@ -97,7 +97,7 @@
                             },
                             error: function(callback) {
                                 const { responseJSON } = callback;
-                                const { errors, message, messages, data } = responseJSON;
+                                const { errors, message, messages, data } = getVarValue(responseJSON);
                                 let errorInfo, validator;
                                 if (data) {
                                     const { errorInfo: errInfo, validator: validCallback } = data

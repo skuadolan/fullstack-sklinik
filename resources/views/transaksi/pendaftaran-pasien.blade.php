@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    <div id="container_modal_wrapper" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false">
+
+    </div>
+
     <div class="w-full py-12">
         <div class="relative shadow w-full mx-auto sm:px-6 lg:px-8">
             <form id="biodata_pendaftaran_pasien_form">
@@ -16,17 +20,17 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide cursor-pointer fit_content_container">
                                 <div class="relative bg-red-600 text-white p-3 clip-arrow-right">
-                                    <h2 class="text-xl font-bold">Pasien</h2>
+                                    <h2 class="text-xs font-bold">Pasien</h2>
                                 </div>
                             </div>
                             <div class="swiper-slide cursor-pointer fit_content_container">
                                 <div class="relative bg-red-600 text-white p-3 clip-arrow-right">
-                                    <h2 class="text-xl font-bold">Penanggung Jawab</h2>
+                                    <h2 class="text-xs font-bold">Penanggung Jawab</h2>
                                 </div>
                             </div>
                             <div class="swiper-slide cursor-pointer fit_content_container">
                                 <div class="relative bg-red-600 text-white p-3 clip-arrow-right">
-                                    <h2 class="text-xl font-bold">Rencana Pembayaran</h2>
+                                    <h2 class="text-xs font-bold">Rencana Pembayaran</h2>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +61,7 @@
                                                                 <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
                                                             </div>
                                                             <div class="flex gap-2 items-center hidden_if_pasien_baru">
-                                                                <div id="search_pasien_container" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false"></div>
+                                                                <div id="search_pasien_container"></div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -536,21 +540,10 @@
             (async function() {
                 // Modal Section START
                 const $modalSlotContent = `
-                    <table id="listPasienTable" class="min-w-full table-auto table-text-center-important">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="px-4 py-2">Aksi</th>
-                                <th class="px-4 py-2">NIK</th>
-                                <th class="px-4 py-2">No.RM</th>
-                                <th class="px-4 py-2">Nama Pasien</th>
-                                <th class="px-4 py-2">Tanggal Lahir</th>
-                                <th class="px-4 py-2">Jenis Kelamin</th>
-                                <th class="px-4 py-2">Alamat</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div id="listPasienTable" class="min-w-full table-auto table-text-center-important h-96 z-0">
+                    </div>
                 `;
-                await CreatePopUpModal("#search_pasien_container", "search_pasienModal", "search_pasienForm", ["", ""], $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, {
+                await CreatePopUpModal(["#search_pasien_container", "#container_modal_wrapper"], "search_pasienModal", "search_pasienForm", ["", ""], $modalSlotContent, ["Cari Pasien", "Simpan", "Reset", "Tutup"], ["List Pasien"], null, {
                     btn: false,
                     funcBtnOpen: "DataTablesListPasien()"
                 });
@@ -576,10 +569,7 @@
             let $isInputFormValid = true;
             const $allDataInputForm = $("#biodata_pendaftaran_pasien_form").serializeArray();
             for (const $list of $allDataInputForm) {
-                const {
-                    name,
-                    value
-                } = $list;
+                const { name, value } = $list;
 
                 if (!IsValidVal(value) && $(`input[name=${name}]`).is(':visible') && $(`input[name=${name}]`).attr("type") != "hidden") {
                     const $tmpNama = name.replace("_", " ").toUpperCase();
@@ -636,10 +626,7 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function(callback) {
-                                const {
-                                    messages,
-                                    message
-                                } = callback;
+                                const { messages, message } = callback;
                                 console.dir(callback);
                                 toastr.success(messages || message, "Success!");
 
@@ -648,21 +635,11 @@
                                 }, 1500);
                             },
                             error: function(callback) {
-                                const {
-                                    responseJSON
-                                } = callback;
-                                const {
-                                    errors,
-                                    message,
-                                    messages,
-                                    data
-                                } = responseJSON;
+                                const { responseJSON } = callback;
+                                const { errors, message, messages, data } = getVarValue(responseJSON);
                                 let errorInfo, validator;
                                 if (data) {
-                                    const {
-                                        errorInfo: errInfo,
-                                        validator: validCallback
-                                    } = data
+                                    const { errorInfo: errInfo, validator: validCallback } = data
                                     errorInfo = errInfo;
                                     validator = validCallback;
                                 }
@@ -736,33 +713,47 @@
         }
 
         async function DataTablesListPasien() {
-            const $coloumnsArray = [];
-            $coloumnsArray.push({
-                data: null,
-                autoWidth: false,
-                orderable: false,
-                searchable: false,
-                render: (data) =>
-                    `<div class='flex gap-1 justify-center'>
-                        <span class='inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary focus:bg-primary active:bg-primary focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer' onclick='PilihPasienLama(${data.id_pasien})'>pilih</span>
-                    </div>` // Template class btn ada di file CustomizeBtnLayout.blade.php
-            });
-            $coloumnsArray.push({
-                data: 'nik'
-            }, {
-                data: 'norm'
-            }, {
-                data: 'fullname'
-            }, {
-                data: 'birthdate'
-            }, {
-                data: 'jenis_kelamin'
-            }, {
-                data: 'address'
-            });
-            setTimeout(async function() {
-                await ContentLoaderDataTableV3(`/api/search?get_data=list_pasien_lama`, "#listPasienTable", $coloumnsArray);
-            }, 10);
+            class CompanyLogoRenderer {
+                eGui;
+
+                init(params) {
+                    let companyLogo = document.createElement('img');
+                    companyLogo.src = `https://www.ag-grid.com/example-assets/space-company-logos/${params.value.toLowerCase()}.png`
+                    companyLogo.setAttribute('style', 'display: block; width: 25px; height: auto; max-height: 50%; margin-right: 12px; filter: brightness(1.1)');
+                    let companyName = document.createElement('p');
+                    companyName.textContent = params.value;
+                    companyName.setAttribute('style', 'text-overflow: ellipsis; overflow: hidden; white-space: nowrap;');
+                    this.eGui = document.createElement('span');
+                    this.eGui.setAttribute('style', 'display: flex; height: 100%; width: 100%; align-items: center')
+                    this.eGui.appendChild(companyLogo)
+                    this.eGui.appendChild(companyName)
+                }
+
+                getGui() {
+                    return this.eGui;
+                }
+
+                refresh(params) {
+                    return false
+                }
+            };
+
+            const $setColoumn = [
+                { field: "mission", filter: true },
+                { field: "company", filter: true, cellRenderer: CompanyLogoRenderer },
+                { field: "location", filter: true },
+                { field: "date", filter: true },
+                { field: "price", filter: true, valueFormatter: (params) => { return '£' + params.value.toLocaleString(); } },
+                { field: "successful", filter: true },
+                { field: "rocket", filter: true }
+            ];
+
+            setTimeout(async () => {
+                $("#listPasienTable").html("");
+                await ContentLoaderDataTableV4(`/assets/space-mission-data.json`, "#listPasienTable", $setColoumn);
+
+                $("#container_modal_wrapper button").click();
+            }, 1000);
         }
 
         function CheckForm() {
@@ -780,9 +771,7 @@
         }
 
         async function PilihPasienLama($id_pasien) {
-            const {
-                data
-            } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
+            const { data } = await GetFromAPI(`/api/search?get_data=list_pasien_lama&id_pasien=${$id_pasien}`);
             console.dir(data);
 
             if (!IsValidVal(data, 0)) {
@@ -795,37 +784,16 @@
                 ForceEmptyFormValue();
             }
 
-            const {
-                norm,
-                fullname,
-                nik,
-                birthdate,
-                goldar,
-                gender
-            } = getVarValue(data, 0);
-            const {
-                address,
-                provinsi,
-                id_provinsi,
-                kabupaten,
-                id_kabupaten,
-                kecamatan,
-                id_kecamatan,
-                kelurahan,
-                id_kelurahan
-            } = getVarValue(data, 0);
-            const {
-                handphone,
-                whatsapp,
-                telegram
-            } = getVarValue(data, 0);
+            const { handphone, whatsapp, telegram } = getVarValue(data, 0);
+            const { norm, fullname, nik, birthdate, goldar, gender } = getVarValue(data, 0);
+            const { alamat_ktp, provinsi, id_provinsi, kabupaten, id_kabupaten, kecamatan, id_kecamatan, kelurahan, id_kelurahan } = getVarValue(data, 0);
 
 
             $("#norm_pasien").val(norm);
             $("#nama_pasien").val(fullname);
             $("#nik_pasien").val(nik);
             $("#tanggal_lahir").val(birthdate);
-            $("#address_pasien").val(address);
+            $("#address_pasien").val(alamat_ktp);
             $("#goldar").val(goldar).trigger('change');
             $("#gender").val(gender).trigger('change');
 
@@ -882,15 +850,17 @@
             $(".list_nomor_pasien").each(function() {
                 $(this).remove();
             })
+
             $(".optn_list_nomor_pasien").each(function() {
                 $(this).show();
             })
+
             $("#nomor_ponsel_pasien").show();
         }
         // FUNCTIONS END
 
         // SWIPER START
-        var swiper = new Swiper(".mySwiper", {
+        let swiper = new Swiper(".mySwiper", {
             spaceBetween: 10,
             slidesPerView: 4,
             freeMode: true,
@@ -908,7 +878,7 @@
                 },
             }
         });
-        var swiper2 = new Swiper(".mySwiper2", {
+        let swiper2 = new Swiper(".mySwiper2", {
             spaceBetween: 10,
             navigation: {
                 nextEl: ".btn-next-swiper",

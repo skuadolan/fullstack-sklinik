@@ -26,7 +26,7 @@
 > [![Sweetalert]](https://sweetalert2.github.io) </br>
 > [![tostr]](https://www.jsdelivr.com/package/npm/toastr) </br>
 > [![DataTables]](https://datatables.net/download/) </br>
-> [![AG Grid]](https://www.ag-grid.com/javascript-data-grid/getting-started/) </br>
+> [![AG Grid]](https://www.ag-grid.com/javascript-data-grid/getting-started/) / [![AG Grid Theme Builder]](https://www.ag-grid.com/theme-builder/) </br>
 > [![ListJS]](https://listjs.com/overview/download/) </br>
 > [![Flaticon]](https://www.flaticon.com/search?color=color) </br>
 
