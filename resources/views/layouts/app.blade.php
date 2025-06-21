@@ -48,7 +48,6 @@
     <meta name="spiders" content="all" />
 
     <link rel="stylesheet" media="all" href="{{ asset("/assets/scripts/css/app.css") }}" />
-    <script src="{{ asset("/assets/vendor/tailwindcss/tailwindcss-3.4.5.js") }}"></script>
     <link rel="stylesheet" media="all" href="{{ asset("/assets/vendor/swiper/swiper-bundle.min.css") }}" />
 
     <script src="{{ asset("/assets/vendor/jquery/jquery.js") }}"></script>

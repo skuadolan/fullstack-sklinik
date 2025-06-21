@@ -79,7 +79,9 @@
 
     @if ($section == 'ssr-dropdown')
         @php
-            $listNoAComplete = ['provinsi', 'goldar', 'gender', 'unit', 'status_pendaftaran', 'jenis_kunjungan', 'perkiraan_umur'];
+            $listNoAComplete = [
+                'provinsi', 'goldar', 'gender', 'unit', 'status_pendaftaran', 'jenis_kunjungan', 'perkiraan_umur', 'pendidikan', 'pekerjaan', 'status_pernikahan'
+            ];
         @endphp
 
         @if ($get == 'provinsi')
@@ -103,7 +105,7 @@
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <div id="list_provinsi_wrapper">
-                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari provinsi..." />
+                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari Provinsi" />
 
                             <ul id="list_provinsi" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
                                 @if (isset($listProvinsi) && !empty($listProvinsi))
@@ -122,7 +124,7 @@
 
         @if ($get == 'goldar')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($listGoldar) && !empty($listGoldar))
                     @foreach ($listGoldar as $key => $list)
                         <option value="{{ $list->name }}">{{ $list->name }}</option>
@@ -133,7 +135,7 @@
 
         @if ($get == 'gender')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($listGender) && !empty($listGender))
                     @foreach ($listGender as $key => $list)
                         <option value="{{ $list }}">{{ $list }}</option>
@@ -144,7 +146,7 @@
 
         @if ($get == 'perkiraan_umur')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($listPerkiraanUmur) && !empty($listPerkiraanUmur))
                     @foreach ($listPerkiraanUmur as $key => $list)
                         <option value="{{ $list }}">{{ $list }}</option>
@@ -155,7 +157,7 @@
 
         @if ($get == 'unit')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($listUnit) && !empty($listUnit))
                     @foreach ($listUnit as $key => $list)
                         <option value="{{ $list->id }}">{{ $list->name }}</option>
@@ -166,7 +168,7 @@
 
         @if ($get == 'status_pendaftaran')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($listStatusPendaftaran) && !empty($listStatusPendaftaran))
                     @foreach ($listStatusPendaftaran as $key => $list)
                         <option value="{{ $list }}">{{ $list }}</option>
@@ -177,9 +179,53 @@
 
         @if ($get == 'jenis_kunjungan')
             <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                <option value="" selected disabled>Pilih Opsi...</option>
+                <option value="" selected disabled>Pilih Opsi</option>
                 @if (isset($jenisKunjungan) && !empty($jenisKunjungan))
                     @foreach ($jenisKunjungan as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'perkiraan_umur')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi</option>
+                @if (isset($listPerkiraanUmur) && !empty($listPerkiraanUmur))
+                    @foreach ($listPerkiraanUmur as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'pendidikan')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi</option>
+                @if (isset($listPendidikan) && !empty($listPendidikan))
+                    @foreach ($listPendidikan as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'pekerjaan')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi</option>
+                @if (isset($listPekerjaan) && !empty($listPekerjaan))
+                    @foreach ($listPekerjaan as $key => $list)
+                        <option value="{{ $list }}">{{ $list }}</option>
+                    @endforeach
+                @endif
+            </select>
+        @endif
+
+        @if ($get == 'status_pernikahan')
+            <select {{ $attributes->merge([]) }} class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
+                <option value="" selected disabled>Pilih Opsi</option>
+                @if (isset($listStatusPernikahan) && !empty($listStatusPernikahan))
+                    @foreach ($listStatusPernikahan as $key => $list)
                         <option value="{{ $list }}">{{ $list }}</option>
                     @endforeach
                 @endif
@@ -211,16 +257,9 @@
                     style="display: none;" class="relative z-10">
                     <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
                         <div id="list_{{ $get }}_wrapper">
-                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari {{ $get }}..." />
+                            <x-autocomplete-layout type="button" class="search" type="text" placeholder="Cari {{ $get }}" />
 
                             <ul id="list_{{ $get }}" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
-                                @if (isset($listProvinsi) && !empty($listProvinsi))
-                                    @foreach ($listProvinsi as $key => $list)
-                                        <li @click="open = !open" class="text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], 'provinsi')">
-                                            <p class="nama_provinsi">{{ $list->name }}</p>
-                                        </li>
-                                    @endforeach
-                                @endif
                             </ul>
                         </div>
                     </div>

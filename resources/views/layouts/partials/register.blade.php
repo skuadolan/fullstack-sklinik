@@ -18,28 +18,28 @@
                 <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">
                     Provinsi<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih Provinsi" />
             </div>
 
             <div id="container_kabupaten" class="address_hidden">
                 <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
                     Kabupaten<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih Kabupaten" onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#registerForm')" />
             </div>
 
             <div id="container_kecamatan" class="address_hidden">
                 <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kecamatan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih Kecamatan" onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#registerForm')" />
             </div>
 
             <div id="container_kelurahan" class="address_hidden">
                 <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
                     Kelurahan<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#registerForm')" />
+                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih Kelurahan" onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#registerForm')" />
             </div>
         </div>
 
@@ -64,16 +64,8 @@
                 <label for="gender_user" class="block text-sm font-medium text-gray-700 mb-2">
                     Jenis Kelamin<span class="text-red-500">*</span>
                 </label>
-                <x-autocomplete-layout id="gender_user" name="gender_user" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
+                <x-autocomplete-layout id="gender_user" name="gender_user" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin" />
                 <x-input-error :messages="$errors->get('gender_user')" class="mt-2" />
-            </div>
-
-            <div>
-                <label for="goldar_user" class="block text-sm font-medium text-gray-700 mb-2">
-                    Golongan Darah<span class="text-red-500">*</span>
-                </label>
-                <x-autocomplete-layout id="goldar_user" name="goldar_user" section="ssr-dropdown" get="goldar" placeholder="Pilih Jenis Kelamin..." />
-                <x-input-error :messages="$errors->get('goldar_user')" class="mt-2" />
             </div>
 
             <div>

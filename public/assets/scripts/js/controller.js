@@ -3,12 +3,12 @@ const [host, port] = base_url.split(':');
 const $base_url = (IsValidVal(port) ? `http://${host}:${port}` : `https://${host}`);
 
 $(document).ready(function () {
-    $.getScript(`${$base_url}/assets/scripts/js/functions.js`, function () {
+    $.getScript(`${$base_url}/assets/scripts/js/functions.js`, async function () {
         DisableRightClickOnMouse();
         // JQueryOnLoad();
         InitAutocomplete();
         ClearLocalStorage();
-        HiddenAddressDropdown();
+        await HiddenAddressDropdown();
 
         // Function ReImplement START
         function AllNotify($msg, $section) {
@@ -582,12 +582,13 @@ async function DropdownContentLoader($url, $target, $section = null) {
     });
 }
 
-async function DropdownGetLoad($get, $from, $section = null, $searchForm = null) {
+async function DropdownGetLoad($get, $from, $section = null, $searchForm = null, $listContainer = null) {
     const $localStorage = localStorage.getItem($section);
     let $localStorageData = (IsValidVal($localStorage) ? JSON.parse($localStorage) : []);
 
     let $statusResult = $localStorageData.length > 0;
     const $formArray = $(`${$searchForm}`).serializeArray();
+    const $target = (valNotEmpty($listContainer) ? $listContainer : $get);
 
     const $newLocalDatas = [];
     $formArray.forEach(function ($list) {
@@ -607,7 +608,7 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
         })
     }
 
-    $statusResult = JSON.stringify($newLocalDatas) == JSON.stringify($localStorageData) && ($(`.list_${$get}`)).length > 0;
+    $statusResult = JSON.stringify($newLocalDatas) == JSON.stringify($localStorageData) && ($(`.list_${$target}`)).length > 0;
 
     if (!$statusResult) {
         localStorage.setItem($section, JSON.stringify($newLocalDatas));
@@ -623,6 +624,6 @@ async function DropdownGetLoad($get, $from, $section = null, $searchForm = null)
 
         const $params = $listID.length > 0 ? $listID.join("&") : $listID;
         const $fxdParams = IsValidVal($params) ? `&${$params}` : "";
-        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $get, $section);
+        await DropdownContentLoader(`/api/search?get_data=${$get}${$fxdParams}`, $target, $section);
     }
 }

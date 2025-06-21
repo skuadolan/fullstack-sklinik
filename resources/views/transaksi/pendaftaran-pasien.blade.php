@@ -5,9 +5,10 @@
         </h2>
     </x-slot>
 
-    <div id="container_modal_wrapper" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false">
-
-    </div>
+    {{-- DOM Focused Start --}}
+    <a id="click_onload_page" href="#content_container"></a>
+    <div id="container_modal_wrapper" x-cloak x-data="{ search_pasienModal: false }" @click.outside="search_pasienModal = false" @close.stop="search_pasienModal = false"></div>
+    {{-- DOM Focused End --}}
 
     <div class="w-full py-12">
         <div class="relative shadow w-full mx-auto sm:px-6 lg:px-8">
@@ -16,7 +17,7 @@
                 <input type="hidden" name="token" class="csrf-token" />
 
                 <div>
-                    <div thumbsSlider="" class="swiper mySwiper">
+                    <div id="content_container" thumbsSlider="" class="swiper swiper_content_pagination">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide cursor-pointer fit_content_container">
                                 <div class="relative bg-red-600 text-white p-3 clip-arrow-right">
@@ -35,296 +36,10 @@
                             </div>
                         </div>
                     </div>
-                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper_content_container">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <div class="w-full pt-5">
-                                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">Data Pasien</h3>
-                                    <div class="w-full flex gap-10 justify-between py-5">
-                                        <div class="w-1/2">
-                                            <table class="w-full table-no-border">
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="jenis_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Jenis Pasien<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <div class="flex gap-10">
-                                                            <div class="flex gap-2 items-center">
-                                                                <x-text-input id="jenis_pasien_lama" type="radio" name="jenis_pasien" required value="Lama" checked />
-                                                                <x-input-label for="jenis_pasien_lama" :value="__('Lama')" />
-                                                            </div>
-                                                            <div class="flex gap-2 items-center">
-                                                                <x-text-input id="jenis_pasien_baru" type="radio" name="jenis_pasien" required value="Baru" />
-                                                                <x-input-label for="jenis_pasien_baru" :value="__('Baru')" />
-                                                            </div>
-                                                            <div class="flex gap-2 items-center hidden_if_pasien_baru">
-                                                                <div id="search_pasien_container"></div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="jenis_kunjungan" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Jenis Kunjungan<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td><x-autocomplete-layout id="jenis_kunjungan" name="jenis_kunjungan" class="check_form_search w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200" section="ssr-dropdown" get="jenis_kunjungan" placeholder="Pilih Jenis Kunjungan..." /></td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="unit" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Unit<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="unit" name="unit" section="ssr-dropdown" get="unit" placeholder="Pilih Unit..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nakes" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Nakes<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input type="text" id="nama_nakes" name="nama_nakes" class="block mt-1 w-full text-number-input cursor-default" :value="old('nama_nakes')" readonly />
-                                                        <x-text-input id="id_nakes" type="hidden" name="id_nakes" />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline hidden_if_pasien_baru">
-                                                    <td>
-                                                        <label for="norm_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            No. Rekam Medis<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input type="text" id="norm_pasien" name="norm_pasien" class="block mt-1 w-full text-number-input cursor-default" inputmode="numeric" pattern="[0-9]*" :value="old('norm_pasien')" required readonly />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nama_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Pasien<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input type="text" id="nama_pasien" name="nama_pasien" class="block mt-1 w-full text-capitalize-input" :value="old('nama_pasien')" required />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nik_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            NIK<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input type="text" id="nik_pasien" name="nik_pasien" class="block mt-1 w-full text-number-input" inputmode="numeric" pattern="[0-9]*" :value="old('nik_pasien')" required />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Tanggal Lahir<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-date-time-picker-layout id="tanggal_lahir" name="tanggal_lahir" section="datepicker"></x-date-time-picker-layout>
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="goldar" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Golongan Darah<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="goldar" name="goldar" section="ssr-dropdown" get="goldar" placeholder="Pilih Golongan Darah..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Jenis Kelamin<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="gender" name="gender" section="ssr-dropdown" get="gender" placeholder="Pilih Jenis Kelamin..." />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="w-1/2">
-                                            <table class="w-full table-no-border">
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="address_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Alamat Pasien<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <div>
-                                                            <div>
-                                                                <x-text-input id="address_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="address_pasien" required placeholder="Desa RT000/RW000 No. 000" />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <div>
-                                                                <label for="id_provinsi" class="block text-sm font-medium text-gray-700 mb-2">
-                                                                    Provinsi<span class="text-red-500">*</span>
-                                                                </label>
-                                                                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih provinsi..." />
-                                                            </div>
-
-                                                            <div id="container_kabupaten" class="address_hidden">
-                                                                <label for="id_kabupaten" class="block text-sm font-medium text-gray-700 mb-2">
-                                                                    Kabupaten<span class="text-red-500">*</span>
-                                                                </label>
-                                                                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih kabupaten..." onclick="DropdownGetLoad('kabupaten', 'provinsi', 'wilayah', '#biodata_pendaftaran_pasien_form')" />
-                                                            </div>
-
-                                                            <div id="container_kecamatan" class="address_hidden">
-                                                                <label for="id_kecamatan" class="block text-sm font-medium text-gray-700 mb-2">
-                                                                    Kecamatan<span class="text-red-500">*</span>
-                                                                </label>
-                                                                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih kecamatan..." onclick="DropdownGetLoad('kecamatan', 'kabupaten', 'wilayah', '#biodata_pendaftaran_pasien_form')" />
-                                                            </div>
-
-                                                            <div id="container_kelurahan" class="address_hidden">
-                                                                <label for="id_kelurahan" class="block text-sm font-medium text-gray-700 mb-2">
-                                                                    Kelurahan<span class="text-red-500">*</span>
-                                                                </label>
-                                                                <x-autocomplete-layout class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih kelurahan..." onclick="DropdownGetLoad('kelurahan', 'kecamatan', 'wilayah', '#biodata_pendaftaran_pasien_form')" />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nomor_ponsel_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nomor Ponsel<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <div>
-                                                            <select id="nomor_ponsel_pasien" onchange="execFormSection('nomor_ponsel_pasien', this)" class="w-full px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200">
-                                                                <option value="" selected disabled>Pilih Opsi...</option>
-                                                                <option value="handphone" class="optn_list_nomor_pasien">Handphone</option>
-                                                                <option value="whatsapp" class="optn_list_nomor_pasien">Whatsapp</option>
-                                                                <option value="telegram" class="optn_list_nomor_pasien">Telegram</option>
-                                                            </select>
-                                                            <div id="container_nomor_ponsel_pasien">
-                                                                <table class="w-full table-no-border"></table>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="status_pernikahan_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Status Pernikahan<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="status_pernikahan_pasien" name="status_pernikahan_pasien" section="ssr-dropdown" get="status_pernikahan" placeholder="Pilih Status Pernikahan..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="pendidikan_terakhir_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Pendidikan Terkahir<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="pendidikan_terakhir_pasien" name="pendidikan_terakhir_pasien" section="ssr-dropdown" get="status_pendidikan" placeholder="Pilih Status Pendidikan..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="pekerjaan_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Pekerjaan<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="pekerjaan_pasien" name="pekerjaan_pasien" section="ssr-dropdown" get="list_pekerjaan" placeholder="Pilih Status Pekerjaan..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="agama_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Agama<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-autocomplete-layout id="agama_pasien" name="agama_pasien" section="ssr-dropdown" get="list_agama" placeholder="Pilih Status Agama..." />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nama_ibu_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Ibu Kandung<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input id="nama_ibu_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_ibu_pasien" required />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nama_ayah_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Ayah Kandung<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input id="nama_ayah_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_ayah_pasien" required />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nama_suami_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Suami<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input id="nama_suami_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_suami_pasien" required />
-                                                    </td>
-                                                </tr>
-                                                <tr class="align-baseline">
-                                                    <td>
-                                                        <label for="nama_istri_pasien" class="block text-sm font-medium text-gray-700 mb-2">
-                                                            Nama Istri<span class="text-red-500">*</span>
-                                                        </label>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <x-text-input id="nama_istri_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_istri_pasien" required />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('layouts.partials.pasien.data-lengkap')
                             </div>
                             <div class="swiper-slide">
                                 <div class="w-full flex gap-10 justify-between py-5">
@@ -547,6 +262,13 @@
                     btn: false,
                     funcBtnOpen: "DataTablesListPasien()"
                 });
+
+                setTimeout(() => {
+                    $("#click_onload_page")[0].click();
+                    $('html, body').animate({
+                        scrollTop: $("#content_container").offset().top
+                    }, 1000);
+                }, 500);
                 // Modal Section END
             })();
             // onLoad End
@@ -860,7 +582,7 @@
         // FUNCTIONS END
 
         // SWIPER START
-        let swiper = new Swiper(".mySwiper", {
+        let swiper = new Swiper(".swiper_content_pagination", {
             spaceBetween: 10,
             slidesPerView: 4,
             freeMode: true,
@@ -878,7 +600,7 @@
                 },
             }
         });
-        let swiper2 = new Swiper(".mySwiper2", {
+        let swiper2 = new Swiper(".swiper_content_container", {
             spaceBetween: 10,
             navigation: {
                 nextEl: ".btn-next-swiper",
@@ -900,12 +622,12 @@
             align-items: center;
         }
 
-        .mySwiper .swiper-slide {
+        .swiper_content_pagination .swiper-slide {
             width: 25%;
             opacity: 0.4;
         }
 
-        .mySwiper .swiper-slide-thumb-active {
+        .swiper_content_pagination .swiper-slide-thumb-active {
             opacity: 1;
         }
 

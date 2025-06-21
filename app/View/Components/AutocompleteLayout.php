@@ -16,6 +16,7 @@ class AutocompleteLayout extends Component
     public $section, $get;
     public $listProvinsi, $listGoldar, $listGender, $listUnit;
     public $listStatusPendaftaran, $jenisKunjungan, $listPerkiraanUmur;
+    public $listPendidikan, $listPekerjaan, $listStatusPernikahan;
     public function __construct($section = null, $get = null)
     {
         $this->section = $section;
@@ -51,6 +52,18 @@ class AutocompleteLayout extends Component
 
             if ($get == 'perkiraan_umur') {
                 $this->listPerkiraanUmur = ['Tidak Tau', '0 - 5', '6 - 11', '12 - 17', '18 - 40', '41 - 65', '> 65'];
+            }
+
+            if ($get == 'pendidikan') {
+                $this->listPendidikan = ['Tidak Diketahui', 'Tidak Sekolah', 'SD', 'SLTP', 'SLTA', 'D1-D3', 'D4', 'S1', 'S2', 'S3'];
+            }
+
+            if ($get == 'pekerjaan') {
+                $this->listPekerjaan = ['Tidak Diketahui', 'Tidak Bekerja', 'PNS', 'TNI/POLRI', 'BUMN', 'Pegawai', 'Swasta/Wirausaha', 'Buruh', 'Lain-lain'];
+            }
+
+            if ($get == 'status_pernikahan') {
+                $this->listStatusPernikahan = ['Tidak Diketahui', 'Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'];
             }
         }
     }
