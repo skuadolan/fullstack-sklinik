@@ -23,7 +23,7 @@ return new class extends Migration
             // ENUM SET START
             $table->enum('cara_pembayaran', ['JKN', 'Mandiri', 'Asuransi Lainnya'])->default("Mandiri")->comment("JKN, Mandiri, Asuransi Lainnya");
             $table->enum('is_bayi', ['Tidak', 'Ya'])->default("Tidak")->comment("Tidak, Ya");
-            $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->comment("Belum, Lunas, Dicicil, Batal");
+            $table->enum('is_lunas', ['Belum Lunas', 'Sudah Lunas', 'Dicicil', 'Batal'])->comment("Belum Lunas, Sudah Lunas, Dicicil, Batal");
             $table->enum('jenis_pasien', ['Baru', 'Lama'])->comment("Baru, Lama");
             $table->enum('status_pendaftaran', ['Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking'])->comment("Batal, Masuk, Menunggu, Diperiksa, Resep, Mutasi Rajal, Ranap, Mutasi Ranap, Keluar, Selesai");
             // ENUM SET END

@@ -12,34 +12,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("DROP TYPE IF EXISTS gender_enum");
-        DB::statement("CREATE TYPE gender_enum AS ENUM ('Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi')");
-
-        DB::statement("DROP TYPE IF EXISTS jenis_unit_enum");
-        DB::statement("CREATE TYPE jenis_unit_enum AS ENUM ('Rawat Darurat', 'Rawat Jalan', 'Rawat Inap')");
-
-        DB::statement("DROP TYPE IF EXISTS status_billing_pendaftaran_enum");
-        DB::statement("CREATE TYPE status_billing_pendaftaran_enum AS ENUM ('Belum', 'Lunas', 'Dicicil', 'Batal')");
-
-        DB::statement("DROP TYPE IF EXISTS status_jenis_pasien_enum");
-        DB::statement("CREATE TYPE status_jenis_pasien_enum AS ENUM ('Baru', 'Lama')");
-
-        DB::statement("DROP TYPE IF EXISTS status_pendaftaran_pasien_enum");
-        DB::statement("CREATE TYPE status_pendaftaran_pasien_enum AS ENUM ('Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking')");
-
-        DB::statement("DROP TYPE IF EXISTS pendidikan_pasien_enum");
-        DB::statement("CREATE TYPE pendidikan_pasien_enum AS ENUM ('Tidak Diketahui', 'Tidak Sekolah', 'SD', 'SLTP', 'SLTA', 'D1-D3', 'D4', 'S1', 'S2', 'S3')");
-
-        DB::statement("DROP TYPE IF EXISTS pekerjaan_pasien_enum");
-        DB::statement("CREATE TYPE pekerjaan_pasien_enum AS ENUM ('Tidak Diketahui', 'Tidak Bekerja', 'PNS', 'TNI/POLRI', 'BUMN', 'Pegawai', 'Swasta/Wirausaha', 'Buruh', 'Lain-lain')");
-
-        DB::statement("DROP TYPE IF EXISTS status_pernikahan_pasien_enum");
-        DB::statement("CREATE TYPE status_pernikahan_pasien_enum AS ENUM ('Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi')");
-
-
         $dbDriver = Schema::getConnection()->getDriverName();
 
         if ($dbDriver === 'pgsql') {
+            DB::statement("DROP TYPE IF EXISTS gender_enum");
+            DB::statement("CREATE TYPE gender_enum AS ENUM ('Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi')");
+
+            DB::statement("DROP TYPE IF EXISTS jenis_unit_enum");
+            DB::statement("CREATE TYPE jenis_unit_enum AS ENUM ('Rawat Darurat', 'Rawat Jalan', 'Rawat Inap')");
+
+            DB::statement("DROP TYPE IF EXISTS status_billing_pendaftaran_enum");
+            DB::statement("CREATE TYPE status_billing_pendaftaran_enum AS ENUM ('Belum Lunas', 'Sudah Lunas', 'Dicicil', 'Batal')");
+
+            DB::statement("DROP TYPE IF EXISTS status_jenis_pasien_enum");
+            DB::statement("CREATE TYPE status_jenis_pasien_enum AS ENUM ('Baru', 'Lama')");
+
+            DB::statement("DROP TYPE IF EXISTS status_pendaftaran_pasien_enum");
+            DB::statement("CREATE TYPE status_pendaftaran_pasien_enum AS ENUM ('Batal', 'Masuk', 'Menunggu', 'Diperiksa', 'Resep', 'Mutasi Rajal', 'Ranap', 'Mutasi Ranap', 'Keluar', 'Selesai', 'Booking')");
+
+            DB::statement("DROP TYPE IF EXISTS pendidikan_pasien_enum");
+            DB::statement("CREATE TYPE pendidikan_pasien_enum AS ENUM ('Tidak Diketahui', 'Tidak Sekolah', 'SD', 'SLTP', 'SLTA', 'D1-D3', 'D4', 'S1', 'S2', 'S3')");
+
+            DB::statement("DROP TYPE IF EXISTS pekerjaan_pasien_enum");
+            DB::statement("CREATE TYPE pekerjaan_pasien_enum AS ENUM ('Tidak Diketahui', 'Tidak Bekerja', 'PNS', 'TNI/POLRI', 'BUMN', 'Pegawai', 'Swasta/Wirausaha', 'Buruh', 'Lain-lain')");
+
+            DB::statement("DROP TYPE IF EXISTS status_pernikahan_pasien_enum");
+            DB::statement("CREATE TYPE status_pernikahan_pasien_enum AS ENUM ('Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi')");
+
             if (Schema::hasColumn('gender', 'name')) {
                 DB::statement("ALTER TABLE gender ALTER COLUMN name TYPE gender_enum USING (name::gender_enum);");
                 DB::statement("ALTER TABLE penduduk ALTER COLUMN gender TYPE gender_enum USING (gender::gender_enum);");

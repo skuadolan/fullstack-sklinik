@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
 
             // ENUM SET START
-            $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->comment("Belum, Lunas, Dicicil, Batal");
+            $table->enum('is_lunas', ['Belum Lunas', 'Sudah Lunas', 'Dicicil', 'Batal'])->comment("Belum Lunas, Sudah Lunas, Dicicil, Batal");
             // ENUM SET END
 
             $table->decimal('total_tagihan', 15, 2)->default(0)->comment("Total Tagihan = SUM(Sub Total Tagihan Detail Billing)");
