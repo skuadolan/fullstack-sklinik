@@ -23,26 +23,16 @@ class UserRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', 'unique:users,username', 'regex:/^[a-zA-Z0-9_]+$/'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'id_client' => ['nullable', 'integer', 'exists:list_client,id'],
-            'id_penduduk' => ['nullable', 'integer', 'exists:penduduk,id'],
 
             // Insert into penduduk table
             'nik_user' => ['nullable', 'string', 'max:255', 'regex:/^[0-9]+$/'],
             'fullname_user' => ['required', 'string', 'max:255'],
-            'handphone_user' => ['nullable', 'string'],
-            'whatsapp_user' => ['nullable', 'string'],
-            'telegram_user' => ['nullable', 'string'],
-            'agama_user' => ['nullable', 'string'],
-            'tempat_lahir_user' => ['nullable', 'string'],
-            'birthdate_user' => ['nullable', 'date'],
             'gender_user' => ['required', 'string', Rule::in(['Tidak Diketahui', 'Laki-Laki', 'Perempuan', 'Tidak Dapat Ditentukan', 'Tidak Mengisi'])],
-            'goldar_user'=> ['nullable', 'string', 'exists:goldar,name'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
             'id_provinsi' => ['required', 'integer', 'exists:provinsi,id'],
             'id_kabupaten' => ['required', 'integer', 'exists:kabupaten,id'],
             'id_kecamatan' => ['required', 'integer', 'exists:kecamatan,id'],
             'id_kelurahan' => ['required', 'integer', 'exists:kelurahan,id'],
-            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 
@@ -61,7 +51,7 @@ class UserRequest extends FormRequest
             'gender.exists' => 'Gender tidak ditemukan.',
 
             'nik_user.unique' => 'NIK sudah terdaftar.',
-            'nik.regex' => 'Username hanya boleh berisi angka.',
+            'nik.regex' => 'NIK hanya boleh berisi angka.',
             'email.unique' => 'Email sudah terdaftar.',
             'username.unique' => 'Username sudah terdaftar.',
             'username.regex' => 'Username hanya boleh berisi huruf, angka, dan underscore.',

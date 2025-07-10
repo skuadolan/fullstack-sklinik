@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pendaftaran extends Model
 {
-    protected $table = 'pendaftaran';
+    protected $table = 'pendaftaran_pasien';
     use Notifiable, HasFactory, Tools;
 
     /**

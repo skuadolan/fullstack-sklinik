@@ -11,34 +11,15 @@ class PendudukService
 {
     use Tools;
 
-    private $dateNow, $repos, $userSession;
-    public function __construct()
-    {
-        $this->repos = new PendudukRepository();
-    }
+    public function __construct(private $repos = new PendudukRepository()) {}
 
-    public function index($req)
-    {
-        return $this->repos->index($req);
-    }
+    public function index(object $req) { return $this->repos->index($req); }
 
-    public function store(object $req)
-    {
-        return $this->repos->store($req);
-    }
+    public function store(object $req) { return $this->repos->store($req); }
 
-    public function show(string $id)
-    {
-        return $this->repos->show($id);
-    }
+    public function show(string $id) { return $this->repos->show($id); }
 
-    public function update(object $req, string $id)
-    {
-        return $this->repos->update($req, $id);
-    }
+    public function update(object $req, string $id) { return $this->repos->update($req, $id); }
 
-    public function destroy(string $id)
-    {
-        return $this->repos->destroy($id);
-    }
+    public function destroy(string $id) { return $this->repos->destroy($id); }
 }

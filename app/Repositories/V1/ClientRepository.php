@@ -2,9 +2,9 @@
 
 namespace App\Repositories\V1;
 
-use Illuminate\Support\Facades\DB;
-
 use App\Traits\Tools;
+
+use Illuminate\Support\Facades\DB;
 
 use App\Models\ListClient;
 
@@ -14,8 +14,6 @@ class ClientRepository
     private $selectColmn, $listClientModel;
     public function __construct()
     {
-        $this->listClientModel = new ListClient();
-
         $this->selectColmn = [
             "list_client.*",
             "prov.name AS provinsi",
@@ -23,6 +21,8 @@ class ClientRepository
             "kec.name AS kecamatan",
             "kel.name AS kelurahan"
         ];
+
+        $this->listClientModel = new ListClient();
     }
 
     public function index($req = null)

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\SearchController;
-use App\Http\Controllers\Api\V1\PendaftaranPasienController;
+use App\Http\Controllers\Api\V1\PendaftaranController;
 
 // Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
 // });
@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\V1\PendaftaranPasienController;
 
         Route::prefix('v1')->group(function () {
             Route::resource('users', UserController::class);
-            Route::resource('pendaftaran-pasien', PendaftaranPasienController::class);
+            Route::resource('pendaftaran-pasien', PendaftaranController::class);
         });
     });
 // });

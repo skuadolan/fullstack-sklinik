@@ -65,6 +65,17 @@ trait Tools
         return json_encode($return, JSON_PRETTY_PRINT);
     }
 
+    public function ajaxReturn($code, $status, $msg, $data = [])
+    {
+        $return = [
+            'code' => $code,
+            'status' => $status,
+            'message' => $msg,
+            'data' => $data
+        ];
+        return $return;
+    }
+
     public function IsValidAddress($req)
     {
         $wheres = ($this->IsValidVal($req->id_provinsi) ? " WHERE prov.id = '$req->id_provinsi' AND " : " WHERE ");

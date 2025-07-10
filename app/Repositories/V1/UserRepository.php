@@ -2,19 +2,17 @@
 
 namespace App\Repositories\V1;
 
-use Error;
-
-use App\Services\V1\ClientService;
-use App\Services\V1\PegawaiService;
-use App\Services\V1\PendudukService;
+use Exception;
 
 use App\Traits\Tools;
 
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-use Exception;
+use App\Models\User;
+use App\Services\V1\ClientService;
+use App\Services\V1\PegawaiService;
+use App\Services\V1\PendudukService;
 
 class UserRepository
 {
@@ -23,8 +21,6 @@ class UserRepository
     private $clientService, $pendudukService, $pegawaiService;
     public function __construct()
     {
-        $this->userModel = new User();
-
         $this->selectColmn = [
             "users.*",
             "rol.name AS role_name",
@@ -39,6 +35,8 @@ class UserRepository
             "kel.name AS kelurahan",
             "pdd.alamat_ktp"
         ];
+
+        $this->userModel = new User();
 
         $this->clientService = new ClientService();
         $this->pegawaiService = new PegawaiService();

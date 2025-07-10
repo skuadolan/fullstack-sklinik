@@ -1,3 +1,5 @@
+@section('title', 'Pendaftaran Pasien | Sklinik')
+
 <x-dynamic-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -590,14 +592,6 @@
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
-                renderBullet: function(index, className) {
-                    const labels = ["Pasien", "Penanggung Jawab", "Rencana Pembayaran"];
-                    return `
-                        <div class="${className} bg-red-${index === 0 ? '600' : '300'} text-white font-bold px-4 py-2 arrow-shape -ml-[1px]">
-                        ${labels[index]}
-                        </div>
-                    `;
-                },
             }
         });
         let swiper2 = new Swiper(".swiper_content_container", {

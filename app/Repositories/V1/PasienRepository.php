@@ -14,11 +14,11 @@ class PasienRepository
     private $selectColmn, $pasienModel;
     public function __construct()
     {
-        $this->pasienModel = new Pasien();
-
         $this->selectColmn = [
             'pasien.*',
         ];
+
+        $this->pasienModel = new Pasien();
     }
 
     public function index($req = null)

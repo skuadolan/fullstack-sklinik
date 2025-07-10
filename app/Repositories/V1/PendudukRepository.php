@@ -2,11 +2,9 @@
 
 namespace App\Repositories\V1;
 
-use Error;
+use App\Traits\Tools;
 
 use Illuminate\Support\Facades\DB;
-
-use App\Traits\Tools;
 
 use App\Models\Penduduk;
 
