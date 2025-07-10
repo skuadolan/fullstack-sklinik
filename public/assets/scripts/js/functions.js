@@ -298,7 +298,6 @@ function AllNotify($msg, $section) {
             title: "Berhasil!",
             html: $msg,
             icon: "success",
-            confirmButtonColor: "#3085d6",
         })
         toastr.success($msg, "Berhasil!");
     }
@@ -308,7 +307,6 @@ function AllNotify($msg, $section) {
             title: "Kesalahan!",
             html: $msg,
             icon: "error",
-            confirmButtonColor: "#3085d6",
         })
         toastr.error($msg, "Kesalahan!");
     }
@@ -318,19 +316,17 @@ function AllNotify($msg, $section) {
             title: "Peringatan!",
             html: $msg,
             icon: "warning",
-            confirmButtonColor: "#3085d6",
         })
         toastr.warning($msg, "Peringatan!");
     }
 
     if ($section == "info") {
         Swal.fire({
-            title: "Sekilas Info!",
+            title: "Info!",
             html: $msg,
             icon: "info",
-            confirmButtonColor: "#3085d6",
         })
-        toastr.info($msg, "Sekilas Info!");
+        toastr.info($msg, "Info!");
     }
 }
 
@@ -413,4 +409,31 @@ function AutoInitListJSSearch($get = null) {
 
         new List(`list_${$get}_wrapper`, options);
     }
+}
+
+function SwalModal($optnal = {}) {
+    const {
+        title,
+        desc,
+        icon,
+        confirmButtonText,
+        showCancelButton,
+        cancelButtonText,
+        showDenyButton,
+        denyButtonText,
+        footer
+    } = $optnal;
+
+    return Swal.fire({
+        title: `${title}`,
+        html: `${desc}`,
+        icon: `${icon}`,
+        showCloseButton: true,
+        confirmButtonText,
+        showCancelButton,
+        cancelButtonText,
+        showDenyButton,
+        denyButtonText,
+        footer
+    });
 }

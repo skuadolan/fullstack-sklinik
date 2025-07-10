@@ -33,18 +33,20 @@
             <ul class="flex flex-wrap max-h-50 overflow-y-auto">
                 @if (isset($listMenu) && !empty($listMenu))
                     @foreach ($listMenu as $list)
-                        <a href="{{ $list->link }}">
-                            <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
-                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer w-24">
-                                <div class="w-full flex flex-wrap justify-center text-center items-center">
-                                    <div class="w-10">
-                                        <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
-                                            srcset="{{ url("$list->icon") }}" />
+                        @if (Route::has($list->route_name))
+                            <a href="{{ route($list->route_name) }}">
+                                <li x-show="!search || '{{ $list->name }}'.toLowerCase().includes(search.toLowerCase())"
+                                    class="px-4 py-2 hover:bg-gray-100 cursor-pointer w-24">
+                                    <div class="w-full flex flex-wrap justify-center text-center items-center">
+                                        <div class="w-10">
+                                            <img src="{{ url("$list->icon") }}" alt="{{ $list->name }}"
+                                                srcset="{{ url("$list->icon") }}" />
+                                        </div>
+                                        <p class="text-pretty">{{ $list->name }}</p>
                                     </div>
-                                    <p class="text-pretty">{{ $list->name }}</p>
-                                </div>
-                            </li>
-                        </a>
+                                </li>
+                            </a>
+                        @endif
                     @endforeach
                 @endif
             </ul>

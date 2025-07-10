@@ -78,7 +78,7 @@ class Penduduk extends Model
             'tempat_lahir' => $req->tempat_lahir,
             'birthdate' => $tanggal_lahir,
             'agama' => $req->agama,
-            'ras_suku' => $req->ras_suku,
+            'suku_ras' => $req->suku_ras,
             'goldar' => $goldar,
             'alamat_domisili' => $req->alamat_domisili,
             'alamat_ktp' => $alamat_ktp,

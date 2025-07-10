@@ -27,46 +27,13 @@
             event.preventDefault();
             $(".hide_notif").hide();
 
-            if ($section == "registerForm") {
-                if (!$("#klinik_name").val()) {
-                    AllNotify("Nama Klinik tidak boleh kosong!", "error");
-                    $("#klinik_name").focus();
-                    return false;
-                }
-
-                if (!$("#provinsi").val()) {
-                    AllNotify("Provinsi tidak boleh kosong!", "error");
-                    $("#provinsi").focus();
-                    return false;
-                }
-
-                if (!$("#kabupaten").val()) {
-                    AllNotify("Kabupaten tidak boleh kosong!", "error");
-                    $("#kabupaten").focus();
-                    return false;
-                }
-
-                if (!$("#kecamatan").val()) {
-                    AllNotify("Kecamatan tidak boleh kosong!", "error");
-                    $("#kecamatan").focus();
-                    return false;
-                }
-
-                if (!$("#kelurahan").val()) {
-                    AllNotify("Kelurahan tidak boleh kosong!", "error");
-                    $("#kelurahan").focus();
-                    return false;
-                }
-            }
-
-            Swal.fire({
-                title: "Apakah yakin ingin melanjutkan?",
+            SwalModal({
+                title: "Validasi Data",
+                desc: "<p>Apakah yakin ingin melanjutkan?</p>",
                 icon: "warning",
+                confirmButtonText: "Lanjutkan",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
                 cancelButtonText: "Batal",
-                confirmButtonText: "Lanjutkan"
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#clientRegist").show();
