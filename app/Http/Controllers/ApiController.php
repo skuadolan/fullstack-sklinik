@@ -18,9 +18,7 @@ abstract class ApiController extends Controller
     public function GetAllDatas(object $req): JsonResponse
     {
         try {
-            $datas = $this->service->index($req);
-
-            return $this->OKE("Data berhasil diambli!", $datas);
+            return $this->OKE("Berhasil mengambil data.", $this->service->index($req));
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -29,9 +27,7 @@ abstract class ApiController extends Controller
     public function GetDataByParams(object $req): JsonResponse
     {
         try {
-            $datas = $this->service->params($req);
-
-            return $this->OKE("Data berhasil diambli!", $datas);
+            return $this->OKE("Berhasil mengambil data.", $this->service->params($req));
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -40,20 +36,16 @@ abstract class ApiController extends Controller
     public function CreateData(object $req): JsonResponse
     {
         try {
-            $datas = $this->service->store($req);
-
-            return $this->CREATED("Data berhasil disimpan!", $datas);
-        } catch (\Throwable $th) {
-            return $this->SERVER_ERROR($th->getMessage());
+            return $this->CREATED("Berhasil menyimpan data.", $this->service->store($req));
+        } catch (Exception $err) {
+            return $this->SERVER_ERROR($err->getMessage());
         }
     }
 
     public function GetByID(string $id): JsonResponse
     {
         try {
-            $datas = $this->service->show($id);
-
-            return $this->OKE("Data berhasil diambli!", $datas);
+            return $this->OKE("Berhasil mengambil data.", $this->service->show($id));
         } catch (Exception $err) {
             return $this->SERVER_ERROR($err->getMessage());
         }
@@ -62,22 +54,18 @@ abstract class ApiController extends Controller
     public function UpdateByID(object $req, string $id): JsonResponse
     {
         try {
-            $datas = $this->service->update($req, $id);
-
-            return $this->CREATED("Data berhasil disimpan!", $datas);
-        } catch (\Throwable $th) {
-            return $this->SERVER_ERROR($th->getMessage());
+            return $this->CREATED("Berhasil menyimpan data.", $this->service->update($req, $id));
+        } catch (Exception $err) {
+            return $this->SERVER_ERROR($err->getMessage());
         }
     }
 
     public function DeleteByID(string $id): JsonResponse
     {
         try {
-            $datas = $this->service->delete($id);
-
-            return $this->CREATED("Data berhasil dihapus!", $datas);
-        } catch (\Throwable $th) {
-            return $this->SERVER_ERROR($th->getMessage());
+            return $this->CREATED("Berhasil menghapus data.", $this->service->delete($id));
+        } catch (Exception $err) {
+            return $this->SERVER_ERROR($err->getMessage());
         }
     }
 }

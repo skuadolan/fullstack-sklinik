@@ -87,8 +87,12 @@ class UserRepository
     public function store(object $req)
     {
         try {
-            Log::info("START SIMPAN USER: " . json_encode($req->all(), JSON_PRETTY_PRINT));
             DB::beginTransaction();
+
+            Log::info("START SIMPAN USER: ", [
+                "request" => $this->arryToJSON($req->all())
+            ]);
+
             $req->id_client = $this->clientService->store($req);
             $req->id_penduduk = $this->pendudukService->store($req);
 
@@ -102,16 +106,21 @@ class UserRepository
             $id_pegwai = $this->pegawaiService->store($req);
             $pegwai = $this->pegawaiService->show($id_pegwai);
 
-            if (!$this->IsValidVal($pegwai)) {
-                throw new Exception("Gagal menyimpan data ke database, terdapat kesalahan data.");
-            }
+            $state = $this->valNotEmpty($pegwai);
+
+            if (!$state) { throw new Exception("Gagal menyimpan data ke database."); }
 
             DB::commit();
-            return $pegwai;
-        } catch (\Throwable $th) {
+            return $state;
+        } catch (Exception $err) {
             DB::rollBack();
-            Log::error("GAGAL SIMPAN USER: " . $th);
-            throw $th;
+
+            Log::error("GAGAL SIMPAN USER: ", [
+                "error" => $err->getMessage(),
+                "request" => $this->arryToJSON($req->all())
+            ]);
+
+            throw $err->getMessage();
         }
     }
 
@@ -135,27 +144,40 @@ class UserRepository
         try {
             $user = User::find($id);
 
-            if ($this->IsValidVal($user->id)) {
-                Log::info("START UPDATE USER: " . $req->all());
-                $this->pendudukService->update($req, $user->id_penduduk);
+            $state = $this->valNotEmpty($user);
 
-                $data = $this->userModel->SchemaDataModel($req);
+            if (!$state) { throw new Exception("Data user tidak ditemukan."); }
 
-                unset($data['deleted_at']);
-                unset($data['created_at']);
-                unset($data['id_user_created']);
+            DB::beginTransaction();
 
-                $result = $user->update($data);
+            Log::info("START UPDATE USER: ", [
+                "user" => $this->arryToJSON($user),
+                "request" => $this->arryToJSON($req->all())
+            ]);
 
-                if (!$this->IsValidVal($result)) {
-                    throw new Exception("Gagal menyimpan data ke database, terdapat kesalahan data.");
-                }
-            }
+            $this->pendudukService->update($req, $user->id_penduduk);
 
+            $data = $this->userModel->SchemaDataModel($req);
+
+            unset($data['deleted_at']);
+            unset($data['created_at']);
+            unset($data['id_user_created']);
+
+            $user->update($data);
+
+            DB::commit();
             return $user;
-        } catch (\Throwable $th) {
-            Log::error("GAGAL UPDATE USER: " . $th->getMessage());
-            throw $th;
+        } catch (Exception $err) {
+            DB::rollBack();
+
+            Log::error("GAGAL UPDATE USER: ", [
+                "user" => $user,
+                "error" => $err->getMessage(),
+                "request" => $req->all(),
+                "datas" => json_encode($req->all(), JSON_PRETTY_PRINT)
+            ]);
+
+            throw $err->getMessage();
         }
     }
 

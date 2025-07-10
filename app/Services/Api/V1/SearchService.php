@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\Tools;
+use Exception;
 
 class SearchService
 {
@@ -137,8 +138,8 @@ class SearchService
             }
 
             return $fxdResultReturn;
-        } catch (\Throwable $th) {
-            return $th->getMessage();
+        } catch (Exception $err) {
+            return $err->getMessage();
         }
     }
 
@@ -164,8 +165,8 @@ class SearchService
             }
 
             return $fxdResultReturn;
-        } catch (\Throwable $th) {
-            return $th->getMessage();
+        } catch (Exception $err) {
+            return $err->getMessage();
         }
     }
 
