@@ -54,16 +54,16 @@ return new class extends Migration
                 DB::statement("ALTER TABLE penduduk ALTER COLUMN status_pernikahan TYPE status_pernikahan_pasien_enum USING (status_pernikahan::status_pernikahan_pasien_enum);");
             }
 
-            if (Schema::hasTable('pendaftaran')) {
-                DB::statement("ALTER TABLE pendaftaran ALTER COLUMN is_lunas TYPE status_billing_pendaftaran_enum USING (is_lunas::status_billing_pendaftaran_enum);");
+            if (Schema::hasTable('pendaftaran_pasien')) {
+                DB::statement("ALTER TABLE pendaftaran_pasien ALTER COLUMN is_lunas TYPE status_billing_pendaftaran_enum USING (is_lunas::status_billing_pendaftaran_enum);");
 
-                DB::statement("ALTER TABLE pendaftaran ALTER COLUMN jenis_pasien TYPE status_jenis_pasien_enum USING (jenis_pasien::status_jenis_pasien_enum);");
+                DB::statement("ALTER TABLE pendaftaran_pasien ALTER COLUMN jenis_pasien TYPE status_jenis_pasien_enum USING (jenis_pasien::status_jenis_pasien_enum);");
 
-                DB::statement("ALTER TABLE pendaftaran ALTER COLUMN status_pendaftaran TYPE status_pendaftaran_pasien_enum USING (status_pendaftaran::status_pendaftaran_pasien_enum);");
+                DB::statement("ALTER TABLE pendaftaran_pasien ALTER COLUMN status_pendaftaran TYPE status_pendaftaran_pasien_enum USING (status_pendaftaran::status_pendaftaran_pasien_enum);");
             }
 
-            if (Schema::hasTable('kunjungan')) {
-                DB::statement("ALTER TABLE kunjungan ALTER COLUMN status_kunjungan TYPE status_pendaftaran_pasien_enum USING (status_kunjungan::status_pendaftaran_pasien_enum);");
+            if (Schema::hasTable('kunjungan_pasien')) {
+                DB::statement("ALTER TABLE kunjungan_pasien ALTER COLUMN status_kunjungan TYPE status_pendaftaran_pasien_enum USING (status_kunjungan::status_pendaftaran_pasien_enum);");
             }
 
             if (Schema::hasTable('penjualan')) {

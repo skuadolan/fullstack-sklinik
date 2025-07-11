@@ -11,7 +11,7 @@ use App\Traits\Tools;
 
 use App\Models\Pasien;
 use App\Models\Penduduk;
-use App\Models\Pendaftaran;
+use App\Models\PendaftaranPasien;
 
 use App\Services\V1\PasienService;
 use App\Services\V1\PendudukService;
@@ -25,7 +25,7 @@ class PendaftaranPasienRepository
     private $pendudukService, $pasienService, $kunjunganService;
     public function __construct()
     {
-        $this->pndaftaranPasienModel = new Pendaftaran();
+        $this->pndaftaranPasienModel = new PendaftaranPasien();
         $this->selectColmn = [];
 
         $this->pasienService = new PasienService();
@@ -75,7 +75,7 @@ class PendaftaranPasienRepository
 
             if (!$this->IsValidAddress($req)) { throw new Exception("Alamat tidak valid"); }
 
-            $nik = ($this->valNotEmpty($req->nik_pasien) ? $req->nik_pasien : $req->nik_user);
+            $nik = $this->getVarValue($req->nik_pasien);
             $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $nik)->first();
 
             DB::beginTransaction();
@@ -93,7 +93,7 @@ class PendaftaranPasienRepository
 
             $dataPendaftaran = $this->pndaftaranPasienModel->SchemaDataModel($req);
 
-            $req->id_pendaftaran = (Pendaftaran::create($dataPendaftaran))->id;
+            $req->id_pendaftaran = (PendaftaranPasien::create($dataPendaftaran))->id;
 
             $kunjungan = $this->kunjunganService->store($req);
 

@@ -35,14 +35,14 @@
                 x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                 style="display: none;" class="relative z-10">
                 <div class="absolute z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full">
-                    <div id="list_provinsi_wrapper">
+                    <div id="list_{{ $field }}_wrapper">
                         <x-autocomplete-layout type="button" class="search" type="text" placeholder="{{ $placeholder }}" />
 
-                        <ul id="list_provinsi" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
+                        <ul id="list_{{ $field }}" class="abosolute list z-50 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-56 overflow-auto w-full position_can_fixed">
                             @if (isset($listProvinsi) && !empty($listProvinsi))
                                 @foreach ($listProvinsi as $key => $list)
                                     <li @click="open = !open" class="text-nowrap text-sm px-4 py-2 hover:bg-gray-100 cursor-pointer" onclick="DropdownSelectAlpine(['{{ $list->name }}', {{ $list->id }}], '{{ $field }}')">
-                                        <p class="nama_provinsi">{{ $list->name }}</p>
+                                        <p class="nama_{{ $field }}">{{ $list->name }}</p>
                                     </li>
                                 @endforeach
                             @endif

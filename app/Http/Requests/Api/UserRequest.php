@@ -55,7 +55,6 @@ class UserRequest extends FormRequest
             'email.unique' => 'Email sudah terdaftar.',
             'username.unique' => 'Username sudah terdaftar.',
             'username.regex' => 'Username hanya boleh berisi huruf, angka, dan underscore.',
-            'birthdate.date' => 'Tanggal lahir harus berupa format tanggal yang valid.',
         ];
     }
 
@@ -66,9 +65,7 @@ class UserRequest extends FormRequest
             'id_kabupaten' => 'kabupaten',
             'id_kecamatan' => 'kecamatan',
             'id_kelurahan' => 'kelurahan',
-            'fullname' => 'nama lengkap',
-            'handphone' => 'nomor handphone',
-            'birthdate' => 'tanggal lahir',
+            'fullname_user' => 'nama lengkap',
         ];
     }
 }

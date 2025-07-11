@@ -36,6 +36,8 @@ $(document).ready(function () {
 (async function () {
     setTimeout(() => {
         AutoInitListJSSearch("provinsi");
+        AutoInitListJSSearch("provinsi_ktp_pasien");
+        AutoInitListJSSearch("provinsi_domisili_pasien");
     }, 1000);
 })();
 

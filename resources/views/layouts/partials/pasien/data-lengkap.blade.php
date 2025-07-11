@@ -28,13 +28,13 @@
                 </tr>
                 <tr class="align-baseline text-nowrap">
                     <td>
-                        <label for="nama_lengkap_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="fullname_pasien" class="block text-sm font-medium text-gray-700 mb-2">
                             Nama Lengkap<span class="text-red-500">*</span>
                         </label>
                     </td>
                     <td>:</td>
                     <td>
-                        <x-text-input id="nama_lengkap_pasien" class="text-capitalize-input border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="nama_lengkap_pasien" required />
+                        <x-text-input id="fullname_pasien" class="text-capitalize-input border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="fullname_pasien" required />
                     </td>
                 </tr>
                 <tr class="align-baseline text-nowrap">
@@ -45,7 +45,7 @@
                     </td>
                     <td>:</td>
                     <td>
-                        <x-text-input id="tempat_lahir_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="tempat_lahir_pasien" required />
+                        <x-text-input id="tempat_lahir_pasien" class="text-capitalize-input border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="tempat_lahir_pasien" required />
                     </td>
                 </tr>
                 <tr class="align-baseline text-nowrap">
@@ -179,6 +179,49 @@
                                     Kelurahan<span class="text-red-500">*</span>
                                 </label>
                                 <x-input-address-layout field="kelurahan_domisili_pasien" class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih Kelurahan" onclick="DropdownGetLoad('kelurahan', 'kecamatan_domisili_pasien', 'wilayah', '#biodata_pendaftaran_pasien_form', 'kelurahan_domisili_pasien')" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="align-baseline text-nowrap">
+                    <td>
+                        <label for="alamat_ktp_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                            Alamat KTP<span class="text-red-500">*</span>
+                        </label>
+                    </td>
+                    <td>:</td>
+                    <td>
+                        <div>
+                            <div>
+                                <x-text-input id="alamat_ktp_pasien" class="border rounded-lg w-full px-3 py-2 focus:outline-none text-sm" type="text" name="alamat_ktp_pasien" required placeholder="Desa RT000/RW000 No. 000" />
+                            </div>
+
+                            <div>
+                                <label for="provinsi_ktp_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Provinsi<span class="text-red-500">*</span>
+                                </label>
+                                <x-input-address-layout field="provinsi_ktp_pasien" class="check_form_client_register" section="ssr-dropdown" get="provinsi" placeholder="Pilih Provinsi" />
+                            </div>
+
+                            <div id="container_kabupaten_ktp_pasien" class="address_hidden">
+                                <label for="kabupaten_ktp_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Kabupaten<span class="text-red-500">*</span>
+                                </label>
+                                <x-input-address-layout field="kabupaten_ktp_pasien" class="check_form_client_register" section="ssr-dropdown" get="kabupaten" placeholder="Pilih Kabupaten" onclick="DropdownGetLoad('kabupaten', 'provinsi_ktp_pasien', 'wilayah', '#biodata_pendaftaran_pasien_form', 'kabupaten_ktp_pasien')" />
+                            </div>
+
+                            <div id="container_kecamatan_ktp_pasien" class="address_hidden">
+                                <label for="kecamatan_ktp_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Kecamatan<span class="text-red-500">*</span>
+                                </label>
+                                <x-input-address-layout field="kecamatan_ktp_pasien" class="check_form_client_register" section="ssr-dropdown" get="kecamatan" placeholder="Pilih Kecamatan" onclick="DropdownGetLoad('kecamatan', 'kabupaten_ktp_pasien', 'wilayah', '#biodata_pendaftaran_pasien_form', 'kecamatan_ktp_pasien')" />
+                            </div>
+
+                            <div id="container_kelurahan_ktp_pasien" class="address_hidden">
+                                <label for="kelurahan_ktp_pasien" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Kelurahan<span class="text-red-500">*</span>
+                                </label>
+                                <x-input-address-layout field="kelurahan_ktp_pasien" class="check_form_client_register" section="ssr-dropdown" get="kelurahan" placeholder="Pilih Kelurahan" onclick="DropdownGetLoad('kelurahan', 'kecamatan_ktp_pasien', 'wilayah', '#biodata_pendaftaran_pasien_form', 'kelurahan_ktp_pasien')" />
                             </div>
                         </div>
                     </td>

@@ -401,7 +401,7 @@ function ClearLocalStorage() {
     localStorage.removeItem("search_params");
 }
 
-function AutoInitListJSSearch($get = null) {
+function AutoInitListJSSearch($get) {
     if ($(`#list_${$get} li`).length) {
         const options = {
             valueNames: [`nama_${$get}`]
