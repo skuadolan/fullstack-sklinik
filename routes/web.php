@@ -23,7 +23,7 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
 
     Route::prefix('transaksi')->group(function () {
-        Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien']);
+        Route::get('/pendaftaran-pasien', [WebController::class, 'PendaftaranPasien'])->name('transaksi.pendaftaran-pasien');
 
         Route::prefix('pelaksanaan-pelayanan')->group(function () {
             Route::get('/', [PelaksanaanPelayananController::class, 'index']);

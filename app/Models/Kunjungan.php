@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kunjungan extends Model
 {
-    protected $table = 'kunjungan';
+    protected $table = 'kunjungan_pasien';
     use Notifiable, SoftDeletes, HasFactory;
 
     /**

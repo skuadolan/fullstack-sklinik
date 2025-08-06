@@ -10,27 +10,25 @@ use Illuminate\Support\Facades\Auth;
 
 trait Tools
 {
-    public function show_array($var)
+    public function arryToJSON(array $var)
     {
-        echo print_r($var, true);
+        return json_encode($var, JSON_PRETTY_PRINT);
     }
 
-    public function show_json($var)
+    public function jsonToArry(object $var)
     {
-        echo json_encode($var, JSON_PRETTY_PRINT);
+        return json_decode(json_encode($var, JSON_PRETTY_PRINT), true);
     }
 
     public function isValidVal($val, $key = null, $get = 'bool', $other = null)
     {
-        $tmpVal = $this->getVarValue($val, $key, $other);
-
         switch ($get) {
             case 'value':
-                return $tmpVal;
+                return $this->getVarValue($val, $key, $other);
             case 'equal':
-                return $tmpVal == $other;
+                return $this->isValEqual($val, $key, $other);
             default:
-                return isset($tmpVal) && !empty($tmpVal);
+                return $this->valNotEmpty($val, $key);
         }
     }
 
@@ -57,6 +55,17 @@ trait Tools
     }
 
     public function ajaxJSONReturn($code, $status, $msg, $data = [])
+    {
+        $return = [
+            'code' => $code,
+            'status' => $status,
+            'message' => $msg,
+            'data' => $data
+        ];
+        return json_encode($return, JSON_PRETTY_PRINT);
+    }
+
+    public function ajaxReturn($code, $status, $msg, $data = [])
     {
         $return = [
             'code' => $code,
@@ -133,16 +142,22 @@ trait Tools
         return $id_client;
     }
 
-    public function IsValidDateTime($val, $format = 'Y-m-d') {
+    public function IsValidDateTime($val, $format = 'Y-m-d')
+    {
         $dt = DateTime::createFromFormat($format, $val);
         $isValidDate = $dt && $dt->format($format) === $val;
 
-        if ($isValidDate) { return $val; }
+        if ($isValidDate) {
+            return $val;
+        }
 
-        if (is_numeric($val)) { return date($format, strtotime("-" . intval($val + 1) . " years")); }
+        if (is_numeric($val)) {
+            return date($format, strtotime("-" . intval($val + 1) . " years"));
+        }
     }
 
-    public function GetAgedByBirthDate($val, $format = 'd-m-Y') {
+    public function GetAgedByBirthDate($val, $format = 'd-m-Y')
+    {
         $tmpDate = $this->IsValidDateTime($val, $format);
         return Carbon::parse($tmpDate)->age;
     }

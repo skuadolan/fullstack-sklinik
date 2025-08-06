@@ -5,16 +5,18 @@ namespace App\Repositories\V1;
 use Error;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use App\Traits\Tools;
 
 use App\Models\Pasien;
 use App\Models\Penduduk;
-use App\Models\Pendaftaran;
+use App\Models\PendaftaranPasien;
 
 use App\Services\V1\PasienService;
 use App\Services\V1\PendudukService;
 use App\Services\V1\KunjunganService;
+use Exception;
 
 class PendaftaranPasienRepository
 {
@@ -23,7 +25,7 @@ class PendaftaranPasienRepository
     private $pendudukService, $pasienService, $kunjunganService;
     public function __construct()
     {
-        $this->pndaftaranPasienModel = new Pendaftaran();
+        $this->pndaftaranPasienModel = new PendaftaranPasien();
         $this->selectColmn = [];
 
         $this->pasienService = new PasienService();
@@ -64,39 +66,50 @@ class PendaftaranPasienRepository
 
     public function store(object $req)
     {
+        try {
+            DB::beginTransaction();
 
-        if (!$this->IsValidAddress($req)) {
-            throw new Error("Alamat tidak valid");
-        }
+            Log::info("START SIMPAN PENDAFTARAN PASIEN: ", [
+                "request" => $this->arryToJSON($req->all())
+            ]);
 
-        $nik = (isset($req->nik_pasien) && !empty($req->nik_pasien) ? $req->nik_pasien : $req->nik_user);
-        $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $nik)->first();
+            if (!$this->IsValidAddress($req)) { throw new Exception("Alamat tidak valid"); }
 
-        DB::beginTransaction();
+            $nik = $this->getVarValue($req->nik_pasien);
+            $dataPenduduk = Penduduk::whereNotNull('nik')->where('nik', $nik)->first();
 
-        if (!$this->IsValidVal($dataPenduduk)) {
-            $req->id_penduduk = $this->pendudukService->store($req);
-        } else {
-            $this->pendudukService->update($req, $dataPenduduk->id);
-            $req->id_penduduk = $dataPenduduk->id;
-        }
+            DB::beginTransaction();
 
-        if (!$this->isValidVal($req->norm_pasien)) {
-            $req->id_pasien = $this->pasienService->store($req);
-        }
+            if (!$this->IsValidVal($dataPenduduk)) {
+                $req->id_penduduk = $this->pendudukService->store($req);
+            } else {
+                $this->pendudukService->update($req, $dataPenduduk->id);
+                $req->id_penduduk = $dataPenduduk->id;
+            }
 
-        $dataPendaftaran = $this->pndaftaranPasienModel->SchemaDataModel($req);
+            if (!$this->isValidVal($req->norm_pasien)) {
+                $req->id_pasien = $this->pasienService->store($req);
+            }
 
-        $req->id_pendaftaran = (Pendaftaran::create($dataPendaftaran))->id;
+            $dataPendaftaran = $this->pndaftaranPasienModel->SchemaDataModel($req);
 
-        $kunjungan = $this->kunjunganService->store($req);
+            $req->id_pendaftaran = (PendaftaranPasien::create($dataPendaftaran))->id;
 
-        if ($this->IsValidVal($kunjungan)) {
-            DB::commit();
-            return $kunjungan;
-        } else {
+            $kunjungan = $this->kunjunganService->store($req);
+
+            if ($this->IsValidVal($kunjungan)) {
+                DB::commit();
+                return $kunjungan;
+            }
+        } catch (Exception $err) {
             DB::rollBack();
-            return new Error("Kesalahan insert ke database");
+
+            Log::error("GAGAL SIMPAN PENDAFTARAN PASIEN: ", [
+                "error" => $err->getMessage(),
+                "request" => $this->arryToJSON($req->all())
+            ]);
+
+            throw $err->getMessage();
         }
     }
 
@@ -107,11 +120,7 @@ class PendaftaranPasienRepository
         return DB::select("$qry");
     }
 
-    public function update(object $req, string $id)
-    {
-    }
+    public function update(object $req, string $id) {}
 
-    public function destroy(string $id)
-    {
-    }
+    public function destroy(string $id) {}
 }

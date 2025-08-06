@@ -245,47 +245,51 @@ function InitAutocomplete() {
 }
 
 function TxtCheckInputSymbol($this) {
-    const $invalidChars = /[<>\/'";`\\!@#$%^&*]/g;
+    const $invalidChars = /[<>\/'";`\\!@#$%^&*~]/g;
     let $newVal = $($this).val();
 
     if ($invalidChars.test($newVal)) {
-        AllNotify(`Simbol <i><strong>${$newVal}</strong></i></br> Tidak diperbolehkan!`, "error");
+        AllNotify(`Terdapat Simbol <i><strong>${$newVal}</strong></i></br> Tidak diperbolehkan!`, "error");
         $($this).val($newVal.replace($invalidChars, ""));
     }
 }
 
 function HiddenAddressDropdown() {
-    if ($(".address_hidden").length) {
-        $(".address_hidden").each(function() {
-            $(this).hide();
-        });
+    $(".address_hidden").hide();
 
-        // On Address Changes START
-        const $id_provinsi = document.getElementById("id_provinsi");
-        const $obsIDProv = new MutationObserver(() => {
-            if ($id_provinsi.value) {
-                $("#container_kabupaten").show();
-            }
-        });
-        $obsIDProv.observe($id_provinsi, { attributes: true, attributeFilter: ["value"] });
+    const $fields = [];
+    const addressElements = [];
+    const $checkForm = $("form");
+    if ($checkForm.length) {
+        $checkForm.each(function () {
+            const $form = $(this);
 
-        const $id_kabupaten = document.getElementById("id_kabupaten");
-        const $obsIDKab = new MutationObserver(() => {
-            if ($id_kabupaten.value) {
-                $("#container_kecamatan").show();
-            }
-        });
-        $obsIDKab.observe($id_kabupaten, { attributes: true, attributeFilter: ["value"] });
+            $form.find('label').each(function () {
+                const $for = $(this).attr('for');
 
-        const $id_kecamatan = document.getElementById("id_kecamatan");
-        const $obsIDKec = new MutationObserver(() => {
-            if ($id_kecamatan.value) {
-                $("#container_kelurahan").show();
+                if ($for.includes("provinsi") || $for.includes("kabupaten") || $for.includes("kecamatan") || $for.includes("kelurahan")) {
+                    $fields.push($for);
+                }
+            });
+        })
+
+        $fields.forEach((list, index) => {
+            if (!list.includes("provinsi")) {
+                addressElements.push({ id: `id_${$fields[--index]}`, container: `#container_${list}` });
             }
-        });
-        $obsIDKec.observe($id_kecamatan, { attributes: true, attributeFilter: ["value"] });
-        // On Address Changes END
+        })
     }
+
+    addressElements.forEach(({ id, container }) => {
+        const element = document.getElementById(id);
+        if (element) {
+            new MutationObserver(() => {
+                if (element.value) {
+                    $(container).show();
+                }
+            }).observe(element, { attributes: true, attributeFilter: ["value"] });
+        }
+    });
 }
 
 function AllNotify($msg, $section) {
@@ -294,7 +298,6 @@ function AllNotify($msg, $section) {
             title: "Berhasil!",
             html: $msg,
             icon: "success",
-            confirmButtonColor: "#3085d6",
         })
         toastr.success($msg, "Berhasil!");
     }
@@ -304,7 +307,6 @@ function AllNotify($msg, $section) {
             title: "Kesalahan!",
             html: $msg,
             icon: "error",
-            confirmButtonColor: "#3085d6",
         })
         toastr.error($msg, "Kesalahan!");
     }
@@ -314,19 +316,17 @@ function AllNotify($msg, $section) {
             title: "Peringatan!",
             html: $msg,
             icon: "warning",
-            confirmButtonColor: "#3085d6",
         })
         toastr.warning($msg, "Peringatan!");
     }
 
     if ($section == "info") {
         Swal.fire({
-            title: "Sekilas Info!",
+            title: "Info!",
             html: $msg,
             icon: "info",
-            confirmButtonColor: "#3085d6",
         })
-        toastr.info($msg, "Sekilas Info!");
+        toastr.info($msg, "Info!");
     }
 }
 
@@ -371,18 +371,28 @@ function ClassDOMInputStrict() {
 
         if ($this.hasClass("convert_to_idr")) {
             $this.val(new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 2}).format(value.replace(/[^0-9]/g, "")));
-        } else if ($this.hasClass("input_number_only")) {
+        }
+
+        if ($this.hasClass("input_number_only")) {
             $this.val(value.replace(/[^0-9]/g, ""));
-        } else if ($this.hasClass("capitalize")) {
+        }
+
+        if ($this.hasClass("capitalize")) {
             $this.val(value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()));
-        } else if ($this.hasClass("text-capitalize-input")) {
-            TxtCheckInputSymbol(this);
+        }
+
+        if ($this.hasClass("text-capitalize-input")) {
             $this.val(value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase()));
-        } else if ($this.hasClass("text-check-input-symbol")) {
             TxtCheckInputSymbol(this);
-        } else if ($this.hasClass("text-number-input")) {
+        }
+
+        if ($this.hasClass("text-check-input-symbol")) {
             TxtCheckInputSymbol(this);
+        }
+
+        if ($this.hasClass("text-number-input")) {
             $this.val(value.replace(/\D/g, ""));
+            TxtCheckInputSymbol(this);
         }
     });
 }
@@ -391,7 +401,7 @@ function ClearLocalStorage() {
     localStorage.removeItem("search_params");
 }
 
-function AutoInitListJSSearch($get = null) {
+function AutoInitListJSSearch($get) {
     if ($(`#list_${$get} li`).length) {
         const options = {
             valueNames: [`nama_${$get}`]
@@ -399,4 +409,31 @@ function AutoInitListJSSearch($get = null) {
 
         new List(`list_${$get}_wrapper`, options);
     }
+}
+
+function SwalModal($optnal = {}) {
+    const {
+        title,
+        desc,
+        icon,
+        confirmButtonText,
+        showCancelButton,
+        cancelButtonText,
+        showDenyButton,
+        denyButtonText,
+        footer
+    } = $optnal;
+
+    return Swal.fire({
+        title: `${title}`,
+        html: `${desc}`,
+        icon: `${icon}`,
+        showCloseButton: true,
+        confirmButtonText,
+        showCancelButton,
+        cancelButtonText,
+        showDenyButton,
+        denyButtonText,
+        footer
+    });
 }

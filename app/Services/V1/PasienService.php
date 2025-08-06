@@ -10,49 +10,15 @@ class PasienService
 {
     use Tools;
 
-    private $dateNow, $repos, $userSession;
-    public function __construct()
-    {
-        setlocale(LC_TIME, 'id_ID.utf8');
-        $this->dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+    public function __construct(private $repos = new PasienRepository()) {}
 
-        $this->userSession = session('user_login');
-        // $sessionId = session()->getId();
-        // $this->userSessionRedis = json_decode(Redis::get("session:$sessionId"), true);
+    public function index(object $req) { return $this->repos->index($req); }
 
-        $this->repos = new PasienRepository();
-    }
+    public function store(object $req) { return $this->repos->store($req); }
 
-    public function index($req)
-    {
-        return $this->repos->index($req);
-    }
+    public function show(string $id) { return $this->repos->show($id); }
 
-    public function store(object $req)
-    {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
-        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
+    public function update(object $req, string $id) { return $this->repos->update($req, $id); }
 
-        return $this->repos->store($req);
-    }
-
-    public function show(string $id)
-    {
-        return $this->repos->show($id);
-    }
-
-    public function update(object $req, string $id)
-    {
-        $req->dateNow = $this->ReformatDateTime($this->dateNow, true);
-        $req->id_client = $this->GetClientIDFromRequest($req, $this->userSession);
-        $req->id_user = $this->GetUserIDFromRequest($req, $this->userSession);
-
-        return $this->repos->update($req, $id);
-    }
-
-    public function destroy(string $id)
-    {
-        return $this->repos->destroy($id);
-    }
+    public function destroy(string $id) { return $this->repos->destroy($id); }
 }

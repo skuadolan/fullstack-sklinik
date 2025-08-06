@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pendaftaran');
-            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran_pasien')->onDelete('cascade');
+            $table->unsignedBigInteger('id_kunjungan');
+            $table->foreign('id_kunjungan')->references('id')->on('kunjungan_pasien')->onDelete('cascade');
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');

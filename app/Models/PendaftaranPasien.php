@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pendaftaran extends Model
+class PendaftaranPasien extends Model
 {
-    protected $table = 'pendaftaran';
+    protected $table = 'pendaftaran_pasien';
     use Notifiable, HasFactory, Tools;
 
     /**

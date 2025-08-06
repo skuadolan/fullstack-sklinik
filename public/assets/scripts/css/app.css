@@ -5,6 +5,10 @@
 @import url("../../vendor/jquery/jquery.datetimepicker.css");
 @import url("../../vendor/datatables/datatables.css");
 
+* {
+    font-size: 12px;
+}
+
 .loaderAjax {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #3498db;

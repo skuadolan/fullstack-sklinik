@@ -15,14 +15,14 @@ return new class extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pendaftaran');
-            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran')->onDelete('cascade');
+            $table->foreign('id_pendaftaran')->references('id')->on('pendaftaran_pasien')->onDelete('cascade');
             $table->unsignedBigInteger('id_pasien');
             $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
             $table->unsignedBigInteger('id_client');
             $table->foreign('id_client')->references('id')->on('list_client')->onDelete('cascade');
 
             // ENUM SET START
-            $table->enum('is_lunas', ['Belum', 'Lunas', 'Dicicil', 'Batal'])->comment("Belum, Lunas, Dicicil, Batal");
+            $table->enum('is_lunas', ['Belum Lunas', 'Sudah Lunas', 'Dicicil', 'Batal'])->comment("Belum Lunas, Sudah Lunas, Dicicil, Batal");
             // ENUM SET END
 
             $table->decimal('total_tagihan', 15, 2)->default(0)->comment("Total Tagihan = SUM(Sub Total Tagihan Detail Pembayaran)");

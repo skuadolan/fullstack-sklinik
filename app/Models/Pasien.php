@@ -22,20 +22,36 @@ class Pasien extends Model
         'id_client',
         'id_user_created',
         'id_user_updated',
+        'is_actived',
         'is_deleted',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function SchemaDataModel(object $req) {
+    public function SchemaDataModel(object $req)
+    {
+        setlocale(LC_TIME, 'id_ID.utf8');
+        $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
+        $userSession = session('user_login');
+
+        $date = $this->ReformatDateTime($dateNow, true);
+        $id_user = $this->GetUserIDFromRequest($req, $userSession);
+        $id_client = $this->GetClientIDFromRequest($req, $userSession);
+
+        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+
         return [
-            'id_client' => $req->id_client,
             'id_penduduk' => $req->id_penduduk,
-            'id_user_created' => $req->id_user,
-            'id_user_updated' => $req->id_user,
-            'created_at' => $req->dateNow,
-            'updated_at' => $req->dateNow,
+            'id_client' => $id_client,
+            'id_user_created' => $id_user,
+            'id_user_updated' => $id_user,
+            'is_actived' => $isActived,
+            'is_deleted' => $isDeleted,
+            'created_at' => $date,
+            'updated_at' => $date,
+            'deleted_at' => $date,
         ];
     }
 }
