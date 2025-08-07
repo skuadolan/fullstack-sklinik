@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ClientConfigs extends Model
 {
-    protected $table = 'client_configs';
+    protected $table = 'client_config';
     use Notifiable, SoftDeletes, HasFactory;
 
     /**

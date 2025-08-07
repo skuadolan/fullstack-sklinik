@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pendaftaran\Client;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -43,8 +43,8 @@ class Pegawai extends Model
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
         $id_client = $this->GetClientIDFromRequest($req, $userSession);
 
-        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
-        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+        $isActived = ($this->valNotEmpty($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->valNotEmpty($req->is_deleted) ? $req->is_deleted : false);
 
         return [
             'id_user' => $id_user,

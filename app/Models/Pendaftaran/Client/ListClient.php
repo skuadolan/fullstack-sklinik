@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pendaftaran\Client;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -44,17 +44,17 @@ class ListClient extends Model
         $dateNow = now(env('APP_TIMEZONE', 'Asia/Jakarta'));
         $userSession = session('user_login');
 
-        $date = $this->ReformatDateTime($dateNow, true);
+        $date = $this->ReformatDateTime($dateNow);
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
-        $id_tier_level = ($this->isValidVal($req->id_tier_level) ? $req->id_tier_level : 1);
+        $id_tier_level = ($this->valNotEmpty($req->id_tier_level) ? $req->id_tier_level : 1);
 
         $day = 30;
-        $days = ($this->isValidVal($req->actived_lifetime) ? $req->actived_lifetime * $day : $day);
+        $days = ($this->valNotEmpty($req->actived_lifetime) ? $req->actived_lifetime * $day : $day);
         $expired_date = (clone $dateNow)->addDays($days)->toDateTimeString();
 
-        $name = ($this->isValidVal($req->name) ? $req->name : $req->klinik_name);
-        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
-        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+        $name = ($this->valNotEmpty($req->name) ? $req->name : $req->klinik_name);
+        $isActived = ($this->valNotEmpty($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->valNotEmpty($req->is_deleted) ? $req->is_deleted : false);
 
         return [
             'name' => $name,
@@ -67,6 +67,7 @@ class ListClient extends Model
             'id_tier_level' => $id_tier_level,
             'id_user_created' => $id_user,
             'id_user_updated' => $id_user,
+            'id_user_deleted' => $id_user,
             'expired_date' => $expired_date,
             'is_actived' => $isActived,
             'is_deleted' => $isDeleted,

@@ -4,23 +4,28 @@ namespace App\Traits;
 
 use DateTime;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 trait Tools
 {
-    public function arryToJSON(array $var)
+    public function arryToJson(array $arry)
     {
-        return json_encode($var, JSON_PRETTY_PRINT);
+        return json_encode($arry, JSON_PRETTY_PRINT);
     }
 
-    public function jsonToArry(object $var)
+    public function jsonToArry(string $json)
     {
-        return json_decode(json_encode($var, JSON_PRETTY_PRINT), true);
+        return json_decode($json, true);
     }
 
-    public function isValidVal($val, $key = null, $get = 'bool', $other = null)
+    public function objToArry(string $obj)
+    {
+        return json_decode(json_encode($obj), true);
+    }
+
+    public function isValidVal(string $get = 'bool', $val, $key = null, $other = null)
     {
         switch ($get) {
             case 'value':
@@ -34,38 +39,40 @@ trait Tools
 
     public function getVarValue($val, $key = null, $default = null)
     {
-        $tmpVal = (($key === null) && !empty($val) ? $val : $default);
-        if (($key !== null) && is_array($val)) {
-            $tmpVal = (isset($val[$key]) && !empty($val[$key]) ? $val : $tmpVal);
+        $tmp = ($this->strictNotEmpty($default) ? $default : null);
+        if ($key !== null && is_array($val)) {
+            if (array_key_exists($key, $val)) {
+                $tmp = ($this->strictNotEmpty($val[$key]) ? $val[$key] : $tmp);
+            }
+        } else {
+            $tmp = ($this->strictNotEmpty($val) ? $val : $tmp);
         }
 
-        return (is_string($tmpVal) ? trim($tmpVal) : $tmpVal);
+        return (is_string($tmp) && $this->strNotEmpty($tmp) ? trim($tmp) : $tmp);
     }
 
     public function isValEqual($var, $key = null, $value)
     {
-        $tmpVar = $this->getVarValue($var, $key);
-        return $tmpVar == $value;
+        return $this->getVarValue($var, $key) == $value;
     }
 
     public function valNotEmpty($var, $key = null)
     {
-        $tmpVar = $this->getVarValue($var, $key);
-        return isset($tmpVar) && !empty($tmpVar);
+        $tmp = $this->getVarValue($var, $key);
+        return $this->strictNotEmpty($tmp);
     }
 
-    public function ajaxJSONReturn($code, $status, $msg, $data = [])
+    public function strictNotEmpty($var)
     {
-        $return = [
-            'code' => $code,
-            'status' => $status,
-            'message' => $msg,
-            'data' => $data
-        ];
-        return json_encode($return, JSON_PRETTY_PRINT);
+        return isset($var) && !empty($var);
     }
 
-    public function ajaxReturn($code, $status, $msg, $data = [])
+    public function strNotEmpty(string $var)
+    {
+        return $this->strictNotEmpty($var) && (strlen($var) > 0) && ($var !== "") && ($var !== null);
+    }
+
+    public function ajaxReturn(int $code, string $status, string $msg, array $data = [])
     {
         $return = [
             'code' => $code,
@@ -78,18 +85,19 @@ trait Tools
 
     public function IsValidAddress($req)
     {
-        $wheres = ($this->IsValidVal($req->id_provinsi) ? " WHERE prov.id = '$req->id_provinsi' AND " : " WHERE ");
-        $wheres .= ($this->IsValidVal($req->id_kabupaten) ? " kab.id = '$req->id_kabupaten' AND " : "");
-        $wheres .= ($this->IsValidVal($req->id_kecamatan) ? " kec.id = '$req->id_kecamatan' AND " : "");
-        $wheres .= ($this->IsValidVal($req->id_kelurahan) ? " kel.id = '$req->id_kelurahan' AND " : "");
-        $wheres .= (isset($req->q) && !empty($req->q) ? " $wheres LOWER(kel.name) LIKE LOWER('%$req->q%') " : " 1=1 ");
+        $tmp = $this->objToArry($req);
+        $wheres = ($this->valNotEmpty($tmp, 'id_provinsi') ? " WHERE prov.id = '$req->id_provinsi' AND " : " WHERE ");
+        $wheres .= ($this->valNotEmpty($tmp, 'id_kabupaten') ? " kab.id = '$req->id_kabupaten' AND " : "");
+        $wheres .= ($this->valNotEmpty($tmp, 'id_kecamatan') ? " kec.id = '$req->id_kecamatan' AND " : "");
+        $wheres .= ($this->valNotEmpty($tmp, 'id_kelurahan') ? " kel.id = '$req->id_kelurahan' AND " : "");
+        $wheres .= ($this->valNotEmpty($tmp, 'q') ? " LOWER(kel.name) LIKE LOWER('{$tmp['q']}%') " : " 1=1 ");
 
-        $qry = "SELECT kel.id, kel.name, kel.postal_code, kec.name as kecamatan, kab.name as kabupaten, prov.name as provinsi FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY kel.name ASC";
-        $datas = DB::select("$qry");
-        return $datas;
+        $qry = "SELECT kel.id id_kelurahan, kel.name kelurahan, kel.postal_code kode_pos, kec.id id_kecamatan, kec.name kecamatan, kab.id id_kabupaten, kab.name kabupaten, prov.id id_provinsi, prov.name provinsi
+        FROM kelurahan kel JOIN kecamatan kec ON kec.id = kel.id_kecamatan JOIN kabupaten kab ON kab.id = kec.id_kabupaten JOIN provinsi prov ON prov.id = kab.id_provinsi $wheres ORDER BY prov.name, kab.name, kec.name, kel.name ASC";
+        return DB::select($qry);
     }
 
-    public function ReformatDateTime($date, $toDB = false, $format = "Y-m-d H:i:s")
+    public function ReformatDateTime(string $date, string $format = "Y-m-d H:i:s", $toDB = true)
     {
         if ($toDB && env("DB_CONNECTION") === "mysql") {
             return Carbon::parse($date)->format("Y-m-d H:i:s");
@@ -101,18 +109,7 @@ trait Tools
     public function ReformatNoRM($id_pasien)
     {
         $id_pasien = $this->getVarValue($id_pasien);
-        $tmpStr = strlen("$id_pasien");
-        $tmpZero = [
-            '000000',
-            '00000',
-            '0000',
-            '000',
-            '00',
-            '0',
-        ];
-        $key = ($tmpStr - 1);
-        $key = ($key < 0 ? 0 : $key);
-        return (isset($tmpZero[$key]) ? $tmpZero[$key] . "" . $id_pasien : $id_pasien);
+        return str_pad($id_pasien, 7, '0', STR_PAD_LEFT);
     }
 
     public function UserAgent()
@@ -127,38 +124,40 @@ trait Tools
 
     public function GetUserIDFromRequest($req, $userSession)
     {
-        $id_user = ($this->valNotEmpty($userSession, 'id_user') ? $userSession['id_user'] : null);
-        $id_user = (isset($req->id_user) && !empty($req->id_user) ? $req->id_user : $id_user);
-        $id_user = ($this->valNotEmpty($id_user) ? $id_user : Auth::id());
-
-        return $id_user;
+        $tmp = $this->objToArry($req);
+        $id_user = $this->getVarValue($userSession, 'id_user', Auth::id());
+        $id_user = $this->getVarValue($tmp, 'id_user', $id_user);
+        return $this->getVarValue($id_user);
     }
 
     public function GetClientIDFromRequest($req, $userSession)
     {
-        $id_client = ($this->valNotEmpty($userSession, 'id_client') ? $userSession['id_client'] : null);
-        $id_client = (isset($req->id_client) && !empty($req->id_client) ? $req->id_client : $id_client);
-
-        return $id_client;
+        $tmp = $this->objToArry($req);
+        $id_client = $this->getVarValue($userSession, 'id_client', Auth::user()->id_client);
+        $id_client = $this->getVarValue($tmp, 'id_client', $id_client);
+        return $this->getVarValue($id_client);
     }
 
-    public function IsValidDateTime($val, $format = 'Y-m-d')
+    public function IsValidDateTime(string $val, string $format = "Y-m-d H:i:s")
     {
-        $dt = DateTime::createFromFormat($format, $val);
-        $isValidDate = $dt && $dt->format($format) === $val;
-
-        if ($isValidDate) {
-            return $val;
-        }
-
-        if (is_numeric($val)) {
-            return date($format, strtotime("-" . intval($val + 1) . " years"));
-        }
+        return (bool) DateTime::createFromFormat($format, $val);
     }
 
-    public function GetAgedByBirthDate($val, $format = 'd-m-Y')
+    public function GetAgedByBirthDate(string $val, string $format = "Y-m-d H:i:s")
     {
-        $tmpDate = $this->IsValidDateTime($val, $format);
-        return Carbon::parse($tmpDate)->age;
+        if (!$this->IsValidDateTime($val, $format)) {
+            return null;
+        }
+        return Carbon::createFromFormat($format, $val)->age;
+    }
+
+    public function unsetNewDataRecord($var) {
+        unset($var['id_user_created']);
+
+        unset($var['id_user_updated']);
+        unset($var['updated_at']);
+
+        unset($var['id_user_deleted']);
+        unset($var['deleted_at']);
     }
 }

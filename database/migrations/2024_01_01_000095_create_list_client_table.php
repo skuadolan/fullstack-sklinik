@@ -30,6 +30,8 @@ return new class extends Migration
             $table->foreign('id_user_created')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_user_updated')->nullable();
             $table->foreign('id_user_updated')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user_deleted')->nullable();
+            $table->foreign('id_user_deleted')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('is_actived')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamp('expired_date')->nullable();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pendaftaran;
 
 use App\Traits\Tools;
 
@@ -62,12 +62,12 @@ class Penduduk extends Model
 
         $date = $this->ReformatDateTime($dateNow, true);
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
-        $nik = ($this->isValidVal($req->nik_user) ? $req->nik_user : $req->nik_pasien);
-        $gender = ($this->isValidVal($req->gender_user) ? $req->gender_user : $req->gender);
-        $goldar = ($this->isValidVal($req->goldar_user) ? $req->goldar_user : $req->goldar);
-        $alamat_ktp = ($this->isValidVal($req->address_user) ? $req->address_user : $req->address_pasien);
-        $fullname = ($this->isValidVal($req->fullname_user) ? $req->fullname_user : $req->nama_pasien);
-        $tanggal_lahir = ($this->isValidVal($req->tanggal_lahir_pasien) ? $req->tanggal_lahir_pasien : $req->tanggal_lahir);
+        $nik = ($this->valNotEmpty($req->nik_user) ? $req->nik_user : $req->nik_pasien);
+        $gender = ($this->valNotEmpty($req->gender_user) ? $req->gender_user : $req->gender);
+        $goldar = ($this->valNotEmpty($req->goldar_user) ? $req->goldar_user : $req->goldar);
+        $alamat_ktp = ($this->valNotEmpty($req->address_user) ? $req->address_user : $req->address_pasien);
+        $fullname = ($this->valNotEmpty($req->fullname_user) ? $req->fullname_user : $req->nama_pasien);
+        $tanggal_lahir = ($this->valNotEmpty($req->tanggal_lahir_pasien) ? $req->tanggal_lahir_pasien : $req->tanggal_lahir);
 
         return [
             'fullname' => $fullname,

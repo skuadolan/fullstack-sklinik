@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pendaftaran\Client;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -70,10 +70,10 @@ class User extends Authenticatable
         $date = $this->ReformatDateTime($dateNow, true);
         $id_user = $this->GetUserIDFromRequest($req, $userSession);
         $id_client = $this->GetClientIDFromRequest($req, $userSession);
-        $id_role = ($this->isValidVal($req->id_role) ? $req->id_role : 1);
+        $id_role = ($this->valNotEmpty($req->id_role) ? $req->id_role : 1);
 
-        $isActived = ($this->isValidVal($req->is_actived) ? $req->is_actived : true);
-        $isDeleted = ($this->isValidVal($req->is_deleted) ? $req->is_deleted : false);
+        $isActived = ($this->valNotEmpty($req->is_actived) ? $req->is_actived : true);
+        $isDeleted = ($this->valNotEmpty($req->is_deleted) ? $req->is_deleted : false);
 
         return [
             'username' => $req->username,
