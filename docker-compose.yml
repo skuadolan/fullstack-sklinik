@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+    sklinik_app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.app
+            args:
+                UID: 1000
+                GID: 1000
+        container_name: sklinik_app
+        user: "1000:1000"
+        volumes:
+            - ./:/var/www/sklinik_app
+        depends_on:
+            - sklinik_redis
+        networks:
+            - sklinik_network
+
+    sklinik_nginx:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.nginx
+        container_name: sklinik_nginx
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www/sklinik_app:ro
+            - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - sklinik_app
+        networks:
+            - sklinik_network
+
+    sklinik_redis:
+        image: redis:latest
+        container_name: sklinik_redis
+        volumes:
+            - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
+        networks:
+            - sklinik_network
+
+    sklinik_postgres:
+        image: postgres:17
+        container_name: sklinik_postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: sklinik
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: 1234
+        volumes:
+            - ./docker/postgres_data:/var/lib/postgresql/data
+        networks:
+            - sklinik_network
+
+#   sklinik_node:
+#     build:
+#       context: .
+#       dockerfile: docker/Dockerfile.node
+#     container_name: sklinik_node
+#     ports:
+#       - "5173:5173"
+#     working_dir: /var/www/sklinik_app
+#     volumes:
+#       - ./:/var/www/sklinik_app
+#       - /var/www/sklinik_app/node_modules
+#     networks:
+#       - sklinik_network
+
+networks:
+    sklinik_network:
+        driver: bridge
