@@ -1,230 +1,61 @@
-<h1 align='center'>Welcome! #Fullstack Sklinik 🚀</h1>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-# Requirements
-## Languages
-> [<img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" />![version](https://img.shields.io/badge/version-8.2.12-blue)](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/xampp-windows-x64-8.2.12-0-VS16-installer.exe/download) </br>
-> [<img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" />![version](https://img.shields.io/badge/version-3.7.1-blue)](https://cdnjs.com/libraries/jquery) </br>
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Frontend
-> [<img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />![version](https://img.shields.io/badge/version-1.7-blue)](https://tailwindcss.com/docs/guides/vite#vue) </br>
-> [<img src="https://img.shields.io/badge/Font_Awesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white" />![version](https://img.shields.io/badge/version-6.5.2-blue)](https://cdnjs.com/libraries/font-awesome) </br>
+## About Laravel
 
-## Database
-> [<img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />![version](https://img.shields.io/badge/version-8.0.39-blue)](https://dev.mysql.com/downloads/installer/) </br>
-> [<img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />![version](https://img.shields.io/badge/version-17.2-blue)](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) </br>
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Tools
-> [<img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" />![version](https://img.shields.io/badge/version-11.xx-blue)](https://laravel.com/docs/11.x/installation) </br>
-> [<img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />![version](https://img.shields.io/badge/version-21.7.1-blue)](https://nodejs.org/en/download/prebuilt-installer) </br>
-> [<img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />![version](https://img.shields.io/badge/version-4.31.1-blue)](https://www.docker.com/get-started/) </br>
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-# Library / CDN
-> [![AlpineJS]](https://alpinejs.dev/essentials/installation) </br>
-> [![JQuery UI]](https://jqueryui.com) </br>
-> [![MomentJS]](https://momentjs.com) </br>
-> [![NotyJS]](https://www.jsdelivr.com/package/npm/noty) </br>
-> [![Sweetalert]](https://sweetalert2.github.io) </br>
-> [![tostr]](https://www.jsdelivr.com/package/npm/toastr) </br>
-> [![DataTables]](https://datatables.net/download/) </br>
-> [![AG Grid]](https://www.ag-grid.com/javascript-data-grid/getting-started/) / [![AG Grid Theme Builder]](https://www.ag-grid.com/theme-builder/) </br>
-> [![ListJS]](https://listjs.com/overview/download/) </br>
-> [![Flaticon]](https://www.flaticon.com/search?color=color) </br>
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-# Database / Table Relation
-- Untuk mengetahui relasi antar table, bisa mengakses website berikut;
-> [![dbdiagram]](https://dbdiagram.io/d) </br>
-- Jika sudah login menggunakan akun pribadi, bisa menggunakan code yang sudah disiapkan pada file berikut
-> [![database/TableRelation.txt]](https://github.com/skuadolan/fullstack-sklinik/tree/main/database/TableRelation.txt) </br>
+## Learning Laravel
 
-# Project Worklist
-> [![notion]](https://www.notion.so/skuadproduction/Fullstack-Klinik-fd00424e9f0f4871996679934edb861a) </br>
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-# Flowchart
-- Menggunakan file `Fullstack-Sklinik.drawio`
-> [![diagrams]](https://app.diagrams.net) </br>
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-# Setup
-## Environment
-> .env
-- Bisa disesuaikan dengan database yang ingin digunakan di perangkat `mesin lokal` atau `docker`
-- `DB_HOST` dapat menyesuaikan yang ingin digunakan di perangkat `mesin lokal` atau `docker`
-```bash
-DB_COLLATION=utf8mb4_general_ci # Gunakan jika di CPanel Server version: 10.6.17-MariaDB-cll-lve - MariaDB Server
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=
-DB_USERNAME=
-DB_PASSWORD=
-```
-```bash
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=
-DB_USERNAME=
-DB_PASSWORD=
-```
+## Laravel Sponsors
 
-> php.ini
-```bash
-extension=pdo_pgsql
-extension=pgsql
-```
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-## Composer
-> [![Composer]](https://getcomposer.org/download/) </br>
-```bash
-composer i
-```
-```bash
-composer update laravel/framework
-```
+### Premium Partners
 
-## Application
-> Database
-- Pastikan database sudah dibuatkan/create
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-> Laravel
-```bash
-php artisan key:generate
-```
-- `php artisan migrate:fresh --seed` merupakan promp / command untuk development tanpa connect db client
-```bash
-php artisan migrate:fresh --seed
-```
-```bash
-php artisan config:publish cors
-```
+## Contributing
 
-> TailwindCSS
-- Pastikan sudah installasi `pnpm`, jika belum install bisa ikuti berikut
-```bash
-npm i -g pnpm
-```
-- Install library dari nodejs
-```bash
-pnpm i
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-# Running Development
-> Laravel
-```bash
-php artisan serve
-```
-> TailwindCSS
-```bash
-pnpm dev
-```
+## Code of Conduct
 
-# Running Production
-> Laravel
-- Setting pada root document di folder `public`
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-> TailwindCSS
-```bash
-pnpm build
-```
+## Security Vulnerabilities
 
-## Docker
-- Jangan lupa untuk merubah `ports` pada file `docker-compose.yml` untuk disesuaikan di perangkat masing - masing supaya tidak `error`
-```bash
-ports:
-      - "3306:3306" # *Contoh customize_port:default_service_port
-```
-- Pastikan value `.env` sudah sama dengan konfigurasi `docker-compose.yml`
-- Mengaktifkan mesin docker, dan pastikan operasi build berhasil sampai akhir
-```bash
-docker-compose up -d
-```
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-> .env
-```bash
-DB_CONNECTION=pgsql
-DB_HOST=sklinik_postgres
-DB_PORT=5432
-DB_DATABASE=sklinik
-DB_USERNAME=postgres
-DB_PASSWORD=1234
-```
+## License
 
-- Jika running menggunakan `php artisan serve` maka `postgres` menggunakan
-```bash
-DB_HOST=localhost
-```
-
-- Jika running menggunakan `nginx docker` maka `postgres local` menggunakan
-```bash
-DB_HOST=host.docker.internal
-```
-
-- Jika running menggunakan `postgres docker` menggunakan
-```bash
-DB_HOST=sklinik_postgres
-```
-
-> Permission denied
-- Jika terdapat `Permission denied` terhadap suatu direktori folder, cobalah untuk `composer install` menggunakan docker
-
-
-## Redis Docker
-- Dan pada container redis run promp berikut
-```bash
-redis-cli FLUSHALL
-```
-
-```bash
-SESSION_DRIVER=redis
-SESSION_CONNECTION=default
-CACHE_DRIVER=redis
-
-REDIS_CLIENT=phpredis
-REDIS_HOST=sklinik_redis
-REDIS_PORT=6379
-```
-
-- Jika running menggunakan `php artisan serve` maka `redis` menggunakan
-```bash
-REDIS_CLIENT=predis
-```
-
-- Jika running menggunakan `nginx docker` maka `redis` menggunakan
-```bash
-REDIS_CLIENT=phpredis
-```
-
-- Jangan lupa untuk run prompt berikut ini;
-```bash
-php artisan auth:clear-resets
-```
-```bash
-php artisan cache:clear
-```
-```bash
-php artisan config:clear
-```
-```bash
-php artisan event:clear
-```
-```bash
-php artisan optimize:clear
-```
-```bash
-php artisan queue:clear
-```
-```bash
-php artisan route:clear
-```
-```bash
-php artisan schedule:clear-cache
-```
-```bash
-php artisan view:clear
-```
-
-# cPanel
-Jika setting cPanel, pastikan seluruh `.env` yang berkaitan dengan `domain` semua localhost diganti menjadi `current domain` atau `domain` yang sedang digunakan di hosting.
-
-# IMPORTANCE!
-- Jika menggunakan query, pastikan nama table tidak menggunakan huruf besar!
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

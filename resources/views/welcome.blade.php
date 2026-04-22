@@ -1,112 +1,14 @@
-@extends('layouts.app')
-
-@section('title', 'Sklinik')
-
-@section('root_container')
-    <main class="w-full flex items-center justify-center h-screen">
-        <div id="registerSection">
-            @include('layouts.partials.register')
-        </div>
-        <div id="loginSection">
-            @include('layouts.partials.login')
-        </div>
-    </main>
-
-    <script>
-        // ONLOAD START
-        $(document).ready(function() {
-            $("#loginSection").hide();
-        })
-        // ONLOAD END
-
-        // FUNCTION ON CHECK START
-        // FUNCTION ON CHECK END
-
-        // FUNCTIONS START
-        function submitForm($section) {
-            event.preventDefault();
-            $(".hide_notif").hide();
-
-            SwalModal({
-                title: "Validasi Data",
-                desc: "<p>Apakah yakin ingin melanjutkan?</p>",
-                icon: "warning",
-                confirmButtonText: "Lanjutkan",
-                showCancelButton: true,
-                cancelButtonText: "Batal",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#clientRegist").show();
-                    $(".csrf-token").val($('meta[name="csrf-token"]').attr('content'));
-
-                    $(".hideBtnProcess").hide();
-                    LoadingNotify("Sedang diproses, mohon tunggu!", "info", true);
-
-                    if ($section == "registerForm") {
-                        $.ajax({
-                            url: `${$base_url}/api/v1/users`,
-                            type: "POST",
-                            data: $("#registerForm").serializeArray(),
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(callback) {
-                                const { messages, message } = callback;
-                                console.dir(callback);
-                                AllNotify(messages || message, "success");
-
-                                setTimeout(() => {
-                                    LoginAjaxSection($("#registerForm").serializeArray());
-                                }, 1500);
-                            },
-                            error: function(callback) {
-                                const { responseJSON } = callback;
-                                const { errors, message, messages, data } = getVarValue(responseJSON);
-                                let errorInfo, validator;
-                                if (data) {
-                                    const { errorInfo: errInfo, validator: validCallback } = data
-                                    errorInfo = errInfo;
-                                    validator = validCallback;
-                                }
-                                console.dir(callback);
-
-                                if (errors) {
-                                    for (let key in errors) {
-                                        AllNotify(errors[key][0], "error");
-                                        $(`#err_${key}`).show();
-                                        $(`#err_${key} li`).html(errors[key][0]);
-                                    }
-                                } else if (message || messages || errorInfo || validator) {
-                                    const $txtMsgAlert = (validator ? "input data tidak sesuai atau tidak boleh kosong" : ( errorInfo ? errorInfo[2] : (messages ? messages : message)));
-                                    LoadingNotify($txtMsgAlert, "error");
-                                }
-
-                                LoadingNotify();
-                                $(".hideBtnProcess").show();
-                            },
-                        });
-                    }
-
-                    if ($section == "loginForm") {
-                        LoginAjaxSection($("#loginForm").serializeArray(), $('meta[name="csrf-token"]').attr('content'));
-                    }
-                }
-            });
-        }
-
-        function openSection($section) {
-            if ($section == "registerSection") {
-                $("#loginSection").hide();
-                $("#registerSection").show();
-            }
-            if ($section == "loginSection") {
-                $("#registerSection").hide();
-                $("#loginSection").show();
-            }
-        }
-        // FUNCTIONS END
-    </script>
-@endsection
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel 12 with Vue 3</title>
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
