@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build output
+public/build/
+public/hot/
+
+# Cache
+storage/
+bootstrap/cache/
+
+# IDE
+.idea/
+.vscode/
+
+# Other
+*.min.js
+*.min.css

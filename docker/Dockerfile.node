@@ -1,0 +1,14 @@
+FROM node:24
+
+WORKDIR /var/www/laravel_app
+
+COPY package.json pnpm-lock.yaml* ./
+
+EXPOSE 5173
+
+# Mengaktifkan corepack bawaan Node.js dan menggunakan pnpm
+RUN corepack enable
+# RUN pnpm install
+
+# Menjalankan Vite server
+CMD ["pnpm", "run", "dev"]

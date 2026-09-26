@@ -1,0 +1,344 @@
+{
+    "1": {
+        "id": 1,
+        "code": "11",
+        "alternative_code": "11",
+        "name": "ACEH",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "2": {
+        "id": 2,
+        "code": "12",
+        "alternative_code": "12",
+        "name": "SUMATERA UTARA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "3": {
+        "id": 3,
+        "code": "13",
+        "alternative_code": "13",
+        "name": "SUMATERA BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "4": {
+        "id": 4,
+        "code": "14",
+        "alternative_code": "14",
+        "name": "RIAU",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "5": {
+        "id": 5,
+        "code": "15",
+        "alternative_code": "15",
+        "name": "JAMBI",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "6": {
+        "id": 6,
+        "code": "16",
+        "alternative_code": "16",
+        "name": "SUMATERA SELATAN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "7": {
+        "id": 7,
+        "code": "17",
+        "alternative_code": "17",
+        "name": "BENGKULU",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "8": {
+        "id": 8,
+        "code": "18",
+        "alternative_code": "18",
+        "name": "LAMPUNG",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "9": {
+        "id": 9,
+        "code": "19",
+        "alternative_code": "19",
+        "name": "KEPULAUAN BANGKA BELITUNG",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "10": {
+        "id": 10,
+        "code": "21",
+        "alternative_code": "21",
+        "name": "KEPULAUAN RIAU",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "11": {
+        "id": 11,
+        "code": "31",
+        "alternative_code": "31",
+        "name": "DKI JAKARTA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "12": {
+        "id": 12,
+        "code": "32",
+        "alternative_code": "32",
+        "name": "JAWA BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "13": {
+        "id": 13,
+        "code": "33",
+        "alternative_code": "33",
+        "name": "JAWA TENGAH",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "14": {
+        "id": 14,
+        "code": "34",
+        "alternative_code": "34",
+        "name": "DI YOGYAKARTA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "15": {
+        "id": 15,
+        "code": "35",
+        "alternative_code": "35",
+        "name": "JAWA TIMUR",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "16": {
+        "id": 16,
+        "code": "36",
+        "alternative_code": "36",
+        "name": "BANTEN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "17": {
+        "id": 17,
+        "code": "51",
+        "alternative_code": "51",
+        "name": "BALI",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "18": {
+        "id": 18,
+        "code": "52",
+        "alternative_code": "52",
+        "name": "NUSA TENGGARA BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "19": {
+        "id": 19,
+        "code": "53",
+        "alternative_code": "53",
+        "name": "NUSA TENGGARA TIMUR",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "20": {
+        "id": 20,
+        "code": "61",
+        "alternative_code": "61",
+        "name": "KALIMANTAN BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "21": {
+        "id": 21,
+        "code": "62",
+        "alternative_code": "62",
+        "name": "KALIMANTAN TENGAH",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "22": {
+        "id": 22,
+        "code": "63",
+        "alternative_code": "63",
+        "name": "KALIMANTAN SELATAN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "23": {
+        "id": 23,
+        "code": "64",
+        "alternative_code": "64",
+        "name": "KALIMANTAN TIMUR",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "24": {
+        "id": 24,
+        "code": "65",
+        "alternative_code": "65",
+        "name": "KALIMANTAN UTARA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "25": {
+        "id": 25,
+        "code": "71",
+        "alternative_code": "71",
+        "name": "SULAWESI UTARA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "26": {
+        "id": 26,
+        "code": "72",
+        "alternative_code": "72",
+        "name": "SULAWESI TENGAH",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "27": {
+        "id": 27,
+        "code": "73",
+        "alternative_code": "73",
+        "name": "SULAWESI SELATAN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "28": {
+        "id": 28,
+        "code": "74",
+        "alternative_code": "74",
+        "name": "SULAWESI TENGGARA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "29": {
+        "id": 29,
+        "code": "75",
+        "alternative_code": "75",
+        "name": "GORONTALO",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "30": {
+        "id": 30,
+        "code": "76",
+        "alternative_code": "76",
+        "name": "SULAWESI BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "31": {
+        "id": 31,
+        "code": "81",
+        "alternative_code": "81",
+        "name": "MALUKU",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "32": {
+        "id": 32,
+        "code": "82",
+        "alternative_code": "82",
+        "name": "MALUKU UTARA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "33": {
+        "id": 33,
+        "code": "92",
+        "alternative_code": "91",
+        "name": "PAPUA BARAT",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "34": {
+        "id": 34,
+        "code": "96",
+        "alternative_code": "92",
+        "name": "PAPUA BARAT DAYA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "35": {
+        "id": 35,
+        "code": "91",
+        "alternative_code": "94",
+        "name": "PAPUA",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "36": {
+        "id": 36,
+        "code": "93",
+        "alternative_code": "95",
+        "name": "PAPUA SELATAN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "37": {
+        "id": 37,
+        "code": "94",
+        "alternative_code": "96",
+        "name": "PAPUA TENGAH",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    },
+    "38": {
+        "id": 38,
+        "code": "95",
+        "alternative_code": "97",
+        "name": "PAPUA PEGUNUNGAN",
+        "level": "province",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:52:11"
+    }
+}

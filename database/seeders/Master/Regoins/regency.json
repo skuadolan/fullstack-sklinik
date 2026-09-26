@@ -1,0 +1,4628 @@
+{
+    "1": {
+        "id": 1,
+        "code": "11.09",
+        "alternative_code": "1101",
+        "name": "KABUPATEN SIMEULUE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "2": {
+        "id": 2,
+        "code": "11.1",
+        "alternative_code": "1102",
+        "name": "KABUPATEN ACEH SINGKIL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "3": {
+        "id": 3,
+        "code": "11.01",
+        "alternative_code": "1103",
+        "name": "KABUPATEN ACEH SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "4": {
+        "id": 4,
+        "code": "11.02",
+        "alternative_code": "1104",
+        "name": "KABUPATEN ACEH TENGGARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "5": {
+        "id": 5,
+        "code": "11.03",
+        "alternative_code": "1105",
+        "name": "KABUPATEN ACEH TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "6": {
+        "id": 6,
+        "code": "11.04",
+        "alternative_code": "1106",
+        "name": "KABUPATEN ACEH TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "7": {
+        "id": 7,
+        "code": "11.05",
+        "alternative_code": "1107",
+        "name": "KABUPATEN ACEH BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "8": {
+        "id": 8,
+        "code": "11.06",
+        "alternative_code": "1108",
+        "name": "KABUPATEN ACEH BESAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "9": {
+        "id": 9,
+        "code": "11.07",
+        "alternative_code": "1109",
+        "name": "KABUPATEN PIDIE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "10": {
+        "id": 10,
+        "code": "11.11",
+        "alternative_code": "1110",
+        "name": "KABUPATEN BIREUEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "11": {
+        "id": 11,
+        "code": "11.08",
+        "alternative_code": "1111",
+        "name": "KABUPATEN ACEH UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "12": {
+        "id": 12,
+        "code": "11.12",
+        "alternative_code": "1112",
+        "name": "KABUPATEN ACEH BARAT DAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "13": {
+        "id": 13,
+        "code": "11.13",
+        "alternative_code": "1113",
+        "name": "KABUPATEN GAYO LUES",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "14": {
+        "id": 14,
+        "code": "11.16",
+        "alternative_code": "1114",
+        "name": "KABUPATEN ACEH TAMIANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "15": {
+        "id": 15,
+        "code": "11.15",
+        "alternative_code": "1115",
+        "name": "KABUPATEN NAGAN RAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "16": {
+        "id": 16,
+        "code": "11.14",
+        "alternative_code": "1116",
+        "name": "KABUPATEN ACEH JAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "17": {
+        "id": 17,
+        "code": "11.17",
+        "alternative_code": "1117",
+        "name": "KABUPATEN BENER MERIAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "18": {
+        "id": 18,
+        "code": "11.18",
+        "alternative_code": "1118",
+        "name": "KABUPATEN PIDIE JAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "19": {
+        "id": 19,
+        "code": "11.71",
+        "alternative_code": "1171",
+        "name": "KOTA BANDA ACEH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "20": {
+        "id": 20,
+        "code": "11.72",
+        "alternative_code": "1172",
+        "name": "KOTA SABANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "21": {
+        "id": 21,
+        "code": "11.74",
+        "alternative_code": "1173",
+        "name": "KOTA LANGSA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "22": {
+        "id": 22,
+        "code": "11.73",
+        "alternative_code": "1174",
+        "name": "KOTA LHOKSEUMAWE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "23": {
+        "id": 23,
+        "code": "11.75",
+        "alternative_code": "1175",
+        "name": "KOTA SUBULUSSALAM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "24": {
+        "id": 24,
+        "code": "13.09",
+        "alternative_code": "1301",
+        "name": "KABUPATEN KEPULAUAN MENTAWAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "25": {
+        "id": 25,
+        "code": "13.01",
+        "alternative_code": "1302",
+        "name": "KABUPATEN PESISIR SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "26": {
+        "id": 26,
+        "code": "13.02",
+        "alternative_code": "1303",
+        "name": "KABUPATEN SOLOK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "27": {
+        "id": 27,
+        "code": "13.03",
+        "alternative_code": "1304",
+        "name": "KABUPATEN SIJUNJUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "28": {
+        "id": 28,
+        "code": "13.04",
+        "alternative_code": "1305",
+        "name": "KABUPATEN TANAH DATAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "29": {
+        "id": 29,
+        "code": "13.05",
+        "alternative_code": "1306",
+        "name": "KABUPATEN PADANG PARIAMAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "30": {
+        "id": 30,
+        "code": "13.06",
+        "alternative_code": "1307",
+        "name": "KABUPATEN AGAM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "31": {
+        "id": 31,
+        "code": "13.07",
+        "alternative_code": "1308",
+        "name": "KABUPATEN LIMA PULUH KOTA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "32": {
+        "id": 32,
+        "code": "13.08",
+        "alternative_code": "1309",
+        "name": "KABUPATEN PASAMAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "33": {
+        "id": 33,
+        "code": "13.11",
+        "alternative_code": "1310",
+        "name": "KABUPATEN SOLOK SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "34": {
+        "id": 34,
+        "code": "13.1",
+        "alternative_code": "1311",
+        "name": "KABUPATEN DHARMASRAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "35": {
+        "id": 35,
+        "code": "13.12",
+        "alternative_code": "1312",
+        "name": "KABUPATEN PASAMAN BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "36": {
+        "id": 36,
+        "code": "13.71",
+        "alternative_code": "1371",
+        "name": "KOTA PADANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "37": {
+        "id": 37,
+        "code": "13.72",
+        "alternative_code": "1372",
+        "name": "KOTA SOLOK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "38": {
+        "id": 38,
+        "code": "13.73",
+        "alternative_code": "1373",
+        "name": "KOTA SAWAHLUNTO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "39": {
+        "id": 39,
+        "code": "13.74",
+        "alternative_code": "1374",
+        "name": "KOTA PADANG PANJANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "40": {
+        "id": 40,
+        "code": "13.75",
+        "alternative_code": "1375",
+        "name": "KOTA BUKITTINGGI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "41": {
+        "id": 41,
+        "code": "13.76",
+        "alternative_code": "1376",
+        "name": "KOTA PAYAKUMBUH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "42": {
+        "id": 42,
+        "code": "13.77",
+        "alternative_code": "1377",
+        "name": "KOTA PARIAMAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "43": {
+        "id": 43,
+        "code": "16.01",
+        "alternative_code": "1601",
+        "name": "KABUPATEN OGAN KOMERING ULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "44": {
+        "id": 44,
+        "code": "16.02",
+        "alternative_code": "1602",
+        "name": "KABUPATEN OGAN KOMERING ILIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "45": {
+        "id": 45,
+        "code": "16.03",
+        "alternative_code": "1603",
+        "name": "KABUPATEN MUARA ENIM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "46": {
+        "id": 46,
+        "code": "16.04",
+        "alternative_code": "1604",
+        "name": "KABUPATEN LAHAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "47": {
+        "id": 47,
+        "code": "16.05",
+        "alternative_code": "1605",
+        "name": "KABUPATEN MUSI RAWAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "48": {
+        "id": 48,
+        "code": "16.06",
+        "alternative_code": "1606",
+        "name": "KABUPATEN MUSI BANYUASIN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "49": {
+        "id": 49,
+        "code": "16.07",
+        "alternative_code": "1607",
+        "name": "KABUPATEN BANYUASIN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "50": {
+        "id": 50,
+        "code": "16.09",
+        "alternative_code": "1608",
+        "name": "KABUPATEN OGAN KOMERING ULU SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "51": {
+        "id": 51,
+        "code": "16.08",
+        "alternative_code": "1609",
+        "name": "KABUPATEN OGAN KOMERING ULU TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "52": {
+        "id": 52,
+        "code": "16.1",
+        "alternative_code": "1610",
+        "name": "KABUPATEN OGAN ILIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "53": {
+        "id": 53,
+        "code": "16.11",
+        "alternative_code": "1611",
+        "name": "KABUPATEN EMPAT LAWANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "54": {
+        "id": 54,
+        "code": "16.12",
+        "alternative_code": "1612",
+        "name": "KABUPATEN PENUKAL ABAB LEMATANG ILIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "55": {
+        "id": 55,
+        "code": "16.13",
+        "alternative_code": "1613",
+        "name": "KABUPATEN MUSI RAWAS UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "56": {
+        "id": 56,
+        "code": "16.71",
+        "alternative_code": "1671",
+        "name": "KOTA PALEMBANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "57": {
+        "id": 57,
+        "code": "16.74",
+        "alternative_code": "1672",
+        "name": "KOTA PRABUMULIH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "58": {
+        "id": 58,
+        "code": "16.72",
+        "alternative_code": "1673",
+        "name": "KOTA PAGAR ALAM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "59": {
+        "id": 59,
+        "code": "16.73",
+        "alternative_code": "1674",
+        "name": "KOTA LUBUK LINGGAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "60": {
+        "id": 60,
+        "code": "14.09",
+        "alternative_code": "1401",
+        "name": "KABUPATEN KUANTAN SINGINGI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "61": {
+        "id": 61,
+        "code": "14.02",
+        "alternative_code": "1402",
+        "name": "KABUPATEN INDRAGIRI HULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "62": {
+        "id": 62,
+        "code": "14.04",
+        "alternative_code": "1403",
+        "name": "KABUPATEN INDRAGIRI HILIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "63": {
+        "id": 63,
+        "code": "14.05",
+        "alternative_code": "1404",
+        "name": "KABUPATEN  PELALAWAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "64": {
+        "id": 64,
+        "code": "14.08",
+        "alternative_code": "1405",
+        "name": "KABUPATEN SIAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "65": {
+        "id": 65,
+        "code": "14.01",
+        "alternative_code": "1406",
+        "name": "KABUPATEN KAMPAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "66": {
+        "id": 66,
+        "code": "14.06",
+        "alternative_code": "1407",
+        "name": "KABUPATEN  ROKAN HULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "67": {
+        "id": 67,
+        "code": "14.03",
+        "alternative_code": "1408",
+        "name": "KABUPATEN BENGKALIS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "68": {
+        "id": 68,
+        "code": "14.07",
+        "alternative_code": "1409",
+        "name": "KABUPATEN  ROKAN HILIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "69": {
+        "id": 69,
+        "code": "14.1",
+        "alternative_code": "1410",
+        "name": "KABUPATEN KEPULAUAN MERANTI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "70": {
+        "id": 70,
+        "code": "14.71",
+        "alternative_code": "1471",
+        "name": "KOTA PEKANBARU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "71": {
+        "id": 71,
+        "code": "14.72",
+        "alternative_code": "1473",
+        "name": "KOTA DUMAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "72": {
+        "id": 72,
+        "code": "35.01",
+        "alternative_code": "3501",
+        "name": "KABUPATEN PACITAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "73": {
+        "id": 73,
+        "code": "35.02",
+        "alternative_code": "3502",
+        "name": "KABUPATEN PONOROGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "74": {
+        "id": 74,
+        "code": "35.03",
+        "alternative_code": "3503",
+        "name": "KABUPATEN TRENGGALEK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "75": {
+        "id": 75,
+        "code": "35.04",
+        "alternative_code": "3504",
+        "name": "KABUPATEN TULUNGAGUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "76": {
+        "id": 76,
+        "code": "35.05",
+        "alternative_code": "3505",
+        "name": "KABUPATEN BLITAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "77": {
+        "id": 77,
+        "code": "35.06",
+        "alternative_code": "3506",
+        "name": "KABUPATEN KEDIRI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "78": {
+        "id": 78,
+        "code": "35.07",
+        "alternative_code": "3507",
+        "name": "KABUPATEN MALANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "79": {
+        "id": 79,
+        "code": "35.08",
+        "alternative_code": "3508",
+        "name": "KABUPATEN LUMAJANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "80": {
+        "id": 80,
+        "code": "35.09",
+        "alternative_code": "3509",
+        "name": "KABUPATEN JEMBER",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "81": {
+        "id": 81,
+        "code": "35.1",
+        "alternative_code": "3510",
+        "name": "KABUPATEN BANYUWANGI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "82": {
+        "id": 82,
+        "code": "35.11",
+        "alternative_code": "3511",
+        "name": "KABUPATEN BONDOWOSO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "83": {
+        "id": 83,
+        "code": "35.12",
+        "alternative_code": "3512",
+        "name": "KABUPATEN SITUBONDO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "84": {
+        "id": 84,
+        "code": "35.13",
+        "alternative_code": "3513",
+        "name": "KABUPATEN PROBOLINGGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "85": {
+        "id": 85,
+        "code": "35.14",
+        "alternative_code": "3514",
+        "name": "KABUPATEN PASURUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "86": {
+        "id": 86,
+        "code": "35.15",
+        "alternative_code": "3515",
+        "name": "KABUPATEN SIDOARJO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "87": {
+        "id": 87,
+        "code": "35.16",
+        "alternative_code": "3516",
+        "name": "KABUPATEN MOJOKERTO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "88": {
+        "id": 88,
+        "code": "35.17",
+        "alternative_code": "3517",
+        "name": "KABUPATEN JOMBANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "89": {
+        "id": 89,
+        "code": "35.18",
+        "alternative_code": "3518",
+        "name": "KABUPATEN NGANJUK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "90": {
+        "id": 90,
+        "code": "35.19",
+        "alternative_code": "3519",
+        "name": "KABUPATEN MADIUN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "91": {
+        "id": 91,
+        "code": "35.2",
+        "alternative_code": "3520",
+        "name": "KABUPATEN MAGETAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "92": {
+        "id": 92,
+        "code": "35.21",
+        "alternative_code": "3521",
+        "name": "KABUPATEN NGAWI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "93": {
+        "id": 93,
+        "code": "35.22",
+        "alternative_code": "3522",
+        "name": "KABUPATEN BOJONEGORO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "94": {
+        "id": 94,
+        "code": "35.23",
+        "alternative_code": "3523",
+        "name": "KABUPATEN TUBAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "95": {
+        "id": 95,
+        "code": "35.24",
+        "alternative_code": "3524",
+        "name": "KABUPATEN LAMONGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "96": {
+        "id": 96,
+        "code": "35.25",
+        "alternative_code": "3525",
+        "name": "KABUPATEN GRESIK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "97": {
+        "id": 97,
+        "code": "35.26",
+        "alternative_code": "3526",
+        "name": "KABUPATEN BANGKALAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "98": {
+        "id": 98,
+        "code": "35.27",
+        "alternative_code": "3527",
+        "name": "KABUPATEN SAMPANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "99": {
+        "id": 99,
+        "code": "35.28",
+        "alternative_code": "3528",
+        "name": "KABUPATEN PAMEKASAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "100": {
+        "id": 100,
+        "code": "35.29",
+        "alternative_code": "3529",
+        "name": "KABUPATEN SUMENEP",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "101": {
+        "id": 101,
+        "code": "35.71",
+        "alternative_code": "3571",
+        "name": "KOTA KEDIRI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "102": {
+        "id": 102,
+        "code": "35.72",
+        "alternative_code": "3572",
+        "name": "KOTA BLITAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "103": {
+        "id": 103,
+        "code": "35.73",
+        "alternative_code": "3573",
+        "name": "KOTA MALANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "104": {
+        "id": 104,
+        "code": "35.74",
+        "alternative_code": "3574",
+        "name": "KOTA PROBOLINGGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "105": {
+        "id": 105,
+        "code": "35.75",
+        "alternative_code": "3575",
+        "name": "KOTA PASURUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "106": {
+        "id": 106,
+        "code": "35.76",
+        "alternative_code": "3576",
+        "name": "KOTA MOJOKERTO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "107": {
+        "id": 107,
+        "code": "35.77",
+        "alternative_code": "3577",
+        "name": "KOTA MADIUN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "108": {
+        "id": 108,
+        "code": "35.78",
+        "alternative_code": "3578",
+        "name": "KOTA SURABAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "109": {
+        "id": 109,
+        "code": "35.79",
+        "alternative_code": "3579",
+        "name": "KOTA BATU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "110": {
+        "id": 110,
+        "code": "31.01",
+        "alternative_code": "3101",
+        "name": "KABUPATEN ADMINISTRASI KEPULAUAN SERIBU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "111": {
+        "id": 111,
+        "code": "31.74",
+        "alternative_code": "3171",
+        "name": "KOTA ADMINISTRASI JAKARTA SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "112": {
+        "id": 112,
+        "code": "31.75",
+        "alternative_code": "3172",
+        "name": "KOTA ADMINISTRASI JAKARTA TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "113": {
+        "id": 113,
+        "code": "31.71",
+        "alternative_code": "3173",
+        "name": "KOTA ADMINISTRASI JAKARTA PUSAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "114": {
+        "id": 114,
+        "code": "31.73",
+        "alternative_code": "3174",
+        "name": "KOTA ADMINISTRASI JAKARTA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "115": {
+        "id": 115,
+        "code": "31.72",
+        "alternative_code": "3175",
+        "name": "KOTA ADMINISTRASI JAKARTA UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "116": {
+        "id": 116,
+        "code": "32.01",
+        "alternative_code": "3201",
+        "name": "KABUPATEN BOGOR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "117": {
+        "id": 117,
+        "code": "32.02",
+        "alternative_code": "3202",
+        "name": "KABUPATEN SUKABUMI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "118": {
+        "id": 118,
+        "code": "32.03",
+        "alternative_code": "3203",
+        "name": "KABUPATEN CIANJUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "119": {
+        "id": 119,
+        "code": "32.04",
+        "alternative_code": "3204",
+        "name": "KABUPATEN BANDUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "120": {
+        "id": 120,
+        "code": "32.05",
+        "alternative_code": "3205",
+        "name": "KABUPATEN GARUT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "121": {
+        "id": 121,
+        "code": "32.06",
+        "alternative_code": "3206",
+        "name": "KABUPATEN TASIKMALAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "122": {
+        "id": 122,
+        "code": "32.07",
+        "alternative_code": "3207",
+        "name": "KABUPATEN CIAMIS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "123": {
+        "id": 123,
+        "code": "32.08",
+        "alternative_code": "3208",
+        "name": "KABUPATEN KUNINGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "124": {
+        "id": 124,
+        "code": "32.09",
+        "alternative_code": "3209",
+        "name": "KABUPATEN CIREBON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "125": {
+        "id": 125,
+        "code": "32.1",
+        "alternative_code": "3210",
+        "name": "KABUPATEN MAJALENGKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "126": {
+        "id": 126,
+        "code": "32.11",
+        "alternative_code": "3211",
+        "name": "KABUPATEN SUMEDANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "127": {
+        "id": 127,
+        "code": "32.12",
+        "alternative_code": "3212",
+        "name": "KABUPATEN INDRAMAYU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "128": {
+        "id": 128,
+        "code": "32.13",
+        "alternative_code": "3213",
+        "name": "KABUPATEN SUBANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "129": {
+        "id": 129,
+        "code": "32.14",
+        "alternative_code": "3214",
+        "name": "KABUPATEN PURWAKARTA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "130": {
+        "id": 130,
+        "code": "32.15",
+        "alternative_code": "3215",
+        "name": "KABUPATEN KARAWANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "131": {
+        "id": 131,
+        "code": "32.16",
+        "alternative_code": "3216",
+        "name": "KABUPATEN BEKASI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "132": {
+        "id": 132,
+        "code": "32.17",
+        "alternative_code": "3217",
+        "name": "KABUPATEN BANDUNG BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "133": {
+        "id": 133,
+        "code": "32.18",
+        "alternative_code": "3218",
+        "name": "KABUPATEN PANGANDARAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "134": {
+        "id": 134,
+        "code": "32.71",
+        "alternative_code": "3271",
+        "name": "KOTA BOGOR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "135": {
+        "id": 135,
+        "code": "32.72",
+        "alternative_code": "3272",
+        "name": "KOTA SUKABUMI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "136": {
+        "id": 136,
+        "code": "32.73",
+        "alternative_code": "3273",
+        "name": "KOTA BANDUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "137": {
+        "id": 137,
+        "code": "32.74",
+        "alternative_code": "3274",
+        "name": "KOTA CIREBON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "138": {
+        "id": 138,
+        "code": "32.75",
+        "alternative_code": "3275",
+        "name": "KOTA BEKASI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "139": {
+        "id": 139,
+        "code": "32.76",
+        "alternative_code": "3276",
+        "name": "KOTA DEPOK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "140": {
+        "id": 140,
+        "code": "32.77",
+        "alternative_code": "3277",
+        "name": "KOTA CIMAHI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "141": {
+        "id": 141,
+        "code": "32.78",
+        "alternative_code": "3278",
+        "name": "KOTA TASIKMALAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "142": {
+        "id": 142,
+        "code": "32.79",
+        "alternative_code": "3279",
+        "name": "KOTA BANJAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "143": {
+        "id": 143,
+        "code": "21.02",
+        "alternative_code": "2101",
+        "name": "KABUPATEN KARIMUN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "144": {
+        "id": 144,
+        "code": "21.01",
+        "alternative_code": "2102",
+        "name": "KABUPATEN BINTAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "145": {
+        "id": 145,
+        "code": "21.03",
+        "alternative_code": "2103",
+        "name": "KABUPATEN NATUNA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "146": {
+        "id": 146,
+        "code": "21.04",
+        "alternative_code": "2104",
+        "name": "KABUPATEN LINGGA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "147": {
+        "id": 147,
+        "code": "21.05",
+        "alternative_code": "2105",
+        "name": "KABUPATEN KEPULAUAN ANAMBAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "148": {
+        "id": 148,
+        "code": "21.71",
+        "alternative_code": "2171",
+        "name": "KOTA BATAM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "149": {
+        "id": 149,
+        "code": "21.72",
+        "alternative_code": "2172",
+        "name": "KOTA TANJUNG PINANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "150": {
+        "id": 150,
+        "code": "34.01",
+        "alternative_code": "3401",
+        "name": "KABUPATEN KULON PROGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "151": {
+        "id": 151,
+        "code": "34.02",
+        "alternative_code": "3402",
+        "name": "KABUPATEN BANTUL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "152": {
+        "id": 152,
+        "code": "34.03",
+        "alternative_code": "3403",
+        "name": "KABUPATEN GUNUNGKIDUL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "153": {
+        "id": 153,
+        "code": "34.04",
+        "alternative_code": "3404",
+        "name": "KABUPATEN SLEMAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "154": {
+        "id": 154,
+        "code": "34.71",
+        "alternative_code": "3471",
+        "name": "KOTA YOGYAKARTA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "155": {
+        "id": 155,
+        "code": "17.01",
+        "alternative_code": "1701",
+        "name": "KABUPATEN BENGKULU SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "156": {
+        "id": 156,
+        "code": "17.02",
+        "alternative_code": "1702",
+        "name": "KABUPATEN REJANG LEBONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "157": {
+        "id": 157,
+        "code": "17.03",
+        "alternative_code": "1703",
+        "name": "KABUPATEN BENGKULU UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "158": {
+        "id": 158,
+        "code": "17.04",
+        "alternative_code": "1704",
+        "name": "KABUPATEN KAUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "159": {
+        "id": 159,
+        "code": "17.05",
+        "alternative_code": "1705",
+        "name": "KABUPATEN SELUMA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "160": {
+        "id": 160,
+        "code": "17.06",
+        "alternative_code": "1706",
+        "name": "KABUPATEN MUKOMUKO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "161": {
+        "id": 161,
+        "code": "17.07",
+        "alternative_code": "1707",
+        "name": "KABUPATEN LEBONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "162": {
+        "id": 162,
+        "code": "17.08",
+        "alternative_code": "1708",
+        "name": "KABUPATEN KEPAHIANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "163": {
+        "id": 163,
+        "code": "17.09",
+        "alternative_code": "1709",
+        "name": "KABUPATEN BENGKULU TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "164": {
+        "id": 164,
+        "code": "17.71",
+        "alternative_code": "1771",
+        "name": "KOTA BENGKULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "165": {
+        "id": 165,
+        "code": "19.01",
+        "alternative_code": "1901",
+        "name": "KABUPATEN BANGKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "166": {
+        "id": 166,
+        "code": "19.02",
+        "alternative_code": "1902",
+        "name": "KABUPATEN BELITUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "167": {
+        "id": 167,
+        "code": "19.05",
+        "alternative_code": "1903",
+        "name": "KABUPATEN BANGKA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "168": {
+        "id": 168,
+        "code": "19.04",
+        "alternative_code": "1904",
+        "name": "KABUPATEN BANGKA TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "169": {
+        "id": 169,
+        "code": "19.03",
+        "alternative_code": "1905",
+        "name": "KABUPATEN BANGKA SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "170": {
+        "id": 170,
+        "code": "19.06",
+        "alternative_code": "1906",
+        "name": "KABUPATEN BELITUNG TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "171": {
+        "id": 171,
+        "code": "19.71",
+        "alternative_code": "1971",
+        "name": "KOTA PANGKAL PINANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "172": {
+        "id": 172,
+        "code": "18.04",
+        "alternative_code": "1801",
+        "name": "KABUPATEN LAMPUNG BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "173": {
+        "id": 173,
+        "code": "18.06",
+        "alternative_code": "1802",
+        "name": "KABUPATEN TANGGAMUS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "174": {
+        "id": 174,
+        "code": "18.01",
+        "alternative_code": "1803",
+        "name": "KABUPATEN LAMPUNG SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "175": {
+        "id": 175,
+        "code": "18.07",
+        "alternative_code": "1804",
+        "name": "KABUPATEN LAMPUNG TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "176": {
+        "id": 176,
+        "code": "18.02",
+        "alternative_code": "1805",
+        "name": "KABUPATEN LAMPUNG TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "177": {
+        "id": 177,
+        "code": "18.03",
+        "alternative_code": "1806",
+        "name": "KABUPATEN LAMPUNG UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "178": {
+        "id": 178,
+        "code": "18.08",
+        "alternative_code": "1807",
+        "name": "KABUPATEN WAY KANAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "179": {
+        "id": 179,
+        "code": "18.05",
+        "alternative_code": "1808",
+        "name": "KABUPATEN TULANG BAWANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "180": {
+        "id": 180,
+        "code": "18.09",
+        "alternative_code": "1809",
+        "name": "KABUPATEN PESAWARAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "181": {
+        "id": 181,
+        "code": "18.1",
+        "alternative_code": "1810",
+        "name": "KABUPATEN PRINGSEWU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "182": {
+        "id": 182,
+        "code": "18.11",
+        "alternative_code": "1811",
+        "name": "KABUPATEN MESUJI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "183": {
+        "id": 183,
+        "code": "18.12",
+        "alternative_code": "1812",
+        "name": "KABUPATEN TULANG BAWANG BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "184": {
+        "id": 184,
+        "code": "18.13",
+        "alternative_code": "1813",
+        "name": "KABUPATEN PESISIR BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "185": {
+        "id": 185,
+        "code": "18.71",
+        "alternative_code": "1871",
+        "name": "KOTA BANDAR LAMPUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "186": {
+        "id": 186,
+        "code": "18.72",
+        "alternative_code": "1872",
+        "name": "KOTA METRO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "187": {
+        "id": 187,
+        "code": "15.01",
+        "alternative_code": "1501",
+        "name": "KABUPATEN  KERINCI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "188": {
+        "id": 188,
+        "code": "15.02",
+        "alternative_code": "1502",
+        "name": "KABUPATEN  MERANGIN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "189": {
+        "id": 189,
+        "code": "15.03",
+        "alternative_code": "1503",
+        "name": "KABUPATEN SAROLANGUN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "190": {
+        "id": 190,
+        "code": "15.04",
+        "alternative_code": "1504",
+        "name": "KABUPATEN BATANGHARI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "191": {
+        "id": 191,
+        "code": "15.05",
+        "alternative_code": "1505",
+        "name": "KABUPATEN  MUARO JAMBI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "192": {
+        "id": 192,
+        "code": "15.07",
+        "alternative_code": "1506",
+        "name": "KABUPATEN TANJUNG JABUNG TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "193": {
+        "id": 193,
+        "code": "15.06",
+        "alternative_code": "1507",
+        "name": "KABUPATEN TANJUNG JABUNG BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "194": {
+        "id": 194,
+        "code": "15.09",
+        "alternative_code": "1508",
+        "name": "KABUPATEN TEBO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "195": {
+        "id": 195,
+        "code": "15.08",
+        "alternative_code": "1509",
+        "name": "KABUPATEN BUNGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "196": {
+        "id": 196,
+        "code": "15.71",
+        "alternative_code": "1571",
+        "name": "KOTA JAMBI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "197": {
+        "id": 197,
+        "code": "15.72",
+        "alternative_code": "1572",
+        "name": "KOTA SUNGAI PENUH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "198": {
+        "id": 198,
+        "code": "12.04",
+        "alternative_code": "1201",
+        "name": "KABUPATEN NIAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "199": {
+        "id": 199,
+        "code": "12.13",
+        "alternative_code": "1202",
+        "name": "KABUPATEN MANDAILING NATAL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "200": {
+        "id": 200,
+        "code": "12.03",
+        "alternative_code": "1203",
+        "name": "KABUPATEN TAPANULI SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "201": {
+        "id": 201,
+        "code": "12.01",
+        "alternative_code": "1204",
+        "name": "KABUPATEN TAPANULI TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "202": {
+        "id": 202,
+        "code": "12.02",
+        "alternative_code": "1205",
+        "name": "KABUPATEN TAPANULI UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "203": {
+        "id": 203,
+        "code": "12.12",
+        "alternative_code": "1206",
+        "name": "KABUPATEN TOBA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "204": {
+        "id": 204,
+        "code": "12.1",
+        "alternative_code": "1207",
+        "name": "KABUPATEN LABUHANBATU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "205": {
+        "id": 205,
+        "code": "12.09",
+        "alternative_code": "1208",
+        "name": "KABUPATEN ASAHAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "206": {
+        "id": 206,
+        "code": "12.08",
+        "alternative_code": "1209",
+        "name": "KABUPATEN SIMALUNGUN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "207": {
+        "id": 207,
+        "code": "12.11",
+        "alternative_code": "1210",
+        "name": "KABUPATEN DAIRI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "208": {
+        "id": 208,
+        "code": "12.06",
+        "alternative_code": "1211",
+        "name": "KABUPATEN KARO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "209": {
+        "id": 209,
+        "code": "12.07",
+        "alternative_code": "1212",
+        "name": "KABUPATEN DELI SERDANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "210": {
+        "id": 210,
+        "code": "12.05",
+        "alternative_code": "1213",
+        "name": "KABUPATEN LANGKAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "211": {
+        "id": 211,
+        "code": "12.14",
+        "alternative_code": "1214",
+        "name": "KABUPATEN NIAS SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "212": {
+        "id": 212,
+        "code": "12.16",
+        "alternative_code": "1215",
+        "name": "KABUPATEN HUMBANG HASUNDUTAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "213": {
+        "id": 213,
+        "code": "12.15",
+        "alternative_code": "1216",
+        "name": "KABUPATEN PAKPAK BHARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "214": {
+        "id": 214,
+        "code": "12.17",
+        "alternative_code": "1217",
+        "name": "KABUPATEN SAMOSIR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "215": {
+        "id": 215,
+        "code": "12.18",
+        "alternative_code": "1218",
+        "name": "KABUPATEN SERDANG BEDAGAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "216": {
+        "id": 216,
+        "code": "12.19",
+        "alternative_code": "1219",
+        "name": "KABUPATEN BATU BARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "217": {
+        "id": 217,
+        "code": "12.2",
+        "alternative_code": "1220",
+        "name": "KABUPATEN PADANG LAWAS UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "218": {
+        "id": 218,
+        "code": "12.21",
+        "alternative_code": "1221",
+        "name": "KABUPATEN PADANG LAWAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "219": {
+        "id": 219,
+        "code": "12.22",
+        "alternative_code": "1222",
+        "name": "KABUPATEN LABUHANBATU SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "220": {
+        "id": 220,
+        "code": "12.23",
+        "alternative_code": "1223",
+        "name": "KABUPATEN LABUHANBATU UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "221": {
+        "id": 221,
+        "code": "12.24",
+        "alternative_code": "1224",
+        "name": "KABUPATEN NIAS UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "222": {
+        "id": 222,
+        "code": "12.25",
+        "alternative_code": "1225",
+        "name": "KABUPATEN NIAS BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "223": {
+        "id": 223,
+        "code": "12.73",
+        "alternative_code": "1271",
+        "name": "KOTA SIBOLGA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "224": {
+        "id": 224,
+        "code": "12.74",
+        "alternative_code": "1272",
+        "name": "KOTA TANJUNGBALAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "225": {
+        "id": 225,
+        "code": "12.72",
+        "alternative_code": "1273",
+        "name": "KOTA PEMATANGSIANTAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "226": {
+        "id": 226,
+        "code": "12.76",
+        "alternative_code": "1274",
+        "name": "KOTA TEBING TINGGI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "227": {
+        "id": 227,
+        "code": "12.71",
+        "alternative_code": "1275",
+        "name": "KOTA MEDAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "228": {
+        "id": 228,
+        "code": "12.75",
+        "alternative_code": "1276",
+        "name": "KOTA BINJAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "229": {
+        "id": 229,
+        "code": "12.77",
+        "alternative_code": "1277",
+        "name": "KOTA PADANGSIDIMPUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "230": {
+        "id": 230,
+        "code": "12.78",
+        "alternative_code": "1278",
+        "name": "KOTA GUNUNGSITOLI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "231": {
+        "id": 231,
+        "code": "33.01",
+        "alternative_code": "3301",
+        "name": "KABUPATEN CILACAP",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "232": {
+        "id": 232,
+        "code": "33.02",
+        "alternative_code": "3302",
+        "name": "KABUPATEN BANYUMAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "233": {
+        "id": 233,
+        "code": "33.03",
+        "alternative_code": "3303",
+        "name": "KABUPATEN PURBALINGGA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "234": {
+        "id": 234,
+        "code": "33.04",
+        "alternative_code": "3304",
+        "name": "KABUPATEN BANJARNEGARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "235": {
+        "id": 235,
+        "code": "33.05",
+        "alternative_code": "3305",
+        "name": "KABUPATEN KEBUMEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "236": {
+        "id": 236,
+        "code": "33.06",
+        "alternative_code": "3306",
+        "name": "KABUPATEN PURWOREJO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "237": {
+        "id": 237,
+        "code": "33.07",
+        "alternative_code": "3307",
+        "name": "KABUPATEN WONOSOBO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "238": {
+        "id": 238,
+        "code": "33.08",
+        "alternative_code": "3308",
+        "name": "KABUPATEN MAGELANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "239": {
+        "id": 239,
+        "code": "33.09",
+        "alternative_code": "3309",
+        "name": "KABUPATEN BOYOLALI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "240": {
+        "id": 240,
+        "code": "33.1",
+        "alternative_code": "3310",
+        "name": "KABUPATEN KLATEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "241": {
+        "id": 241,
+        "code": "33.11",
+        "alternative_code": "3311",
+        "name": "KABUPATEN SUKOHARJO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "242": {
+        "id": 242,
+        "code": "33.12",
+        "alternative_code": "3312",
+        "name": "KABUPATEN WONOGIRI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "243": {
+        "id": 243,
+        "code": "33.13",
+        "alternative_code": "3313",
+        "name": "KABUPATEN KARANGANYAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "244": {
+        "id": 244,
+        "code": "33.14",
+        "alternative_code": "3314",
+        "name": "KABUPATEN SRAGEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "245": {
+        "id": 245,
+        "code": "33.15",
+        "alternative_code": "3315",
+        "name": "KABUPATEN GROBOGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "246": {
+        "id": 246,
+        "code": "33.16",
+        "alternative_code": "3316",
+        "name": "KABUPATEN BLORA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "247": {
+        "id": 247,
+        "code": "33.17",
+        "alternative_code": "3317",
+        "name": "KABUPATEN REMBANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "248": {
+        "id": 248,
+        "code": "33.18",
+        "alternative_code": "3318",
+        "name": "KABUPATEN PATI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "249": {
+        "id": 249,
+        "code": "33.19",
+        "alternative_code": "3319",
+        "name": "KABUPATEN KUDUS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "250": {
+        "id": 250,
+        "code": "33.2",
+        "alternative_code": "3320",
+        "name": "KABUPATEN JEPARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "251": {
+        "id": 251,
+        "code": "33.21",
+        "alternative_code": "3321",
+        "name": "KABUPATEN DEMAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "252": {
+        "id": 252,
+        "code": "33.22",
+        "alternative_code": "3322",
+        "name": "KABUPATEN SEMARANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "253": {
+        "id": 253,
+        "code": "33.23",
+        "alternative_code": "3323",
+        "name": "KABUPATEN TEMANGGUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "254": {
+        "id": 254,
+        "code": "33.24",
+        "alternative_code": "3324",
+        "name": "KABUPATEN KENDAL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "255": {
+        "id": 255,
+        "code": "33.25",
+        "alternative_code": "3325",
+        "name": "KABUPATEN BATANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "256": {
+        "id": 256,
+        "code": "33.26",
+        "alternative_code": "3326",
+        "name": "KABUPATEN PEKALONGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "257": {
+        "id": 257,
+        "code": "33.27",
+        "alternative_code": "3327",
+        "name": "KABUPATEN PEMALANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "258": {
+        "id": 258,
+        "code": "33.28",
+        "alternative_code": "3328",
+        "name": "KABUPATEN TEGAL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "259": {
+        "id": 259,
+        "code": "33.29",
+        "alternative_code": "3329",
+        "name": "KABUPATEN BREBES",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "260": {
+        "id": 260,
+        "code": "33.71",
+        "alternative_code": "3371",
+        "name": "KOTA MAGELANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "261": {
+        "id": 261,
+        "code": "33.72",
+        "alternative_code": "3372",
+        "name": "KOTA SURAKARTA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "262": {
+        "id": 262,
+        "code": "33.73",
+        "alternative_code": "3373",
+        "name": "KOTA SALATIGA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "263": {
+        "id": 263,
+        "code": "33.74",
+        "alternative_code": "3374",
+        "name": "KOTA SEMARANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "264": {
+        "id": 264,
+        "code": "33.75",
+        "alternative_code": "3375",
+        "name": "KOTA PEKALONGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "265": {
+        "id": 265,
+        "code": "33.76",
+        "alternative_code": "3376",
+        "name": "KOTA TEGAL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "266": {
+        "id": 266,
+        "code": "36.01",
+        "alternative_code": "3601",
+        "name": "KABUPATEN PANDEGLANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "267": {
+        "id": 267,
+        "code": "36.02",
+        "alternative_code": "3602",
+        "name": "KABUPATEN LEBAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "268": {
+        "id": 268,
+        "code": "36.03",
+        "alternative_code": "3603",
+        "name": "KABUPATEN TANGERANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "269": {
+        "id": 269,
+        "code": "36.04",
+        "alternative_code": "3604",
+        "name": "KABUPATEN SERANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "270": {
+        "id": 270,
+        "code": "36.71",
+        "alternative_code": "3671",
+        "name": "KOTA TANGERANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "271": {
+        "id": 271,
+        "code": "36.72",
+        "alternative_code": "3672",
+        "name": "KOTA CILEGON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "272": {
+        "id": 272,
+        "code": "36.73",
+        "alternative_code": "3673",
+        "name": "KOTA SERANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "273": {
+        "id": 273,
+        "code": "36.74",
+        "alternative_code": "3674",
+        "name": "KOTA TANGERANG SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "274": {
+        "id": 274,
+        "code": "51.01",
+        "alternative_code": "5101",
+        "name": "KABUPATEN JEMBRANA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "275": {
+        "id": 275,
+        "code": "51.02",
+        "alternative_code": "5102",
+        "name": "KABUPATEN TABANAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "276": {
+        "id": 276,
+        "code": "51.03",
+        "alternative_code": "5103",
+        "name": "KABUPATEN BADUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "277": {
+        "id": 277,
+        "code": "51.04",
+        "alternative_code": "5104",
+        "name": "KABUPATEN GIANYAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "278": {
+        "id": 278,
+        "code": "51.05",
+        "alternative_code": "5105",
+        "name": "KABUPATEN KLUNGKUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "279": {
+        "id": 279,
+        "code": "51.06",
+        "alternative_code": "5106",
+        "name": "KABUPATEN BANGLI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "280": {
+        "id": 280,
+        "code": "51.07",
+        "alternative_code": "5107",
+        "name": "KABUPATEN KARANGASEM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "281": {
+        "id": 281,
+        "code": "51.08",
+        "alternative_code": "5108",
+        "name": "KABUPATEN BULELENG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "282": {
+        "id": 282,
+        "code": "51.71",
+        "alternative_code": "5171",
+        "name": "KOTA DENPASAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "283": {
+        "id": 283,
+        "code": "52.01",
+        "alternative_code": "5201",
+        "name": "KABUPATEN LOMBOK BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "284": {
+        "id": 284,
+        "code": "52.02",
+        "alternative_code": "5202",
+        "name": "KABUPATEN LOMBOK TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "285": {
+        "id": 285,
+        "code": "52.03",
+        "alternative_code": "5203",
+        "name": "KABUPATEN LOMBOK TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "286": {
+        "id": 286,
+        "code": "52.04",
+        "alternative_code": "5204",
+        "name": "KABUPATEN SUMBAWA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "287": {
+        "id": 287,
+        "code": "52.05",
+        "alternative_code": "5205",
+        "name": "KABUPATEN DOMPU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "288": {
+        "id": 288,
+        "code": "52.06",
+        "alternative_code": "5206",
+        "name": "KABUPATEN BIMA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "289": {
+        "id": 289,
+        "code": "52.07",
+        "alternative_code": "5207",
+        "name": "KABUPATEN SUMBAWA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "290": {
+        "id": 290,
+        "code": "52.08",
+        "alternative_code": "5208",
+        "name": "KABUPATEN LOMBOK UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "291": {
+        "id": 291,
+        "code": "52.71",
+        "alternative_code": "5271",
+        "name": "KOTA MATARAM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "292": {
+        "id": 292,
+        "code": "52.72",
+        "alternative_code": "5272",
+        "name": "KOTA BIMA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "293": {
+        "id": 293,
+        "code": "53.12",
+        "alternative_code": "5301",
+        "name": "KABUPATEN SUMBA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "294": {
+        "id": 294,
+        "code": "53.11",
+        "alternative_code": "5302",
+        "name": "KABUPATEN SUMBA TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "295": {
+        "id": 295,
+        "code": "53.01",
+        "alternative_code": "5303",
+        "name": "KABUPATEN KUPANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "296": {
+        "id": 296,
+        "code": "53.02",
+        "alternative_code": "5304",
+        "name": "KAB TIMOR TENGAH SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "297": {
+        "id": 297,
+        "code": "53.03",
+        "alternative_code": "5305",
+        "name": "KABUPATEN TIMOR TENGAH UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "298": {
+        "id": 298,
+        "code": "53.04",
+        "alternative_code": "5306",
+        "name": "KABUPATEN BELU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "299": {
+        "id": 299,
+        "code": "53.05",
+        "alternative_code": "5307",
+        "name": "KABUPATEN ALOR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "300": {
+        "id": 300,
+        "code": "53.13",
+        "alternative_code": "5308",
+        "name": "KABUPATEN LEMBATA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "301": {
+        "id": 301,
+        "code": "53.06",
+        "alternative_code": "5309",
+        "name": "KABUPATEN FLORES TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "302": {
+        "id": 302,
+        "code": "53.07",
+        "alternative_code": "5310",
+        "name": "KABUPATEN SIKKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "303": {
+        "id": 303,
+        "code": "53.08",
+        "alternative_code": "5311",
+        "name": "KABUPATEN ENDE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "304": {
+        "id": 304,
+        "code": "53.09",
+        "alternative_code": "5312",
+        "name": "KABUPATEN NGADA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "305": {
+        "id": 305,
+        "code": "53.1",
+        "alternative_code": "5313",
+        "name": "KABUPATEN MANGGARAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "306": {
+        "id": 306,
+        "code": "53.14",
+        "alternative_code": "5314",
+        "name": "KABUPATEN ROTE NDAO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "307": {
+        "id": 307,
+        "code": "53.15",
+        "alternative_code": "5315",
+        "name": "KABUPATEN MANGGARAI BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "308": {
+        "id": 308,
+        "code": "53.17",
+        "alternative_code": "5316",
+        "name": "KABUPATEN SUMBA TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "309": {
+        "id": 309,
+        "code": "53.18",
+        "alternative_code": "5317",
+        "name": "KABUPATEN SUMBA BARAT DAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "310": {
+        "id": 310,
+        "code": "53.16",
+        "alternative_code": "5318",
+        "name": "KABUPATEN NAGEKEO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "311": {
+        "id": 311,
+        "code": "53.19",
+        "alternative_code": "5319",
+        "name": "KABUPATEN MANGGARAI TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "312": {
+        "id": 312,
+        "code": "53.2",
+        "alternative_code": "5320",
+        "name": "KABUPATEN SABU RAIJUA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "313": {
+        "id": 313,
+        "code": "53.21",
+        "alternative_code": "5321",
+        "name": "KABUPATEN MALAKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "314": {
+        "id": 314,
+        "code": "53.71",
+        "alternative_code": "5371",
+        "name": "KOTA KUPANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "315": {
+        "id": 315,
+        "code": "61.01",
+        "alternative_code": "6101",
+        "name": "KABUPATEN SAMBAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "316": {
+        "id": 316,
+        "code": "61.07",
+        "alternative_code": "6102",
+        "name": "KABUPATEN BENGKAYANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "317": {
+        "id": 317,
+        "code": "61.08",
+        "alternative_code": "6103",
+        "name": "KABUPATEN LANDAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "318": {
+        "id": 318,
+        "code": "61.02",
+        "alternative_code": "6104",
+        "name": "KABUPATEN MEMPAWAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "319": {
+        "id": 319,
+        "code": "61.03",
+        "alternative_code": "6105",
+        "name": "KABUPATEN SANGGAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "320": {
+        "id": 320,
+        "code": "61.04",
+        "alternative_code": "6106",
+        "name": "KABUPATEN KETAPANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "321": {
+        "id": 321,
+        "code": "61.05",
+        "alternative_code": "6107",
+        "name": "KABUPATEN SINTANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "322": {
+        "id": 322,
+        "code": "61.06",
+        "alternative_code": "6108",
+        "name": "KABUPATEN KAPUAS HULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "323": {
+        "id": 323,
+        "code": "61.09",
+        "alternative_code": "6109",
+        "name": "KABUPATEN SEKADAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "324": {
+        "id": 324,
+        "code": "61.1",
+        "alternative_code": "6110",
+        "name": "KABUPATEN MELAWI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "325": {
+        "id": 325,
+        "code": "61.11",
+        "alternative_code": "6111",
+        "name": "KABUPATEN KAYONG UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "326": {
+        "id": 326,
+        "code": "61.12",
+        "alternative_code": "6112",
+        "name": "KABUPATEN KUBU RAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "327": {
+        "id": 327,
+        "code": "61.71",
+        "alternative_code": "6171",
+        "name": "KOTA PONTIANAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "328": {
+        "id": 328,
+        "code": "61.72",
+        "alternative_code": "6172",
+        "name": "KOTA SINGKAWANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "329": {
+        "id": 329,
+        "code": "64.01",
+        "alternative_code": "6401",
+        "name": "KABUPATEN PASER",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "330": {
+        "id": 330,
+        "code": "64.07",
+        "alternative_code": "6402",
+        "name": "KABUPATEN KUTAI BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "331": {
+        "id": 331,
+        "code": "64.02",
+        "alternative_code": "6403",
+        "name": "KABUPATEN KUTAI KARTANEGARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "332": {
+        "id": 332,
+        "code": "64.08",
+        "alternative_code": "6404",
+        "name": "KABUPATEN KUTAI TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "333": {
+        "id": 333,
+        "code": "64.03",
+        "alternative_code": "6405",
+        "name": "KABUPATEN BERAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "334": {
+        "id": 334,
+        "code": "64.09",
+        "alternative_code": "6409",
+        "name": "KABUPATEN PENAJAM PASER UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "335": {
+        "id": 335,
+        "code": "64.11",
+        "alternative_code": "6411",
+        "name": "KABUPATEN MAHAKAM ULU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "336": {
+        "id": 336,
+        "code": "64.71",
+        "alternative_code": "6471",
+        "name": "KOTA BALIKPAPAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "337": {
+        "id": 337,
+        "code": "64.72",
+        "alternative_code": "6472",
+        "name": "KOTA SAMARINDA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "338": {
+        "id": 338,
+        "code": "64.74",
+        "alternative_code": "6474",
+        "name": "KOTA BONTANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "339": {
+        "id": 339,
+        "code": "65.02",
+        "alternative_code": "6501",
+        "name": "KABUPATEN MALINAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "340": {
+        "id": 340,
+        "code": "65.01",
+        "alternative_code": "6502",
+        "name": "KABUPATEN BULUNGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "341": {
+        "id": 341,
+        "code": "65.04",
+        "alternative_code": "6503",
+        "name": "KABUPATEN TANA TIDUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "342": {
+        "id": 342,
+        "code": "65.03",
+        "alternative_code": "6504",
+        "name": "KABUPATEN NUNUKAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "343": {
+        "id": 343,
+        "code": "65.71",
+        "alternative_code": "6571",
+        "name": "KOTA TARAKAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "344": {
+        "id": 344,
+        "code": "62.01",
+        "alternative_code": "6201",
+        "name": "KABUPATEN KOTAWARINGIN BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "345": {
+        "id": 345,
+        "code": "62.02",
+        "alternative_code": "6202",
+        "name": "KABUPATEN KOTAWARINGIN TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "346": {
+        "id": 346,
+        "code": "62.03",
+        "alternative_code": "6203",
+        "name": "KABUPATEN KAPUAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "347": {
+        "id": 347,
+        "code": "62.04",
+        "alternative_code": "6204",
+        "name": "KABUPATEN BARITO SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "348": {
+        "id": 348,
+        "code": "62.05",
+        "alternative_code": "6205",
+        "name": "KABUPATEN BARITO UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "349": {
+        "id": 349,
+        "code": "62.08",
+        "alternative_code": "6206",
+        "name": "KABUPATEN SUKAMARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "350": {
+        "id": 350,
+        "code": "62.09",
+        "alternative_code": "6207",
+        "name": "KABUPATEN LAMANDAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "351": {
+        "id": 351,
+        "code": "62.07",
+        "alternative_code": "6208",
+        "name": "KABUPATEN SERUYAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "352": {
+        "id": 352,
+        "code": "62.06",
+        "alternative_code": "6209",
+        "name": "KABUPATEN KATINGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "353": {
+        "id": 353,
+        "code": "62.11",
+        "alternative_code": "6210",
+        "name": "KABUPATEN PULANG PISAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "354": {
+        "id": 354,
+        "code": "62.1",
+        "alternative_code": "6211",
+        "name": "KABUPATEN GUNUNG MAS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "355": {
+        "id": 355,
+        "code": "62.13",
+        "alternative_code": "6212",
+        "name": "KABUPATEN BARITO TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "356": {
+        "id": 356,
+        "code": "62.12",
+        "alternative_code": "6213",
+        "name": "KABUPATEN MURUNG RAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "357": {
+        "id": 357,
+        "code": "62.71",
+        "alternative_code": "6271",
+        "name": "KOTA PALANGKARAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "358": {
+        "id": 358,
+        "code": "63.01",
+        "alternative_code": "6301",
+        "name": "KABUPATEN TANAH LAUT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "359": {
+        "id": 359,
+        "code": "63.02",
+        "alternative_code": "6302",
+        "name": "KABUPATEN KOTABARU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "360": {
+        "id": 360,
+        "code": "63.03",
+        "alternative_code": "6303",
+        "name": "KABUPATEN BANJAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "361": {
+        "id": 361,
+        "code": "63.04",
+        "alternative_code": "6304",
+        "name": "KABUPATEN BARITO KUALA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "362": {
+        "id": 362,
+        "code": "63.05",
+        "alternative_code": "6305",
+        "name": "KABUPATEN TAPIN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "363": {
+        "id": 363,
+        "code": "63.06",
+        "alternative_code": "6306",
+        "name": "KABUPATEN HULU SUNGAI SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "364": {
+        "id": 364,
+        "code": "63.07",
+        "alternative_code": "6307",
+        "name": "KABUPATEN HULU SUNGAI TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "365": {
+        "id": 365,
+        "code": "63.08",
+        "alternative_code": "6308",
+        "name": "KABUPATEN HULU SUNGAI UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "366": {
+        "id": 366,
+        "code": "63.09",
+        "alternative_code": "6309",
+        "name": "KABUPATEN TABALONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "367": {
+        "id": 367,
+        "code": "63.1",
+        "alternative_code": "6310",
+        "name": "KABUPATEN TANAH BUMBU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "368": {
+        "id": 368,
+        "code": "63.11",
+        "alternative_code": "6311",
+        "name": "KABUPATEN BALANGAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "369": {
+        "id": 369,
+        "code": "63.71",
+        "alternative_code": "6371",
+        "name": "KOTA BANJARMASIN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "370": {
+        "id": 370,
+        "code": "63.72",
+        "alternative_code": "6372",
+        "name": "KOTA BANJARBARU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "371": {
+        "id": 371,
+        "code": "75.02",
+        "alternative_code": "7501",
+        "name": "KABUPATEN BOALEMO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "372": {
+        "id": 372,
+        "code": "75.01",
+        "alternative_code": "7502",
+        "name": "KABUPATEN GORONTALO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "373": {
+        "id": 373,
+        "code": "75.04",
+        "alternative_code": "7503",
+        "name": "KABUPATEN POHUWATO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "374": {
+        "id": 374,
+        "code": "75.03",
+        "alternative_code": "7504",
+        "name": "KABUPATEN BONE BOLANGO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "375": {
+        "id": 375,
+        "code": "75.05",
+        "alternative_code": "7505",
+        "name": "KABUPATEN GORONTALO UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "376": {
+        "id": 376,
+        "code": "75.71",
+        "alternative_code": "7571",
+        "name": "KOTA GORONTALO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "377": {
+        "id": 377,
+        "code": "76.05",
+        "alternative_code": "7601",
+        "name": "KABUPATEN MAJENE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "378": {
+        "id": 378,
+        "code": "76.04",
+        "alternative_code": "7602",
+        "name": "KABUPATEN POLEWALI MANDAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "379": {
+        "id": 379,
+        "code": "76.03",
+        "alternative_code": "7603",
+        "name": "KABUPATEN MAMASA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "380": {
+        "id": 380,
+        "code": "76.02",
+        "alternative_code": "7604",
+        "name": "KABUPATEN MAMUJU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "381": {
+        "id": 381,
+        "code": "76.01",
+        "alternative_code": "7605",
+        "name": "KABUPATEN PASANGKAYU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "382": {
+        "id": 382,
+        "code": "76.06",
+        "alternative_code": "7606",
+        "name": "KABUPATEN MAMUJU TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "383": {
+        "id": 383,
+        "code": "72.07",
+        "alternative_code": "7201",
+        "name": "KABUPATEN BANGGAI KEPULAUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "384": {
+        "id": 384,
+        "code": "72.01",
+        "alternative_code": "7202",
+        "name": "KABUPATEN BANGGAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "385": {
+        "id": 385,
+        "code": "72.06",
+        "alternative_code": "7203",
+        "name": "KABUPATEN MOROWALI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "386": {
+        "id": 386,
+        "code": "72.02",
+        "alternative_code": "7204",
+        "name": "KABUPATEN POSO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "387": {
+        "id": 387,
+        "code": "72.03",
+        "alternative_code": "7205",
+        "name": "KABUPATEN DONGGALA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "388": {
+        "id": 388,
+        "code": "72.04",
+        "alternative_code": "7206",
+        "name": "KABUPATEN TOLI-TOLI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "389": {
+        "id": 389,
+        "code": "72.05",
+        "alternative_code": "7207",
+        "name": "KABUPATEN BUOL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "390": {
+        "id": 390,
+        "code": "72.08",
+        "alternative_code": "7208",
+        "name": "KABUPATEN PARIGI MOUTONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "391": {
+        "id": 391,
+        "code": "72.09",
+        "alternative_code": "7209",
+        "name": "KABUPATEN TOJO UNA UNA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "392": {
+        "id": 392,
+        "code": "72.1",
+        "alternative_code": "7210",
+        "name": "KABUPATEN SIGI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "393": {
+        "id": 393,
+        "code": "72.11",
+        "alternative_code": "7211",
+        "name": "KABUPATEN BANGGAI LAUT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "394": {
+        "id": 394,
+        "code": "72.12",
+        "alternative_code": "7212",
+        "name": "KABUPATEN MOROWALI UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "395": {
+        "id": 395,
+        "code": "72.71",
+        "alternative_code": "7271",
+        "name": "KOTA PALU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "396": {
+        "id": 396,
+        "code": "71.01",
+        "alternative_code": "7101",
+        "name": "KABUPATEN BOLAANG MONGONDOW",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "397": {
+        "id": 397,
+        "code": "71.02",
+        "alternative_code": "7102",
+        "name": "KABUPATEN MINAHASA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "398": {
+        "id": 398,
+        "code": "71.03",
+        "alternative_code": "7103",
+        "name": "KABUPATEN KEPULAUAN SANGIHE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "399": {
+        "id": 399,
+        "code": "71.04",
+        "alternative_code": "7104",
+        "name": "KABUPATEN KEPULAUAN TALAUD",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "400": {
+        "id": 400,
+        "code": "71.05",
+        "alternative_code": "7105",
+        "name": "KABUPATEN MINAHASA SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "401": {
+        "id": 401,
+        "code": "71.06",
+        "alternative_code": "7106",
+        "name": "KABUPATEN MINAHASA UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "402": {
+        "id": 402,
+        "code": "71.08",
+        "alternative_code": "7107",
+        "name": "KABUPATEN BOLAANG MONGONDOW UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "403": {
+        "id": 403,
+        "code": "71.09",
+        "alternative_code": "7108",
+        "name": "KABUPATEN KEP. SIAU TAGULANDANG BIARO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "404": {
+        "id": 404,
+        "code": "71.07",
+        "alternative_code": "7109",
+        "name": "KABUPATEN MINAHASA TENGGARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "405": {
+        "id": 405,
+        "code": "71.11",
+        "alternative_code": "7110",
+        "name": "KABUPATEN BOLAANG MONGONDOW SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "406": {
+        "id": 406,
+        "code": "71.1",
+        "alternative_code": "7111",
+        "name": "KABUPATEN BOLAANG MONGONDOW TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "407": {
+        "id": 407,
+        "code": "71.71",
+        "alternative_code": "7171",
+        "name": "KOTA MANADO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "408": {
+        "id": 408,
+        "code": "71.72",
+        "alternative_code": "7172",
+        "name": "KOTA BITUNG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "409": {
+        "id": 409,
+        "code": "71.73",
+        "alternative_code": "7173",
+        "name": "KOTA TOMOHON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "410": {
+        "id": 410,
+        "code": "71.74",
+        "alternative_code": "7174",
+        "name": "KOTA KOTAMOBAGU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "411": {
+        "id": 411,
+        "code": "73.01",
+        "alternative_code": "7301",
+        "name": "KABUPATEN KEPULAUAN SELAYAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "412": {
+        "id": 412,
+        "code": "73.02",
+        "alternative_code": "7302",
+        "name": "KABUPATEN BULUKUMBA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "413": {
+        "id": 413,
+        "code": "73.03",
+        "alternative_code": "7303",
+        "name": "KABUPATEN BANTAENG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "414": {
+        "id": 414,
+        "code": "73.04",
+        "alternative_code": "7304",
+        "name": "KABUPATEN JENEPONTO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "415": {
+        "id": 415,
+        "code": "73.05",
+        "alternative_code": "7305",
+        "name": "KABUPATEN TAKALAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "416": {
+        "id": 416,
+        "code": "73.06",
+        "alternative_code": "7306",
+        "name": "KABUPATEN GOWA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "417": {
+        "id": 417,
+        "code": "73.07",
+        "alternative_code": "7307",
+        "name": "KABUPATEN SINJAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "418": {
+        "id": 418,
+        "code": "73.09",
+        "alternative_code": "7308",
+        "name": "KABUPATEN MAROS",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "419": {
+        "id": 419,
+        "code": "73.1",
+        "alternative_code": "7309",
+        "name": "KABUPATEN PANGKAJENE DAN KEPULAUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "420": {
+        "id": 420,
+        "code": "73.11",
+        "alternative_code": "7310",
+        "name": "KABUPATEN BARRU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "421": {
+        "id": 421,
+        "code": "73.08",
+        "alternative_code": "7311",
+        "name": "KABUPATEN BONE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "422": {
+        "id": 422,
+        "code": "73.12",
+        "alternative_code": "7312",
+        "name": "KABUPATEN SOPPENG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "423": {
+        "id": 423,
+        "code": "73.13",
+        "alternative_code": "7313",
+        "name": "KABUPATEN WAJO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "424": {
+        "id": 424,
+        "code": "73.14",
+        "alternative_code": "7314",
+        "name": "KABUPATEN SIDENRENG RAPPANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "425": {
+        "id": 425,
+        "code": "73.15",
+        "alternative_code": "7315",
+        "name": "KABUPATEN PINRANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "426": {
+        "id": 426,
+        "code": "73.16",
+        "alternative_code": "7316",
+        "name": "KABUPATEN ENREKANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "427": {
+        "id": 427,
+        "code": "73.17",
+        "alternative_code": "7317",
+        "name": "KABUPATEN LUWU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "428": {
+        "id": 428,
+        "code": "73.18",
+        "alternative_code": "7318",
+        "name": "KABUPATEN TANA TORAJA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "429": {
+        "id": 429,
+        "code": "73.22",
+        "alternative_code": "7322",
+        "name": "KABUPATEN LUWU UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "430": {
+        "id": 430,
+        "code": "73.24",
+        "alternative_code": "7325",
+        "name": "KABUPATEN LUWU TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "431": {
+        "id": 431,
+        "code": "73.26",
+        "alternative_code": "7326",
+        "name": "KABUPATEN TORAJA UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "432": {
+        "id": 432,
+        "code": "73.71",
+        "alternative_code": "7371",
+        "name": "KOTA MAKASSAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "433": {
+        "id": 433,
+        "code": "73.72",
+        "alternative_code": "7372",
+        "name": "KOTA PAREPARE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "434": {
+        "id": 434,
+        "code": "73.73",
+        "alternative_code": "7373",
+        "name": "KOTA PALOPO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "435": {
+        "id": 435,
+        "code": "74.04",
+        "alternative_code": "7401",
+        "name": "KABUPATEN BUTON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "436": {
+        "id": 436,
+        "code": "74.03",
+        "alternative_code": "7402",
+        "name": "KABUPATEN MUNA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "437": {
+        "id": 437,
+        "code": "74.02",
+        "alternative_code": "7403",
+        "name": "KABUPATEN KONAWE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "438": {
+        "id": 438,
+        "code": "74.01",
+        "alternative_code": "7404",
+        "name": "KABUPATEN KOLAKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "439": {
+        "id": 439,
+        "code": "74.05",
+        "alternative_code": "7405",
+        "name": "KABUPATEN KONAWE SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "440": {
+        "id": 440,
+        "code": "74.06",
+        "alternative_code": "7406",
+        "name": "KABUPATEN BOMBANA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "441": {
+        "id": 441,
+        "code": "74.07",
+        "alternative_code": "7407",
+        "name": "KABUPATEN WAKATOBI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "442": {
+        "id": 442,
+        "code": "74.08",
+        "alternative_code": "7408",
+        "name": "KABUPATEN KOLAKA UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "443": {
+        "id": 443,
+        "code": "74.1",
+        "alternative_code": "7409",
+        "name": "KABUPATEN BUTON UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "444": {
+        "id": 444,
+        "code": "74.09",
+        "alternative_code": "7410",
+        "name": "KABUPATEN KONAWE UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "445": {
+        "id": 445,
+        "code": "74.11",
+        "alternative_code": "7411",
+        "name": "KABUPATEN KOLAKA TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "446": {
+        "id": 446,
+        "code": "74.12",
+        "alternative_code": "7412",
+        "name": "KABUPATEN KONAWE KEPULAUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "447": {
+        "id": 447,
+        "code": "74.13",
+        "alternative_code": "7413",
+        "name": "KABUPATEN MUNA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "448": {
+        "id": 448,
+        "code": "74.14",
+        "alternative_code": "7414",
+        "name": "KABUPATEN BUTON TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "449": {
+        "id": 449,
+        "code": "74.15",
+        "alternative_code": "7415",
+        "name": "KABUPATEN BUTON SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "450": {
+        "id": 450,
+        "code": "74.71",
+        "alternative_code": "7471",
+        "name": "KOTA KENDARI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "451": {
+        "id": 451,
+        "code": "74.72",
+        "alternative_code": "7472",
+        "name": "KOTA BAU BAU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "452": {
+        "id": 452,
+        "code": "81.03",
+        "alternative_code": "8101",
+        "name": "KABUPATEN KEPULAUAN TANIMBAR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "453": {
+        "id": 453,
+        "code": "81.02",
+        "alternative_code": "8102",
+        "name": "KABUPATEN MALUKU TENGGARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "454": {
+        "id": 454,
+        "code": "81.01",
+        "alternative_code": "8103",
+        "name": "KABUPATEN MALUKU TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "455": {
+        "id": 455,
+        "code": "81.04",
+        "alternative_code": "8104",
+        "name": "KABUPATEN BURU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "456": {
+        "id": 456,
+        "code": "81.07",
+        "alternative_code": "8105",
+        "name": "KABUPATEN KEPULAUAN ARU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "457": {
+        "id": 457,
+        "code": "81.06",
+        "alternative_code": "8106",
+        "name": "KABUPATEN SERAM BAGIAN BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "458": {
+        "id": 458,
+        "code": "81.05",
+        "alternative_code": "8107",
+        "name": "KABUPATEN SERAM BAGIAN TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "459": {
+        "id": 459,
+        "code": "81.08",
+        "alternative_code": "8108",
+        "name": "KABUPATEN MALUKU BARAT DAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "460": {
+        "id": 460,
+        "code": "81.09",
+        "alternative_code": "8109",
+        "name": "KABUPATEN BURU SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "461": {
+        "id": 461,
+        "code": "81.71",
+        "alternative_code": "8171",
+        "name": "KOTA AMBON",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "462": {
+        "id": 462,
+        "code": "81.72",
+        "alternative_code": "8172",
+        "name": "KOTA TUAL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "463": {
+        "id": 463,
+        "code": "82.01",
+        "alternative_code": "8201",
+        "name": "KABUPATEN HALMAHERA BARAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "464": {
+        "id": 464,
+        "code": "82.02",
+        "alternative_code": "8202",
+        "name": "KABUPATEN HALMAHERA TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "465": {
+        "id": 465,
+        "code": "82.05",
+        "alternative_code": "8203",
+        "name": "KABUPATEN KEPULAUAN SULA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "466": {
+        "id": 466,
+        "code": "82.04",
+        "alternative_code": "8204",
+        "name": "KABUPATEN HALMAHERA SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "467": {
+        "id": 467,
+        "code": "82.03",
+        "alternative_code": "8205",
+        "name": "KABUPATEN HALMAHERA UTARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "468": {
+        "id": 468,
+        "code": "82.06",
+        "alternative_code": "8206",
+        "name": "KABUPATEN HALMAHERA TIMUR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "469": {
+        "id": 469,
+        "code": "82.07",
+        "alternative_code": "8207",
+        "name": "KABUPATEN PULAU MOROTAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "470": {
+        "id": 470,
+        "code": "82.08",
+        "alternative_code": "8208",
+        "name": "KABUPATEN PULAU TALIABU",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "471": {
+        "id": 471,
+        "code": "82.71",
+        "alternative_code": "8271",
+        "name": "KOTA TERNATE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "472": {
+        "id": 472,
+        "code": "82.72",
+        "alternative_code": "8272",
+        "name": "KOTA TIDORE KEPULAUAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "473": {
+        "id": 473,
+        "code": "96.03",
+        "alternative_code": "9201",
+        "name": "KABUPATEN RAJA AMPAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "474": {
+        "id": 474,
+        "code": "96.01",
+        "alternative_code": "9202",
+        "name": "KABUPATEN SORONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "475": {
+        "id": 475,
+        "code": "96.02",
+        "alternative_code": "9203",
+        "name": "KABUPATEN SORONG SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "476": {
+        "id": 476,
+        "code": "96.05",
+        "alternative_code": "9204",
+        "name": "KABUPATEN MAYBRAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "477": {
+        "id": 477,
+        "code": "96.04",
+        "alternative_code": "9205",
+        "name": "KABUPATEN TAMBRAUW",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "478": {
+        "id": 478,
+        "code": "96.71",
+        "alternative_code": "9271",
+        "name": "KOTA SORONG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "479": {
+        "id": 479,
+        "code": "92.03",
+        "alternative_code": "9101",
+        "name": "KABUPATEN FAK FAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "480": {
+        "id": 480,
+        "code": "92.08",
+        "alternative_code": "9102",
+        "name": "KABUPATEN KAIMANA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "481": {
+        "id": 481,
+        "code": "92.07",
+        "alternative_code": "9103",
+        "name": "KABUPATEN TELUK WONDAMA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "482": {
+        "id": 482,
+        "code": "92.06",
+        "alternative_code": "9104",
+        "name": "KABUPATEN TELUK BINTUNI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "483": {
+        "id": 483,
+        "code": "92.02",
+        "alternative_code": "9105",
+        "name": "KABUPATEN MANOKWARI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "484": {
+        "id": 484,
+        "code": "92.11",
+        "alternative_code": "9111",
+        "name": "KABUPATEN MANOKWARI SELATAN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "485": {
+        "id": 485,
+        "code": "92.12",
+        "alternative_code": "9112",
+        "name": "KABUPATEN PEGUNUNGAN ARFAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "486": {
+        "id": 486,
+        "code": "91.03",
+        "alternative_code": "9403",
+        "name": "KABUPATEN JAYAPURA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "487": {
+        "id": 487,
+        "code": "91.05",
+        "alternative_code": "9408",
+        "name": "KABUPATEN KEPULAUAN YAPEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "488": {
+        "id": 488,
+        "code": "91.06",
+        "alternative_code": "9409",
+        "name": "KABUPATEN BIAK NUMFOR",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "489": {
+        "id": 489,
+        "code": "91.1",
+        "alternative_code": "9419",
+        "name": "KABUPATEN SARMI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "490": {
+        "id": 490,
+        "code": "91.11",
+        "alternative_code": "9420",
+        "name": "KABUPATEN KEEROM",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "491": {
+        "id": 491,
+        "code": "91.15",
+        "alternative_code": "9426",
+        "name": "KABUPATEN WAROPEN",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "492": {
+        "id": 492,
+        "code": "91.19",
+        "alternative_code": "9427",
+        "name": "KABUPATEN SUPIORI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "493": {
+        "id": 493,
+        "code": "91.2",
+        "alternative_code": "9428",
+        "name": "KABUPATEN MAMBERAMO RAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "494": {
+        "id": 494,
+        "code": "91.71",
+        "alternative_code": "9471",
+        "name": "KOTA JAYAPURA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "495": {
+        "id": 495,
+        "code": "93.01",
+        "alternative_code": "9501",
+        "name": "KABUPATEN MERAUKE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "496": {
+        "id": 496,
+        "code": "93.02",
+        "alternative_code": "9502",
+        "name": "KABUPATEN BOVEN DIGOEL",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "497": {
+        "id": 497,
+        "code": "93.03",
+        "alternative_code": "9503",
+        "name": "KABUPATEN MAPPI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "498": {
+        "id": 498,
+        "code": "93.04",
+        "alternative_code": "9504",
+        "name": "KABUPATEN ASMAT",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "499": {
+        "id": 499,
+        "code": "95.08",
+        "alternative_code": "9701",
+        "name": "KABUPATEN NDUGA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "500": {
+        "id": 500,
+        "code": "95.01",
+        "alternative_code": "9702",
+        "name": "KABUPATEN JAYAWIJAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "501": {
+        "id": 501,
+        "code": "95.07",
+        "alternative_code": "9703",
+        "name": "KABUPATEN LANNY JAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "502": {
+        "id": 502,
+        "code": "95.04",
+        "alternative_code": "9704",
+        "name": "KABUPATEN TOLIKARA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "503": {
+        "id": 503,
+        "code": "95.05",
+        "alternative_code": "9705",
+        "name": "KABUPATEN MAMBERAMO TENGAH",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "504": {
+        "id": 504,
+        "code": "95.06",
+        "alternative_code": "9706",
+        "name": "KABUPATEN YALIMO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "505": {
+        "id": 505,
+        "code": "95.03",
+        "alternative_code": "9707",
+        "name": "KABUPATEN YAHUKIMO",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "506": {
+        "id": 506,
+        "code": "95.02",
+        "alternative_code": "9708",
+        "name": "KAB PEGUNUNGAN BINTANG",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "507": {
+        "id": 507,
+        "code": "94.04",
+        "alternative_code": "9601",
+        "name": "KABUPATEN MIMIKA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "508": {
+        "id": 508,
+        "code": "94.06",
+        "alternative_code": "9602",
+        "name": "KABUPATEN DOGIYAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "509": {
+        "id": 509,
+        "code": "94.08",
+        "alternative_code": "9603",
+        "name": "KABUPATEN DEIYAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "510": {
+        "id": 510,
+        "code": "94.01",
+        "alternative_code": "9604",
+        "name": "KABUPATEN NABIRE",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "511": {
+        "id": 511,
+        "code": "94.03",
+        "alternative_code": "9605",
+        "name": "KABUPATEN PANIAI",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "512": {
+        "id": 512,
+        "code": "94.07",
+        "alternative_code": "9606",
+        "name": "KABUPATEN INTAN JAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "513": {
+        "id": 513,
+        "code": "94.05",
+        "alternative_code": "9607",
+        "name": "KABUPATEN PUNCAK",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    },
+    "514": {
+        "id": 514,
+        "code": "94.02",
+        "alternative_code": "9608",
+        "name": "KABUPATEN PUNCAK JAYA",
+        "level": "regency",
+        "postal_code": null,
+        "created_at": "2026-09-27 13:53:44"
+    }
+}
